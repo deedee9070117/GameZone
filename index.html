@@ -224,6 +224,11 @@ footer{padding:36px 0 72px;color:var(--ink-soft);font-size:13.5px;border-top:2px
 .rk{display:inline-flex;align-items:center;gap:4px;border:1.5px solid var(--ink);border-radius:999px;padding:2px 10px;background:var(--paper)}
 .rk img{display:block}
 .rk-to{color:var(--ink-soft);font-weight:700}
+.cds{display:flex;gap:12px;flex-wrap:wrap}
+.cd{background:var(--card);border:2px solid var(--ink);border-radius:var(--r);box-shadow:var(--shadow);padding:12px 8px;min-width:92px;display:flex;flex-direction:column;align-items:center;gap:2px}
+.cd b{font-family:var(--font-display);font-weight:400;font-size:clamp(30px,6vw,46px);line-height:1;font-variant-numeric:tabular-nums}
+.ev-num{font-family:var(--font-display);font-size:44px;letter-spacing:.14em;line-height:1}
+.ev-in{font-family:var(--font-mono);font-size:26px;letter-spacing:.3em;width:170px;text-align:center}
 .vbtns{display:flex;gap:6px;flex-wrap:wrap}
 .req{display:flex;flex-direction:column;gap:6px}
 
@@ -371,6 +376,26 @@ adFilter:["Filter by name","กรองด้วยชื่อ","按名称筛�
 wanted:["Players wanted","จำนวนคนที่ต้องการ","需要人数","募集人数"], wantedHint:["Not counting you","ไม่นับตัวคุณ","不含自己","自分を除く"], gfx:["Graphics","กราฟิก","画质","グラフィック"], pickGame:["Game","เกม","游戏","ゲーム"],
 roomsSoon:["Rooms coming soon","ห้องของเกมนี้กำลังจะมา","房间即将开放","ルームは近日公開"],
 history:["Play history","ประวัติการเล่น","游戏记录","プレイ履歴"], noHistory:["No rooms joined yet","ยังไม่เคยเข้าห้อง","还没有加入过房间","まだルームに参加していません"], last10:["Last 10 rooms","10 ห้องล่าสุด","最近 10 个房间","直近10件"],
+event:["Event","กิจกรรม","活动","イベント"], evTitle:["Win the Snowfall 2.0 Bundle","ลุ้นรับ Snowfall 2.0 Bundle","赢取 Snowfall 2.0 套装","Snowfall 2.0 バンドルが当たる"],
+evPrize:["Prize: Snowfall 2.0 BUNDLE, worth 5,100 VP","ของรางวัล: Snowfall 2.0 BUNDLE มูลค่า 5,100 VP","奖品：Snowfall 2.0 BUNDLE（价值 5,100 VP）","賞品：Snowfall 2.0 BUNDLE（5,100 VP相当）"],
+evReveal:["Winner announced on this page: {d} (Thailand time)","ประกาศผู้ชนะที่หน้านี้: {d} (เวลาไทย)","获奖者将在本页公布：{d}（泰国时间）","当選者はこのページで発表：{d}（タイ時間）"],
+evD:["days","วัน","天","日"], evH:["hours","ชั่วโมง","小时","時間"], evM:["min","นาที","分","分"], evS:["sec","วินาที","秒","秒"],
+evHow:["How to enter","วิธีร่วมกิจกรรม","参与方式","参加方法"],
+evR1:["Add your Valorant in-game name with tag (Name#TAG) to your profile.","ใส่ชื่อในเกม Valorant พร้อมแท็ก (ชื่อ#TAG) ในโปรไฟล์ของคุณ","在主页填写 Valorant 游戏名和标签（名称#TAG）。","プロフィールに Valorant のゲーム内名とタグ（名前#TAG）を登録する。"],
+evR2:["Pick a 4-digit number and submit it. One entry per account, and it can't be changed.","เลือกเลข 4 หลักแล้วกดส่ง 1 บัญชีส่งได้ 1 ครั้ง และแก้ไขไม่ได้","选择一个四位数字并提交。每个账号仅限一次，提交后不可修改。","4桁の番号を選んで応募。1アカウント1回のみ、変更はできません。"],
+evR3:["Come back at the announcement time to see the result.","กลับมาดูผลที่หน้านี้ตามเวลาประกาศ","在公布时间回到本页查看结果。","発表時刻にこのページで結果を確認する。"],
+evYour:["Your 4-digit number","เลข 4 หลักของคุณ","你的四位数字","4桁の番号"], evSubmit:["Submit entry","ส่งเลข","提交","応募する"],
+evNeedAcc:["Log in or create an account to enter.","เข้าสู่ระบบหรือสร้างบัญชีก่อนเพื่อร่วมกิจกรรม","请先登录或创建账号。","参加するにはログインまたはアカウント作成が必要です。"],
+evNeedIgn:["Add your Valorant name with tag (Name#TAG) to your profile first.","ต้องใส่ชื่อในเกม Valorant พร้อมแท็ก (ชื่อ#TAG) ในโปรไฟล์ก่อน","请先在主页填写 Valorant 名称和标签（名称#TAG）。","先にプロフィールへ Valorant の名前#TAG を登録してください。"],
+evAddIgn:["Add in-game name","ใส่ชื่อในเกม","填写游戏名","ゲーム内名を登録"], evDone:["You're in. Your number is","ส่งเลขแล้ว เลขของคุณคือ","已参与，你的数字是","応募済み。あなたの番号は"],
+evSent:["Entry submitted. Good luck!","ส่งเลขแล้ว ขอให้โชคดี","已提交，祝你好运！","応募しました。幸運を！"], evBad:["Enter exactly 4 digits.","กรอกตัวเลขให้ครบ 4 หลัก","请输入 4 位数字。","4桁の数字を入力してください。"],
+evAlready:["This account has already entered.","บัญชีนี้ส่งเลขไปแล้ว","该账号已参与。","このアカウントは応募済みです。"], evClosed:["Entries are closed.","ปิดรับเลขแล้ว","已截止。","応募は締め切りました。"],
+evCount:["{n} entries so far","มีผู้ร่วมกิจกรรมแล้ว {n} คน","已有 {n} 人参与","現在 {n} 件の応募"], evWaiting:["Entries are closed. The result will appear here shortly.","ปิดรับเลขแล้ว ผลจะประกาศที่นี่เร็วๆ นี้","已截止，结果即将在此公布。","締め切りました。結果はまもなくここに表示されます。"],
+evWinNum:["Winning number","เลขที่ออก","中奖号码","当選番号"], evWinners:["Winner","ผู้ชนะ","获奖者","当選者"], evNoWin:["No entry matched this number.","ไม่มีผู้ส่งเลขตรงกับเลขนี้","没有人选中该号码。","この番号の応募者はいませんでした。"],
+evYouWin:["Congratulations, that's your number!","ยินดีด้วย เลขของคุณตรง!","恭喜，这是你的号码！","おめでとうございます、あなたの番号です！"],
+evAdmin:["Admin: entries and result","แอดมิน: รายการเลขและผล","管理：参与记录与结果","管理：応募一覧と結果"], evSetWin:["Set winning number","ตั้งเลขที่ออก","设置中奖号码","当選番号を設定"], evRandom:["Draw from entries","สุ่มจากเลขที่มีคนส่ง","从参与号码中抽取","応募番号から抽選"],
+evAdminNote:["Players can't see this number until the announcement time.","ผู้เล่นจะยังไม่เห็นเลขนี้จนกว่าจะถึงเวลาประกาศ","在公布时间之前，玩家看不到该号码。","発表時刻まで番号はプレイヤーに表示されません。"],
+ignHint:["Valorant: use Name#TAG","Valorant: ใส่แบบ ชื่อ#TAG","Valorant：格式为 名称#TAG","Valorant：名前#TAG の形式"],
 tPic:["Picture updated","อัปเดตรูปแล้ว","头像已更新","画像を更新しました"], tNotImg:["That file isn't an image","ไฟล์นี้ไม่ใช่รูปภาพ","该文件不是图片","画像ファイルではありません"], tFail:["Something went wrong. Try again.","เกิดข้อผิดพลาด ลองใหม่อีกครั้ง","出了点问题，请重试。","エラーが発生しました。もう一度お試しください。"], tAdded:["Added {n}","เพิ่ม {n} แล้ว","已添加 {n}","{n} を追加しました"]
 };
 const OPT = { // option labels: [th, zh, ja]
@@ -416,7 +441,7 @@ const W_TITLE = {main:"bMain",about:"bAbout",times:"bTimes",pc:"bPc",gear:"bGear
 const navLang = (navigator.language||"en").slice(0,2);
 const S = {
   lang: lsGet("gz.lang") || (LI[navLang]!=null?navLang:"en"),
-  booting:true, vrooms:[], theme:lsGet("gz.theme")||"original", isAdmin:false, match:null, me:null, viewing:null, viewKey:"", stories:{}, history:{}, arranging:false,
+  booting:true, ev:null, evAdmin:null, vrooms:[], theme:lsGet("gz.theme")||"original", isAdmin:false, match:null, me:null, viewing:null, viewKey:"", stories:{}, history:{}, arranging:false,
   dialog:null, menu:false, setupStep:1, roomFilter:"all",
   pick:{valorant:{mode:"Unrated",size:2},rov:{mode:"Ranked Match",size:2},roblox:{mode:"Steal An Egg",size:2}},
   customRoblox: (()=>{ try{ return JSON.parse(lsGet("gz.robloxCustom"))||[]; }catch(e){ return []; } })()
@@ -438,7 +463,7 @@ function layoutOf(p){
 /* ---------- helpers ---------- */
 const $ = s => document.querySelector(s);
 const esc = s => String(s==null?"":s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-const ROUTES = ["home","valorant","rov","roblox","rooms","setup","profile","admin"];
+const ROUTES = ["home","valorant","rov","roblox","rooms","setup","profile","admin","event"];
 function route(){ const h = decodeURIComponent(location.hash.replace("#","")); if(/^u-[A-Za-z0-9_]{3,16}$/.test(h)) return "user"; if(/^r-[0-9a-f-]{36}$/.test(h)) return "vroom"; return ROUTES.includes(h)?h:"home"; }
 function go(r){ if(location.hash.replace("#","")===r){ render(); window.scrollTo(0,0); } else location.hash = r; }
 let toastT; function toast(msg){ const el=$("#toast"); el.textContent=msg; el.classList.add("show"); clearTimeout(toastT); toastT=setTimeout(()=>el.classList.remove("show"),2000); }
@@ -466,7 +491,7 @@ async function loadMe(){
   if(!session){ S.me=null; S.isAdmin=false; return; }
   const [{data:p},{data:c}] = await Promise.all([sb.from("profiles").select("*").eq("id",session.user.id).maybeSingle(), sb.from("profile_contacts").select("*").eq("id",session.user.id).maybeSingle()]);
   S.me = p ? {...p, contacts: c || {discord:"",line:"",instagram:"",show:"friends"}} : null;
-  if(S.me){ loadStories(S.me.id,true); loadHistory(S.me.id); sb.from("admins").select("user_id").eq("user_id",S.me.id).maybeSingle().then(({data})=>{ S.isAdmin = !!data; drawNav(); if(route()==="admin") render(); }); }
+  if(S.me){ loadStories(S.me.id,true); loadHistory(S.me.id); sb.from("admins").select("user_id").eq("user_id",S.me.id).maybeSingle().then(({data})=>{ S.isAdmin = !!data; drawNav(); if(route()==="admin") render(); if(route()==="event") loadEvent(); }); }
 }
 async function saveProfile(patch,quiet){
   Object.assign(S.me,patch);
@@ -516,7 +541,7 @@ function navHTML(){
   const u = S.me, r = route();
   const link = (id,label) => `<button data-go="${id}" ${r===id?'aria-current="page"':""}>${label}</button>`;
   return `<button class="logo" data-go="home">GameZone</button>
-  <nav class="nav-links" aria-label="Main">${link("valorant","Valorant")}${link("rov","RoV")}${link("roblox","Roblox")}${link("rooms",t("rooms"))}</nav>
+  <nav class="nav-links" aria-label="Main">${link("valorant","Valorant")}${link("rov","RoV")}${link("roblox","Roblox")}${link("rooms",t("rooms"))}${link("event",t("event"))}</nav>
   <div class="search" id="search"><input class="inp" id="q" type="search" placeholder="${t("searchPh")}" aria-label="${t("searchPh")}" autocomplete="off" maxlength="24"><div class="q-menu" id="q-menu" hidden></div></div>
   <div class="nav-right">${u
     ? `<button class="me-btn" data-act="menu" aria-haspopup="true" aria-expanded="${S.menu}"><span>${esc(u.display_name)}</span>${avatar(u,38)}</button>
@@ -1054,7 +1079,8 @@ views.admin = function(){
 };
 
 async function featClick(a,d,el){
-  if(a==="set-game"){ S.dialog.game = d.val; renderDialog(); }
+  if(a==="ev-random"){ const list = S.evAdmin ? S.evAdmin.entries : []; if(list.length) setEventWinner(list[Math.floor(Math.random()*list.length)].number); }
+  else if(a==="set-game"){ S.dialog.game = d.val; renderDialog(); }
   else if(a==="settings"){ S.menu = false; drawNav(); S.dialog = {type:"settings"}; renderDialog(); }
   else if(a==="theme"){ S.theme = d.val; lsSet("gz.theme",d.val); applyTheme(); renderDialog(); }
   else if(a==="match-cancel") stopMatch(true);
@@ -1063,6 +1089,65 @@ async function featClick(a,d,el){
   return true;
 }
 
+/* ---------- event: Snowfall giveaway (temporary) ---------- */
+const EV_REVEAL = "2026-11-20T16:00:00+07:00", IGN_RE = /^[^#]{3,16}#[A-Za-z0-9]{3,5}$/;
+const EV_LOCALE = {en:"en-GB",th:"th-TH-u-ca-gregory",zh:"zh-CN",ja:"ja-JP"};
+const evRevealAt = () => new Date(S.ev && S.ev.reveal_at || EV_REVEAL);
+const evIgn = () => S.me ? String(((S.me.games||{}).valorant||{}).ign||"").trim() : "";
+async function loadEvent(){
+  if(!sb) return;
+  const { data } = await sb.rpc("event_state"); if(data) S.ev = data;
+  if(S.isAdmin){ const a = await sb.rpc("event_admin"); S.evAdmin = a.data || null; } else S.evAdmin = null;
+  if(route()==="event" && !S.dialog){ const f = document.activeElement && document.activeElement.id==="ev-num"; if(!f) rerender(); }
+}
+function evCountdown(){
+  const el = $("#ev-cd"); if(!el) return; let ms = evRevealAt()-Date.now();
+  if(ms<=0){ if(!S.evOver){ S.evOver = true; loadEvent(); } ms = 0; }
+  const s = Math.floor(ms/1000), parts = [[Math.floor(s/86400),"evD"],[Math.floor(s%86400/3600),"evH"],[Math.floor(s%3600/60),"evM"],[s%60,"evS"]];
+  el.innerHTML = parts.map(([n,k])=>`<div class="cd"><b>${String(n).padStart(2,"0")}</b><span class="mono">${t(k)}</span></div>`).join("");
+}
+setInterval(evCountdown,1000);
+views.event = function(){
+  const ev = S.ev || {}, open = Date.now() < evRevealAt(), when = evRevealAt().toLocaleString(EV_LOCALE[S.lang],{dateStyle:"long",timeStyle:"short",timeZone:"Asia/Bangkok"});
+  let entry;
+  if(ev.mine) entry = `<p>${t("evDone")}</p><div class="ev-num">${esc(ev.mine)}</div>`;
+  else if(!open) entry = `<p class="muted">${t("evClosed")}</p>`;
+  else if(S.booting) entry = `<p class="mono">${t("loading")}</p>`;
+  else if(!S.me) entry = `<p>${t("evNeedAcc")}</p><div class="chips"><button class="btn coral" data-act="auth" data-tab="signup">${t("signup")}</button><button class="btn" data-act="auth" data-tab="login">${t("login")}</button></div>`;
+  else if(!IGN_RE.test(evIgn())) entry = `<p>${t("evNeedIgn")}</p><div><button class="btn coral" data-act="edit" data-what="game" data-game="valorant">${t("evAddIgn")}</button></div>`;
+  else entry = `<form data-form="event" style="display:flex;flex-direction:column;gap:12px;align-items:flex-start"><label class="f">${t("evYour")}<input class="inp ev-in" id="ev-num" inputmode="numeric" pattern="[0-9]{4}" maxlength="4" autocomplete="off" placeholder="0000"></label>
+      <span class="muted">${t("ign")}: <b>${esc(evIgn())}</b></span><p class="err" id="ev-err" role="alert" style="min-height:0"></p><button class="btn coral mid" type="submit" id="ev-go">${t("evSubmit")}</button></form>`;
+  let result = "";
+  if(!open) result = ev.winning_number ? `<div class="card pop" style="display:flex;flex-direction:column;gap:12px"><span class="mono">${t("evWinNum")}</span><div class="ev-num">${esc(ev.winning_number)}</div>
+      ${ev.mine&&ev.mine===ev.winning_number?`<p><b>${t("evYouWin")}</b></p>`:""}<span class="mono">${t("evWinners")}</span>
+      ${(ev.winners||[]).length?`<div>${ev.winners.map(w=>`<div class="member"><button class="plink" data-go="u-${esc(w.username)}">${avatar(w,40)}</button><button class="plink" data-go="u-${esc(w.username)}"><b>${esc(w.display_name)}</b></button><span class="muted">@${esc(w.username)}</span></div>`).join("")}</div>`:`<p class="muted">${t("evNoWin")}</p>`}</div>`
+    : `<div class="card"><p>${t("evWaiting")}</p></div>`;
+  const ad = S.isAdmin && S.evAdmin ? `<section class="block"><div class="head"><h2 style="font-size:20px">${t("evAdmin")}</h2><span class="mono">${S.evAdmin.entries.length}</span></div>
+      <form class="card" data-form="event-win" style="display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end;margin-bottom:14px"><label class="f">${t("evSetWin")}<input class="inp ev-in" id="ev-win" inputmode="numeric" maxlength="4" autocomplete="off" value="${esc(S.evAdmin.winning_number||"")}"></label>
+        <button class="btn coral" type="submit">${t("save")}</button><button class="btn" type="button" data-act="ev-random" ${S.evAdmin.entries.length?"":"disabled"}>${t("evRandom")}</button><span class="hint" style="flex-basis:100%">${t("evAdminNote")}</span></form>
+      <div class="card" style="padding:0;overflow-x:auto"><table class="tbl"><thead><tr><th>${t("evYour")}</th><th>${t("dname")}</th><th>${t("username")}</th><th>${t("ign")}</th><th>${t("adJoined")}</th></tr></thead><tbody>
+        ${S.evAdmin.entries.map(e=>`<tr><td><b>${esc(e.number)}</b></td><td>${esc(e.display_name)}</td><td>@${esc(e.username)}</td><td>${esc(e.ign)}</td><td>${new Date(e.created_at).toLocaleString([], {dateStyle:"medium",timeStyle:"short"})}</td></tr>`).join("")}</tbody></table></div></section>` : "";
+  setTimeout(evCountdown,0);
+  return `<div class="game-hero"><span class="mono">${t("event")}</span><h1>${t("evTitle")}</h1><p style="font-size:17px"><b>${t("evPrize")}</b></p><p class="muted">${t("evReveal",{d:when})}</p></div>
+    <section class="block"><div class="cds" id="ev-cd" aria-live="off"></div>${ev.entries!=null?`<p class="muted" style="margin-top:10px">${t("evCount",{n:ev.entries})}</p>`:""}</section>
+    <section class="block"><div class="grid g2"><div class="card pop" style="display:flex;flex-direction:column;gap:12px">${entry}</div>
+      <div class="card"><span class="mono">${t("evHow")}</span><ol style="margin:8px 0 0;padding-left:20px;display:flex;flex-direction:column;gap:6px"><li>${t("evR1")}</li><li>${t("evR2")}</li><li>${t("evR3")}</li></ol></div></div></section>
+    ${result?`<section class="block">${result}</section>`:""}${ad}`;
+};
+async function submitEvent(){
+  const n = val("ev-num"), err = $("#ev-err"), btn = $("#ev-go");
+  if(!/^[0-9]{4}$/.test(n)) return err.textContent = t("evBad");
+  btn.disabled = true; err.textContent = t("working");
+  const { error } = await sb.rpc("event_enter",{p_number:n});
+  if(error){ btn.disabled = false; const k = ["already","closed","need_ign","bad_number"].find(x=>error.message.includes(x));
+    err.textContent = t({already:"evAlready",closed:"evClosed",need_ign:"evNeedIgn",bad_number:"evBad"}[k]||"tFail"); if(k==="already"||k==="closed") loadEvent(); return; }
+  toast(t("evSent")); await loadEvent(); rerender();
+}
+async function setEventWinner(n){
+  if(n && !/^[0-9]{4}$/.test(n)) return toast(t("evBad"));
+  const { error } = await sb.rpc("event_set_winner",{p_number:n||null}); if(error) return toast(t("tFail"));
+  toast(t("saved")); await loadEvent(); rerender();
+}
 /* ---------- dialogs ---------- */
 const inp = (id,label,val,max) => `<label class="f">${label}<input class="inp" id="${id}" maxlength="${max||60}" value="${esc(val)}"></label>`;
 function editForm(d){
@@ -1072,7 +1157,7 @@ function editForm(d){
     <label class="f">${t("bio")}<textarea class="inp" id="e-bio" maxlength="200" placeholder="${t("bioPh")}">${esc(p.bio)}</textarea></label>`];
   if(d.what==="games") return [t("yourGames"),`${chipSet("playing",Object.keys(GAMES),p.playing)}<label class="f">${t("mainGame")} <span class="hint">${t("mainHint")}</span>${sel("e-main",Object.keys(GAMES),p.main_game,t("notSet"))}</label>`];
   if(d.what==="game"){ const g = GAMES[d.game], x = (p.games||{})[d.game]||{};
-    return [g.name,`<div class="row">${inp("e-ign",t("ign"),x.ign,40)}${g.ranks.length?`<label class="f">${t("rank")}${sel("e-rank",g.ranks,x.rank,t("notSet"))}</label>`:""}<label class="f">${t("serious")}${sel("e-serious",SERIOUS,x.serious,t("notSet"))}</label></div>
+    return [g.name,`<div class="row">${inp("e-ign",t("ign")+(d.game==="valorant"?` <span class="hint">${t("ignHint")}</span>`:""),x.ign,40)}${g.ranks.length?`<label class="f">${t("rank")}${sel("e-rank",g.ranks,x.rank,t("notSet"))}</label>`:""}<label class="f">${t("serious")}${sel("e-serious",SERIOUS,x.serious,t("notSet"))}</label></div>
     ${g.roles.length?`<div><p class="mono" style="margin-bottom:8px">${t("roles")}</p>${chipSet("roles",g.roles,x.roles||[])}</div>`:""}${inp("e-favs",t("favs"),x.favs,80)}`]; }
   if(d.what==="about") return [t("bAbout"),`<p class="mono">${t("vibe")}</p>${chipSet("vibes",VIBES,p.vibes)}`];
   if(d.what==="times") return [t("bTimes"),chipSet("times",TIMES,p.times)];
@@ -1344,6 +1429,8 @@ document.addEventListener("submit", async e => {
   else if(f==="hl"){ const s = curStory(), name = val("hl-name"); if(!name) return;
     const { error } = await sb.from("stories").update({highlight:name}).eq("id",s.id); if(error) return toast(t("tFail")); s.highlight=name; S.dialog.form=false; toast(t("saved")); renderDialog(); }
   else if(f==="room-form") submitRoomForm();
+  else if(f==="event") submitEvent();
+  else if(f==="event-win") setEventWinner(val("ev-win"));
   else if(f==="match-form") submitMatchForm();
   else if(f==="chat") sendChat();
   else if(f==="add-roblox"){ const v = val("rbx-name"); if(!v) return;
@@ -1355,7 +1442,7 @@ document.addEventListener("keydown", e => {
   if(e.key==="Escape"){ if(S.dialog){ S.dialog=null; renderDialog(); } else if(S.arranging){ setArranging(false); rerender(); } else if(S.menu){ S.menu=false; drawNav(); } }
   if(S.dialog && S.dialog.type==="viewer" && !S.dialog.form){ if(e.key==="ArrowRight") stepViewer(1); if(e.key==="ArrowLeft") stepViewer(-1); }
 });
-window.addEventListener("hashchange", () => { S.menu=false; S.dialog=null; renderDialog(); render(); window.scrollTo(0,0); if(["home","valorant","rooms"].includes(route())) loadVRooms(); });
+window.addEventListener("hashchange", () => { S.menu=false; S.dialog=null; renderDialog(); render(); window.scrollTo(0,0); if(["home","valorant","rooms"].includes(route())) loadVRooms(); if(route()==="event") loadEvent(); });
 
 /* ---------- boot ---------- */
 applyTheme();
@@ -1363,7 +1450,7 @@ render();
 (async () => {
   if(!sb){ S.booting=false; render(); toast(t("eNet")); return; }
   try{ await loadMe(); }catch(e){}
-  S.booting=false; render(); loadVRooms();
+  S.booting=false; render(); loadVRooms(); if(route()==="event") loadEvent();
   sb.auth.onAuthStateChange(ev => { if(ev==="SIGNED_OUT" && S.me){ S.me=null; render(); } });
 })();
 </script>
