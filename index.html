@@ -425,7 +425,7 @@ const isReady = p => !!(p && p.avatar && p.display_name && Number(p.age)>=13 && 
 function percent(p){
   const g = Object.values(p.games||{}), gear = p.gear||{};
   const c = [!!p.avatar,!!p.display_name,Number(p.age)>=13,p.playing.length>0,!!p.mbti,!!p.gender,p.vibes.length>0,p.times.length>0,!!p.bio,
-    g.some(x=>x&&(x.rank||x.ign)), Object.values(gear.pc||{}).some(Boolean), Object.values(gear.kit||{}).some(Boolean), !!(p.contacts&&(p.contacts.discord||p.contacts.line))];
+    g.some(x=>x&&(x.rank||x.ign)), Object.values(gear.pc||{}).some(Boolean), Object.values(gear.kit||{}).some(Boolean), !!(p.contacts&&(p.contacts.discord||p.contacts.line||p.contacts.instagram))];
   return Math.round(c.filter(Boolean).length/c.length*100);
 }
 function layoutOf(p){
@@ -465,7 +465,7 @@ async function loadMe(){
   const { data:{ session } } = await sb.auth.getSession();
   if(!session){ S.me=null; S.isAdmin=false; return; }
   const [{data:p},{data:c}] = await Promise.all([sb.from("profiles").select("*").eq("id",session.user.id).maybeSingle(), sb.from("profile_contacts").select("*").eq("id",session.user.id).maybeSingle()]);
-  S.me = p ? {...p, contacts: c || {discord:"",line:"",show:"friends"}} : null;
+  S.me = p ? {...p, contacts: c || {discord:"",line:"",instagram:"",show:"friends"}} : null;
   if(S.me){ loadStories(S.me.id,true); loadHistory(S.me.id); sb.from("admins").select("user_id").eq("user_id",S.me.id).maybeSingle().then(({data})=>{ S.isAdmin = !!data; drawNav(); if(route()==="admin") render(); }); }
 }
 async function saveProfile(patch,quiet){
@@ -630,7 +630,7 @@ function widgetBody(id,p,own){
   if(id==="gear") return kv([[t("device"),kit.device&&tl(kit.device)],[t("mouse"),kit.mouse],[t("keyboard"),kit.keyboard],[t("headset"),kit.headset],[t("mousepad"),kit.mousepad],[t("mic"),kit.mic]]);
   if(id==="settings"){ const blocks = p.playing.filter(k=>GAMES[k]).map(k=>[k,gameSettings(p,k)]).filter(([k,v])=>SET_FIELDS[k].some(f=>v[f]));
     return blocks.length ? blocks.map(([k,v])=>`<div><span class="tag ${GAMES[k].color}" style="font-weight:600;margin-bottom:6px">${GAMES[k].name}</span>${kv(SET_FIELDS[k].map(f=>[t(f),v[f]]))}</div>`).join("") : `<p class="muted">${t("empty")}</p>`; }
-  if(id==="contact"){ const c = p.contacts; if(!c || (!own && c.show!=="everyone")) return `<p class="muted">${t("cHidden")}</p>`; return kv([[t("discord"),c.discord],[t("line"),c.line]]); }
+  if(id==="contact"){ const c = p.contacts; if(!c || (!own && c.show!=="everyone")) return `<p class="muted">${t("cHidden")}</p>`; return kv([[t("discord"),c.discord],[t("line"),c.line],["Instagram",c.instagram&&"@"+c.instagram]]); }
   return "";
 }
 function profileHTML(p,own){
@@ -1084,7 +1084,7 @@ function editForm(d){
     return [t("bSettings"),`<div><p class="mono" style="margin-bottom:8px">${t("pickGame")}</p><div class="chips">${list.map(x=>`<button type="button" class="chip" data-act="set-game" data-val="${x}" aria-pressed="${x===k}">${GAMES[x].name}</button>`).join("")}</div></div>
       <div class="row">${SET_FIELDS[k].filter(f=>f!=="notes"&&f!=="cross").map(f=>inp("e-"+f,t(f),v[f],max[f])).join("")}</div>${SET_FIELDS[k].includes("cross")?inp("e-cross",t("cross"),v.cross,120):""}
       <label class="f">${t("notes")}<textarea class="inp" id="e-notes" maxlength="200">${esc(v.notes)}</textarea></label>`]; }
-  if(d.what==="contact"){ const c = p.contacts; return [t("bContact"),`<div class="row">${inp("e-discord",t("discord"),c.discord,40)}${inp("e-line",t("line"),c.line,40)}</div><label class="f">${t("whoSee")}<select class="inp" id="e-show">${[["friends","cFriends"],["everyone","cEveryone"],["hidden","cHidden"]].map(([v,k])=>`<option value="${v}" ${c.show===v?"selected":""}>${t(k)}</option>`).join("")}</select></label>`]; }
+  if(d.what==="contact"){ const c = p.contacts; return [t("bContact"),`<div class="row">${inp("e-discord",t("discord"),c.discord,40)}${inp("e-line",t("line"),c.line,40)}${inp("e-ig","Instagram",c.instagram,40)}</div><label class="f">${t("whoSee")}<select class="inp" id="e-show">${[["friends","cFriends"],["everyone","cEveryone"],["hidden","cHidden"]].map(([v,k])=>`<option value="${v}" ${c.show===v?"selected":""}>${t(k)}</option>`).join("")}</select></label>`]; }
   return ["",""];
 }
 let viewTimer;
@@ -1207,7 +1207,7 @@ async function saveEdit(){
   else if(d.what==="gear") patch = {gear:{...(p.gear||{}),kit:{device:val("e-device"),mouse:val("e-mouse"),keyboard:val("e-keyboard"),headset:val("e-headset"),mousepad:val("e-mousepad"),mic:val("e-mic")}}};
   else if(d.what==="settings"){ if(!d.game || !SET_FIELDS[d.game]){ S.dialog=null; return renderDialog(); } const one = {}; SET_FIELDS[d.game].forEach(f=>{ one[f] = val("e-"+f); });
     const gear = {...(p.gear||{})}, gset = {...(gear.gset||{})}; if(!gset.valorant && gear.settings) gset.valorant = gear.settings; gset[d.game] = one; delete gear.settings; gear.gset = gset; patch = {gear}; }
-  else if(d.what==="contact"){ const c = {id:p.id,discord:val("e-discord"),line:val("e-line"),show:val("e-show")||"friends"};
+  else if(d.what==="contact"){ const c = {id:p.id,discord:val("e-discord"),line:val("e-line"),instagram:val("e-ig").replace(/^@+/,""),show:val("e-show")||"friends"};
     const { error } = await sb.from("profile_contacts").upsert(c); if(error) return err.textContent = t("tFail");
     p.contacts = c; S.dialog=null; renderDialog(); rerender(); return toast(t("saved")); }
   S.dialog=null; renderDialog(); await saveProfile(patch); rerender();
