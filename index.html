@@ -219,6 +219,9 @@ footer{padding:36px 0 72px;color:var(--ink-soft);font-size:13.5px;border-top:2px
 .codebox{display:flex;gap:10px;align-items:center;flex-wrap:wrap;background:var(--paper);border:2px dashed var(--ink);border-radius:10px;padding:8px 12px}
 .codebox b{font-family:var(--font-mono);font-size:18px;letter-spacing:.08em;overflow-wrap:anywhere}
 .tag.c-mustard{background:var(--mustard)}
+.rk{display:inline-flex;align-items:center;gap:4px;border:1.5px solid var(--ink);border-radius:999px;padding:2px 10px;background:var(--paper)}
+.rk img{display:block}
+.rk-to{color:var(--ink-soft);font-weight:700}
 .vbtns{display:flex;gap:6px;flex-wrap:wrap}
 .req{display:flex;flex-direction:column;gap:6px}
 
@@ -651,6 +654,13 @@ const VAL_RANKS = GAMES.valorant.ranks.slice(1), VAL_ROLES = GAMES.valorant.role
 const ROOM_GENDERS = ["Male","Female","Non-binary"];
 const ROOM_SELECT = "*, room_members(user_id, role, joined_at, left_at, last_seen, profiles(username, display_name, avatar))";
 const membersOf = r => (r.room_members||[]).filter(m=>!m.left_at).sort((a,b)=>new Date(a.joined_at)-new Date(b.joined_at));
+const isRanked = r => /Competitive/.test(r.mode);
+const rankImg = (n,sz) => `<img src="ranks/${n.toLowerCase()}.png" alt="${n}" title="${n}" width="${sz}" height="${sz}" loading="lazy">`;
+// ranked rooms show the rank range as badges; other modes keep the plain text tag
+function rankTag(r,sz){ sz = sz||30;
+  if(!isRanked(r) || (!r.rank_min && !r.rank_max)) return `<span class="tag">${esc(rankText(r))}</span>`;
+  const a = VAL_RANKS.includes(r.rank_min)?r.rank_min:"Iron", b = VAL_RANKS.includes(r.rank_max)?r.rank_max:"Radiant";
+  return `<span class="rk" aria-label="${esc(rankText(r))}">${rankImg(a,sz)}${a!==b?`<span class="rk-to">→</span>${rankImg(b,sz)}`:""}</span>`; }
 const rankText = r => r.rank_min&&r.rank_max ? (r.rank_min===r.rank_max?r.rank_min:r.rank_min+" – "+r.rank_max) : r.rank_min ? r.rank_min+"+" : r.rank_max ? "≤ "+r.rank_max : t("anyRank");
 async function loadVRooms(){
   if(!sb) return;
@@ -671,7 +681,7 @@ function vroomCard(r){
   return `<button class="card room" data-act="vroom" data-id="${r.id}">
     <div class="room-top"><div><span class="mono">VALORANT · ${esc(r.mode)}</span><h3>${esc(r.title)}</h3></div>
     <span class="tag ${mine?"you":full?"full":"open"}">${mine?t("youIn"):full?t("full"):t("open")}</span></div>
-    <div class="chips"><span class="tag">${esc(rankText(r))}</span>${r.need_roles.map(x=>`<span class="tag c-mustard">${esc(x)}</span>`).join("")}${r.req_vibes.slice(0,3).map(x=>`<span class="tag">${esc(tl(x))}</span>`).join("")}</div>
+    <div class="chips" style="align-items:center">${rankTag(r)}${r.need_roles.map(x=>`<span class="tag c-mustard">${esc(x)}</span>`).join("")}${r.req_vibes.slice(0,3).map(x=>`<span class="tag">${esc(tl(x))}</span>`).join("")}</div>
     <div class="room-foot"><span class="muted">${t("host")} ${esc(host&&host.profiles?host.profiles.display_name:"")}</span>
     <span class="slots" aria-label="${t("nOf",{a:m.length,b:r.size})}">${Array.from({length:r.size},(_,i)=>`<i class="slot ${i<m.length?(S.me&&m[i].user_id===S.me.id?"me":"on"):""}"></i>`).join("")}</span></div>
   </button>`;
@@ -679,7 +689,7 @@ function vroomCard(r){
 function roomReqHTML(r){
   const who = [t("ageRange",{a:r.age_min,b:r.age_max}),...r.req_gender.map(tl),...r.req_vibes.map(tl)];
   return `<div class="req">${r.need_roles.length?`<div><span class="mono">${t("lookingFor")}</span><div class="chips" style="margin-top:4px">${r.need_roles.map(x=>`<span class="tag c-mustard">${esc(x)}</span>`).join("")}</div></div>`:""}
-    <div><span class="mono">${t("whoCan")}</span><div class="chips" style="margin-top:4px"><span class="tag">${esc(rankText(r))}</span>${who.map(x=>`<span class="tag">${esc(x)}</span>`).join("")}</div></div></div>`;
+    <div><span class="mono">${t("whoCan")}</span><div class="chips" style="margin-top:4px;align-items:center">${rankTag(r,40)}${who.map(x=>`<span class="tag">${esc(x)}</span>`).join("")}</div></div></div>`;
 }
 function vroomDialog(r){
   const m = membersOf(r), mine = S.me && m.some(x=>x.user_id===S.me.id), why = whyNot(r), myRoles = S.me ? (((S.me.games||{}).valorant||{}).roles||[]) : [];
