@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GameZone</title>
+<meta name="description" content="Find friends to play with. Match by game, rank, role and vibe.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bowlby+One&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+Thai:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  /* Layout idea: one quiet cream sheet, ink outlines, hard offset shadows; colour only on things you can press. */
+  --paper:#F3EADB; --card:#FBF6EC; --ink:#3B2F2F; --ink-soft:#7A6A62; --line:#D9CCB8;
+  --coral:#EF7A5E; --blue:#345E8F; --mustard:#E2B04A; --sage:#8DAA8B;
+  --font-display:"Bowlby One","Arial Black",Impact,sans-serif;
+  --font-body:"IBM Plex Sans","IBM Plex Sans Thai","Noto Sans SC","Noto Sans JP","Hiragino Sans","Microsoft YaHei",system-ui,sans-serif;
+  --font-mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+  --r:14px; --shadow:4px 4px 0 var(--ink);
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--paper);color:var(--ink);font-family:var(--font-body);font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+a{color:var(--blue)}
+h1,h2,h3{font-family:var(--font-display);font-weight:400;letter-spacing:.03em;line-height:1.15;margin:0;text-wrap:balance}
+html:not([lang="en"]) h1,html:not([lang="en"]) h2,html:not([lang="en"]) h3,html:not([lang="en"]) .btn.big,html:not([lang="en"]) .btn.mid{font-family:var(--font-body);font-weight:700;letter-spacing:0}
+p{margin:0}
+:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+.wrap{max-width:1040px;margin:0 auto;padding:0 20px}
+.mono{font-family:var(--font-mono),var(--font-body);font-size:12.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft)}
+.muted{color:var(--ink-soft);font-size:14px}
+
+.nav{margin:16px auto 0;background:var(--ink);border-radius:var(--r);padding:10px 12px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.logo{font-family:var(--font-display);font-size:19px;color:var(--paper);background:none;border:0;padding:6px 10px;letter-spacing:.04em;text-shadow:2px 2px 0 var(--coral)}
+.nav-links{display:flex;gap:2px;flex:1;flex-wrap:wrap}
+.nav-links button{background:none;border:0;color:#D8CABB;padding:8px 12px;border-radius:9px;font-family:var(--font-mono),var(--font-body);font-size:13px;letter-spacing:.05em;text-transform:uppercase}
+.nav-links button:hover{color:var(--paper)}
+.nav-links button[aria-current="page"]{background:#55453F;color:var(--paper)}
+.nav-right{display:flex;align-items:center;gap:8px;position:relative}
+.me-btn{display:flex;align-items:center;gap:8px;background:none;border:0;padding:2px;border-radius:999px;color:var(--paper);font-size:14px}
+.menu{position:absolute;right:0;top:calc(100% + 12px);background:var(--card);border:2px solid var(--ink);border-radius:12px;box-shadow:var(--shadow);min-width:180px;padding:6px;z-index:20;display:flex;flex-direction:column}
+.menu button{background:none;border:0;text-align:left;padding:9px 12px;border-radius:8px}
+.menu button:hover{background:var(--paper)}
+
+.av{--s:40px;width:var(--s);height:var(--s);border-radius:50%;border:2px solid var(--ink);overflow:hidden;display:inline-grid;place-items:center;background:var(--blue);flex:none}
+.nav .av{border-color:var(--paper)}
+.av img,.av svg{width:100%;height:100%;display:block;object-fit:cover}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:2px solid var(--ink);border-radius:12px;background:var(--card);padding:10px 18px;font-weight:600;box-shadow:3px 3px 0 var(--ink);transition:transform .08s,box-shadow .08s}
+.btn:hover{transform:translate(-1px,-1px);box-shadow:4px 4px 0 var(--ink)}
+.btn:active{transform:translate(3px,3px);box-shadow:0 0 0 var(--ink)}
+.btn.coral{background:var(--coral)} .btn.blue{background:var(--blue);color:var(--paper)}
+.btn.ghost{box-shadow:none;background:transparent} .btn.ghost:hover{background:var(--card);transform:none}
+.btn.small{padding:6px 12px;font-size:14px;border-radius:10px;box-shadow:2px 2px 0 var(--ink)}
+.btn.big{font-family:var(--font-display);font-weight:400;font-size:clamp(20px,3.4vw,28px);letter-spacing:.06em;padding:18px 40px;border-radius:20px;box-shadow:5px 5px 0 var(--ink);color:var(--paper);text-shadow:2px 2px 0 var(--ink)}
+.btn.mid{font-family:var(--font-display);font-weight:400;font-size:clamp(14px,2.2vw,17px);letter-spacing:.06em;padding:12px 26px;color:var(--paper);text-shadow:1.5px 1.5px 0 var(--ink)}
+.btn[disabled]{opacity:.5;pointer-events:none}
+
+.hero{padding:72px 0 56px;display:flex;flex-direction:column;align-items:center;gap:22px;text-align:center}
+.hero h1{font-size:clamp(34px,6.4vw,64px)}
+.hero h1 em{font-style:normal;color:var(--coral);text-shadow:3px 3px 0 var(--ink)}
+.hero p{max-width:46ch;color:var(--ink-soft);font-size:17px}
+.hero-cta{display:flex;flex-direction:column;align-items:center;gap:14px;margin-top:6px}
+section.block{padding:28px 0}
+.head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:16px}
+.head h2{font-size:24px}
+.grid{display:grid;gap:16px}
+.grid.g3{grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+.grid.g2{grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
+.card{background:var(--card);border:2px solid var(--ink);border-radius:var(--r);padding:18px}
+.card.pop{box-shadow:var(--shadow)}
+.tile{display:flex;flex-direction:column;gap:10px;text-align:left;background:var(--card);border:2px solid var(--ink);border-radius:var(--r);padding:0;overflow:hidden;box-shadow:var(--shadow);transition:transform .1s,box-shadow .1s}
+.tile:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--ink)}
+.band{height:92px;display:flex;align-items:flex-end;padding:12px 16px;border-bottom:2px solid var(--ink);position:relative;overflow:hidden}
+.band h3{font-size:26px;color:var(--paper);text-shadow:2px 2px 0 var(--ink);position:relative;font-family:var(--font-display)!important;font-weight:400!important;letter-spacing:.03em!important}
+.band::after{content:"";position:absolute;right:-18px;top:-18px;width:96px;height:96px;border-radius:50%;border:2px solid var(--ink);background:var(--paper);opacity:.9}
+.tile .body{padding:4px 16px 16px;display:flex;flex-direction:column;gap:6px}
+.c-coral{background:var(--coral)}.c-blue{background:var(--blue)}.c-mustard{background:var(--mustard)}.c-sage{background:var(--sage)}
+
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:2px solid var(--ink);background:var(--card);border-radius:999px;padding:6px 14px;font-size:14px;font-weight:500}
+.chip:hover{background:#fff}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+.tag{display:inline-block;border:1.5px solid var(--ink);border-radius:999px;padding:1px 9px;font-size:12.5px;background:var(--paper);white-space:nowrap}
+.tag.full{background:var(--line);color:var(--ink-soft);border-color:var(--ink-soft)} .tag.open{background:var(--sage)} .tag.you{background:var(--mustard)}
+.modes{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:10px}
+.mode{text-align:left;border:2px solid var(--ink);border-radius:12px;background:var(--card);padding:12px 14px;display:flex;flex-direction:column;gap:2px}
+.mode:hover{background:#fff}
+.mode b{font-weight:600} .mode span{font-size:13.5px;color:var(--ink-soft)}
+.mode[aria-pressed="true"]{background:var(--ink);color:var(--paper)} .mode[aria-pressed="true"] span{color:#D8CABB}
+.group-label{margin:18px 0 8px}
+.queue{display:flex;gap:16px;align-items:center;justify-content:space-between;flex-wrap:wrap;margin-top:22px}
+.room{display:flex;flex-direction:column;gap:10px;text-align:left;width:100%}
+.room-top{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
+.room h3{font-family:var(--font-body);font-weight:600;font-size:17px;letter-spacing:0;line-height:1.3}
+.slots{display:flex;gap:5px}
+.slot{width:16px;height:16px;border-radius:50%;border:2px solid var(--ink);background:transparent} .slot.on{background:var(--ink)} .slot.me{background:var(--mustard)}
+.room-foot{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+
+label.f{display:flex;flex-direction:column;gap:5px;font-size:14px;font-weight:500}
+.inp{border:2px solid var(--ink);border-radius:10px;background:#fff;padding:9px 12px;width:100%;min-width:0}
+textarea.inp{resize:vertical;min-height:70px}
+.row{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(180px,1fr))}
+.err{color:#B3261E;font-size:14px;min-height:20px}
+.check{display:flex;gap:8px;align-items:center;font-size:14px}
+.check input{width:18px;height:18px;accent-color:var(--ink)}
+.hint{font-size:13px;color:var(--ink-soft);font-weight:400}
+
+.scrim{position:fixed;inset:0;background:rgba(59,47,47,.55);display:grid;place-items:center;padding:16px;z-index:50;overflow:auto}
+.dialog{background:var(--paper);border:2px solid var(--ink);border-radius:18px;box-shadow:6px 6px 0 var(--ink);width:min(460px,100%);padding:24px;display:flex;flex-direction:column;gap:14px;max-height:calc(100vh - 32px);overflow:auto}
+.dialog.wide{width:min(580px,100%)}
+.dialog h2{font-size:22px}
+.dialog form{display:flex;flex-direction:column;gap:14px}
+.tabs{display:grid;grid-template-columns:1fr 1fr;border:2px solid var(--ink);border-radius:12px;overflow:hidden}
+.tabs button{border:0;background:var(--card);padding:10px;font-weight:600}
+.tabs button[aria-selected="true"]{background:var(--ink);color:var(--paper)}
+.dialog-actions{display:flex;gap:10px;justify-content:flex-end;flex-wrap:wrap;margin-top:4px}
+.member{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1.5px dashed var(--line)}
+.member:last-child{border-bottom:0}
+.avatar-pick{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.avatar-pick button{background:none;border:0;padding:0;border-radius:50%}
+.avatar-pick button[aria-pressed="true"] .av{box-shadow:0 0 0 3px var(--coral)}
+.steps{display:flex;gap:8px;align-items:center}
+.steps i{width:34px;height:8px;border-radius:99px;border:2px solid var(--ink);background:transparent} .steps i.on{background:var(--ink)}
+.setup{max-width:640px;margin:36px auto;display:flex;flex-direction:column;gap:18px}
+.banner{display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap;background:var(--mustard);border:2px solid var(--ink);border-radius:var(--r);padding:12px 16px;margin-top:16px}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--ink);color:var(--paper);padding:10px 18px;border-radius:999px;font-size:14px;z-index:80;opacity:0;pointer-events:none;transition:opacity .2s}
+.toast.show{opacity:1}
+footer{padding:36px 0 72px;color:var(--ink-soft);font-size:13.5px;border-top:2px dashed var(--line);margin-top:28px}
+.back{background:none;border:0;padding:0;color:var(--ink-soft);font-family:var(--font-mono),var(--font-body);font-size:13px;letter-spacing:.05em;text-transform:uppercase}
+.back:hover{color:var(--ink)}
+.game-hero{padding:32px 0 8px;display:flex;flex-direction:column;gap:10px;align-items:flex-start}
+.game-hero h1{font-size:clamp(34px,6vw,54px)}
+
+/* language switch */
+.lang{position:fixed;left:16px;bottom:16px;z-index:30;display:flex;background:var(--card);border:2px solid var(--ink);border-radius:999px;box-shadow:3px 3px 0 var(--ink);padding:3px;gap:2px}
+.lang button{border:0;background:none;border-radius:999px;padding:5px 11px;font-size:13.5px;font-weight:600}
+.lang button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+
+/* profile */
+.ph{display:flex;gap:32px;align-items:center;padding:36px 0 20px;flex-wrap:wrap}
+.ring{background:none;border:0;padding:5px;border-radius:50%;flex:none}
+.ring.has{background:conic-gradient(var(--coral),var(--mustard),var(--sage),var(--blue),var(--coral))}
+.ring .av{border-width:3px;border-color:var(--paper);outline:2px solid var(--ink)}
+.ph-info{flex:1;min-width:260px;display:flex;flex-direction:column;gap:10px}
+.ph-top{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.ph-top h1{font-family:var(--font-body);font-weight:700;font-size:26px;letter-spacing:0;overflow-wrap:anywhere;margin-right:6px}
+.stats{display:flex;gap:26px;flex-wrap:wrap}
+.stats b{font-size:18px}
+.hls{display:flex;gap:18px;overflow-x:auto;padding:8px 2px 18px;border-bottom:2px dashed var(--line)}
+.hl{background:none;border:0;padding:0;display:flex;flex-direction:column;align-items:center;gap:6px;width:76px;flex:none;font-size:12.5px}
+.hl span.c{width:66px;height:66px;border-radius:50%;border:2px solid var(--ink);background:var(--card);display:grid;place-items:center;overflow:hidden;font-size:26px;box-shadow:2px 2px 0 var(--ink)}
+.hl span.c img{width:100%;height:100%;object-fit:cover}
+.hl span.n{max-width:76px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.arrbar{display:none;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap;background:var(--mustard);border:2px solid var(--ink);border-radius:var(--r);padding:10px 14px;margin-top:16px}
+.arranging .arrbar{display:flex}
+.wgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;padding:20px 0;grid-auto-flow:dense}
+.widget{grid-column:span 2;background:var(--card);border:2px solid var(--ink);border-radius:var(--r);padding:16px;display:flex;flex-direction:column;gap:12px;min-width:0;position:relative}
+.widget.w1{grid-column:span 1}.widget.w4{grid-column:span 4}
+.own .widget{-webkit-touch-callout:none}
+.w-head{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.w-tools{display:flex;gap:6px}
+.icon{border:2px solid var(--ink);background:var(--paper);border-radius:8px;width:30px;height:30px;display:grid;place-items:center;font-size:13px;font-weight:700;padding:0;line-height:1}
+.icon:hover{background:#fff}
+.arr-only{display:none}
+.arranging .arr-only{display:grid}
+.arranging .edit-only{display:none}
+.arranging .widget{cursor:grab;touch-action:none;user-select:none;-webkit-user-select:none;animation:wig .28s ease-in-out infinite alternate}
+.arranging .widget:nth-child(even){animation-delay:.14s}
+@keyframes wig{from{transform:rotate(-.5deg)}to{transform:rotate(.5deg)}}
+.widget.dragging{opacity:.3;animation:none}
+.drag-ghost{position:fixed;z-index:70;pointer-events:none;box-shadow:8px 8px 0 var(--ink);animation:none!important;transform:rotate(1.5deg);margin:0}
+.kv{display:grid;grid-template-columns:auto 1fr;gap:4px 14px;margin:0;font-size:14.5px}
+.kv dt{color:var(--ink-soft)} .kv dd{margin:0;font-weight:500;overflow-wrap:anywhere}
+.main-band{margin:-16px -16px 0;border-radius:12px 12px 0 0;height:74px}
+.g-row{display:flex;justify-content:space-between;gap:10px;align-items:center;border:0;background:none;padding:8px 0;border-bottom:1.5px dashed var(--line);text-align:left;width:100%}
+.g-row:last-child{border-bottom:0}
+.hidden-list{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+
+/* story viewer */
+.viewer{position:fixed;inset:0;background:#1d1717;z-index:60;display:flex;flex-direction:column;align-items:center;color:#F3EADB}
+.v-top{width:min(460px,100%);padding:12px 14px 6px;display:flex;flex-direction:column;gap:10px}
+.v-bars{display:flex;gap:4px} .v-bars i{flex:1;height:4px;border-radius:9px;background:#6b5a55} .v-bars i.on{background:#F3EADB}
+.v-who{display:flex;align-items:center;gap:10px;font-size:14px}
+.v-who .x{margin-left:auto;background:none;border:0;color:#F3EADB;font-size:24px;line-height:1;padding:4px 8px}
+.v-stage{flex:1;width:min(460px,100%);position:relative;min-height:0;display:grid;place-items:center}
+.v-stage img{max-width:100%;max-height:100%;object-fit:contain;border-radius:10px}
+.v-stage button.z{position:absolute;top:0;bottom:0;width:38%;background:none;border:0}
+.v-stage button.z.l{left:0}.v-stage button.z.r{right:0}
+.v-cap{position:absolute;left:12px;right:12px;bottom:12px;background:rgba(29,23,23,.7);padding:8px 12px;border-radius:10px;text-align:center}
+.v-foot{width:min(460px,100%);padding:10px 14px 18px;display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
+.v-foot .btn{box-shadow:none;border-color:#F3EADB;background:transparent;color:#F3EADB;font-size:14px;padding:7px 12px}
+.v-foot .inp{width:auto;flex:1;min-width:140px;color:var(--ink)}
+.preview{max-height:46vh;max-width:100%;border:2px solid var(--ink);border-radius:12px;align-self:center}
+
+@media (max-width:760px){
+  .wgrid{grid-template-columns:repeat(2,1fr)}
+  .widget,.widget.w4{grid-column:span 2}
+  .hero{padding:48px 0 36px}
+  .ph{gap:18px;padding-top:24px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="nav" id="nav"></header>
+  <main id="view"></main>
+  <footer><p id="foot"></p></footer>
+</div>
+<div id="lang-root"></div>
+<div id="dialog-root"></div>
+<input type="file" id="story-file" accept="image/*" hidden>
+<input type="file" id="av-file" accept="image/*" hidden>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+<script>
+/* ---------- backend ---------- */
+const SB_URL = "https://eqmwmzdpqhtsstnusqub.supabase.co";
+const SB_KEY = "sb_publishable_m-OUc5846sp8OiHqmytqyQ_KPpkd5cx"; // public key, safe to ship in the page
+const lsGet = k => { try{ return localStorage.getItem(k); }catch(e){ return null; } };
+const lsSet = (k,v) => { try{ localStorage.setItem(k,v); }catch(e){} };
+// "Keep me logged in" off = session lives in sessionStorage and ends with the browser tab.
+const authStore = {
+  getItem(k){ try{ return sessionStorage.getItem(k) ?? localStorage.getItem(k); }catch(e){ return null; } },
+  setItem(k,v){ try{ const keep = lsGet("gz.remember")!=="0"; (keep?localStorage:sessionStorage).setItem(k,v); (keep?sessionStorage:localStorage).removeItem(k); }catch(e){} },
+  removeItem(k){ try{ localStorage.removeItem(k); sessionStorage.removeItem(k); }catch(e){} }
+};
+const sb = window.supabase ? window.supabase.createClient(SB_URL,SB_KEY,{auth:{storage:authStore,persistSession:true,autoRefreshToken:true,detectSessionInUrl:false}}) : null;
+const mediaURL = path => SB_URL+"/storage/v1/object/public/media/"+path;
+
+/* ---------- text: [English, Thai, Chinese, Japanese] ---------- */
+const LANGS = [["en","EN"],["th","ไทย"],["zh","中文"],["ja","日本語"]];
+const T = {
+rooms:["Rooms","ห้อง","房间","ルーム"], login:["Log in","เข้าสู่ระบบ","登录","ログイン"], signup:["Sign up","สมัครสมาชิก","注册","新規登録"],
+yourProfile:["Your profile","โปรไฟล์ของคุณ","我的主页","マイプロフィール"], openRooms:["Open rooms","ห้องที่เปิดอยู่","开放的房间","募集中のルーム"], logout:["Log out","ออกจากระบบ","退出登录","ログアウト"],
+eyebrow:["Find teammates who play like you","หาเพื่อนร่วมทีมที่เล่นสไตล์เดียวกับคุณ","找到和你合拍的队友","自分に合う仲間を見つけよう"],
+h1a:["Done for the day?","เสร็จงานวันนี้แล้ว?","今天忙完了？","今日はもう終わり？"], h1b:["Squad up.","รวมทีมกันเลย","组队开玩。","さあ、集まろう。"],
+heroSub:["Nobody to play with tonight? Pick a game, see who is looking, and jump in with people who match your rank, role and vibe.","คืนนี้ไม่มีเพื่อนเล่น? เลือกเกม ดูว่าใครกำลังหาทีม แล้วเข้าไปเล่นกับคนที่แรงค์ ตำแหน่ง และนิสัยตรงกับคุณ","今晚没人一起玩？选一个游戏，看看谁在找队友，和段位、位置、性格都合拍的人一起玩。","今夜一緒に遊ぶ相手がいない？ゲームを選んで、ランクや役割、雰囲気が合う仲間と遊ぼう。"],
+find:["Find friends","หาเพื่อนเล่น","找朋友","仲間を探す"], createCta:["or create your profile","หรือสร้างโปรไฟล์ของคุณ","或创建你的主页","またはプロフィールを作成"], finishCta:["finish your profile","ตั้งโปรไฟล์ให้เสร็จ","完成你的主页","プロフィールを完成させる"], viewCta:["view your profile","ดูโปรไฟล์ของคุณ","查看我的主页","プロフィールを見る"],
+pick:["Pick a game","เลือกเกม","选择游戏","ゲームを選ぶ"], moreGames:["More games coming","เกมอื่นๆ กำลังจะมา","更多游戏即将上线","対応ゲーム追加予定"], seeAll:["See all rooms","ดูห้องทั้งหมด","查看全部房间","すべてのルーム"], nRooms:["{n} open rooms","เปิดอยู่ {n} ห้อง","{n} 个开放房间","募集中 {n} 件"],
+allGames:["← All games","← เกมทั้งหมด","← 全部游戏","← すべてのゲーム"], chooseMode:["Choose the mode you want to play.","เลือกโหมดที่อยากเล่น","选择你想玩的模式。","遊びたいモードを選んでください。"], chooseExp:["Choose the experience you want to play.","เลือกแมพที่อยากเล่น","选择你想玩的体验。","遊びたいゲームを選んでください。"],
+browseNote:["Anyone can browse. You need an account to match or join.","ทุกคนเข้ามาดูได้ แต่ต้องมีบัญชีก่อนถึงจะจับคู่หรือเข้าห้องได้","任何人都可以浏览，匹配或加入需要账号。","閲覧は誰でもできます。マッチングや参加にはアカウントが必要です。"],
+findFor:["Find friends for {x}","หาเพื่อนเล่น {x}","找人一起玩 {x}","{x} の仲間を探す"], cant:["Can't find your game?","ไม่เจอเกมที่อยากเล่น?","没找到想玩的？","見つからない？"], addExp:["Add any Roblox experience you want to play","เพิ่มแมพ Roblox ที่คุณอยากหาเพื่อนเล่นได้เลย","添加任何你想玩的 Roblox 体验","遊びたい Roblox のゲームを追加"], addPh:["Type the experience name","พิมพ์ชื่อแมพ","输入体验名称","ゲーム名を入力"], add:["Add","เพิ่ม","添加","追加"],
+howMany:["How many players in total?","ต้องการผู้เล่นรวมกี่คน?","一共几个人？","合計何人で遊ぶ？"], yourPick:["Your pick","ที่คุณเลือก","你的选择","選択中"], quick:["Quick match","จับคู่ทันที","快速匹配","クイックマッチ"], gRooms:["{g} rooms","ห้อง {g}","{g} 房间","{g} のルーム"],
+s2:["Duo","ดูโอ้","双排","デュオ"], s3:["Trio","สามคน","三排","トリオ"], s4:["4 players","4 คน","4 人","4人"], s5:["5 players","5 คน","5 人","5人"],
+gMain:["Main modes","โหมดหลัก","主要模式","メインモード"], gCasual:["Casual and warm-up","โหมดเล่นชิลและวอร์มอัพ","休闲与热身","カジュアル・練習"], gLimited:["Limited-time and custom","โหมดจำกัดเวลาและห้องกำหนดเอง","限时与自定义","期間限定・カスタム"], gCasual2:["Casual modes","โหมดเล่นชิล","休闲模式","カジュアルモード"], gArcade:["Arcade and custom","อาร์เคดและห้องกำหนดเอง","街机与自定义","アーケード・カスタム"], gPopular:["Popular right now","ยอดฮิตตอนนี้","当前热门","いま人気"], gAdded:["Added by you","ที่คุณเพิ่มเอง","你添加的","追加したゲーム"],
+roomsSub:["Look inside any room. Joining needs a finished account.","เปิดดูห้องไหนก็ได้ แต่จะเข้าร่วมต้องตั้งบัญชีให้เสร็จก่อน","可以查看任何房间，加入需要完成账号设置。","どのルームも閲覧できます。参加にはアカウント設定が必要です。"], allG:["All games","ทุกเกม","全部游戏","すべて"],
+host:["Host","เจ้าของห้อง","房主","ホスト"], full:["Full","เต็ม","已满","満員"], open:["Open","ว่าง","可加入","募集中"], youIn:["You're in","คุณอยู่ในห้องนี้","已加入","参加中"], you:["You","คุณ","你","あなた"], nOf:["{a} of {b} players","{a} จาก {b} คน","{a}/{b} 人","{a}/{b} 人"],
+join:["Join room","เข้าร่วมห้อง","加入房间","参加する"], leave:["Leave room","ออกจากห้อง","离开房间","退出する"], roomFull:["Room is full","ห้องเต็มแล้ว","房间已满","満員です"], close:["Close","ปิด","关闭","閉じる"],
+createTitle:["Create your account","สร้างบัญชีของคุณ","创建账号","アカウント作成"], welcome:["Welcome back","ยินดีต้อนรับกลับมา","欢迎回来","おかえりなさい"], username:["Username","ชื่อผู้ใช้","用户名","ユーザー名"], userHint:["3 to 16 letters, numbers or underscores","ตัวอักษรอังกฤษ ตัวเลข หรือ _ 3–16 ตัว","3–16 个字母、数字或下划线","英数字と _ で3〜16文字"],
+password:["Password","รหัสผ่าน","密码","パスワード"], passHint:["At least 8 characters","อย่างน้อย 8 ตัวอักษร","至少 8 个字符","8文字以上"], confirm:["Confirm password","ยืนยันรหัสผ่าน","确认密码","パスワード（確認）"], remember:["Keep me logged in on this device","จดจำการเข้าสู่ระบบในเครื่องนี้","在此设备上保持登录","このデバイスでログイン状態を保持"],
+cancel:["Cancel","ยกเลิก","取消","キャンセル"], createBtn:["Create account","สร้างบัญชี","创建账号","作成する"], working:["Please wait…","กรุณารอสักครู่…","请稍候…","お待ちください…"],
+eUser:["Username must be 3 to 16 letters, numbers or underscores.","ชื่อผู้ใช้ต้องเป็นตัวอักษรอังกฤษ ตัวเลข หรือ _ 3–16 ตัว","用户名需为 3–16 个字母、数字或下划线。","ユーザー名は英数字と _ で3〜16文字にしてください。"], ePass:["Password must be at least 8 characters.","รหัสผ่านต้องมีอย่างน้อย 8 ตัวอักษร","密码至少 8 个字符。","パスワードは8文字以上にしてください。"], eMatch:["The two passwords don't match.","รหัสผ่านสองช่องไม่ตรงกัน","两次输入的密码不一致。","パスワードが一致しません。"],
+eTaken:["That username is taken. Try another one.","ชื่อผู้ใช้นี้ถูกใช้แล้ว ลองชื่ออื่น","该用户名已被使用，请换一个。","このユーザー名は使われています。"], eWrong:["Wrong username or password.","ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง","用户名或密码错误。","ユーザー名またはパスワードが違います。"], eNet:["Couldn't reach the server. Check your connection and try again.","เชื่อมต่อเซิร์ฟเวอร์ไม่ได้ ตรวจสอบอินเทอร์เน็ตแล้วลองใหม่","无法连接服务器，请检查网络后重试。","サーバーに接続できません。通信環境を確認してください。"],
+gateTitle:["Create an account to {x}","สร้างบัญชีเพื่อ{x}","创建账号后即可{x}","{x}にはアカウントが必要です"], gateText:["You can look around as long as you like. To play with others, people need to know who you are.","คุณเข้ามาดูได้ตามสบาย แต่ถ้าจะเล่นกับคนอื่น เขาต้องรู้ก่อนว่าคุณเป็นใคร","你可以随意浏览。要和别人一起玩，需要先让大家认识你。","閲覧は自由です。一緒に遊ぶにはプロフィールが必要です。"], keep:["Keep browsing","ดูต่อ","继续浏览","閲覧を続ける"],
+finishTitle:["Finish your profile to {x}","ตั้งโปรไฟล์ให้เสร็จเพื่อ{x}","完成主页后即可{x}","{x}にはプロフィールの完成が必要です"], finishText:["Add a picture, your age and the games you play. It takes about a minute.","ใส่รูป อายุ และเกมที่เล่น ใช้เวลาประมาณหนึ่งนาที","添加头像、年龄和常玩的游戏，大约一分钟。","写真・年齢・遊ぶゲームを登録します。1分ほどで終わります。"], later:["Later","ไว้ทีหลัง","稍后","あとで"], finishBtn:["Finish profile","ตั้งโปรไฟล์ต่อ","去完成","完成させる"],
+actMatch:["find a match","จับคู่","匹配","マッチング"], actJoin:["join this room","เข้าร่วมห้องนี้","加入房间","ルーム参加"], mmTitle:["Matchmaking is coming next","ระบบจับคู่กำลังจะมา","匹配功能即将上线","マッチング機能は準備中です"], mmText:["Your profile is ready. Automatic matching is the next feature being built. Until then, join an open room.","โปรไฟล์ของคุณพร้อมแล้ว ระบบจับคู่อัตโนมัติคือฟีเจอร์ถัดไปที่กำลังสร้าง ระหว่างนี้เข้าห้องที่เปิดอยู่ได้เลย","你的主页已就绪。自动匹配是下一个开发的功能，在此之前可以先加入开放的房间。","プロフィールは準備完了です。自動マッチングは次に開発予定です。それまでは募集中のルームに参加できます。"],
+step:["Step {n} of 3","ขั้นที่ {n} จาก 3","第 {n} 步，共 3 步","ステップ {n}/3"], who:["Who are you?","คุณคือใคร?","介绍一下自己","あなたについて"], whoSub:["This is what other players see first.","นี่คือสิ่งแรกที่ผู้เล่นอื่นจะเห็น","这是其他玩家最先看到的内容。","他のプレイヤーが最初に目にする情報です。"],
+pic:["Profile picture","รูปโปรไฟล์","头像","プロフィール画像"], upload:["Upload photo","อัปโหลดรูป","上传照片","写真をアップロード"], dname:["Display name","ชื่อที่แสดง","显示名称","表示名"], age:["Age","อายุ","年龄","年齢"], ageHint:["Used to match you with players near your age. 13 and up.","ใช้จับคู่กับผู้เล่นวัยใกล้กัน ต้องอายุ 13 ปีขึ้นไป","用于匹配年龄相近的玩家，需满 13 岁。","年齢の近い人とのマッチングに使います。13歳以上。"],
+what:["What do you play?","คุณเล่นเกมอะไร?","你玩什么游戏？","何をプレイしますか？"], whatSub:["Pick at least one. You can change this later.","เลือกอย่างน้อยหนึ่งเกม เปลี่ยนทีหลังได้","至少选择一个，之后可以修改。","1つ以上選んでください。後で変更できます。"], mainGame:["Main game","เกมหลัก","主玩游戏","メインゲーム"], mainHint:["Shown first on your profile.","จะแสดงเป็นอันดับแรกในโปรไฟล์","会优先显示在你的主页上。","プロフィールの先頭に表示されます。"],
+more3:["A bit more about you","เล่าเพิ่มอีกนิด","再多介绍一点","もう少し教えてください"], more3Sub:["Optional. The more you fill in, the better your matches.","ไม่บังคับ แต่ยิ่งกรอกเยอะ ยิ่งจับคู่ได้ตรง","选填。填得越多，匹配越准。","任意です。入力するほどマッチ精度が上がります。"],
+mbti:["MBTI","MBTI","MBTI","MBTI"], gender:["Gender","เพศ","性别","性別"], vibe:["Your vibe","นิสัยการเล่น","游戏风格","プレイスタイル"], when:["When you play","ช่วงเวลาที่เล่น","游戏时间","プレイ時間帯"], skip:["Skip","ข้าม","跳过","スキップ"], notSet:["Not set","ยังไม่ระบุ","未设置","未設定"],
+back:["Back","ย้อนกลับ","上一步","戻る"], next:["Next","ถัดไป","下一步","次へ"], finish:["Finish","เสร็จสิ้น","完成","完了"],
+ePic:["Choose a profile picture.","เลือกรูปโปรไฟล์","请选择头像。","プロフィール画像を選んでください。"], eName:["Enter a display name.","กรอกชื่อที่แสดง","请输入显示名称。","表示名を入力してください。"], eAge:["Enter your age. You must be 13 or older.","กรอกอายุ ต้องอายุ 13 ปีขึ้นไป","请输入年龄，需满 13 岁。","年齢を入力してください（13歳以上）。"], eGame:["Pick at least one game.","เลือกอย่างน้อยหนึ่งเกม","请至少选择一个游戏。","ゲームを1つ以上選んでください。"],
+edit:["Edit profile","แก้ไขโปรไฟล์","编辑主页","プロフィール編集"], arrange:["Arrange","จัดวาง","调整布局","並べ替え"], done:["Done","เสร็จ","完成","完了"], arrHint:["Drag a block to move it. Use ↔ to resize and ✕ to hide.","ลากบล็อกเพื่อย้าย กด ↔ เพื่อปรับขนาด และ ✕ เพื่อซ่อน","拖动模块可移动，↔ 调整大小，✕ 隐藏。","ブロックをドラッグで移動、↔ でサイズ変更、✕ で非表示。"], holdHint:["Tip: press and hold a block to rearrange.","เคล็ดลับ: กดค้างที่บล็อกเพื่อจัดวางใหม่","提示：长按模块即可调整布局。","ヒント：ブロックを長押しで並べ替え。"],
+share:["Copy link","คัดลอกลิงก์","复制链接","リンクをコピー"], copied:["Link copied","คัดลอกลิงก์แล้ว","已复制链接","コピーしました"], stStories:["stories","สตอรี่","动态","ストーリー"], stGames:["games","เกม","游戏","ゲーム"], stDone:["complete","สมบูรณ์","完成度","完成度"],
+addStory:["Add story","เพิ่มสตอรี่","发布动态","ストーリー追加"], newS:["New","ใหม่","新建","新規"], caption:["Caption (optional)","แคปชัน (ไม่บังคับ)","说明（选填）","キャプション（任意）"], post:["Post","โพสต์","发布","投稿"], posted:["Story posted","โพสต์สตอรี่แล้ว","已发布","投稿しました"],
+addHl:["Add to highlight","เพิ่มในไฮไลท์","加入精选","ハイライトに追加"], rmHl:["Remove from highlight","เอาออกจากไฮไลท์","移出精选","ハイライトから削除"], hlName:["Highlight name","ชื่อไฮไลท์","精选名称","ハイライト名"], del:["Delete","ลบ","删除","削除"], deleted:["Deleted","ลบแล้ว","已删除","削除しました"], save:["Save","บันทึก","保存","保存"], saved:["Saved","บันทึกแล้ว","已保存","保存しました"],
+bMain:["Main game","เกมหลัก","主玩游戏","メインゲーム"], bGames:["Other games","เกมอื่นที่เล่น","其他游戏","その他のゲーム"], bAbout:["About","เกี่ยวกับฉัน","关于我","自己紹介"], bTimes:["When I play","ช่วงเวลาที่เล่น","游戏时间","プレイ時間帯"], bPc:["PC specs","สเปคคอม","电脑配置","PCスペック"], bGear:["Gear","เกมมิ่งเกียร์","外设","デバイス"], bSettings:["Settings","การตั้งค่า","设置","設定"], bContact:["Contact","ช่องทางติดต่อ","联系方式","連絡先"],
+empty:["Nothing here yet","ยังไม่มีข้อมูล","暂无内容","まだ何もありません"], yourGames:["Your games","เกมของคุณ","你的游戏","あなたのゲーム"], hiddenB:["Hidden:","ที่ซ่อนไว้:","已隐藏：","非表示："],
+ign:["In-game name","ชื่อในเกม","游戏内名称","ゲーム内名"], rank:["Rank","แรงค์","段位","ランク"], serious:["How serious","ความจริงจัง","认真程度","真剣度"], roles:["Roles","ตำแหน่ง","位置","ロール"], favs:["Favorites","ตัวละครที่ชอบ","常用角色","お気に入り"],
+cpu:["CPU","CPU","CPU","CPU"], gpu:["Graphics card","การ์ดจอ","显卡","グラフィックボード"], ram:["RAM","RAM","内存","メモリ"], monitor:["Monitor","จอ","显示器","モニター"], storage:["Storage","ที่เก็บข้อมูล","存储","ストレージ"], device:["Device","อุปกรณ์ที่ใช้เล่น","设备","デバイス"],
+mouse:["Mouse","เมาส์","鼠标","マウス"], keyboard:["Keyboard","คีย์บอร์ด","键盘","キーボード"], headset:["Headset","หูฟัง","耳机","ヘッドセット"], mousepad:["Mousepad","แผ่นรองเมาส์","鼠标垫","マウスパッド"], mic:["Microphone","ไมโครโฟน","麦克风","マイク"],
+dpi:["DPI","DPI","DPI","DPI"], sens:["Sensitivity","ความไวเมาส์","灵敏度","感度"], res:["Resolution","ความละเอียด","分辨率","解像度"], cross:["Crosshair code","โค้ดเป้าเล็ง","准星代码","クロスヘアコード"], notes:["Notes","หมายเหตุ","备注","メモ"],
+discord:["Discord","Discord","Discord","Discord"], line:["LINE ID","LINE ID","LINE ID","LINE ID"], whoSee:["Who can see this","ใครเห็นได้บ้าง","谁可以看到","公開範囲"], cFriends:["Only me (friends list coming)","เฉพาะฉัน (ระบบเพื่อนกำลังจะมา)","仅自己（好友功能即将上线）","自分のみ（フレンド機能は準備中）"], cEveryone:["Everyone","ทุกคน","所有人","全員"], cHidden:["Hidden","ซ่อน","隐藏","非公開"],
+bio:["Bio","แนะนำตัว","简介","自己紹介文"], bioPh:["What kind of teammate are you?","คุณเป็นเพื่อนร่วมทีมแบบไหน?","你是怎样的队友？","どんなチームメイトですか？"],
+notFound:["Player not found","ไม่พบผู้เล่นนี้","未找到该玩家","プレイヤーが見つかりません"], loading:["Loading…","กำลังโหลด…","加载中…","読み込み中…"], needLogin:["Log in first","เข้าสู่ระบบก่อน","请先登录","ログインしてください"], needLoginSub:["You need an account to see this page.","ต้องมีบัญชีก่อนถึงจะดูหน้านี้ได้","需要账号才能查看此页面。","このページにはアカウントが必要です。"],
+almost:["Almost there. Finish the required steps to unlock matching and joining rooms.","อีกนิดเดียว ตั้งค่าส่วนที่จำเป็นให้เสร็จเพื่อปลดล็อกการจับคู่และเข้าห้อง","就差一点。完成必填步骤即可匹配和加入房间。","あと少し。必須項目を完了するとマッチングと参加ができます。"], setupBtn:["Finish setup","ตั้งค่าต่อ","继续设置","設定を完了"],
+foot:["GameZone beta. Rooms shown are sample rooms while matchmaking is being built.","GameZone เวอร์ชันทดลอง ห้องที่แสดงเป็นห้องตัวอย่างระหว่างที่ระบบจับคู่กำลังสร้าง","GameZone 测试版。匹配功能开发期间，显示的房间为示例房间。","GameZone ベータ版。マッチング機能の開発中のため、表示中のルームはサンプルです。"],
+tJoined:["You joined the room","เข้าร่วมห้องแล้ว","已加入房间","参加しました"], tLeft:["You left the room","ออกจากห้องแล้ว","已离开房间","退出しました"], tWelcome:["Welcome back, {n}","ยินดีต้อนรับกลับมา {n}","欢迎回来，{n}","おかえりなさい、{n}"], tOut:["Logged out","ออกจากระบบแล้ว","已退出登录","ログアウトしました"], tReady:["Profile ready. You can match and join now.","โปรไฟล์พร้อมแล้ว จับคู่และเข้าห้องได้เลย","主页已就绪，可以匹配和加入了。","準備完了。マッチングと参加ができます。"],
+tPic:["Picture updated","อัปเดตรูปแล้ว","头像已更新","画像を更新しました"], tNotImg:["That file isn't an image","ไฟล์นี้ไม่ใช่รูปภาพ","该文件不是图片","画像ファイルではありません"], tFail:["Something went wrong. Try again.","เกิดข้อผิดพลาด ลองใหม่อีกครั้ง","出了点问题，请重试。","エラーが発生しました。もう一度お試しください。"], tAdded:["Added {n}","เพิ่ม {n} แล้ว","已添加 {n}","{n} を追加しました"]
+};
+const OPT = { // option labels: [th, zh, ja]
+"Chill":["ชิล","随性","まったり"],"Tryhard":["จริงจัง","认真上分","ガチ"],"Mic on":["เปิดไมค์","开麦","マイクあり"],"No mic":["ไม่ใช้ไมค์","不开麦","マイクなし"],"Shotcaller":["คุมเกม","指挥","指示役"],"Quiet":["เงียบๆ","安静","静か"],"Funny":["ตลก","搞笑","おもしろ系"],"Patient with new players":["ใจเย็นกับมือใหม่","对新手有耐心","初心者に優しい"],"No toxicity":["ไม่ toxic","不喷人","暴言なし"],
+"Weekday mornings":["เช้าวันธรรมดา","工作日上午","平日の朝"],"Weekday afternoons":["บ่ายวันธรรมดา","工作日下午","平日の午後"],"Weekday evenings":["ค่ำวันธรรมดา","工作日晚上","平日の夜"],"Late night":["ดึก","深夜","深夜"],"Weekends":["เสาร์อาทิตย์","周末","週末"],
+"Male":["ชาย","男","男性"],"Female":["หญิง","女","女性"],"Non-binary":["นอนไบนารี","非二元","ノンバイナリー"],"Prefer not to say":["ไม่ระบุ","不愿透露","回答しない"],"Not sure":["ไม่แน่ใจ","不确定","わからない"],
+"Just for fun":["เล่นเอาสนุก","娱乐为主","エンジョイ"],"Casual":["สบายๆ","休闲","カジュアル"],"Balanced":["กลางๆ","适中","バランス"],"Competitive":["จริงจัง","竞技","競技志向"],"Climbing hard":["ไต่แรงค์เต็มที่","全力上分","全力でランク上げ"],
+"PC":["PC","电脑","PC"],"Mobile":["มือถือ","手机","スマホ"],"Tablet":["แท็บเล็ต","平板","タブレット"],"Console":["คอนโซล","主机","コンソール"]
+};
+const LI = {en:0,th:1,zh:2,ja:3};
+function t(k,v){ const row = T[k]; let s = row ? (row[LI[S.lang]] || row[0]) : k; if(v) for(const x in v) s = s.split("{"+x+"}").join(v[x]); return s; }
+function tl(v){ const i = LI[S.lang]; return i && OPT[v] ? OPT[v][i-1] : v; }
+
+/* ---------- game data ---------- */
+const GAMES = {
+  valorant:{ name:"VALORANT", color:"c-coral", blurb:["5v5 tactical shooter","เกมยิงแทคติก 5v5","5v5 战术射击","5v5 タクティカルFPS"],
+    ranks:["Unranked","Iron","Bronze","Silver","Gold","Platinum","Diamond","Ascendant","Immortal","Radiant"], roles:["Duelist","Initiator","Controller","Sentinel","Flex"],
+    groups:[["gMain",[["Unrated","Casual 5v5, no rank pressure"],["Competitive (Ranked)","Climb together from Iron to Radiant"],["Swiftplay","Quick 5v5 matches, about 15 minutes"],["Spike Rush","Fast and fun best-of-seven rounds"],["Premier","Build a team and compete in divisions"],["Retake (3v3)","Retake a site from a planted Spike"]]],
+      ["gCasual",[["Team Deathmatch","5v5, race to 100 kills"],["Deathmatch","Warm up and sharpen your aim together"],["Escalation","Gun-game mode, 12 weapons as a team"],["Replication","Everyone on your team plays the same Agent"]]],
+      ["gLimited",[["Limited-Time Modes","Knockout, Skirmish, Gauntlet and more"],["Custom Games","Scrims, 10-mans and private matches"]]]]},
+  rov:{ name:"RoV", color:"c-blue", blurb:["5v5 mobile MOBA","MOBA มือถือ 5v5","5v5 手机 MOBA","5v5 モバイルMOBA"],
+    ranks:["Unranked","Bronze","Silver","Gold","Platinum","Diamond","Commander","Conqueror"], roles:["Dark Slayer lane","Jungle","Mid lane","Abyssal Dragon lane","Roam / Support"],
+    groups:[["gMain",[["Ranked Match","Climb the ladder together in 5v5"],["Normal Match (Grand Battle)","Classic 5v5 without rank pressure"]]],
+      ["gCasual2",[["Abyssal Clash","5v5 single-lane with random heroes"],["Valley Skirmish (3v3)","Shorter, faster team fights"],["Solo Battle (1v1)","Find a sparring partner to practice with"]]],
+      ["gArcade",[["Arcade Modes","Hook Wars, Football Fever and other rotating modes"],["Custom Room","Scrims, practice matches and tournaments"]]]]},
+  roblox:{ name:"Roblox", color:"c-mustard", blurb:["Pick an experience, bring friends","เลือกแมพ แล้วชวนเพื่อนมาเล่น","选个体验，叫上朋友","ゲームを選んで仲間と遊ぼう"], ranks:[], roles:[],
+    groups:[["gPopular",[["Steal An Egg",""],["Murder Mystery 2",""],["Brookhaven RP",""],["Blox Fruits",""],["Throw Food For Animals",""],["Adopt Me!",""],["99 Nights in the Forest",""],["RIVALS",""],["Steal a Brainrot",""],["Anime Adventures",""]]]]}
+};
+const SIZES = [2,3,4,5];
+const VIBES = ["Chill","Tryhard","Mic on","No mic","Shotcaller","Quiet","Funny","Patient with new players","No toxicity"];
+const TIMES = ["Weekday mornings","Weekday afternoons","Weekday evenings","Late night","Weekends"];
+const MBTI = ["INTJ","INTP","ENTJ","ENTP","INFJ","INFP","ENFJ","ENFP","ISTJ","ISFJ","ESTJ","ESFJ","ISTP","ISFP","ESTP","ESFP","Not sure"];
+const GENDERS = ["Male","Female","Non-binary","Prefer not to say"];
+const SERIOUS = ["Just for fun","Casual","Balanced","Competitive","Climbing hard"];
+const DEVICES = ["PC","Mobile","Tablet","Console"];
+const ROOMS = [
+  {id:"r1",game:"valorant",mode:"Competitive (Ranked)",title:"Gold lobby needs a Controller",host:"mintchoco",size:5,members:[["mintchoco","Duelist"],["PloyFPS","Sentinel"],["benz_x","Initiator"],["Krit07","Duelist"]],rank:"Gold to Platinum",tags:["Mic on","Tryhard"],note:"Playing until midnight. Comms in Thai, calm calls only."},
+  {id:"r2",game:"valorant",mode:"Unrated",title:"Chill unrated after work",host:"NamTan",size:3,members:[["NamTan","Flex"]],rank:"Any rank",tags:["Chill","No toxicity"],note:"New players welcome. We laugh at our own whiffs."},
+  {id:"r3",game:"valorant",mode:"Premier",title:"Premier roster, weekend matches",host:"OatSensei",size:5,members:[["OatSensei","Initiator"],["jjaySmoke","Controller"],["Fah","Sentinel"]],rank:"Diamond and up",tags:["Mic on","Shotcaller"],note:"Looking for two duelists who can commit to Sat and Sun 8pm."},
+  {id:"r4",game:"valorant",mode:"Team Deathmatch",title:"Warm-up TDM, then ranked",host:"Pim",size:5,members:[["Pim","Duelist"],["tontan","Flex"],["Earth_","Flex"],["QQmew","Flex"],["Bossk","Flex"]],rank:"Any rank",tags:["Chill"],note:""},
+  {id:"r5",game:"rov",mode:"Ranked Match",title:"Need a jungler for Diamond push",host:"Gun_RoV",size:5,members:[["Gun_RoV","Mid lane"],["mookky","Roam / Support"],["TeeTime","Abyssal Dragon lane"]],rank:"Diamond",tags:["Mic on","Tryhard"],note:"Three games minimum. No blaming."},
+  {id:"r6",game:"rov",mode:"Abyssal Clash",title:"Abyssal Clash for fun",host:"Bam",size:5,members:[["Bam","Any"],["ice.th","Any"]],rank:"Any rank",tags:["Chill","Funny"],note:"Random heroes, no stress."},
+  {id:"r7",game:"rov",mode:"Normal Match (Grand Battle)",title:"Duo to practice Dark Slayer lane",host:"Praew",size:2,members:[["Praew","Dark Slayer lane"]],rank:"Gold to Platinum",tags:["Patient with new players"],note:"I'm learning the lane, looking for a roam who can teach."},
+  {id:"r8",game:"roblox",mode:"Brookhaven RP",title:"Brookhaven roleplay town",host:"Sky_Ro",size:6,members:[["Sky_Ro",""],["minnie22",""],["Poon",""]],rank:"",tags:["Chill","No mic"],note:"Family roleplay, text chat only."},
+  {id:"r9",game:"roblox",mode:"99 Nights in the Forest",title:"99 Nights, full run",host:"Dew",size:4,members:[["Dew",""],["Ohm_",""]],rank:"",tags:["Mic on","Funny"],note:"Trying to survive all 99 nights tonight."},
+  {id:"r10",game:"roblox",mode:"Murder Mystery 2",title:"MM2 private server",host:"Kaning",size:6,members:[["Kaning",""],["Tar",""],["pp.pond",""],["Mai",""],["June",""]],rank:"",tags:["Chill"],note:"One seat left."}
+];
+const AV_COLORS = ["#345E8F","#EF7A5E","#E2B04A","#8DAA8B","#7A6A62","#B86B8C"];
+// profile blocks: id, default width (grid columns out of 4), allowed widths
+const WIDGETS = [["main",2,[2,4]],["about",1,[1,2]],["times",1,[1,2]],["pc",2,[2,4]],["gear",2,[2,4]],["games",2,[2,4]],["settings",1,[1,2]],["contact",1,[1,2]]];
+const W_TITLE = {main:"bMain",about:"bAbout",times:"bTimes",pc:"bPc",gear:"bGear",games:"bGames",settings:"bSettings",contact:"bContact"};
+
+/* ---------- state ---------- */
+const navLang = (navigator.language||"en").slice(0,2);
+const S = {
+  lang: lsGet("gz.lang") || (LI[navLang]!=null?navLang:"en"),
+  booting:true, me:null, viewing:null, viewKey:"", stories:{}, arranging:false,
+  dialog:null, menu:false, setupStep:1, roomFilter:"all",
+  pick:{valorant:{mode:"Unrated",size:2},rov:{mode:"Ranked Match",size:2},roblox:{mode:"Steal An Egg",size:2}},
+  customRoblox: (()=>{ try{ return JSON.parse(lsGet("gz.robloxCustom"))||[]; }catch(e){ return []; } })()
+};
+const isReady = p => !!(p && p.avatar && p.display_name && Number(p.age)>=13 && p.playing.length);
+function percent(p){
+  const g = Object.values(p.games||{}), gear = p.gear||{};
+  const c = [!!p.avatar,!!p.display_name,Number(p.age)>=13,p.playing.length>0,!!p.mbti,!!p.gender,p.vibes.length>0,p.times.length>0,!!p.bio,
+    g.some(x=>x&&(x.rank||x.ign)), Object.values(gear.pc||{}).some(Boolean), Object.values(gear.kit||{}).some(Boolean), !!(p.contacts&&(p.contacts.discord||p.contacts.line))];
+  return Math.round(c.filter(Boolean).length/c.length*100);
+}
+function layoutOf(p){
+  const saved = Array.isArray(p.layout)?p.layout:[], out = [];
+  saved.forEach(x=>{ const def = WIDGETS.find(w=>w[0]===x.id); if(def && !out.some(o=>o.id===x.id)) out.push({id:x.id,w:def[2].includes(x.w)?x.w:def[1],hide:!!x.hide}); });
+  WIDGETS.forEach(w=>{ if(!out.some(o=>o.id===w[0])) out.push({id:w[0],w:w[1],hide:false}); });
+  return out;
+}
+
+/* ---------- helpers ---------- */
+const $ = s => document.querySelector(s);
+const esc = s => String(s==null?"":s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const ROUTES = ["home","valorant","rov","roblox","rooms","setup","profile"];
+function route(){ const h = decodeURIComponent(location.hash.replace("#","")); if(/^u-[A-Za-z0-9_]{3,16}$/.test(h)) return "user"; return ROUTES.includes(h)?h:"home"; }
+function go(r){ if(location.hash.replace("#","")===r){ render(); window.scrollTo(0,0); } else location.hash = r; }
+let toastT; function toast(msg){ const el=$("#toast"); el.textContent=msg; el.classList.add("show"); clearTimeout(toastT); toastT=setTimeout(()=>el.classList.remove("show"),2000); }
+function presetSVG(i){ const c = AV_COLORS[i%AV_COLORS.length]; const m = ['<rect x="22" y="40" width="20" height="5"/>','<rect x="22" y="40" width="20" height="5"/><rect x="18" y="36" width="5" height="5"/><rect x="41" y="36" width="5" height="5"/>','<rect x="26" y="39" width="12" height="8"/>'];
+  return `<svg viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" fill="${c}"/><g fill="#3B2F2F"><rect x="18" y="22" width="8" height="8"/><rect x="38" y="22" width="8" height="8"/>${m[i%3]}</g></svg>`; }
+function avatar(p,size){ const s = `style="--s:${size||40}px"`;
+  if(p && p.avatar && p.avatar.startsWith("preset:")) return `<span class="av" ${s}>${presetSVG(+p.avatar.slice(7)||0)}</span>`;
+  if(p && p.avatar) return `<span class="av" ${s}><img src="${esc(mediaURL(p.avatar))}" alt=""></span>`;
+  return `<span class="av" ${s}><svg viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" fill="#345E8F"/><circle cx="32" cy="25" r="9" fill="none" stroke="#3B2F2F" stroke-width="4"/><path d="M14 54c2-12 10-17 18-17s16 5 18 17" fill="none" stroke="#3B2F2F" stroke-width="4" stroke-linecap="round"/></svg></span>`; }
+function nameAvatar(name,size){ let h=0; for(const ch of name) h=(h*31+ch.charCodeAt(0))>>>0; return `<span class="av" style="--s:${size||32}px">${presetSVG(h%6)}</span>`; }
+function roomMembers(r){ const m = r.members.map(x=>({name:x[0],role:x[1]})); if(S.me && S.me.joined.includes(r.id)) m.push({name:S.me.display_name,role:"",you:true}); return m; }
+const uid = () => (crypto.randomUUID ? crypto.randomUUID() : Date.now().toString(36)+Math.random().toString(36).slice(2));
+function resizeImage(file,max,square){ return new Promise((res,rej)=>{ const fr = new FileReader(); fr.onerror = rej;
+  fr.onload = () => { const img = new Image(); img.onerror = rej; img.onload = () => {
+    const c = document.createElement("canvas"); let sx=0,sy=0,sw=img.width,sh=img.height;
+    if(square){ const s=Math.min(sw,sh); sx=(sw-s)/2; sy=(sh-s)/2; sw=sh=s; c.width=c.height=Math.min(max,s); }
+    else { const k=Math.min(1,max/Math.max(sw,sh)); c.width=Math.round(sw*k); c.height=Math.round(sh*k); }
+    c.getContext("2d").drawImage(img,sx,sy,sw,sh,0,0,c.width,c.height); c.toBlob(b=>b?res(b):rej(new Error("blob")),"image/jpeg",.85); };
+    img.src = fr.result; }; fr.readAsDataURL(file); }); }
+function ago(ts){ const m = Math.max(1,Math.round((Date.now()-new Date(ts))/60000)); return m<60 ? m+"m" : m<1440 ? Math.round(m/60)+"h" : Math.round(m/1440)+"d"; }
+
+/* ---------- data ---------- */
+async function loadMe(){
+  const { data:{ session } } = await sb.auth.getSession();
+  if(!session){ S.me=null; return; }
+  const [{data:p},{data:c}] = await Promise.all([sb.from("profiles").select("*").eq("id",session.user.id).maybeSingle(), sb.from("profile_contacts").select("*").eq("id",session.user.id).maybeSingle()]);
+  S.me = p ? {...p, contacts: c || {discord:"",line:"",show:"friends"}} : null;
+  if(S.me) loadStories(S.me.id,true);
+}
+async function saveProfile(patch,quiet){
+  Object.assign(S.me,patch);
+  const { error } = await sb.from("profiles").update({...patch,updated_at:new Date().toISOString()}).eq("id",S.me.id);
+  if(error) toast(t("tFail")); else if(!quiet) toast(t("saved"));
+  return !error;
+}
+async function loadStories(userId,own){
+  const { data } = await sb.from("stories").select("*").eq("user_id",userId).order("created_at",{ascending:true});
+  let rows = data || [];
+  if(own){ const dead = rows.filter(s=>!s.highlight && Date.now()-new Date(s.created_at)>864e5);
+    if(dead.length){ rows = rows.filter(s=>!dead.includes(s)); sb.storage.from("media").remove(dead.map(s=>s.path)); sb.from("stories").delete().in("id",dead.map(s=>s.id)).then(()=>{}); } }
+  S.stories[userId] = rows;
+  if(["profile","user"].includes(route()) && !S.dialog && !drag) render();
+}
+const activeStories = id => (S.stories[id]||[]).filter(s=>Date.now()-new Date(s.created_at)<864e5);
+function highlights(id){ const m = new Map(); (S.stories[id]||[]).forEach(s=>{ if(s.highlight){ if(!m.has(s.highlight)) m.set(s.highlight,[]); m.get(s.highlight).push(s); } }); return [...m.entries()]; }
+async function loadViewing(name){
+  S.viewKey = name; S.viewing = undefined;
+  const { data:p } = await sb.from("profiles").select("*").ilike("username",name.replace(/_/g,"\\_")).maybeSingle();
+  if(S.viewKey!==name) return;
+  if(p){ const { data:c } = await sb.from("profile_contacts").select("*").eq("id",p.id).maybeSingle(); S.viewing = {...p,contacts:c||null}; loadStories(p.id,false); }
+  else S.viewing = null;
+  render();
+}
+
+/* ---------- gate ---------- */
+function gate(what,then){
+  if(!S.me){ S.dialog={type:"gate",what}; return renderDialog(); }
+  if(!isReady(S.me)){ S.dialog={type:"finish",what}; return renderDialog(); }
+  then();
+}
+
+/* ---------- views ---------- */
+function navHTML(){
+  const u = S.me, r = route();
+  const link = (id,label) => `<button data-go="${id}" ${r===id?'aria-current="page"':""}>${label}</button>`;
+  return `<button class="logo" data-go="home">GameZone</button>
+  <nav class="nav-links" aria-label="Main">${link("valorant","Valorant")}${link("rov","RoV")}${link("roblox","Roblox")}${link("rooms",t("rooms"))}</nav>
+  <div class="nav-right">${u
+    ? `<button class="me-btn" data-act="menu" aria-haspopup="true" aria-expanded="${S.menu}"><span>${esc(u.display_name)}</span>${avatar(u,38)}</button>
+       ${S.menu?`<div class="menu"><button data-go="profile">${t("yourProfile")}</button><button data-go="rooms">${t("openRooms")}</button><button data-act="logout">${t("logout")}</button></div>`:""}`
+    : `<button class="btn small" data-act="auth" data-tab="login">${t("login")}</button><button class="me-btn" data-act="auth" data-tab="signup" aria-label="${t("signup")}">${avatar(null,38)}</button>`}
+  </div>`;
+}
+function roomCard(r){
+  const m = roomMembers(r), full = m.length>=r.size, mine = m.some(x=>x.you);
+  return `<button class="card room" data-act="room" data-id="${r.id}">
+    <div class="room-top"><div><span class="mono">${GAMES[r.game].name} · ${esc(r.mode)}</span><h3>${esc(r.title)}</h3></div>
+    <span class="tag ${mine?"you":full?"full":"open"}">${mine?t("youIn"):full?t("full"):t("open")}</span></div>
+    <div class="chips">${r.rank?`<span class="tag">${esc(r.rank)}</span>`:""}${r.tags.map(x=>`<span class="tag">${esc(tl(x))}</span>`).join("")}</div>
+    <div class="room-foot"><span class="muted">${t("host")} ${esc(r.host)}</span>
+    <span class="slots" aria-label="${t("nOf",{a:m.length,b:r.size})}">${Array.from({length:r.size},(_,i)=>`<i class="slot ${i<m.length?(m[i].you?"me":"on"):""}"></i>`).join("")}</span></div>
+  </button>`;
+}
+const chipSet = (group,opts,sel,act) => `<div class="chips" data-group="${group}">${opts.map(o=>`<button type="button" class="chip" data-act="${act||"chip"}" data-group="${group}" data-val="${esc(o)}" aria-pressed="${sel.includes(o)}">${esc(GAMES[o]?GAMES[o].name:tl(o))}</button>`).join("")}</div>`;
+const sel = (id,opts,val,blank) => `<select class="inp" id="${id}"><option value="">${blank}</option>${opts.map(o=>`<option value="${esc(o)}" ${val===o?"selected":""}>${esc(GAMES[o]?GAMES[o].name:tl(o))}</option>`).join("")}</select>`;
+function avatarPicker(p){
+  return `<div><p class="mono" style="margin-bottom:8px">${t("pic")}</p><div class="avatar-pick">
+    ${p.avatar && !p.avatar.startsWith("preset:")?`<button type="button" aria-pressed="true">${avatar(p,52)}</button>`:""}
+    ${AV_COLORS.map((_,i)=>`<button type="button" data-act="preset" data-i="${i}" aria-pressed="${p.avatar==="preset:"+i}" aria-label="Avatar ${i+1}"><span class="av" style="--s:52px">${presetSVG(i)}</span></button>`).join("")}
+    <label class="btn small" for="av-file">${t("upload")}</label></div></div>`;
+}
+const views = {
+  home(){
+    const u = S.me;
+    const second = !u ? `<button class="btn blue mid" data-act="auth" data-tab="signup">${t("createCta")}</button>`
+      : !isReady(u) ? `<button class="btn blue mid" data-go="setup">${t("finishCta")}</button>` : `<button class="btn blue mid" data-go="profile">${t("viewCta")}</button>`;
+    return `<section class="hero"><span class="mono">${t("eyebrow")}</span><h1>${t("h1a")}<br><em>${t("h1b")}</em></h1><p>${t("heroSub")}</p>
+      <div class="hero-cta"><button class="btn coral big" data-act="scroll-games">${t("find")}</button>${second}</div></section>
+    <section class="block" id="games-block"><div class="head"><h2>${t("pick")}</h2><span class="mono">${t("moreGames")}</span></div>
+      <div class="grid g3">${Object.entries(GAMES).map(([id,g])=>`<button class="tile" data-go="${id}"><div class="band ${g.color}"><h3>${g.name}</h3></div><div class="body"><span>${g.blurb[LI[S.lang]]}</span><span class="mono">${t("nRooms",{n:ROOMS.filter(r=>r.game===id).length})}</span></div></button>`).join("")}</div></section>
+    <section class="block"><div class="head"><h2>${t("openRooms")}</h2><button class="btn small" data-go="rooms">${t("seeAll")}</button></div>
+      <div class="grid g2">${ROOMS.filter(r=>r.members.length<r.size).slice(0,4).map(roomCard).join("")}</div></section>`;
+  },
+  game(id){
+    const g = GAMES[id], pick = S.pick[id], groups = g.groups.slice();
+    if(id==="roblox" && S.customRoblox.length) groups.push(["gAdded",S.customRoblox.map(n=>[n,""])]);
+    const rooms = ROOMS.filter(r=>r.game===id);
+    return `<div class="game-hero"><button class="back" data-go="home">${t("allGames")}</button><h1 style="font-family:var(--font-display);font-weight:400">${g.name}</h1><p class="muted">${t(id==="roblox"?"chooseExp":"chooseMode")} ${t("browseNote")}</p></div>
+    <section class="block">
+      ${groups.map(([label,modes])=>`<p class="mono group-label">${t(label)}</p><div class="modes">${modes.map(([n,d])=>
+        `<button class="mode" data-act="mode" data-game="${id}" data-mode="${esc(n)}" aria-pressed="${pick.mode===n}"><b>${t("findFor",{x:esc(n)})}</b>${d&&S.lang==="en"?`<span>${esc(d)}</span>`:""}</button>`).join("")}</div>`).join("")}
+      ${id==="roblox"?`<p class="mono group-label">${t("cant")}</p>
+        <form class="card" data-form="add-roblox" style="display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end">
+          <label class="f" style="flex:1;min-width:220px">${t("addExp")}<input class="inp" id="rbx-name" maxlength="40" placeholder="${t("addPh")}" autocomplete="off"></label>
+          <button class="btn" type="submit">${t("add")}</button></form>`:""}
+      <p class="mono group-label">${t("howMany")}</p>
+      <div class="chips">${SIZES.map(n=>`<button class="chip" data-act="size" data-game="${id}" data-size="${n}" aria-pressed="${pick.size===n}">${t("s"+n)}</button>`).join("")}</div>
+      <div class="card pop queue"><div><span class="mono">${t("yourPick")}</span><div><b>${esc(pick.mode)}</b> · ${t("s"+pick.size)}</div></div>
+        <button class="btn coral mid" data-act="match" data-game="${id}">${t("quick")}</button></div>
+    </section>
+    <section class="block"><div class="head"><h2>${t("gRooms",{g:g.name})}</h2></div><div class="grid g2">${rooms.map(roomCard).join("")}</div></section>`;
+  },
+  valorant(){ return views.game("valorant"); }, rov(){ return views.game("rov"); }, roblox(){ return views.game("roblox"); },
+  rooms(){
+    const list = ROOMS.filter(r=>S.roomFilter==="all"||r.game===S.roomFilter);
+    return `<div class="game-hero"><h1>${t("rooms")}</h1><p class="muted">${t("roomsSub")}</p></div>
+    <section class="block"><div class="chips" style="margin-bottom:16px">${[["all",t("allG")],...Object.entries(GAMES).map(([k,g])=>[k,g.name])].map(([k,l])=>
+      `<button class="chip" data-act="filter" data-val="${k}" aria-pressed="${S.roomFilter===k}">${l}</button>`).join("")}</div><div class="grid g2">${list.map(roomCard).join("")}</div></section>`;
+  },
+  setup(){
+    if(S.booting) return views.loading(); const p = S.me; if(!p) return views.needLogin();
+    const st = S.setupStep;
+    const body = st===1 ? `<h2>${t("who")}</h2><p class="muted">${t("whoSub")}</p>${avatarPicker(p)}
+        <div class="row"><label class="f">${t("dname")}<input class="inp" id="su-name" data-pf="display_name" maxlength="24" value="${esc(p.display_name)}"></label>
+        <label class="f">${t("age")} <span class="hint">${t("ageHint")}</span><input class="inp" id="su-age" data-pf="age" type="number" min="13" max="99" inputmode="numeric" value="${esc(p.age)}"></label></div>`
+      : st===2 ? `<h2>${t("what")}</h2><p class="muted">${t("whatSub")}</p>${chipSet("playing",Object.keys(GAMES),p.playing,"pf-toggle")}
+        ${p.playing.length?`<div><p class="mono" style="margin-bottom:4px">${t("mainGame")}</p><p class="hint" style="margin-bottom:8px">${t("mainHint")}</p>${chipSet("main_game",p.playing,[p.main_game],"pf-pick")}</div>`:""}`
+      : `<h2>${t("more3")}</h2><p class="muted">${t("more3Sub")}</p>
+        <div class="row"><label class="f">${t("mbti")}${sel("su-mbti",MBTI,p.mbti,t("skip")).replace('id=','data-pf="mbti" id=')}</label>
+        <label class="f">${t("gender")}${sel("su-gender",GENDERS,p.gender,t("skip")).replace('id=','data-pf="gender" id=')}</label></div>
+        <div><p class="mono" style="margin-bottom:8px">${t("vibe")}</p>${chipSet("vibes",VIBES,p.vibes,"pf-toggle")}</div>
+        <div><p class="mono" style="margin-bottom:8px">${t("when")}</p>${chipSet("times",TIMES,p.times,"pf-toggle")}</div>`;
+    return `<div class="setup"><div class="steps"><i class="on"></i><i class="${st>1?"on":""}"></i><i class="${st>2?"on":""}"></i><span class="mono" style="margin-left:6px">${t("step",{n:st})}</span></div>
+      <div class="card pop" style="display:flex;flex-direction:column;gap:16px">${body}<p class="err" id="su-err" role="alert"></p>
+      <div class="dialog-actions">${st>1?`<button class="btn ghost" data-act="setup-back">${t("back")}</button>`:""}<button class="btn coral" data-act="setup-next">${st<3?t("next"):t("finish")}</button></div></div></div>`;
+  },
+  profile(){ if(S.booting) return views.loading(); if(!S.me) return views.needLogin(); return profileHTML(S.me,true); },
+  user(){
+    const name = decodeURIComponent(location.hash.slice(3));
+    if(S.me && S.me.username.toLowerCase()===name.toLowerCase()) return profileHTML(S.me,true);
+    if(S.viewKey.toLowerCase()!==name.toLowerCase()){ loadViewing(name); return views.loading(); }
+    if(S.viewing===undefined) return views.loading();
+    if(!S.viewing) return `<div class="setup"><div class="card pop"><h2>${t("notFound")}</h2></div></div>`;
+    return profileHTML(S.viewing,false);
+  },
+  loading(){ return `<div class="setup"><p class="mono">${t("loading")}</p></div>`; },
+  needLogin(){ return `<div class="setup"><div class="card pop" style="display:flex;flex-direction:column;gap:12px;align-items:flex-start"><h2>${t("needLogin")}</h2><p class="muted">${t("needLoginSub")}</p><div class="chips"><button class="btn coral" data-act="auth" data-tab="signup">${t("createBtn")}</button><button class="btn" data-act="auth" data-tab="login">${t("login")}</button></div></div></div>`; }
+};
+
+/* ---------- profile ---------- */
+const kv = rows => { const r = rows.filter(x=>x[1]); return r.length ? `<dl class="kv">${r.map(([k,v])=>`<dt>${k}</dt><dd>${esc(v)}</dd>`).join("")}</dl>` : `<p class="muted">${t("empty")}</p>`; };
+function widgetBody(id,p,own){
+  const gear = p.gear||{}, pc = gear.pc||{}, kit = gear.kit||{}, set = gear.settings||{};
+  if(id==="main"){ const k = p.main_game && GAMES[p.main_game] ? p.main_game : ""; if(!k) return `<p class="muted">${t("empty")}</p>`; const d = (p.games||{})[k]||{};
+    return `<div class="band main-band ${GAMES[k].color}"><h3>${GAMES[k].name}</h3></div>${kv([[t("ign"),d.ign],[t("rank"),d.rank],[t("roles"),(d.roles||[]).join(", ")],[t("serious"),d.serious&&tl(d.serious)],[t("favs"),d.favs]])}`; }
+  if(id==="games"){ const list = p.playing.filter(k=>k!==p.main_game && GAMES[k]); if(!list.length) return `<p class="muted">${t("empty")}</p>`;
+    return `<div>${list.map(k=>{ const d=(p.games||{})[k]||{}; const inner = `<span><b>${GAMES[k].name}</b>${d.ign?` <span class="muted">${esc(d.ign)}</span>`:""}</span><span class="chips">${d.rank?`<span class="tag">${esc(d.rank)}</span>`:""}${(d.roles||[]).slice(0,2).map(r=>`<span class="tag">${esc(r)}</span>`).join("")}</span>`;
+      return own?`<button class="g-row" data-act="edit" data-what="game" data-game="${k}">${inner}</button>`:`<div class="g-row">${inner}</div>`; }).join("")}</div>`; }
+  if(id==="about"){ const tags = [p.age&&t("age")+" "+p.age,p.gender&&tl(p.gender),p.mbti&&p.mbti!=="Not sure"&&p.mbti,...p.vibes.map(tl)].filter(Boolean);
+    return tags.length?`<div class="chips">${tags.map(x=>`<span class="tag">${esc(x)}</span>`).join("")}</div>`:`<p class="muted">${t("empty")}</p>`; }
+  if(id==="times") return p.times.length?`<div class="chips">${p.times.map(x=>`<span class="tag">${esc(tl(x))}</span>`).join("")}</div>`:`<p class="muted">${t("empty")}</p>`;
+  if(id==="pc") return kv([[t("cpu"),pc.cpu],[t("gpu"),pc.gpu],[t("ram"),pc.ram],[t("monitor"),pc.monitor],[t("storage"),pc.storage]]);
+  if(id==="gear") return kv([[t("device"),kit.device&&tl(kit.device)],[t("mouse"),kit.mouse],[t("keyboard"),kit.keyboard],[t("headset"),kit.headset],[t("mousepad"),kit.mousepad],[t("mic"),kit.mic]]);
+  if(id==="settings") return kv([[t("dpi"),set.dpi],[t("sens"),set.sens],[t("res"),set.res],[t("cross"),set.cross],[t("notes"),set.notes]]);
+  if(id==="contact"){ const c = p.contacts; if(!c || (!own && c.show!=="everyone")) return `<p class="muted">${t("cHidden")}</p>`; return kv([[t("discord"),c.discord],[t("line"),c.line]]); }
+  return "";
+}
+function profileHTML(p,own){
+  const act = activeStories(p.id), hls = highlights(p.id), lay = layoutOf(p), shown = lay.filter(x=>!x.hide), hidden = lay.filter(x=>x.hide);
+  const editWhat = id => id==="main" ? (p.main_game?`data-what="game" data-game="${p.main_game}"`:`data-what="games"`) : `data-what="${id}"`;
+  return `<div class="${own?"own":""} ${own&&S.arranging?"arranging":""}" id="pf-root">
+    ${own&&!isReady(p)?`<div class="banner"><span>${t("almost")}</span><button class="btn small" data-go="setup">${t("setupBtn")}</button></div>`:""}
+    <div class="ph">
+      <button class="ring ${act.length?"has":""}" data-act="${act.length?"view-active":own?"add-story":"none"}" data-uid="${p.id}" aria-label="${t("stStories")}">${avatar(p,132)}</button>
+      <div class="ph-info">
+        <div class="ph-top"><h1>${esc(p.display_name)}</h1>
+          ${own?`<button class="btn small" data-act="edit" data-what="basic">${t("edit")}</button><button class="btn small" data-act="edit" data-what="games">${t("yourGames")}</button><button class="btn small" data-act="arrange">${t("arrange")}</button>`:""}
+          <button class="btn small ghost" data-act="share" data-name="${esc(p.username)}">${t("share")}</button></div>
+        <div class="stats"><span><b>${(S.stories[p.id]||[]).length}</b> ${t("stStories")}</span><span><b>${p.playing.length}</b> ${t("stGames")}</span>${own?`<span><b>${percent(p)}%</b> ${t("stDone")}</span>`:""}</div>
+        <div><span class="mono">@${esc(p.username)}</span>${p.main_game&&GAMES[p.main_game]?` <span class="tag ${GAMES[p.main_game].color}" style="font-weight:600">${GAMES[p.main_game].name}</span>`:""}</div>
+        ${p.bio?`<p style="max-width:60ch;white-space:pre-wrap">${esc(p.bio)}</p>`:""}
+      </div>
+    </div>
+    <div class="hls">
+      ${own?`<button class="hl" data-act="add-story"><span class="c">+</span><span class="n">${t("newS")}</span></button>`:""}
+      ${hls.map(([name,list])=>`<button class="hl" data-act="view-hl" data-uid="${p.id}" data-name="${esc(name)}"><span class="c"><img src="${esc(mediaURL(list[0].path))}" alt=""></span><span class="n">${esc(name)}</span></button>`).join("")}
+      ${!own&&!hls.length?`<span class="muted" style="align-self:center">${t("empty")}</span>`:""}
+    </div>
+    ${own?`<div class="arrbar"><span>${t("arrHint")}</span><div class="hidden-list">${hidden.length?`<span class="mono">${t("hiddenB")}</span>`+hidden.map(x=>`<button class="chip" data-act="w-show" data-wid="${x.id}">+ ${t(W_TITLE[x.id])}</button>`).join(""):""}<button class="btn small" data-act="arrange-done">${t("done")}</button></div></div>`:""}
+    <div class="wgrid" id="wgrid">${shown.map(x=>`<div class="widget w${x.w}" data-wid="${x.id}">
+      <div class="w-head"><span class="mono">${t(W_TITLE[x.id])}</span>${own?`<div class="w-tools"><button class="icon edit-only" data-act="edit" ${editWhat(x.id)} aria-label="${t("edit")}">✎</button><button class="icon arr-only" data-act="w-size" data-wid="${x.id}" aria-label="Resize">↔</button><button class="icon arr-only" data-act="w-hide" data-wid="${x.id}" aria-label="Hide">✕</button></div>`:""}</div>
+      ${widgetBody(x.id,p,own)}</div>`).join("")}</div>
+    ${own?`<p class="muted" style="padding-bottom:8px">${t("holdHint")}</p>`:""}
+  </div>`;
+}
+
+/* ---------- dialogs ---------- */
+const inp = (id,label,val,max) => `<label class="f">${label}<input class="inp" id="${id}" maxlength="${max||60}" value="${esc(val)}"></label>`;
+function editForm(d){
+  const p = S.me, gear = p.gear||{}, pc = gear.pc||{}, kit = gear.kit||{}, set = gear.settings||{};
+  if(d.what==="basic") return [t("edit"),`${avatarPicker(p)}<div class="row">${inp("e-name",t("dname"),p.display_name,24)}<label class="f">${t("age")}<input class="inp" id="e-age" type="number" min="13" max="99" value="${esc(p.age)}"></label></div>
+    <div class="row"><label class="f">${t("mbti")}${sel("e-mbti",MBTI,p.mbti,t("notSet"))}</label><label class="f">${t("gender")}${sel("e-gender",GENDERS,p.gender,t("notSet"))}</label></div>
+    <label class="f">${t("bio")}<textarea class="inp" id="e-bio" maxlength="200" placeholder="${t("bioPh")}">${esc(p.bio)}</textarea></label>`];
+  if(d.what==="games") return [t("yourGames"),`${chipSet("playing",Object.keys(GAMES),p.playing)}<label class="f">${t("mainGame")} <span class="hint">${t("mainHint")}</span>${sel("e-main",Object.keys(GAMES),p.main_game,t("notSet"))}</label>`];
+  if(d.what==="game"){ const g = GAMES[d.game], x = (p.games||{})[d.game]||{};
+    return [g.name,`<div class="row">${inp("e-ign",t("ign"),x.ign,40)}${g.ranks.length?`<label class="f">${t("rank")}${sel("e-rank",g.ranks,x.rank,t("notSet"))}</label>`:""}<label class="f">${t("serious")}${sel("e-serious",SERIOUS,x.serious,t("notSet"))}</label></div>
+    ${g.roles.length?`<div><p class="mono" style="margin-bottom:8px">${t("roles")}</p>${chipSet("roles",g.roles,x.roles||[])}</div>`:""}${inp("e-favs",t("favs"),x.favs,80)}`]; }
+  if(d.what==="about") return [t("bAbout"),`<p class="mono">${t("vibe")}</p>${chipSet("vibes",VIBES,p.vibes)}`];
+  if(d.what==="times") return [t("bTimes"),chipSet("times",TIMES,p.times)];
+  if(d.what==="pc") return [t("bPc"),`<div class="row">${inp("e-cpu",t("cpu"),pc.cpu)}${inp("e-gpu",t("gpu"),pc.gpu)}${inp("e-ram",t("ram"),pc.ram,30)}${inp("e-monitor",t("monitor"),pc.monitor)}${inp("e-storage",t("storage"),pc.storage)}</div>`];
+  if(d.what==="gear") return [t("bGear"),`<div class="row"><label class="f">${t("device")}${sel("e-device",DEVICES,kit.device,t("notSet"))}</label>${inp("e-mouse",t("mouse"),kit.mouse)}${inp("e-keyboard",t("keyboard"),kit.keyboard)}${inp("e-headset",t("headset"),kit.headset)}${inp("e-mousepad",t("mousepad"),kit.mousepad)}${inp("e-mic",t("mic"),kit.mic)}</div>`];
+  if(d.what==="settings") return [t("bSettings"),`<div class="row">${inp("e-dpi",t("dpi"),set.dpi,10)}${inp("e-sens",t("sens"),set.sens,20)}${inp("e-res",t("res"),set.res,30)}</div>${inp("e-cross",t("cross"),set.cross,120)}<label class="f">${t("notes")}<textarea class="inp" id="e-notes" maxlength="200">${esc(set.notes)}</textarea></label>`];
+  if(d.what==="contact"){ const c = p.contacts; return [t("bContact"),`<div class="row">${inp("e-discord",t("discord"),c.discord,40)}${inp("e-line",t("line"),c.line,40)}</div><label class="f">${t("whoSee")}<select class="inp" id="e-show">${[["friends","cFriends"],["everyone","cEveryone"],["hidden","cHidden"]].map(([v,k])=>`<option value="${v}" ${c.show===v?"selected":""}>${t(k)}</option>`).join("")}</select></label>`]; }
+  return ["",""];
+}
+let viewTimer;
+function renderDialog(){
+  const root = $("#dialog-root"), d = S.dialog; clearTimeout(viewTimer);
+  if(!d){ root.innerHTML=""; return; }
+  let inner = "";
+  const wrap = (title,body,cls) => `<div class="dialog ${cls||""}" role="dialog" aria-modal="true" aria-labelledby="dlg-t"><h2 id="dlg-t">${title}</h2>${body}</div>`;
+  if(d.type==="auth"){ const su = d.tab==="signup";
+    inner = wrap(su?t("createTitle"):t("welcome"),`<div class="tabs" role="tablist"><button role="tab" aria-selected="${su}" data-act="auth" data-tab="signup">${t("signup")}</button><button role="tab" aria-selected="${!su}" data-act="auth" data-tab="login">${t("login")}</button></div>
+      <form data-form="${su?"signup":"login"}" novalidate>
+        <label class="f">${t("username")}${su?` <span class="hint">${t("userHint")}</span>`:""}<input class="inp" id="au-user" autocomplete="username" maxlength="16" autocapitalize="off" spellcheck="false"></label>
+        <label class="f">${t("password")}${su?` <span class="hint">${t("passHint")}</span>`:""}<input class="inp" id="au-pass" type="password" maxlength="72" autocomplete="${su?"new-password":"current-password"}"></label>
+        ${su?`<label class="f">${t("confirm")}<input class="inp" id="au-pass2" type="password" maxlength="72" autocomplete="new-password"></label>`:""}
+        <label class="check"><input type="checkbox" id="au-remember" checked> ${t("remember")}</label>
+        <p class="err" id="au-err" role="alert"></p>
+        <div class="dialog-actions"><button class="btn ghost" type="button" data-act="close">${t("cancel")}</button><button class="btn coral" type="submit" id="au-go">${su?t("createBtn"):t("login")}</button></div></form>`);
+  } else if(d.type==="gate"){
+    inner = wrap(t("gateTitle",{x:t(d.what)}),`<p>${t("gateText")}</p><div class="dialog-actions"><button class="btn ghost" data-act="close">${t("keep")}</button><button class="btn" data-act="auth" data-tab="login">${t("login")}</button><button class="btn coral" data-act="auth" data-tab="signup">${t("signup")}</button></div>`);
+  } else if(d.type==="finish"){
+    inner = wrap(t("finishTitle",{x:t(d.what)}),`<p>${t("finishText")}</p><div class="dialog-actions"><button class="btn ghost" data-act="close">${t("later")}</button><button class="btn coral" data-act="to-setup">${t("finishBtn")}</button></div>`);
+  } else if(d.type==="info"){
+    inner = wrap(t("mmTitle"),`<p>${t("mmText")}</p><div class="dialog-actions"><button class="btn ghost" data-act="close">${t("close")}</button><button class="btn coral" data-act="close-go" data-to="${d.rooms}">${t("openRooms")}</button></div>`);
+  } else if(d.type==="room"){
+    const r = ROOMS.find(x=>x.id===d.id), m = roomMembers(r), full = m.length>=r.size, mine = m.some(x=>x.you);
+    inner = `<div class="dialog wide" role="dialog" aria-modal="true" aria-labelledby="dlg-t"><span class="mono">${GAMES[r.game].name} · ${esc(r.mode)}</span><h2 id="dlg-t" style="font-family:var(--font-body);font-weight:600;letter-spacing:0">${esc(r.title)}</h2>
+      <div class="chips">${r.rank?`<span class="tag">${esc(r.rank)}</span>`:""}${r.tags.map(x=>`<span class="tag">${esc(tl(x))}</span>`).join("")}<span class="tag ${mine?"you":full?"full":"open"}">${t("nOf",{a:m.length,b:r.size})}</span></div>
+      ${r.note?`<p>${esc(r.note)}</p>`:""}
+      <div>${m.map(x=>`<div class="member">${x.you?avatar(S.me,32):nameAvatar(x.name,32)}<div><b>${esc(x.name)}</b>${x.name===r.host?` <span class="tag">${t("host")}</span>`:""}${x.you?` <span class="tag you">${t("you")}</span>`:""}${x.role?`<div class="muted">${esc(x.role)}</div>`:""}</div></div>`).join("")}</div>
+      <div class="dialog-actions"><button class="btn ghost" data-act="close">${t("close")}</button>
+      ${mine?`<button class="btn" data-act="leave" data-id="${r.id}">${t("leave")}</button>`:full?`<button class="btn" disabled>${t("roomFull")}</button>`:`<button class="btn coral" data-act="join" data-id="${r.id}">${t("join")}</button>`}</div></div>`;
+  } else if(d.type==="edit"){ const [title,body] = editForm(d);
+    inner = wrap(esc(title),`<form data-form="edit">${body}<p class="err" id="e-err" role="alert"></p><div class="dialog-actions"><button class="btn ghost" type="button" data-act="close">${t("cancel")}</button><button class="btn coral" type="submit">${t("save")}</button></div></form>`,"wide");
+  } else if(d.type==="story-new"){
+    inner = wrap(t("addStory"),`<img class="preview" src="${d.url}" alt=""><form data-form="story"><label class="f">${t("caption")}<input class="inp" id="st-cap" maxlength="120"></label>
+      <p class="err" id="st-err" role="alert"></p><div class="dialog-actions"><button class="btn ghost" type="button" data-act="close">${t("cancel")}</button><button class="btn coral" type="submit" id="st-go">${t("post")}</button></div></form>`);
+  } else if(d.type==="viewer"){
+    const all = S.stories[d.uid]||[], list = d.ids.map(id=>all.find(s=>s.id===id)).filter(Boolean);
+    if(!list.length){ S.dialog=null; root.innerHTML=""; return; }
+    d.i = Math.min(d.i,list.length-1); const s = list[d.i], own = S.me && S.me.id===d.uid, who = own?S.me:S.viewing;
+    root.innerHTML = `<div class="viewer" role="dialog" aria-modal="true" aria-label="${t("stStories")}">
+      <div class="v-top"><div class="v-bars">${list.map((_,i)=>`<i class="${i<=d.i?"on":""}"></i>`).join("")}</div>
+        <div class="v-who">${avatar(who,32)}<b>${esc(who?who.display_name:"")}</b><span>${s.highlight&&d.hl?esc(s.highlight):ago(s.created_at)}</span><button class="x" data-act="close" aria-label="${t("close")}">×</button></div></div>
+      <div class="v-stage"><img src="${esc(mediaURL(s.path))}" alt="">${s.caption?`<div class="v-cap">${esc(s.caption)}</div>`:""}
+        <button class="z l" data-act="v-prev" aria-label="Previous"></button><button class="z r" data-act="v-next" aria-label="Next"></button></div>
+      <div class="v-foot">${own ? (d.form
+        ? `<form data-form="hl" style="display:flex;gap:8px;flex:1;flex-wrap:wrap"><input class="inp" id="hl-name" maxlength="20" placeholder="${t("hlName")}" list="hl-list" value="${esc(s.highlight||"")}"><datalist id="hl-list">${highlights(d.uid).map(([n])=>`<option value="${esc(n)}">`).join("")}</datalist><button class="btn" type="submit">${t("save")}</button><button class="btn" type="button" data-act="v-form-off">${t("cancel")}</button></form>`
+        : `<button class="btn" data-act="v-form">${t("addHl")}</button>${s.highlight?`<button class="btn" data-act="v-unhl">${t("rmHl")}</button>`:""}<button class="btn" data-act="v-del">${t("del")}</button>`) : ""}</div></div>`;
+    if(!d.form) viewTimer = setTimeout(()=>stepViewer(1),5000); else { const f=$("#hl-name"); if(f) f.focus(); }
+    return;
+  }
+  root.innerHTML = `<div class="scrim" data-act="scrim">${inner}</div>`;
+  const first = root.querySelector("input:not([type=checkbox]),button.coral,button"); if(first) first.focus();
+}
+function stepViewer(n){ const d = S.dialog; if(!d || d.type!=="viewer") return; const i = d.i+n; if(i<0) d.i=0; else if(i>=d.ids.length){ S.dialog=null; } else d.i=i; renderDialog(); }
+const curStory = () => { const d = S.dialog; return (S.stories[d.uid]||[]).find(s=>s.id===d.ids[d.i]); };
+
+/* ---------- render ---------- */
+function render(){
+  document.documentElement.lang = S.lang;
+  $("#nav").innerHTML = navHTML();
+  const r = route();
+  if(r!=="profile" && r!=="user") S.arranging=false;
+  $("#view").innerHTML = views[r]();
+  $("#foot").textContent = t("foot");
+  $("#lang-root").innerHTML = r==="home" ? `<div class="lang" role="group" aria-label="Language">${LANGS.map(([k,l])=>`<button data-act="lang" data-val="${k}" aria-pressed="${S.lang===k}">${l}</button>`).join("")}</div>` : "";
+}
+const rerender = () => { const y = window.scrollY; render(); window.scrollTo(0,y); };
+
+/* ---------- auth ---------- */
+const synthEmail = name => name.toLowerCase()+"@users.gamezone.app";
+async function signup(){
+  const name = $("#au-user").value.trim(), pw = $("#au-pass").value, pw2 = $("#au-pass2").value, err = $("#au-err"), btn = $("#au-go");
+  if(!/^[A-Za-z0-9_]{3,16}$/.test(name)) return err.textContent = t("eUser");
+  if(pw.length<8) return err.textContent = t("ePass");
+  if(pw!==pw2) return err.textContent = t("eMatch");
+  lsSet("gz.remember",$("#au-remember").checked?"1":"0");
+  btn.disabled = true; err.textContent = t("working");
+  try{
+    const res = await fetch(SB_URL+"/functions/v1/signup",{method:"POST",headers:{"Content-Type":"application/json",apikey:SB_KEY},body:JSON.stringify({username:name,password:pw})});
+    const out = await res.json().catch(()=>({}));
+    if(!res.ok){ btn.disabled=false; return err.textContent = out.error==="taken"?t("eTaken"):out.error==="bad_username"?t("eUser"):out.error==="bad_password"?t("ePass"):t("eNet"); }
+    const { error } = await sb.auth.signInWithPassword({email:synthEmail(name),password:pw});
+    if(error) throw error;
+    await loadMe(); S.dialog=null; S.setupStep=1; renderDialog(); go("setup");
+  }catch(e){ btn.disabled=false; err.textContent = t("eNet"); }
+}
+async function login(){
+  const name = $("#au-user").value.trim(), pw = $("#au-pass").value, err = $("#au-err"), btn = $("#au-go");
+  if(!/^[A-Za-z0-9_]{3,16}$/.test(name) || !pw) return err.textContent = t("eWrong");
+  lsSet("gz.remember",$("#au-remember").checked?"1":"0");
+  btn.disabled = true; err.textContent = t("working");
+  try{
+    const { error } = await sb.auth.signInWithPassword({email:synthEmail(name),password:pw});
+    if(error){ btn.disabled=false; return err.textContent = error.status===400 ? t("eWrong") : t("eNet"); }
+    await loadMe(); S.dialog=null; renderDialog();
+    if(S.me && !isReady(S.me)){ S.setupStep=1; go("setup"); } else { render(); if(S.me) toast(t("tWelcome",{n:S.me.display_name})); }
+  }catch(e){ btn.disabled=false; err.textContent = t("eNet"); }
+}
+async function logout(){ S.menu=false; try{ await sb.auth.signOut(); }catch(e){} S.me=null; go("home"); toast(t("tOut")); }
+
+/* ---------- saving edit forms ---------- */
+const val = id => { const el = document.getElementById(id); return el ? el.value.trim() : ""; };
+const pressed = group => [...document.querySelectorAll(`#dialog-root .chip[data-group="${group}"][aria-pressed="true"]`)].map(b=>b.dataset.val);
+async function saveEdit(){
+  const d = S.dialog, p = S.me, err = $("#e-err"); let patch = {};
+  if(d.what==="basic"){ const name = val("e-name"), age = val("e-age"); if(!name) return err.textContent = t("eName"); if(age && !(+age>=13 && +age<=99)) return err.textContent = t("eAge");
+    patch = {display_name:name,age:age?+age:null,mbti:val("e-mbti"),gender:val("e-gender"),bio:val("e-bio")}; }
+  else if(d.what==="games"){ const playing = pressed("playing"); let main = val("e-main"); if(!playing.includes(main)) main = playing[0]||""; patch = {playing,main_game:main}; }
+  else if(d.what==="game"){ const games = {...(p.games||{})}; games[d.game] = {ign:val("e-ign"),rank:val("e-rank"),serious:val("e-serious"),roles:pressed("roles"),favs:val("e-favs")}; patch = {games}; }
+  else if(d.what==="about") patch = {vibes:pressed("vibes")};
+  else if(d.what==="times") patch = {times:pressed("times")};
+  else if(d.what==="pc") patch = {gear:{...(p.gear||{}),pc:{cpu:val("e-cpu"),gpu:val("e-gpu"),ram:val("e-ram"),monitor:val("e-monitor"),storage:val("e-storage")}}};
+  else if(d.what==="gear") patch = {gear:{...(p.gear||{}),kit:{device:val("e-device"),mouse:val("e-mouse"),keyboard:val("e-keyboard"),headset:val("e-headset"),mousepad:val("e-mousepad"),mic:val("e-mic")}}};
+  else if(d.what==="settings") patch = {gear:{...(p.gear||{}),settings:{dpi:val("e-dpi"),sens:val("e-sens"),res:val("e-res"),cross:val("e-cross"),notes:val("e-notes")}}};
+  else if(d.what==="contact"){ const c = {id:p.id,discord:val("e-discord"),line:val("e-line"),show:val("e-show")||"friends"};
+    const { error } = await sb.from("profile_contacts").upsert(c); if(error) return err.textContent = t("tFail");
+    p.contacts = c; S.dialog=null; renderDialog(); rerender(); return toast(t("saved")); }
+  S.dialog=null; renderDialog(); await saveProfile(patch); rerender();
+}
+async function setAvatar(value){ const old = S.me.avatar; await saveProfile({avatar:value},true);
+  if(old && !old.startsWith("preset:") && old!==value) sb.storage.from("media").remove([old]);
+  if(S.dialog && S.dialog.type==="edit") renderDialog(); rerender(); toast(t("tPic")); }
+
+/* ---------- drag to arrange (press and hold, like phone widgets) ---------- */
+let drag = null, press = null, pressTimer = null;
+function setArranging(on){ S.arranging = on; const r = $("#pf-root"); if(r) r.classList.toggle("arranging",on); }
+function startDrag(w,x,y){
+  const rect = w.getBoundingClientRect(), ghost = w.cloneNode(true);
+  ghost.classList.add("drag-ghost"); ghost.style.width = rect.width+"px"; ghost.style.height = rect.height+"px"; ghost.style.left = rect.left+"px"; ghost.style.top = rect.top+"px";
+  document.body.appendChild(ghost); w.classList.add("dragging"); drag = {w,ghost,dx:x-rect.left,dy:y-rect.top};
+}
+function saveLayoutFromDOM(){
+  const grid = $("#wgrid"); if(!grid || !S.me) return; const lay = layoutOf(S.me), order = [...grid.children].map(c=>c.dataset.wid);
+  const next = order.map(id=>lay.find(x=>x.id===id)).filter(Boolean).concat(lay.filter(x=>!order.includes(x.id)));
+  saveProfile({layout:next},true);
+}
+document.addEventListener("pointerdown", e => {
+  const w = e.target.closest(".own .widget"); if(!w || S.dialog) return;
+  if(e.target.closest("button,a,input,select,textarea")) return;
+  if(e.pointerType==="mouse" && e.button!==0) return;
+  press = {w,x:e.clientX,y:e.clientY,armed:S.arranging};
+  if(!S.arranging) pressTimer = setTimeout(()=>{ if(!press) return; setArranging(true); startDrag(press.w,press.x,press.y); press=null; if(navigator.vibrate) try{ navigator.vibrate(12); }catch(_){} },450);
+});
+document.addEventListener("pointermove", e => {
+  if(drag){
+    drag.ghost.style.left = (e.clientX-drag.dx)+"px"; drag.ghost.style.top = (e.clientY-drag.dy)+"px";
+    const hit = document.elementFromPoint(e.clientX,e.clientY), target = hit && hit.closest(".widget");
+    if(target && target!==drag.w && target.parentElement===drag.w.parentElement){
+      const after = drag.w.compareDocumentPosition(target) & Node.DOCUMENT_POSITION_FOLLOWING;
+      target.parentElement.insertBefore(drag.w, after ? target.nextSibling : target);
+    }
+  } else if(press){
+    const dist = Math.hypot(e.clientX-press.x,e.clientY-press.y);
+    if(press.armed && dist>5){ startDrag(press.w,e.clientX,e.clientY); press=null; }
+    else if(!press.armed && dist>8){ clearTimeout(pressTimer); press=null; }
+  }
+});
+function endPress(){ clearTimeout(pressTimer); press=null; if(drag){ drag.ghost.remove(); drag.w.classList.remove("dragging"); drag=null; saveLayoutFromDOM(); } }
+document.addEventListener("pointerup", endPress);
+document.addEventListener("pointercancel", endPress);
+document.addEventListener("touchmove", e => { if(drag) e.preventDefault(); }, {passive:false});
+document.addEventListener("contextmenu", e => { if(e.target.closest(".own .widget") && (drag || S.arranging || press)) e.preventDefault(); });
+
+/* ---------- events ---------- */
+document.addEventListener("click", async e => {
+  const goEl = e.target.closest("[data-go]");
+  if(goEl){ S.menu=false; go(goEl.dataset.go); return; }
+  const el = e.target.closest("[data-act]");
+  if(S.menu && !(el && el.dataset.act==="menu")){ S.menu=false; $("#nav").innerHTML = navHTML(); }
+  if(!el) return;
+  const a = el.dataset.act, d = el.dataset, dlg = S.dialog;
+  if(a==="scrim"){ if(e.target===el){ S.dialog=null; renderDialog(); } }
+  else if(a==="menu"){ S.menu=!S.menu; $("#nav").innerHTML = navHTML(); }
+  else if(a==="lang"){ S.lang=d.val; lsSet("gz.lang",d.val); rerender(); }
+  else if(a==="auth"){ S.dialog={type:"auth",tab:d.tab}; renderDialog(); }
+  else if(a==="close"){ S.dialog=null; renderDialog(); if(["profile","user"].includes(route())) rerender(); }
+  else if(a==="close-go"){ S.dialog=null; renderDialog(); go(d.to); }
+  else if(a==="to-setup"){ S.dialog=null; renderDialog(); S.setupStep=1; go("setup"); }
+  else if(a==="logout") logout();
+  else if(a==="scroll-games"){ const b=$("#games-block"); if(b) b.scrollIntoView({behavior:"smooth",block:"start"}); }
+  else if(a==="mode"){ S.pick[d.game].mode=d.mode; rerender(); }
+  else if(a==="size"){ S.pick[d.game].size=+d.size; rerender(); }
+  else if(a==="filter"){ S.roomFilter=d.val; rerender(); }
+  else if(a==="room"){ S.dialog={type:"room",id:d.id}; renderDialog(); }
+  else if(a==="match") gate("actMatch",()=>{ S.dialog={type:"info",rooms:d.game}; renderDialog(); });
+  else if(a==="join") gate("actJoin",async()=>{ if(!S.me.joined.includes(d.id)) await saveProfile({joined:[...S.me.joined,d.id]},true); rerender(); S.dialog={type:"room",id:d.id}; renderDialog(); toast(t("tJoined")); });
+  else if(a==="leave"){ await saveProfile({joined:S.me.joined.filter(x=>x!==d.id)},true); rerender(); renderDialog(); toast(t("tLeft")); }
+  else if(a==="chip"){ el.setAttribute("aria-pressed", el.getAttribute("aria-pressed")!=="true"); }
+  else if(a==="pf-toggle"){ const cur = [...S.me[d.group]], i = cur.indexOf(d.val); if(i>=0) cur.splice(i,1); else cur.push(d.val);
+    const patch = {[d.group]:cur}; if(d.group==="playing"){ patch.main_game = cur.includes(S.me.main_game) ? S.me.main_game : (cur[0]||""); }
+    saveProfile(patch,true); rerender(); }
+  else if(a==="pf-pick"){ saveProfile({[d.group]:d.val},true); rerender(); }
+  else if(a==="preset") setAvatar("preset:"+d.i);
+  else if(a==="setup-back"){ S.setupStep--; render(); }
+  else if(a==="setup-next"){ const p = S.me, err = $("#su-err");
+    if(S.setupStep===1){ if(!p.avatar) return err.textContent=t("ePic"); if(!p.display_name) return err.textContent=t("eName"); if(!(Number(p.age)>=13&&Number(p.age)<=99)) return err.textContent=t("eAge"); }
+    if(S.setupStep===2 && !p.playing.length) return err.textContent=t("eGame");
+    if(S.setupStep<3){ S.setupStep++; render(); window.scrollTo(0,0); } else { S.setupStep=1; go("profile"); toast(t("tReady")); } }
+  else if(a==="edit"){ S.dialog={type:"edit",what:d.what,game:d.game}; renderDialog(); }
+  else if(a==="arrange") setArranging(true);
+  else if(a==="arrange-done"){ setArranging(false); rerender(); }
+  else if(a==="w-size"){ const lay = layoutOf(S.me), x = lay.find(o=>o.id===d.wid), allowed = WIDGETS.find(w=>w[0]===d.wid)[2];
+    x.w = allowed[(allowed.indexOf(x.w)+1)%allowed.length]; const w = el.closest(".widget"); w.classList.remove("w1","w2","w4"); w.classList.add("w"+x.w); saveProfile({layout:lay},true); }
+  else if(a==="w-hide" || a==="w-show"){ const lay = layoutOf(S.me); lay.find(o=>o.id===d.wid).hide = a==="w-hide"; saveProfile({layout:lay},true); rerender(); }
+  else if(a==="share"){ const url = location.href.split("#")[0]+"#u-"+d.name; try{ await navigator.clipboard.writeText(url); toast(t("copied")); }catch(_){ toast(url); } }
+  else if(a==="add-story") $("#story-file").click();
+  else if(a==="view-active"){ const ids = activeStories(d.uid).map(s=>s.id); if(ids.length){ S.dialog={type:"viewer",uid:d.uid,ids,i:0}; renderDialog(); } }
+  else if(a==="view-hl"){ const h = highlights(d.uid).find(x=>x[0]===d.name); if(h){ S.dialog={type:"viewer",uid:d.uid,ids:h[1].map(s=>s.id),i:0,hl:true}; renderDialog(); } }
+  else if(a==="v-prev") stepViewer(-1);
+  else if(a==="v-next") stepViewer(1);
+  else if(a==="v-form"){ dlg.form=true; renderDialog(); }
+  else if(a==="v-form-off"){ dlg.form=false; renderDialog(); }
+  else if(a==="v-unhl"){ const s = curStory(); const { error } = await sb.from("stories").update({highlight:null}).eq("id",s.id); if(error) return toast(t("tFail")); s.highlight=null; toast(t("saved"));
+    if(dlg.hl){ dlg.ids = dlg.ids.filter(id=>id!==s.id); } renderDialog(); if(!S.dialog) rerender(); }
+  else if(a==="v-del"){ const s = curStory(); const { error } = await sb.from("stories").delete().eq("id",s.id); if(error) return toast(t("tFail"));
+    sb.storage.from("media").remove([s.path]); S.stories[dlg.uid] = S.stories[dlg.uid].filter(x=>x.id!==s.id); dlg.ids = dlg.ids.filter(id=>id!==s.id); toast(t("deleted")); renderDialog(); if(!S.dialog) rerender(); }
+});
+document.addEventListener("change", async e => {
+  const el = e.target;
+  if(el.id==="av-file" && el.files && el.files[0]){
+    if(!S.me) return; const f = el.files[0]; el.value="";
+    try{ const blob = await resizeImage(f,320,true), path = S.me.id+"/avatar-"+Date.now()+".jpg";
+      const { error } = await sb.storage.from("media").upload(path,blob,{contentType:"image/jpeg"}); if(error) throw error; await setAvatar(path);
+    }catch(_){ toast(t(f.type.startsWith("image/")?"tFail":"tNotImg")); }
+    return;
+  }
+  if(el.id==="story-file" && el.files && el.files[0]){
+    if(!S.me) return; const f = el.files[0]; el.value="";
+    try{ const blob = await resizeImage(f,1280,false); S.dialog={type:"story-new",blob,url:URL.createObjectURL(blob)}; renderDialog(); }catch(_){ toast(t("tNotImg")); }
+    return;
+  }
+  if(el.dataset && el.dataset.pf && S.me){
+    const k = el.dataset.pf; let v = el.value.trim();
+    if(k==="display_name" && !v){ el.value = S.me.display_name; return; }
+    if(k==="age"){ v = (+v>=13 && +v<=99) ? +v : null; }
+    saveProfile({[k]:v},true); $("#nav").innerHTML = navHTML();
+  }
+});
+document.addEventListener("submit", async e => {
+  e.preventDefault(); const f = e.target.dataset.form;
+  if(f==="signup") signup(); else if(f==="login") login(); else if(f==="edit") saveEdit();
+  else if(f==="story"){ const d = S.dialog, btn = $("#st-go"), err = $("#st-err"); btn.disabled=true; err.textContent=t("working");
+    try{ const path = S.me.id+"/stories/"+uid()+".jpg"; const up = await sb.storage.from("media").upload(path,d.blob,{contentType:"image/jpeg"}); if(up.error) throw up.error;
+      const { data, error } = await sb.from("stories").insert({path,caption:val("st-cap")}).select().single(); if(error) throw error;
+      (S.stories[S.me.id] = S.stories[S.me.id]||[]).push(data); URL.revokeObjectURL(d.url); S.dialog=null; renderDialog(); rerender(); toast(t("posted"));
+    }catch(_){ btn.disabled=false; err.textContent=t("tFail"); } }
+  else if(f==="hl"){ const s = curStory(), name = val("hl-name"); if(!name) return;
+    const { error } = await sb.from("stories").update({highlight:name}).eq("id",s.id); if(error) return toast(t("tFail")); s.highlight=name; S.dialog.form=false; toast(t("saved")); renderDialog(); }
+  else if(f==="add-roblox"){ const v = val("rbx-name"); if(!v) return;
+    const all = GAMES.roblox.groups[0][1].map(x=>x[0]).concat(S.customRoblox), hit = all.find(x=>x.toLowerCase()===v.toLowerCase());
+    if(!hit){ S.customRoblox.push(v); lsSet("gz.robloxCustom",JSON.stringify(S.customRoblox)); toast(t("tAdded",{n:v})); }
+    S.pick.roblox.mode = hit || v; rerender(); }
+});
+document.addEventListener("keydown", e => {
+  if(e.key==="Escape"){ if(S.dialog){ S.dialog=null; renderDialog(); } else if(S.arranging){ setArranging(false); rerender(); } else if(S.menu){ S.menu=false; $("#nav").innerHTML = navHTML(); } }
+  if(S.dialog && S.dialog.type==="viewer" && !S.dialog.form){ if(e.key==="ArrowRight") stepViewer(1); if(e.key==="ArrowLeft") stepViewer(-1); }
+});
+window.addEventListener("hashchange", () => { S.menu=false; S.dialog=null; renderDialog(); render(); window.scrollTo(0,0); });
+
+/* ---------- boot ---------- */
+render();
+(async () => {
+  if(!sb){ S.booting=false; render(); toast(t("eNet")); return; }
+  try{ await loadMe(); }catch(e){}
+  S.booting=false; render();
+  sb.auth.onAuthStateChange(ev => { if(ev==="SIGNED_OUT" && S.me){ S.me=null; render(); } });
+})();
+</script>
+</body>
+</html>
