@@ -219,6 +219,8 @@ footer{padding:36px 0 72px;color:var(--ink-soft);font-size:13.5px;border-top:2px
 .codebox{display:flex;gap:10px;align-items:center;flex-wrap:wrap;background:var(--paper);border:2px dashed var(--ink);border-radius:10px;padding:8px 12px}
 .codebox b{font-family:var(--font-mono);font-size:18px;letter-spacing:.08em;overflow-wrap:anywhere}
 .tag.c-mustard{background:var(--mustard)}
+.tag.c-coral{background:var(--coral)}
+.tag.c-blue{background:var(--blue);color:var(--cream)}
 .rk{display:inline-flex;align-items:center;gap:4px;border:1.5px solid var(--ink);border-radius:999px;padding:2px 10px;background:var(--paper)}
 .rk img{display:block}
 .rk-to{color:var(--ink-soft);font-weight:700}
@@ -366,6 +368,7 @@ thOriginal:["Original","ดั้งเดิม","经典","オリジナル"], t
 admin:["Admin","หลังบ้านแอดมิน","管理后台","管理画面"], adNo:["This page is for admins only.","หน้านี้สำหรับแอดมินเท่านั้น","此页面仅限管理员。","管理者専用ページです。"], adTitle:["All accounts","บัญชีทั้งหมด","全部账号","全アカウント"], refresh:["Refresh","รีเฟรช","刷新","更新"],
 adUsers:["accounts","บัญชี","账号","アカウント"], adToday:["new in 24h","ใหม่ใน 24 ชม.","24 小时新增","24時間の新規"], adRooms:["rooms in 24h","ห้องใน 24 ชม.","24 小时房间","24時間のルーム"], adMsgs:["messages","ข้อความ","消息","メッセージ"], adSearching:["matching now","กำลังจับคู่","正在匹配","マッチング中"],
 adFilter:["Filter by name","กรองด้วยชื่อ","按名称筛选","名前で絞り込み"], adReady:["Set up","ตั้งค่าครบ","已完成设置","設定完了"], adJoined:["Joined","สมัครเมื่อ","注册时间","登録日"],
+wanted:["Players wanted","จำนวนคนที่ต้องการ","需要人数","募集人数"], wantedHint:["Not counting you","ไม่นับตัวคุณ","不含自己","自分を除く"], gfx:["Graphics","กราฟิก","画质","グラフィック"], pickGame:["Game","เกม","游戏","ゲーム"],
 tPic:["Picture updated","อัปเดตรูปแล้ว","头像已更新","画像を更新しました"], tNotImg:["That file isn't an image","ไฟล์นี้ไม่ใช่รูปภาพ","该文件不是图片","画像ファイルではありません"], tFail:["Something went wrong. Try again.","เกิดข้อผิดพลาด ลองใหม่อีกครั้ง","出了点问题，请重试。","エラーが発生しました。もう一度お試しください。"], tAdded:["Added {n}","เพิ่ม {n} แล้ว","已添加 {n}","{n} を追加しました"]
 };
 const OPT = { // option labels: [th, zh, ja]
@@ -602,20 +605,25 @@ const views = {
 };
 
 /* ---------- profile ---------- */
-const kv = rows => { const r = rows.filter(x=>x[1]); return r.length ? `<dl class="kv">${r.map(([k,v])=>`<dt>${k}</dt><dd>${esc(v)}</dd>`).join("")}</dl>` : `<p class="muted">${t("empty")}</p>`; };
+// in-game settings are kept per game; older profiles had one shared set, which is read as Valorant's
+const SET_FIELDS = {valorant:["dpi","sens","res","cross","notes"],rov:["sens","gfx","notes"],roblox:["sens","gfx","notes"]};
+function gameSettings(p,k){ const g = p.gear||{}; return (g.gset&&g.gset[k]) || (k==="valorant"&&g.settings) || {}; }
+const kv = rows => { const r = rows.filter(x=>x[1]); return r.length ? `<dl class="kv">${r.map(([k,v,raw])=>`<dt>${k}</dt><dd>${raw?v:esc(v)}</dd>`).join("")}</dl>` : `<p class="muted">${t("empty")}</p>`; };
+const rankCell = (k,rank,sz) => k==="valorant" && VAL_RANKS.includes(rank) ? `<span style="display:inline-flex;align-items:center;gap:6px">${rankImg(rank,sz||28)}${esc(rank)}</span>` : esc(rank||"");
 function widgetBody(id,p,own){
   const gear = p.gear||{}, pc = gear.pc||{}, kit = gear.kit||{}, set = gear.settings||{};
   if(id==="main"){ const k = p.main_game && GAMES[p.main_game] ? p.main_game : ""; if(!k) return `<p class="muted">${t("empty")}</p>`; const d = (p.games||{})[k]||{};
-    return `<div class="band main-band ${GAMES[k].color}"><h3>${GAMES[k].name}</h3></div>${kv([[t("ign"),d.ign],[t("rank"),d.rank],[t("roles"),(d.roles||[]).join(", ")],[t("serious"),d.serious&&tl(d.serious)],[t("favs"),d.favs]])}`; }
+    return `<div class="band main-band ${GAMES[k].color}"><h3>${GAMES[k].name}</h3></div>${kv([[t("ign"),d.ign],[t("rank"),d.rank&&rankCell(k,d.rank),true],[t("roles"),(d.roles||[]).join(", ")],[t("serious"),d.serious&&tl(d.serious)],[t("favs"),d.favs]])}`; }
   if(id==="games"){ const list = p.playing.filter(k=>k!==p.main_game && GAMES[k]); if(!list.length) return `<p class="muted">${t("empty")}</p>`;
-    return `<div>${list.map(k=>{ const d=(p.games||{})[k]||{}; const inner = `<span><b>${GAMES[k].name}</b>${d.ign?` <span class="muted">${esc(d.ign)}</span>`:""}</span><span class="chips">${d.rank?`<span class="tag">${esc(d.rank)}</span>`:""}${(d.roles||[]).slice(0,2).map(r=>`<span class="tag">${esc(r)}</span>`).join("")}</span>`;
+    return `<div>${list.map(k=>{ const d=(p.games||{})[k]||{}; const inner = `<span><b>${GAMES[k].name}</b>${d.ign?` <span class="muted">${esc(d.ign)}</span>`:""}</span><span class="chips" style="align-items:center">${d.rank?(k==="valorant"&&VAL_RANKS.includes(d.rank)?rankCell(k,d.rank,24):`<span class="tag">${esc(d.rank)}</span>`):""}${(d.roles||[]).slice(0,2).map(r=>`<span class="tag">${esc(r)}</span>`).join("")}</span>`;
       return own?`<button class="g-row" data-act="edit" data-what="game" data-game="${k}">${inner}</button>`:`<div class="g-row">${inner}</div>`; }).join("")}</div>`; }
   if(id==="about"){ const tags = [p.age&&t("age")+" "+p.age,p.gender&&tl(p.gender),p.mbti&&p.mbti!=="Not sure"&&p.mbti,...p.vibes.map(tl)].filter(Boolean);
     return tags.length?`<div class="chips">${tags.map(x=>`<span class="tag">${esc(x)}</span>`).join("")}</div>`:`<p class="muted">${t("empty")}</p>`; }
   if(id==="times") return p.times.length?`<div class="chips">${p.times.map(x=>`<span class="tag">${esc(tl(x))}</span>`).join("")}</div>`:`<p class="muted">${t("empty")}</p>`;
   if(id==="pc") return kv([[t("cpu"),pc.cpu],[t("gpu"),pc.gpu],[t("ram"),pc.ram],[t("monitor"),pc.monitor],[t("storage"),pc.storage]]);
   if(id==="gear") return kv([[t("device"),kit.device&&tl(kit.device)],[t("mouse"),kit.mouse],[t("keyboard"),kit.keyboard],[t("headset"),kit.headset],[t("mousepad"),kit.mousepad],[t("mic"),kit.mic]]);
-  if(id==="settings") return kv([[t("dpi"),set.dpi],[t("sens"),set.sens],[t("res"),set.res],[t("cross"),set.cross],[t("notes"),set.notes]]);
+  if(id==="settings"){ const blocks = p.playing.filter(k=>GAMES[k]).map(k=>[k,gameSettings(p,k)]).filter(([k,v])=>SET_FIELDS[k].some(f=>v[f]));
+    return blocks.length ? blocks.map(([k,v])=>`<div><span class="tag ${GAMES[k].color}" style="font-weight:600;margin-bottom:6px">${GAMES[k].name}</span>${kv(SET_FIELDS[k].map(f=>[t(f),v[f]]))}</div>`).join("") : `<p class="muted">${t("empty")}</p>`; }
   if(id==="contact"){ const c = p.contacts; if(!c || (!own && c.show!=="everyone")) return `<p class="muted">${t("cHidden")}</p>`; return kv([[t("discord"),c.discord],[t("line"),c.line]]); }
   return "";
 }
@@ -709,7 +717,7 @@ function roomFormDialog(d){
   return `<div class="dialog wide" role="dialog" aria-modal="true" aria-labelledby="dlg-t"><h2 id="dlg-t">${edit?t("roomSettings"):t("createRoom")}</h2><form data-form="room-form">
     <label class="f">${t("roomTitle")}<input class="inp" id="rf-title" maxlength="60" placeholder="${t("roomTitlePh")}" value="${esc(r.title)}"></label>
     <div class="row"><label class="f">${t("mode")}<select class="inp" id="rf-mode">${VAL_MODES.map(o=>`<option ${r.mode===o?"selected":""}>${esc(o)}</option>`).join("")}</select></label>
-      <label class="f">${t("players")}<select class="inp" id="rf-size">${[2,3,4,5].map(n=>`<option ${r.size===n?"selected":""}>${n}</option>`).join("")}</select></label>
+      <label class="f">${t("wanted")} <span class="hint">${t("wantedHint")}</span><select class="inp" id="rf-size">${[1,2,3,4,5].map(n=>`<option ${r.size-1===n?"selected":""}>${n}</option>`).join("")}</select></label>
       ${edit?"":`<label class="f">${t("myRole")}${sel("rf-role",VAL_ROLES,myRoles[0]||"",t("notSet"))}</label>`}</div>
     <div><p class="mono" style="margin-bottom:8px">${t("needRoles")}</p>${chipSet("need_roles",VAL_ROLES,r.need_roles)}</div>
     <div class="row"><label class="f">${t("rankFrom")}${sel("rf-rmin",VAL_RANKS,r.rank_min,t("anyRank"))}</label><label class="f">${t("rankTo")}${sel("rf-rmax",VAL_RANKS,r.rank_max,t("anyRank"))}</label>${num("rf-amin",t("ageFrom"),r.age_min)}${num("rf-amax",t("ageTo"),r.age_max)}</div>
@@ -725,7 +733,7 @@ async function submitRoomForm(){
   if(title.length<3) return err.textContent = t("eTitle");
   if(amin<13 || amax>99 || amin>amax) return err.textContent = t("eAgeRange");
   let rmin = val("rf-rmin"), rmax = val("rf-rmax"); if(rmin && rmax && VAL_RANKS.indexOf(rmin)>VAL_RANKS.indexOf(rmax)) [rmin,rmax] = [rmax,rmin];
-  const body = {title,mode:val("rf-mode"),size:+val("rf-size"),note:val("rf-note"),rank_min:rmin,rank_max:rmax,need_roles:pressed("need_roles"),req_vibes:pressed("req_vibes"),req_gender:pressed("req_gender"),age_min:amin,age_max:amax};
+  const body = {title,mode:val("rf-mode"),size:+val("rf-size")+1,note:val("rf-note"),rank_min:rmin,rank_max:rmax,need_roles:pressed("need_roles"),req_vibes:pressed("req_vibes"),req_gender:pressed("req_gender"),age_min:amin,age_max:amax};
   btn.disabled = true; err.textContent = t("working");
   if(d.edit){
     const a = await sb.from("rooms").update(body).eq("id",RC.id), b = await sb.from("room_secrets").update({party_code:val("rf-code")}).eq("room_id",RC.id);
@@ -1039,7 +1047,8 @@ views.admin = function(){
 };
 
 async function featClick(a,d,el){
-  if(a==="settings"){ S.menu = false; drawNav(); S.dialog = {type:"settings"}; renderDialog(); }
+  if(a==="set-game"){ S.dialog.game = d.val; renderDialog(); }
+  else if(a==="settings"){ S.menu = false; drawNav(); S.dialog = {type:"settings"}; renderDialog(); }
   else if(a==="theme"){ S.theme = d.val; lsSet("gz.theme",d.val); applyTheme(); renderDialog(); }
   else if(a==="match-cancel") stopMatch(true);
   else if(a==="admin-refresh"){ S.admin = null; render(); }
@@ -1062,7 +1071,12 @@ function editForm(d){
   if(d.what==="times") return [t("bTimes"),chipSet("times",TIMES,p.times)];
   if(d.what==="pc") return [t("bPc"),`<div class="row">${inp("e-cpu",t("cpu"),pc.cpu)}${inp("e-gpu",t("gpu"),pc.gpu)}${inp("e-ram",t("ram"),pc.ram,30)}${inp("e-monitor",t("monitor"),pc.monitor)}${inp("e-storage",t("storage"),pc.storage)}</div>`];
   if(d.what==="gear") return [t("bGear"),`<div class="row"><label class="f">${t("device")}${sel("e-device",DEVICES,kit.device,t("notSet"))}</label>${inp("e-mouse",t("mouse"),kit.mouse)}${inp("e-keyboard",t("keyboard"),kit.keyboard)}${inp("e-headset",t("headset"),kit.headset)}${inp("e-mousepad",t("mousepad"),kit.mousepad)}${inp("e-mic",t("mic"),kit.mic)}</div>`];
-  if(d.what==="settings") return [t("bSettings"),`<div class="row">${inp("e-dpi",t("dpi"),set.dpi,10)}${inp("e-sens",t("sens"),set.sens,20)}${inp("e-res",t("res"),set.res,30)}</div>${inp("e-cross",t("cross"),set.cross,120)}<label class="f">${t("notes")}<textarea class="inp" id="e-notes" maxlength="200">${esc(set.notes)}</textarea></label>`];
+  if(d.what==="settings"){ const list = p.playing.filter(k=>GAMES[k]); if(!list.length) return [t("bSettings"),`<p class="muted">${t("eGame")}</p>`];
+    const k = list.includes(d.game) ? d.game : (list.includes(p.main_game)?p.main_game:list[0]), v = gameSettings(p,k); d.game = k;
+    const max = {dpi:10,sens:20,res:30,gfx:30,cross:120};
+    return [t("bSettings"),`<div><p class="mono" style="margin-bottom:8px">${t("pickGame")}</p><div class="chips">${list.map(x=>`<button type="button" class="chip" data-act="set-game" data-val="${x}" aria-pressed="${x===k}">${GAMES[x].name}</button>`).join("")}</div></div>
+      <div class="row">${SET_FIELDS[k].filter(f=>f!=="notes"&&f!=="cross").map(f=>inp("e-"+f,t(f),v[f],max[f])).join("")}</div>${SET_FIELDS[k].includes("cross")?inp("e-cross",t("cross"),v.cross,120):""}
+      <label class="f">${t("notes")}<textarea class="inp" id="e-notes" maxlength="200">${esc(v.notes)}</textarea></label>`]; }
   if(d.what==="contact"){ const c = p.contacts; return [t("bContact"),`<div class="row">${inp("e-discord",t("discord"),c.discord,40)}${inp("e-line",t("line"),c.line,40)}</div><label class="f">${t("whoSee")}<select class="inp" id="e-show">${[["friends","cFriends"],["everyone","cEveryone"],["hidden","cHidden"]].map(([v,k])=>`<option value="${v}" ${c.show===v?"selected":""}>${t(k)}</option>`).join("")}</select></label>`]; }
   return ["",""];
 }
@@ -1184,7 +1198,8 @@ async function saveEdit(){
   else if(d.what==="times") patch = {times:pressed("times")};
   else if(d.what==="pc") patch = {gear:{...(p.gear||{}),pc:{cpu:val("e-cpu"),gpu:val("e-gpu"),ram:val("e-ram"),monitor:val("e-monitor"),storage:val("e-storage")}}};
   else if(d.what==="gear") patch = {gear:{...(p.gear||{}),kit:{device:val("e-device"),mouse:val("e-mouse"),keyboard:val("e-keyboard"),headset:val("e-headset"),mousepad:val("e-mousepad"),mic:val("e-mic")}}};
-  else if(d.what==="settings") patch = {gear:{...(p.gear||{}),settings:{dpi:val("e-dpi"),sens:val("e-sens"),res:val("e-res"),cross:val("e-cross"),notes:val("e-notes")}}};
+  else if(d.what==="settings"){ if(!d.game || !SET_FIELDS[d.game]){ S.dialog=null; return renderDialog(); } const one = {}; SET_FIELDS[d.game].forEach(f=>{ one[f] = val("e-"+f); });
+    const gear = {...(p.gear||{})}, gset = {...(gear.gset||{})}; if(!gset.valorant && gear.settings) gset.valorant = gear.settings; gset[d.game] = one; delete gear.settings; gear.gset = gset; patch = {gear}; }
   else if(d.what==="contact"){ const c = {id:p.id,discord:val("e-discord"),line:val("e-line"),show:val("e-show")||"friends"};
     const { error } = await sb.from("profile_contacts").upsert(c); if(error) return err.textContent = t("tFail");
     p.contacts = c; S.dialog=null; renderDialog(); rerender(); return toast(t("saved")); }
