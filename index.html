@@ -370,6 +370,7 @@ adUsers:["accounts","บัญชี","账号","アカウント"], adToday:["new
 adFilter:["Filter by name","กรองด้วยชื่อ","按名称筛选","名前で絞り込み"], adReady:["Set up","ตั้งค่าครบ","已完成设置","設定完了"], adJoined:["Joined","สมัครเมื่อ","注册时间","登録日"],
 wanted:["Players wanted","จำนวนคนที่ต้องการ","需要人数","募集人数"], wantedHint:["Not counting you","ไม่นับตัวคุณ","不含自己","自分を除く"], gfx:["Graphics","กราฟิก","画质","グラフィック"], pickGame:["Game","เกม","游戏","ゲーム"],
 roomsSoon:["Rooms coming soon","ห้องของเกมนี้กำลังจะมา","房间即将开放","ルームは近日公開"],
+history:["Play history","ประวัติการเล่น","游戏记录","プレイ履歴"], noHistory:["No rooms joined yet","ยังไม่เคยเข้าห้อง","还没有加入过房间","まだルームに参加していません"], last10:["Last 10 rooms","10 ห้องล่าสุด","最近 10 个房间","直近10件"],
 tPic:["Picture updated","อัปเดตรูปแล้ว","头像已更新","画像を更新しました"], tNotImg:["That file isn't an image","ไฟล์นี้ไม่ใช่รูปภาพ","该文件不是图片","画像ファイルではありません"], tFail:["Something went wrong. Try again.","เกิดข้อผิดพลาด ลองใหม่อีกครั้ง","出了点问题，请重试。","エラーが発生しました。もう一度お試しください。"], tAdded:["Added {n}","เพิ่ม {n} แล้ว","已添加 {n}","{n} を追加しました"]
 };
 const OPT = { // option labels: [th, zh, ja]
@@ -415,7 +416,7 @@ const W_TITLE = {main:"bMain",about:"bAbout",times:"bTimes",pc:"bPc",gear:"bGear
 const navLang = (navigator.language||"en").slice(0,2);
 const S = {
   lang: lsGet("gz.lang") || (LI[navLang]!=null?navLang:"en"),
-  booting:true, vrooms:[], theme:lsGet("gz.theme")||"original", isAdmin:false, match:null, me:null, viewing:null, viewKey:"", stories:{}, arranging:false,
+  booting:true, vrooms:[], theme:lsGet("gz.theme")||"original", isAdmin:false, match:null, me:null, viewing:null, viewKey:"", stories:{}, history:{}, arranging:false,
   dialog:null, menu:false, setupStep:1, roomFilter:"all",
   pick:{valorant:{mode:"Unrated",size:2},rov:{mode:"Ranked Match",size:2},roblox:{mode:"Steal An Egg",size:2}},
   customRoblox: (()=>{ try{ return JSON.parse(lsGet("gz.robloxCustom"))||[]; }catch(e){ return []; } })()
@@ -465,7 +466,7 @@ async function loadMe(){
   if(!session){ S.me=null; S.isAdmin=false; return; }
   const [{data:p},{data:c}] = await Promise.all([sb.from("profiles").select("*").eq("id",session.user.id).maybeSingle(), sb.from("profile_contacts").select("*").eq("id",session.user.id).maybeSingle()]);
   S.me = p ? {...p, contacts: c || {discord:"",line:"",show:"friends"}} : null;
-  if(S.me){ loadStories(S.me.id,true); sb.from("admins").select("user_id").eq("user_id",S.me.id).maybeSingle().then(({data})=>{ S.isAdmin = !!data; drawNav(); if(route()==="admin") render(); }); }
+  if(S.me){ loadStories(S.me.id,true); loadHistory(S.me.id); sb.from("admins").select("user_id").eq("user_id",S.me.id).maybeSingle().then(({data})=>{ S.isAdmin = !!data; drawNav(); if(route()==="admin") render(); }); }
 }
 async function saveProfile(patch,quiet){
   Object.assign(S.me,patch);
@@ -481,13 +482,24 @@ async function loadStories(userId,own){
   S.stories[userId] = rows;
   if(["profile","user"].includes(route()) && !S.dialog && !drag) render();
 }
+async function loadHistory(userId){
+  const { data } = await sb.from("play_history").select("id,room_id,game,mode,title,joined_at").eq("user_id",userId).order("joined_at",{ascending:false}).limit(10);
+  S.history[userId] = data || [];
+  if(["profile","user"].includes(route()) && !S.dialog && !drag) rerender();
+}
+function historyHTML(p){
+  const list = S.history[p.id] || [];
+  return `<section class="block" style="border-top:2px dashed var(--line)"><div class="head"><h2 style="font-size:20px">${t("history")}</h2><span class="mono">${t("last10")}</span></div>
+    ${list.length?`<div class="card" style="padding:4px 16px">${list.map(h=>`<div class="g-row"><span style="min-width:0"><b style="display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(h.title)}</b><span class="muted">${GAMES[h.game]?GAMES[h.game].name:esc(h.game)} · ${esc(h.mode)}</span></span>
+      <span class="muted" style="text-align:right;white-space:nowrap">${new Date(h.joined_at).toLocaleString([], {dateStyle:"medium",timeStyle:"short"})}</span></div>`).join("")}</div>`:`<p class="muted">${t("noHistory")}</p>`}</section>`;
+}
 const activeStories = id => (S.stories[id]||[]).filter(s=>Date.now()-new Date(s.created_at)<864e5);
 function highlights(id){ const m = new Map(); (S.stories[id]||[]).forEach(s=>{ if(s.highlight){ if(!m.has(s.highlight)) m.set(s.highlight,[]); m.get(s.highlight).push(s); } }); return [...m.entries()]; }
 async function loadViewing(name){
   S.viewKey = name; S.viewing = undefined;
   const { data:p } = await sb.from("profiles").select("*").ilike("username",name.replace(/_/g,"\\_")).maybeSingle();
   if(S.viewKey!==name) return;
-  if(p){ const { data:c } = await sb.from("profile_contacts").select("*").eq("id",p.id).maybeSingle(); S.viewing = {...p,contacts:c||null}; loadStories(p.id,false); }
+  if(p){ const { data:c } = await sb.from("profile_contacts").select("*").eq("id",p.id).maybeSingle(); S.viewing = {...p,contacts:c||null}; loadStories(p.id,false); loadHistory(p.id); }
   else S.viewing = null;
   render();
 }
@@ -647,6 +659,7 @@ function profileHTML(p,own){
       <div class="w-head"><span class="mono">${t(W_TITLE[x.id])}</span>${own?`<div class="w-tools"><button class="icon edit-only" data-act="edit" ${editWhat(x.id)} aria-label="${t("edit")}">✎</button><button class="icon arr-only" data-act="w-size" data-wid="${x.id}" aria-label="Resize">↔</button><button class="icon arr-only" data-act="w-hide" data-wid="${x.id}" aria-label="Hide">✕</button></div>`:""}</div>
       ${widgetBody(x.id,p,own)}</div>`).join("")}</div>
     ${own?`<p class="muted" style="padding-bottom:8px">${t("holdHint")}</p>`:""}
+    ${historyHTML(p)}
   </div>`;
 }
 
@@ -748,7 +761,7 @@ async function startRoom(id){
   stopRoom(); RC = {id,state:"loading",msgs:[],people:{},presence:{},pcs:{},pend:{},spk:{},meters:{},seenAt:{},gone:[]};
   await refreshRoom(true);
   if(RC.id!==id) return;
-  if(RC.state==="ok" && RC.member) await openRoomLive();
+  if(RC.state==="ok" && RC.member){ await openRoomLive(); loadHistory(S.me.id); }
   render();
 }
 async function refreshRoom(first){
