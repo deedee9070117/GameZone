@@ -340,7 +340,7 @@ discord:["Discord","Discord","Discord","Discord"], line:["LINE ID","LINE ID","LI
 bio:["Bio","แนะนำตัว","简介","自己紹介文"], bioPh:["What kind of teammate are you?","คุณเป็นเพื่อนร่วมทีมแบบไหน?","你是怎样的队友？","どんなチームメイトですか？"],
 notFound:["Player not found","ไม่พบผู้เล่นนี้","未找到该玩家","プレイヤーが見つかりません"], loading:["Loading…","กำลังโหลด…","加载中…","読み込み中…"], needLogin:["Log in first","เข้าสู่ระบบก่อน","请先登录","ログインしてください"], needLoginSub:["You need an account to see this page.","ต้องมีบัญชีก่อนถึงจะดูหน้านี้ได้","需要账号才能查看此页面。","このページにはアカウントが必要です。"],
 almost:["Almost there. Finish the required steps to unlock matching and joining rooms.","อีกนิดเดียว ตั้งค่าส่วนที่จำเป็นให้เสร็จเพื่อปลดล็อกการจับคู่และเข้าห้อง","就差一点。完成必填步骤即可匹配和加入房间。","あと少し。必須項目を完了するとマッチングと参加ができます。"], setupBtn:["Finish setup","ตั้งค่าต่อ","继续设置","設定を完了"],
-foot:["GameZone beta. Rooms shown are sample rooms while matchmaking is being built.","GameZone เวอร์ชันทดลอง ห้องที่แสดงเป็นห้องตัวอย่างระหว่างที่ระบบจับคู่กำลังสร้าง","GameZone 测试版。匹配功能开发期间，显示的房间为示例房间。","GameZone ベータ版。マッチング機能の開発中のため、表示中のルームはサンプルです。"],
+foot:["GameZone beta. Rooms and matchmaking are open for Valorant first.","GameZone เวอร์ชันทดลอง ตอนนี้เปิดห้องและจับคู่ได้สำหรับ Valorant ก่อน","GameZone 测试版。房间和匹配功能目前先开放 Valorant。","GameZone ベータ版。ルームとマッチングは現在 Valorant のみ対応です。"],
 tJoined:["You joined the room","เข้าร่วมห้องแล้ว","已加入房间","参加しました"], tLeft:["You left the room","ออกจากห้องแล้ว","已离开房间","退出しました"], tWelcome:["Welcome back, {n}","ยินดีต้อนรับกลับมา {n}","欢迎回来，{n}","おかえりなさい、{n}"], tOut:["Logged out","ออกจากระบบแล้ว","已退出登录","ログアウトしました"], tReady:["Profile ready. You can match and join now.","โปรไฟล์พร้อมแล้ว จับคู่และเข้าห้องได้เลย","主页已就绪，可以匹配和加入了。","準備完了。マッチングと参加ができます。"],
 createRoom:["Create room","สร้างห้อง","创建房间","ルーム作成"], noRooms:["No rooms yet. Open the first one.","ยังไม่มีห้อง มาเปิดห้องแรกกัน","还没有房间，来创建第一个吧。","まだルームがありません。最初のルームを作りましょう。"], sample:["Sample","ตัวอย่าง","示例","サンプル"], actCreate:["create a room","สร้างห้อง","创建房间","ルーム作成"],
 roomTitle:["Room name","ชื่อห้อง","房间名称","ルーム名"], roomTitlePh:["e.g. Gold lobby needs a Controller","เช่น ห้อง Gold ขาด Controller","例如：黄金局缺控场","例：ゴールド帯 コントローラー募集"], mode:["Mode","โหมด","模式","モード"], players:["Players in total","จำนวนผู้เล่นทั้งหมด","总人数","合計人数"],
@@ -369,6 +369,7 @@ admin:["Admin","หลังบ้านแอดมิน","管理后台","管�
 adUsers:["accounts","บัญชี","账号","アカウント"], adToday:["new in 24h","ใหม่ใน 24 ชม.","24 小时新增","24時間の新規"], adRooms:["rooms in 24h","ห้องใน 24 ชม.","24 小时房间","24時間のルーム"], adMsgs:["messages","ข้อความ","消息","メッセージ"], adSearching:["matching now","กำลังจับคู่","正在匹配","マッチング中"],
 adFilter:["Filter by name","กรองด้วยชื่อ","按名称筛选","名前で絞り込み"], adReady:["Set up","ตั้งค่าครบ","已完成设置","設定完了"], adJoined:["Joined","สมัครเมื่อ","注册时间","登録日"],
 wanted:["Players wanted","จำนวนคนที่ต้องการ","需要人数","募集人数"], wantedHint:["Not counting you","ไม่นับตัวคุณ","不含自己","自分を除く"], gfx:["Graphics","กราฟิก","画质","グラフィック"], pickGame:["Game","เกม","游戏","ゲーム"],
+roomsSoon:["Rooms coming soon","ห้องของเกมนี้กำลังจะมา","房间即将开放","ルームは近日公開"],
 tPic:["Picture updated","อัปเดตรูปแล้ว","头像已更新","画像を更新しました"], tNotImg:["That file isn't an image","ไฟล์นี้ไม่ใช่รูปภาพ","该文件不是图片","画像ファイルではありません"], tFail:["Something went wrong. Try again.","เกิดข้อผิดพลาด ลองใหม่อีกครั้ง","出了点问题，请重试。","エラーが発生しました。もう一度お試しください。"], tAdded:["Added {n}","เพิ่ม {n} แล้ว","已添加 {n}","{n} を追加しました"]
 };
 const OPT = { // option labels: [th, zh, ja]
@@ -404,14 +405,7 @@ const MBTI = ["INTJ","INTP","ENTJ","ENTP","INFJ","INFP","ENFJ","ENFP","ISTJ","IS
 const GENDERS = ["Male","Female","Non-binary","Prefer not to say"];
 const SERIOUS = ["Just for fun","Casual","Balanced","Competitive","Climbing hard"];
 const DEVICES = ["PC","Mobile","Tablet","Console"];
-const ROOMS = [
-  {id:"r5",game:"rov",mode:"Ranked Match",title:"Need a jungler for Diamond push",host:"Gun_RoV",size:5,members:[["Gun_RoV","Mid lane"],["mookky","Roam / Support"],["TeeTime","Abyssal Dragon lane"]],rank:"Diamond",tags:["Mic on","Tryhard"],note:"Three games minimum. No blaming."},
-  {id:"r6",game:"rov",mode:"Abyssal Clash",title:"Abyssal Clash for fun",host:"Bam",size:5,members:[["Bam","Any"],["ice.th","Any"]],rank:"Any rank",tags:["Chill","Funny"],note:"Random heroes, no stress."},
-  {id:"r7",game:"rov",mode:"Normal Match (Grand Battle)",title:"Duo to practice Dark Slayer lane",host:"Praew",size:2,members:[["Praew","Dark Slayer lane"]],rank:"Gold to Platinum",tags:["Patient with new players"],note:"I'm learning the lane, looking for a roam who can teach."},
-  {id:"r8",game:"roblox",mode:"Brookhaven RP",title:"Brookhaven roleplay town",host:"Sky_Ro",size:6,members:[["Sky_Ro",""],["minnie22",""],["Poon",""]],rank:"",tags:["Chill","No mic"],note:"Family roleplay, text chat only."},
-  {id:"r9",game:"roblox",mode:"99 Nights in the Forest",title:"99 Nights, full run",host:"Dew",size:4,members:[["Dew",""],["Ohm_",""]],rank:"",tags:["Mic on","Funny"],note:"Trying to survive all 99 nights tonight."},
-  {id:"r10",game:"roblox",mode:"Murder Mystery 2",title:"MM2 private server",host:"Kaning",size:6,members:[["Kaning",""],["Tar",""],["pp.pond",""],["Mai",""],["June",""]],rank:"",tags:["Chill"],note:"One seat left."}
-];
+const ROOMS = []; // sample rooms removed; real rooms come from the database
 const AV_COLORS = ["#345E8F","#EF7A5E","#E2B04A","#8DAA8B","#7A6A62","#B86B8C"];
 // profile blocks: id, default width (grid columns out of 4), allowed widths
 const WIDGETS = [["main",2,[2,4]],["about",1,[1,2]],["times",1,[1,2]],["pc",2,[2,4]],["gear",2,[2,4]],["games",2,[2,4]],["settings",1,[1,2]],["contact",1,[1,2]]];
@@ -544,9 +538,9 @@ const views = {
     return `<section class="hero"><span class="mono">${t("eyebrow")}</span><h1>${t("h1a")}<br><em>${t("h1b")}</em></h1><p>${t("heroSub")}</p>
       <div class="hero-cta"><button class="btn coral big" data-act="scroll-games">${t("find")}</button>${second}</div></section>
     <section class="block" id="games-block"><div class="head"><h2>${t("pick")}</h2><span class="mono">${t("moreGames")}</span></div>
-      <div class="grid g3">${Object.entries(GAMES).map(([id,g])=>`<button class="tile" data-go="${id}"><div class="band ${g.color}"><h3>${g.name}</h3></div><div class="body"><span>${g.blurb[LI[S.lang]]}</span><span class="mono">${t("nRooms",{n:ROOMS.filter(r=>r.game===id).length})}</span></div></button>`).join("")}</div></section>
+      <div class="grid g3">${Object.entries(GAMES).map(([id,g])=>`<button class="tile" data-go="${id}"><div class="band ${g.color}"><h3>${g.name}</h3></div><div class="body"><span>${g.blurb[LI[S.lang]]}</span><span class="mono">${id==="valorant"?t("nRooms",{n:S.vrooms.length}):t("roomsSoon")}</span></div></button>`).join("")}</div></section>
     <section class="block"><div class="head"><h2>${t("openRooms")}</h2><button class="btn small" data-go="rooms">${t("seeAll")}</button></div>
-      <div class="grid g2">${[...S.vrooms.filter(r=>membersOf(r).length<r.size).map(vroomCard),...ROOMS.filter(r=>r.members.length<r.size).map(roomCard)].slice(0,4).join("")}</div></section>`;
+      ${S.vrooms.some(r=>membersOf(r).length<r.size)?`<div class="grid g2">${S.vrooms.filter(r=>membersOf(r).length<r.size).slice(0,4).map(vroomCard).join("")}</div>`:`<p class="muted">${t("noRooms")}</p>`}</section>`;
   },
   game(id){
     const g = GAMES[id], pick = S.pick[id], groups = g.groups.slice();
@@ -565,14 +559,14 @@ const views = {
       <div class="card pop queue"><div><span class="mono">${t("yourPick")}</span><div><b>${esc(pick.mode)}</b> · ${t("s"+pick.size)}</div></div>
         <button class="btn coral mid" data-act="match" data-game="${id}">${t("quick")}</button></div>
     </section>
-    <section class="block"><div class="head"><h2>${t("gRooms",{g:g.name})}</h2>${id==="valorant"?`<button class="btn coral" data-act="create-room">${t("createRoom")}</button>`:""}</div>${id==="valorant"?(S.vrooms.length?`<div class="grid g2">${S.vrooms.map(vroomCard).join("")}</div>`:`<p class="muted">${t("noRooms")}</p>`):`<div class="grid g2">${rooms.map(roomCard).join("")}</div>`}</section>`;
+    <section class="block"><div class="head"><h2>${t("gRooms",{g:g.name})}</h2>${id==="valorant"?`<button class="btn coral" data-act="create-room">${t("createRoom")}</button>`:""}</div>${id==="valorant"?(S.vrooms.length?`<div class="grid g2">${S.vrooms.map(vroomCard).join("")}</div>`:`<p class="muted">${t("noRooms")}</p>`):`<p class="muted">${t("roomsSoon")}</p>`}</section>`;
   },
   valorant(){ return views.game("valorant"); }, rov(){ return views.game("rov"); }, roblox(){ return views.game("roblox"); },
   rooms(){
     const list = ROOMS.filter(r=>S.roomFilter==="all"||r.game===S.roomFilter);
     return `<div class="game-hero"><h1>${t("rooms")}</h1><p class="muted">${t("roomsSub")}</p><button class="btn coral" data-act="create-room">${t("createRoom")}</button></div>
     <section class="block"><div class="chips" style="margin-bottom:16px">${[["all",t("allG")],...Object.entries(GAMES).map(([k,g])=>[k,g.name])].map(([k,l])=>
-      `<button class="chip" data-act="filter" data-val="${k}" aria-pressed="${S.roomFilter===k}">${l}</button>`).join("")}</div><div class="grid g2">${(S.roomFilter==="all"||S.roomFilter==="valorant"?S.vrooms.map(vroomCard).join(""):"")+list.map(roomCard).join("")}</div>${S.roomFilter==="valorant"&&!S.vrooms.length?`<p class="muted">${t("noRooms")}</p>`:""}</section>`;
+      `<button class="chip" data-act="filter" data-val="${k}" aria-pressed="${S.roomFilter===k}">${l}</button>`).join("")}</div><div class="grid g2">${(S.roomFilter==="all"||S.roomFilter==="valorant"?S.vrooms.map(vroomCard).join(""):"")+list.map(roomCard).join("")}</div>${S.roomFilter!=="all"&&S.roomFilter!=="valorant"?`<p class="muted">${t("roomsSoon")}</p>`:!S.vrooms.length?`<p class="muted">${t("noRooms")}</p>`:""}</section>`;
   },
   setup(){
     if(S.booting) return views.loading(); const p = S.me; if(!p) return views.needLogin();
