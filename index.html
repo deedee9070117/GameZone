@@ -196,6 +196,31 @@ footer{padding:36px 0 72px;color:var(--ink-soft);font-size:13.5px;border-top:2px
 .v-foot .inp{width:auto;flex:1;min-width:140px;color:var(--ink)}
 .preview{max-height:46vh;max-width:100%;border:2px solid var(--ink);border-radius:12px;align-self:center}
 
+/* rooms */
+.rm{padding:20px 0;display:flex;flex-direction:column;gap:16px}
+.rm-head{display:flex;flex-direction:column;gap:10px}
+.rm-head h1{font-family:var(--font-body);font-weight:700;font-size:24px;letter-spacing:0}
+.rm-row{display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+.rm-body{display:grid;grid-template-columns:230px minmax(0,1fr) 250px;gap:16px;align-items:start}
+.rm-col{display:flex;flex-direction:column;gap:10px;min-width:0}
+.rm-chat{display:flex;flex-direction:column;height:min(64vh,620px);padding:0;overflow:hidden}
+#rm-msgs{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column}
+.msg{display:grid;grid-template-columns:36px minmax(0,1fr);gap:10px;margin-top:12px}
+.msg.cont{margin-top:2px}
+.msg .b{white-space:pre-wrap;overflow-wrap:anywhere}
+.msg time{font-size:12px;color:var(--ink-soft);margin-left:6px}
+.chat-form{display:flex;gap:8px;padding:12px;border-top:2px solid var(--ink);background:var(--paper)}
+.dot{width:11px;height:11px;border-radius:50%;border:2px solid var(--ink);background:transparent;flex:none}
+.dot.on{background:var(--sage)}
+.person{display:flex;align-items:center;gap:8px;padding:6px 0;min-width:0}
+.person .nm{min-width:0;flex:1;overflow:hidden}
+.person .nm b{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.codebox{display:flex;gap:10px;align-items:center;flex-wrap:wrap;background:var(--paper);border:2px dashed var(--ink);border-radius:10px;padding:8px 12px}
+.codebox b{font-family:var(--font-mono);font-size:18px;letter-spacing:.08em;overflow-wrap:anywhere}
+.tag.c-mustard{background:var(--mustard)}
+.vbtns{display:flex;gap:6px;flex-wrap:wrap}
+.req{display:flex;flex-direction:column;gap:6px}
+@media (max-width:900px){.rm-body{grid-template-columns:1fr}.rm-chat{order:-1}}
 @media (max-width:760px){
   .wgrid{grid-template-columns:repeat(2,1fr)}
   .widget,.widget.w4{grid-column:span 2}
@@ -215,6 +240,7 @@ footer{padding:36px 0 72px;color:var(--ink-soft);font-size:13.5px;border-top:2px
 <div id="dialog-root"></div>
 <input type="file" id="story-file" accept="image/*" hidden>
 <input type="file" id="av-file" accept="image/*" hidden>
+<div id="audio-root" hidden></div>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
@@ -283,6 +309,22 @@ notFound:["Player not found","ไม่พบผู้เล่นนี้","�
 almost:["Almost there. Finish the required steps to unlock matching and joining rooms.","อีกนิดเดียว ตั้งค่าส่วนที่จำเป็นให้เสร็จเพื่อปลดล็อกการจับคู่และเข้าห้อง","就差一点。完成必填步骤即可匹配和加入房间。","あと少し。必須項目を完了するとマッチングと参加ができます。"], setupBtn:["Finish setup","ตั้งค่าต่อ","继续设置","設定を完了"],
 foot:["GameZone beta. Rooms shown are sample rooms while matchmaking is being built.","GameZone เวอร์ชันทดลอง ห้องที่แสดงเป็นห้องตัวอย่างระหว่างที่ระบบจับคู่กำลังสร้าง","GameZone 测试版。匹配功能开发期间，显示的房间为示例房间。","GameZone ベータ版。マッチング機能の開発中のため、表示中のルームはサンプルです。"],
 tJoined:["You joined the room","เข้าร่วมห้องแล้ว","已加入房间","参加しました"], tLeft:["You left the room","ออกจากห้องแล้ว","已离开房间","退出しました"], tWelcome:["Welcome back, {n}","ยินดีต้อนรับกลับมา {n}","欢迎回来，{n}","おかえりなさい、{n}"], tOut:["Logged out","ออกจากระบบแล้ว","已退出登录","ログアウトしました"], tReady:["Profile ready. You can match and join now.","โปรไฟล์พร้อมแล้ว จับคู่และเข้าห้องได้เลย","主页已就绪，可以匹配和加入了。","準備完了。マッチングと参加ができます。"],
+createRoom:["Create room","สร้างห้อง","创建房间","ルーム作成"], noRooms:["No rooms yet. Open the first one.","ยังไม่มีห้อง มาเปิดห้องแรกกัน","还没有房间，来创建第一个吧。","まだルームがありません。最初のルームを作りましょう。"], sample:["Sample","ตัวอย่าง","示例","サンプル"], actCreate:["create a room","สร้างห้อง","创建房间","ルーム作成"],
+roomTitle:["Room name","ชื่อห้อง","房间名称","ルーム名"], roomTitlePh:["e.g. Gold lobby needs a Controller","เช่น ห้อง Gold ขาด Controller","例如：黄金局缺控场","例：ゴールド帯 コントローラー募集"], mode:["Mode","โหมด","模式","モード"], players:["Players in total","จำนวนผู้เล่นทั้งหมด","总人数","合計人数"],
+myRole:["Your role","ตำแหน่งของคุณ","你的位置","あなたのロール"], needRoles:["Roles you still need","ตำแหน่งที่ยังขาด","还缺的位置","募集中のロール"], rankFrom:["Rank from","แรงค์ตั้งแต่","最低段位","ランク下限"], rankTo:["Rank up to","ถึงแรงค์","最高段位","ランク上限"], anyRank:["Any rank","ทุกแรงค์","不限段位","ランク不問"],
+ageFrom:["Age from","อายุตั้งแต่","最小年龄","年齢下限"], ageTo:["Age up to","ถึงอายุ","最大年龄","年齢上限"], allowGender:["Who can join: gender","เพศที่เข้าร่วมได้","可加入的性别","参加できる性別"], allowVibe:["Who can join: vibe","นิสัยที่เข้าร่วมได้","可加入的风格","参加できるスタイル"],
+anyoneHint:["Leave empty to allow everyone.","ไม่เลือก = รับทุกคน","不选表示不限。","未選択の場合は誰でも参加できます。"], vibeHint:["A player needs at least one of these on their profile.","ผู้เล่นต้องมีอย่างน้อยหนึ่งนิสัยที่เลือกไว้ในโปรไฟล์ของตัวเอง","玩家主页上需至少有其中一项。","プロフィールにいずれか1つがあれば参加できます。"],
+roomNote:["Room details","รายละเอียดห้อง","房间说明","ルームの説明"], partyCode:["In-game party code","เลขห้องในเกม","游戏内组队码","ゲーム内パーティーコード"], codeHint:["Only people in the room can see this.","เห็นได้เฉพาะคนในห้อง","仅房间成员可见。","ルームのメンバーだけに表示されます。"], codeNone:["Not set yet","ยังไม่ได้ใส่","尚未设置","未設定"], copy:["Copy","คัดลอก","复制","コピー"], codeCopied:["Code copied","คัดลอกเลขห้องแล้ว","已复制","コピーしました"],
+roomSettings:["Room settings","ตั้งค่าห้อง","房间设置","ルーム設定"], closeRoom:["Close room","ปิดห้อง","关闭房间","ルームを閉じる"], enterRoom:["Enter room","เข้าห้อง","进入房间","ルームに入る"], lookingFor:["Looking for","กำลังหา","正在找","募集"], whoCan:["Who can join","ใครเข้าร่วมได้","加入条件","参加条件"], anyone:["Anyone","ทุกคน","不限","誰でも"],
+ageRange:["Age {a}–{b}","อายุ {a}–{b}","{a}–{b} 岁","{a}〜{b}歳"], pickRole:["Pick your role","เลือกตำแหน่งของคุณ","选择你的位置","ロールを選択"],
+whyAge:["Your age is outside this room's range.","อายุของคุณไม่อยู่ในช่วงที่ห้องนี้กำหนด","你的年龄不在该房间的范围内。","年齢が参加条件の範囲外です。"], whyGender:["This room is limited by gender. If yours is empty, set it in your profile.","ห้องนี้จำกัดเพศ ถ้ายังไม่ได้ระบุเพศ ให้ไปตั้งในโปรไฟล์ก่อน","该房间限制了性别。如未填写性别，请先在主页设置。","このルームには性別の条件があります。未設定の場合はプロフィールで設定してください。"],
+whyVibe:["This room asks for a vibe that isn't on your profile.","ห้องนี้ต้องการนิสัยที่โปรไฟล์คุณยังไม่มี","该房间要求的风格不在你的主页上。","このルームが求めるスタイルがプロフィールにありません。"], whyMany:["You already host 3 rooms. Close one first.","คุณเปิดห้องไว้ 3 ห้องแล้ว ปิดห้องเก่าก่อน","你已创建 3 个房间，请先关闭一个。","すでに3つのルームを作成しています。先に1つ閉じてください。"],
+roomGone:["This room has been closed.","ห้องนี้ถูกปิดแล้ว","该房间已关闭。","このルームは閉じられました。"], removed:["You were removed from the room.","คุณถูกนำออกจากห้อง","你已被移出房间。","ルームから外されました。"], members:["Members","สมาชิก","成员","メンバー"], remove:["Remove","นำออก","移出","外す"],
+chat:["Chat","แชท","聊天","チャット"], chatPh:["Message the room","พิมพ์ข้อความถึงทุกคนในห้อง","给房间发消息","メッセージを入力"], send:["Send","ส่ง","发送","送信"], noMsgs:["No messages yet. Say hi.","ยังไม่มีข้อความ ทักทายกันหน่อย","还没有消息，打个招呼吧。","まだメッセージがありません。挨拶してみよう。"],
+voice:["Voice","ห้องเสียง","语音","ボイス"], joinVoice:["Join voice","เข้าห้องเสียง","加入语音","ボイスに参加"], leaveVoice:["Disconnect","ออกจากห้องเสียง","断开","切断"], mute:["Mute","ปิดไมค์","静音","ミュート"], unmute:["Unmute","เปิดไมค์","取消静音","ミュート解除"], deafen:["Deafen","ปิดเสียง","关闭声音","スピーカーオフ"], undeafen:["Undeafen","เปิดเสียง","开启声音","スピーカーオン"], mutedTag:["muted","ปิดไมค์","已静音","ミュート中"],
+noVoice:["Nobody is in voice.","ยังไม่มีใครอยู่ในห้องเสียง","语音中没有人。","ボイスには誰もいません。"], micErr:["Couldn't use your microphone. Allow microphone access in the browser and try again.","ใช้ไมโครโฟนไม่ได้ อนุญาตการใช้ไมค์ในเบราว์เซอร์แล้วลองใหม่","无法使用麦克风，请在浏览器中允许麦克风权限后重试。","マイクを使用できません。ブラウザでマイクを許可してください。"],
+eTitle:["Room name must be 3 to 60 characters.","ชื่อห้องต้องยาว 3–60 ตัวอักษร","房间名称需为 3–60 个字符。","ルーム名は3〜60文字にしてください。"], eAgeRange:["Check the age range (13 to 99).","ตรวจสอบช่วงอายุ (13–99)","请检查年龄范围（13–99）。","年齢の範囲を確認してください（13〜99）。"],
+backRooms:["← Rooms","← ห้องทั้งหมด","← 房间","← ルーム一覧"], previewNote:["Join to see the chat and the party code.","เข้าร่วมเพื่อดูแชทและเลขห้องในเกม","加入后可查看聊天和组队码。","参加するとチャットとパーティーコードが見られます。"],
 tPic:["Picture updated","อัปเดตรูปแล้ว","头像已更新","画像を更新しました"], tNotImg:["That file isn't an image","ไฟล์นี้ไม่ใช่รูปภาพ","该文件不是图片","画像ファイルではありません"], tFail:["Something went wrong. Try again.","เกิดข้อผิดพลาด ลองใหม่อีกครั้ง","出了点问题，请重试。","エラーが発生しました。もう一度お試しください。"], tAdded:["Added {n}","เพิ่ม {n} แล้ว","已添加 {n}","{n} を追加しました"]
 };
 const OPT = { // option labels: [th, zh, ja]
@@ -319,10 +361,6 @@ const GENDERS = ["Male","Female","Non-binary","Prefer not to say"];
 const SERIOUS = ["Just for fun","Casual","Balanced","Competitive","Climbing hard"];
 const DEVICES = ["PC","Mobile","Tablet","Console"];
 const ROOMS = [
-  {id:"r1",game:"valorant",mode:"Competitive (Ranked)",title:"Gold lobby needs a Controller",host:"mintchoco",size:5,members:[["mintchoco","Duelist"],["PloyFPS","Sentinel"],["benz_x","Initiator"],["Krit07","Duelist"]],rank:"Gold to Platinum",tags:["Mic on","Tryhard"],note:"Playing until midnight. Comms in Thai, calm calls only."},
-  {id:"r2",game:"valorant",mode:"Unrated",title:"Chill unrated after work",host:"NamTan",size:3,members:[["NamTan","Flex"]],rank:"Any rank",tags:["Chill","No toxicity"],note:"New players welcome. We laugh at our own whiffs."},
-  {id:"r3",game:"valorant",mode:"Premier",title:"Premier roster, weekend matches",host:"OatSensei",size:5,members:[["OatSensei","Initiator"],["jjaySmoke","Controller"],["Fah","Sentinel"]],rank:"Diamond and up",tags:["Mic on","Shotcaller"],note:"Looking for two duelists who can commit to Sat and Sun 8pm."},
-  {id:"r4",game:"valorant",mode:"Team Deathmatch",title:"Warm-up TDM, then ranked",host:"Pim",size:5,members:[["Pim","Duelist"],["tontan","Flex"],["Earth_","Flex"],["QQmew","Flex"],["Bossk","Flex"]],rank:"Any rank",tags:["Chill"],note:""},
   {id:"r5",game:"rov",mode:"Ranked Match",title:"Need a jungler for Diamond push",host:"Gun_RoV",size:5,members:[["Gun_RoV","Mid lane"],["mookky","Roam / Support"],["TeeTime","Abyssal Dragon lane"]],rank:"Diamond",tags:["Mic on","Tryhard"],note:"Three games minimum. No blaming."},
   {id:"r6",game:"rov",mode:"Abyssal Clash",title:"Abyssal Clash for fun",host:"Bam",size:5,members:[["Bam","Any"],["ice.th","Any"]],rank:"Any rank",tags:["Chill","Funny"],note:"Random heroes, no stress."},
   {id:"r7",game:"rov",mode:"Normal Match (Grand Battle)",title:"Duo to practice Dark Slayer lane",host:"Praew",size:2,members:[["Praew","Dark Slayer lane"]],rank:"Gold to Platinum",tags:["Patient with new players"],note:"I'm learning the lane, looking for a roam who can teach."},
@@ -339,7 +377,7 @@ const W_TITLE = {main:"bMain",about:"bAbout",times:"bTimes",pc:"bPc",gear:"bGear
 const navLang = (navigator.language||"en").slice(0,2);
 const S = {
   lang: lsGet("gz.lang") || (LI[navLang]!=null?navLang:"en"),
-  booting:true, me:null, viewing:null, viewKey:"", stories:{}, arranging:false,
+  booting:true, vrooms:[], me:null, viewing:null, viewKey:"", stories:{}, arranging:false,
   dialog:null, menu:false, setupStep:1, roomFilter:"all",
   pick:{valorant:{mode:"Unrated",size:2},rov:{mode:"Ranked Match",size:2},roblox:{mode:"Steal An Egg",size:2}},
   customRoblox: (()=>{ try{ return JSON.parse(lsGet("gz.robloxCustom"))||[]; }catch(e){ return []; } })()
@@ -362,7 +400,7 @@ function layoutOf(p){
 const $ = s => document.querySelector(s);
 const esc = s => String(s==null?"":s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const ROUTES = ["home","valorant","rov","roblox","rooms","setup","profile"];
-function route(){ const h = decodeURIComponent(location.hash.replace("#","")); if(/^u-[A-Za-z0-9_]{3,16}$/.test(h)) return "user"; return ROUTES.includes(h)?h:"home"; }
+function route(){ const h = decodeURIComponent(location.hash.replace("#","")); if(/^u-[A-Za-z0-9_]{3,16}$/.test(h)) return "user"; if(/^r-[0-9a-f-]{36}$/.test(h)) return "vroom"; return ROUTES.includes(h)?h:"home"; }
 function go(r){ if(location.hash.replace("#","")===r){ render(); window.scrollTo(0,0); } else location.hash = r; }
 let toastT; function toast(msg){ const el=$("#toast"); el.textContent=msg; el.classList.add("show"); clearTimeout(toastT); toastT=setTimeout(()=>el.classList.remove("show"),2000); }
 function presetSVG(i){ const c = AV_COLORS[i%AV_COLORS.length]; const m = ['<rect x="22" y="40" width="20" height="5"/>','<rect x="22" y="40" width="20" height="5"/><rect x="18" y="36" width="5" height="5"/><rect x="41" y="36" width="5" height="5"/>','<rect x="26" y="39" width="12" height="8"/>'];
@@ -438,7 +476,7 @@ function navHTML(){
 function roomCard(r){
   const m = roomMembers(r), full = m.length>=r.size, mine = m.some(x=>x.you);
   return `<button class="card room" data-act="room" data-id="${r.id}">
-    <div class="room-top"><div><span class="mono">${GAMES[r.game].name} · ${esc(r.mode)}</span><h3>${esc(r.title)}</h3></div>
+    <div class="room-top"><div><span class="mono">${GAMES[r.game].name} · ${esc(r.mode)} · ${t("sample")}</span><h3>${esc(r.title)}</h3></div>
     <span class="tag ${mine?"you":full?"full":"open"}">${mine?t("youIn"):full?t("full"):t("open")}</span></div>
     <div class="chips">${r.rank?`<span class="tag">${esc(r.rank)}</span>`:""}${r.tags.map(x=>`<span class="tag">${esc(tl(x))}</span>`).join("")}</div>
     <div class="room-foot"><span class="muted">${t("host")} ${esc(r.host)}</span>
@@ -463,7 +501,7 @@ const views = {
     <section class="block" id="games-block"><div class="head"><h2>${t("pick")}</h2><span class="mono">${t("moreGames")}</span></div>
       <div class="grid g3">${Object.entries(GAMES).map(([id,g])=>`<button class="tile" data-go="${id}"><div class="band ${g.color}"><h3>${g.name}</h3></div><div class="body"><span>${g.blurb[LI[S.lang]]}</span><span class="mono">${t("nRooms",{n:ROOMS.filter(r=>r.game===id).length})}</span></div></button>`).join("")}</div></section>
     <section class="block"><div class="head"><h2>${t("openRooms")}</h2><button class="btn small" data-go="rooms">${t("seeAll")}</button></div>
-      <div class="grid g2">${ROOMS.filter(r=>r.members.length<r.size).slice(0,4).map(roomCard).join("")}</div></section>`;
+      <div class="grid g2">${[...S.vrooms.filter(r=>membersOf(r).length<r.size).map(vroomCard),...ROOMS.filter(r=>r.members.length<r.size).map(roomCard)].slice(0,4).join("")}</div></section>`;
   },
   game(id){
     const g = GAMES[id], pick = S.pick[id], groups = g.groups.slice();
@@ -482,14 +520,14 @@ const views = {
       <div class="card pop queue"><div><span class="mono">${t("yourPick")}</span><div><b>${esc(pick.mode)}</b> · ${t("s"+pick.size)}</div></div>
         <button class="btn coral mid" data-act="match" data-game="${id}">${t("quick")}</button></div>
     </section>
-    <section class="block"><div class="head"><h2>${t("gRooms",{g:g.name})}</h2></div><div class="grid g2">${rooms.map(roomCard).join("")}</div></section>`;
+    <section class="block"><div class="head"><h2>${t("gRooms",{g:g.name})}</h2>${id==="valorant"?`<button class="btn coral" data-act="create-room">${t("createRoom")}</button>`:""}</div>${id==="valorant"?(S.vrooms.length?`<div class="grid g2">${S.vrooms.map(vroomCard).join("")}</div>`:`<p class="muted">${t("noRooms")}</p>`):`<div class="grid g2">${rooms.map(roomCard).join("")}</div>`}</section>`;
   },
   valorant(){ return views.game("valorant"); }, rov(){ return views.game("rov"); }, roblox(){ return views.game("roblox"); },
   rooms(){
     const list = ROOMS.filter(r=>S.roomFilter==="all"||r.game===S.roomFilter);
-    return `<div class="game-hero"><h1>${t("rooms")}</h1><p class="muted">${t("roomsSub")}</p></div>
+    return `<div class="game-hero"><h1>${t("rooms")}</h1><p class="muted">${t("roomsSub")}</p><button class="btn coral" data-act="create-room">${t("createRoom")}</button></div>
     <section class="block"><div class="chips" style="margin-bottom:16px">${[["all",t("allG")],...Object.entries(GAMES).map(([k,g])=>[k,g.name])].map(([k,l])=>
-      `<button class="chip" data-act="filter" data-val="${k}" aria-pressed="${S.roomFilter===k}">${l}</button>`).join("")}</div><div class="grid g2">${list.map(roomCard).join("")}</div></section>`;
+      `<button class="chip" data-act="filter" data-val="${k}" aria-pressed="${S.roomFilter===k}">${l}</button>`).join("")}</div><div class="grid g2">${(S.roomFilter==="all"||S.roomFilter==="valorant"?S.vrooms.map(vroomCard).join(""):"")+list.map(roomCard).join("")}</div>${S.roomFilter==="valorant"&&!S.vrooms.length?`<p class="muted">${t("noRooms")}</p>`:""}</section>`;
   },
   setup(){
     if(S.booting) return views.loading(); const p = S.me; if(!p) return views.needLogin();
@@ -568,6 +606,256 @@ function profileHTML(p,own){
   </div>`;
 }
 
+/* ---------- real rooms (Valorant) ---------- */
+const VAL_MODES = GAMES.valorant.groups.flatMap(g=>g[1].map(m=>m[0]));
+const VAL_RANKS = GAMES.valorant.ranks.slice(1), VAL_ROLES = GAMES.valorant.roles;
+const ROOM_GENDERS = ["Male","Female","Non-binary"];
+const ROOM_SELECT = "*, room_members(user_id, role, joined_at, profiles(username, display_name, avatar))";
+const membersOf = r => (r.room_members||[]).slice().sort((a,b)=>new Date(a.joined_at)-new Date(b.joined_at));
+const rankText = r => r.rank_min&&r.rank_max ? (r.rank_min===r.rank_max?r.rank_min:r.rank_min+" – "+r.rank_max) : r.rank_min ? r.rank_min+"+" : r.rank_max ? "≤ "+r.rank_max : t("anyRank");
+async function loadVRooms(){
+  if(!sb) return;
+  const { data } = await sb.from("rooms").select(ROOM_SELECT).eq("game","valorant").gte("created_at",new Date(Date.now()-864e5).toISOString()).order("created_at",{ascending:false}).limit(60);
+  S.vrooms = data || [];
+  if(["home","valorant","rooms"].includes(route()) && !S.dialog) rerender();
+}
+function whyNot(r){
+  const m = membersOf(r); if(m.length>=r.size) return "roomFull";
+  const p = S.me; if(!p || !isReady(p)) return "";
+  if(p.age<r.age_min || p.age>r.age_max) return "whyAge";
+  if(r.req_gender.length && !r.req_gender.includes(p.gender)) return "whyGender";
+  if(r.req_vibes.length && !r.req_vibes.some(v=>p.vibes.includes(v))) return "whyVibe";
+  return "";
+}
+function vroomCard(r){
+  const m = membersOf(r), full = m.length>=r.size, mine = S.me && m.some(x=>x.user_id===S.me.id), host = m.find(x=>x.user_id===r.host_id);
+  return `<button class="card room" data-act="vroom" data-id="${r.id}">
+    <div class="room-top"><div><span class="mono">VALORANT · ${esc(r.mode)}</span><h3>${esc(r.title)}</h3></div>
+    <span class="tag ${mine?"you":full?"full":"open"}">${mine?t("youIn"):full?t("full"):t("open")}</span></div>
+    <div class="chips"><span class="tag">${esc(rankText(r))}</span>${r.need_roles.map(x=>`<span class="tag c-mustard">${esc(x)}</span>`).join("")}${r.req_vibes.slice(0,3).map(x=>`<span class="tag">${esc(tl(x))}</span>`).join("")}</div>
+    <div class="room-foot"><span class="muted">${t("host")} ${esc(host&&host.profiles?host.profiles.display_name:"")}</span>
+    <span class="slots" aria-label="${t("nOf",{a:m.length,b:r.size})}">${Array.from({length:r.size},(_,i)=>`<i class="slot ${i<m.length?(S.me&&m[i].user_id===S.me.id?"me":"on"):""}"></i>`).join("")}</span></div>
+  </button>`;
+}
+function roomReqHTML(r){
+  const who = [t("ageRange",{a:r.age_min,b:r.age_max}),...r.req_gender.map(tl),...r.req_vibes.map(tl)];
+  return `<div class="req">${r.need_roles.length?`<div><span class="mono">${t("lookingFor")}</span><div class="chips" style="margin-top:4px">${r.need_roles.map(x=>`<span class="tag c-mustard">${esc(x)}</span>`).join("")}</div></div>`:""}
+    <div><span class="mono">${t("whoCan")}</span><div class="chips" style="margin-top:4px"><span class="tag">${esc(rankText(r))}</span>${who.map(x=>`<span class="tag">${esc(x)}</span>`).join("")}</div></div></div>`;
+}
+function vroomDialog(r){
+  const m = membersOf(r), mine = S.me && m.some(x=>x.user_id===S.me.id), why = whyNot(r), myRoles = S.me ? (((S.me.games||{}).valorant||{}).roles||[]) : [];
+  const pre = r.need_roles.find(x=>myRoles.includes(x)) || myRoles[0] || r.need_roles[0] || "";
+  return `<div class="dialog wide" role="dialog" aria-modal="true" aria-labelledby="dlg-t"><span class="mono">VALORANT · ${esc(r.mode)}</span><h2 id="dlg-t" style="font-family:var(--font-body);font-weight:600;letter-spacing:0">${esc(r.title)}</h2>
+    <div class="chips"><span class="tag ${mine?"you":m.length>=r.size?"full":"open"}">${t("nOf",{a:m.length,b:r.size})}</span></div>
+    ${r.note?`<p style="white-space:pre-wrap">${esc(r.note)}</p>`:""}${roomReqHTML(r)}
+    <div>${m.map(x=>`<div class="member">${avatar(x.profiles,32)}<div><b>${esc(x.profiles?x.profiles.display_name:"")}</b>${x.user_id===r.host_id?` <span class="tag">${t("host")}</span>`:""}${S.me&&x.user_id===S.me.id?` <span class="tag you">${t("you")}</span>`:""}${x.role?`<div class="muted">${esc(x.role)}</div>`:""}</div></div>`).join("")}</div>
+    ${!mine&&!why?`<div><p class="mono" style="margin-bottom:8px">${t("pickRole")}</p>${chipSet("join_role",VAL_ROLES,[pre],"chip1")}</div>`:""}
+    ${!mine&&why&&why!=="roomFull"?`<p class="err">${t(why)}</p>`:""}
+    <div class="dialog-actions"><button class="btn ghost" data-act="close">${t("close")}</button>
+    ${mine?`<button class="btn coral" data-act="close-go" data-to="r-${r.id}">${t("enterRoom")}</button>`:why?`<button class="btn" disabled>${why==="roomFull"?t("roomFull"):t("join")}</button>`:`<button class="btn coral" data-act="vjoin" data-id="${r.id}">${t("join")}</button>`}</div></div>`;
+}
+function roomFormDialog(d){
+  const edit = !!d.edit, r = edit ? RC.data : {title:"",mode:S.pick.valorant.mode,size:5,note:"",rank_min:"",rank_max:"",need_roles:[],req_vibes:[],req_gender:[],age_min:13,age_max:99};
+  const myRoles = ((S.me.games||{}).valorant||{}).roles||[], num = (id,label,v) => `<label class="f">${label}<input class="inp" id="${id}" type="number" min="13" max="99" inputmode="numeric" value="${v}"></label>`;
+  return `<div class="dialog wide" role="dialog" aria-modal="true" aria-labelledby="dlg-t"><h2 id="dlg-t">${edit?t("roomSettings"):t("createRoom")}</h2><form data-form="room-form">
+    <label class="f">${t("roomTitle")}<input class="inp" id="rf-title" maxlength="60" placeholder="${t("roomTitlePh")}" value="${esc(r.title)}"></label>
+    <div class="row"><label class="f">${t("mode")}<select class="inp" id="rf-mode">${VAL_MODES.map(o=>`<option ${r.mode===o?"selected":""}>${esc(o)}</option>`).join("")}</select></label>
+      <label class="f">${t("players")}<select class="inp" id="rf-size">${[2,3,4,5].map(n=>`<option ${r.size===n?"selected":""}>${n}</option>`).join("")}</select></label>
+      ${edit?"":`<label class="f">${t("myRole")}${sel("rf-role",VAL_ROLES,myRoles[0]||"",t("notSet"))}</label>`}</div>
+    <div><p class="mono" style="margin-bottom:8px">${t("needRoles")}</p>${chipSet("need_roles",VAL_ROLES,r.need_roles)}</div>
+    <div class="row"><label class="f">${t("rankFrom")}${sel("rf-rmin",VAL_RANKS,r.rank_min,t("anyRank"))}</label><label class="f">${t("rankTo")}${sel("rf-rmax",VAL_RANKS,r.rank_max,t("anyRank"))}</label>${num("rf-amin",t("ageFrom"),r.age_min)}${num("rf-amax",t("ageTo"),r.age_max)}</div>
+    <div><p class="mono">${t("allowGender")}</p><p class="hint" style="margin-bottom:8px">${t("anyoneHint")}</p>${chipSet("req_gender",ROOM_GENDERS,r.req_gender)}</div>
+    <div><p class="mono">${t("allowVibe")}</p><p class="hint" style="margin-bottom:8px">${t("anyoneHint")} ${t("vibeHint")}</p>${chipSet("req_vibes",VIBES,r.req_vibes)}</div>
+    <label class="f">${t("roomNote")}<textarea class="inp" id="rf-note" maxlength="300">${esc(r.note)}</textarea></label>
+    <label class="f">${t("partyCode")} <span class="hint">${t("codeHint")}</span><input class="inp" id="rf-code" maxlength="40" autocomplete="off" value="${esc(edit?RC.code:"")}"></label>
+    <p class="err" id="rf-err" role="alert"></p>
+    <div class="dialog-actions"><button class="btn ghost" type="button" data-act="close">${t("cancel")}</button><button class="btn coral" type="submit" id="rf-go">${edit?t("save"):t("createRoom")}</button></div></form></div>`;
+}
+async function submitRoomForm(){
+  const d = S.dialog, err = $("#rf-err"), btn = $("#rf-go"), title = val("rf-title"), amin = +val("rf-amin")||13, amax = +val("rf-amax")||99;
+  if(title.length<3) return err.textContent = t("eTitle");
+  if(amin<13 || amax>99 || amin>amax) return err.textContent = t("eAgeRange");
+  let rmin = val("rf-rmin"), rmax = val("rf-rmax"); if(rmin && rmax && VAL_RANKS.indexOf(rmin)>VAL_RANKS.indexOf(rmax)) [rmin,rmax] = [rmax,rmin];
+  const body = {title,mode:val("rf-mode"),size:+val("rf-size"),note:val("rf-note"),rank_min:rmin,rank_max:rmax,need_roles:pressed("need_roles"),req_vibes:pressed("req_vibes"),req_gender:pressed("req_gender"),age_min:amin,age_max:amax};
+  btn.disabled = true; err.textContent = t("working");
+  if(d.edit){
+    const a = await sb.from("rooms").update(body).eq("id",RC.id), b = await sb.from("room_secrets").update({party_code:val("rf-code")}).eq("room_id",RC.id);
+    if(a.error || b.error){ btn.disabled=false; return err.textContent = t("tFail"); }
+    S.dialog=null; renderDialog(); await refreshRoom(); toast(t("saved"));
+  } else {
+    const { data, error } = await sb.rpc("create_room",{p:{...body,my_role:val("rf-role"),party_code:val("rf-code")}});
+    if(error){ btn.disabled=false; return err.textContent = /too_many/.test(error.message)?t("whyMany"):t("tFail"); }
+    S.dialog=null; renderDialog(); loadVRooms(); go("r-"+data);
+  }
+}
+
+/* room page runtime: data, live channel, chat, voice */
+let RC = {};
+const ICE = {iceServers:[{urls:["stun:stun.l.google.com:19302","stun:stun1.l.google.com:19302"]}]};
+function stopRoom(){ if(!RC.id) return; leaveVoice(true); clearInterval(RC.poll); if(RC.ch) try{ sb.removeChannel(RC.ch); }catch(e){} RC = {}; }
+async function startRoom(id){
+  stopRoom(); RC = {id,state:"loading",msgs:[],people:{},presence:{},pcs:{},pend:{}};
+  await refreshRoom(true);
+  if(RC.id!==id) return;
+  if(RC.state==="ok" && RC.member) await openRoomLive();
+  render();
+}
+async function refreshRoom(first){
+  const id = RC.id; if(!id) return;
+  const { data, error } = await sb.from("rooms").select(ROOM_SELECT).eq("id",id).maybeSingle();
+  if(RC.id!==id || error) { if(first && RC.id===id){ RC.state="gone"; } return; }
+  if(!data){ const was = RC.member; stopRoom(); RC = {id,state:"gone"}; if(was) toast(t("roomGone")); if(!first) render(); loadVRooms(); return; }
+  const was = RC.member; RC.data = data; RC.members = membersOf(data); RC.state = "ok";
+  RC.members.forEach(m=>{ if(m.profiles) RC.people[m.user_id] = m.profiles; });
+  RC.member = !!S.me && RC.members.some(m=>m.user_id===S.me.id);
+  if(was && !RC.member){ stopRoom(); toast(t("removed")); loadVRooms(); return go("rooms"); }
+  if(RC.member){ const { data:sec } = await sb.from("room_secrets").select("party_code").eq("room_id",id).maybeSingle(); if(RC.id===id) RC.code = sec ? sec.party_code : ""; }
+  if(!first){ updateRoom("head"); updateRoom("members"); updateRoom("voice"); }
+}
+async function loadMsgs(){
+  const id = RC.id; if(!id) return;
+  const { data } = await sb.from("room_messages").select("id,body,created_at,user_id").eq("room_id",id).order("id",{ascending:false}).limit(150);
+  if(RC.id!==id || !data) return;
+  let added = false; data.forEach(m=>{ if(!RC.msgs.some(x=>x.id===m.id)){ RC.msgs.push(m); added = true; } });
+  if(added || !RC.msgsLoaded){ RC.msgsLoaded = true; await afterMsgs(); }
+}
+async function afterMsgs(){
+  RC.msgs.sort((a,b)=>a.id-b.id);
+  const missing = [...new Set(RC.msgs.map(m=>m.user_id))].filter(u=>!RC.people[u]);
+  if(missing.length){ const { data } = await sb.from("profiles").select("id,username,display_name,avatar").in("id",missing); (data||[]).forEach(p=>{ RC.people[p.id]=p; }); }
+  updateRoom("msgs");
+}
+function addMsg(m){ if(!RC.id || m.room_id!==RC.id || RC.msgs.some(x=>x.id===m.id)) return; RC.msgs.push(m); afterMsgs(); }
+async function openRoomLive(){
+  const id = RC.id; await loadMsgs();
+  try{ const { data:{ session } } = await sb.auth.getSession(); if(session) sb.realtime.setAuth(session.access_token); }catch(e){}
+  const ch = RC.ch = sb.channel("room-"+id,{config:{presence:{key:S.me.id}}});
+  ch.on("postgres_changes",{event:"INSERT",schema:"public",table:"room_messages",filter:"room_id=eq."+id},p=>addMsg(p.new))
+    .on("postgres_changes",{event:"*",schema:"public",table:"room_members",filter:"room_id=eq."+id},()=>refreshRoom())
+    .on("postgres_changes",{event:"*",schema:"public",table:"rooms",filter:"id=eq."+id},()=>refreshRoom())
+    .on("presence",{event:"sync"},()=>{ if(RC.ch!==ch) return; RC.presence = ch.presenceState(); updateRoom("members"); updateRoom("voice"); syncVoice(); })
+    .on("broadcast",{event:"rtc"},({payload})=>onSignal(payload))
+    .subscribe(st=>{ if(st==="SUBSCRIBED" && RC.ch===ch) trackMe(); });
+  RC.poll = setInterval(()=>{ refreshRoom(); loadMsgs(); },10000); // safety net if a live event is missed
+}
+const trackMe = () => RC.ch && RC.ch.track({voice:!!RC.inVoice,muted:!!RC.muted}).catch(()=>{});
+const isOnline = u => !!(RC.presence && RC.presence[u]);
+const voiceOf = u => { const p = RC.presence && RC.presence[u]; return p && p.find(x=>x.voice) || null; };
+
+/* voice: direct peer-to-peer audio between room members, signalled over the room channel */
+function sendSig(m){ if(RC.ch) RC.ch.send({type:"broadcast",event:"rtc",payload:{...m,from:S.me.id}}); }
+function makePc(peer){
+  const pc = new RTCPeerConnection(ICE); RC.pcs[peer] = pc; RC.pend[peer] = [];
+  RC.stream.getTracks().forEach(tr=>pc.addTrack(tr,RC.stream));
+  pc.onicecandidate = e => { if(e.candidate) sendSig({kind:"ice",to:peer,cand:e.candidate.toJSON()}); };
+  pc.ontrack = e => { let a = document.getElementById("au-"+peer); if(!a){ a = document.createElement("audio"); a.id = "au-"+peer; a.autoplay = true; $("#audio-root").appendChild(a); }
+    a.srcObject = e.streams[0]; a.muted = !!RC.deaf; a.play().catch(()=>{}); };
+  pc.onconnectionstatechange = () => { if(pc.connectionState==="failed" && RC.pcs[peer]===pc){ closePc(peer); setTimeout(syncVoice,1500); } };
+  return pc;
+}
+function closePc(peer){ const pc = RC.pcs && RC.pcs[peer]; if(pc){ try{ pc.close(); }catch(e){} delete RC.pcs[peer]; } const a = document.getElementById("au-"+peer); if(a) a.remove(); }
+async function syncVoice(){
+  if(!RC.inVoice) return;
+  const peers = Object.keys(RC.presence||{}).filter(u=>u!==S.me.id && voiceOf(u) && RC.members.some(m=>m.user_id===u));
+  Object.keys(RC.pcs).forEach(u=>{ if(!peers.includes(u)) closePc(u); });
+  for(const u of peers){ if(RC.pcs[u] || S.me.id>u) continue; // the smaller id calls, so two people never call each other at once
+    try{ const pc = makePc(u); const offer = await pc.createOffer(); await pc.setLocalDescription(offer); sendSig({kind:"offer",to:u,sdp:pc.localDescription}); }catch(e){ closePc(u); } }
+}
+async function onSignal(m){
+  if(!RC.inVoice || !m || m.to!==S.me.id || !RC.members.some(x=>x.user_id===m.from)) return;
+  try{
+    if(m.kind==="offer"){ closePc(m.from); const pc = makePc(m.from); await pc.setRemoteDescription(m.sdp);
+      for(const c of RC.pend[m.from]) await pc.addIceCandidate(c).catch(()=>{}); RC.pend[m.from] = [];
+      const ans = await pc.createAnswer(); await pc.setLocalDescription(ans); sendSig({kind:"answer",to:m.from,sdp:pc.localDescription}); }
+    else if(m.kind==="answer"){ const pc = RC.pcs[m.from]; if(pc){ await pc.setRemoteDescription(m.sdp); for(const c of RC.pend[m.from]||[]) await pc.addIceCandidate(c).catch(()=>{}); RC.pend[m.from] = []; } }
+    else if(m.kind==="ice"){ const pc = RC.pcs[m.from]; if(pc && pc.remoteDescription) await pc.addIceCandidate(m.cand).catch(()=>{}); else (RC.pend[m.from] = RC.pend[m.from]||[]).push(m.cand); }
+  }catch(e){}
+}
+async function joinVoice(){
+  const err = $("#voice-err");
+  try{ RC.stream = await navigator.mediaDevices.getUserMedia({audio:{echoCancellation:true,noiseSuppression:true,autoGainControl:true}}); }
+  catch(e){ if(err) err.textContent = t("micErr"); return; }
+  RC.inVoice = true; RC.muted = false; RC.deaf = false; await trackMe(); updateRoom("voice"); syncVoice();
+}
+function leaveVoice(silent){
+  if(!RC.inVoice) return; Object.keys(RC.pcs||{}).forEach(closePc);
+  if(RC.stream) RC.stream.getTracks().forEach(tr=>tr.stop()); RC.stream = null; RC.inVoice = false; RC.muted = false; RC.deaf = false;
+  if(!silent){ trackMe(); updateRoom("voice"); }
+}
+
+/* room page pieces: each part re-renders on its own so typing in chat is never interrupted */
+function personRow(u,extra){ const p = RC.people[u]||{}; return `<div class="person">${avatar(p,30)}<div class="nm"><b>${esc(p.display_name||"")}</b>${extra||""}</div>`; }
+const roomParts = {
+  head(){ const r = RC.data, host = S.me.id===r.host_id;
+    return `<div class="rm-row"><div><button class="back" data-go="rooms">${t("backRooms")}</button><div class="mono" style="margin-top:8px">VALORANT · ${esc(r.mode)}</div><h1>${esc(r.title)}</h1></div>
+      <div class="chips">${host?`<button class="btn small" data-act="room-settings">${t("roomSettings")}</button><button class="btn small" data-act="room-close">${t("closeRoom")}</button>`:`<button class="btn small" data-act="room-leave">${t("leave")}</button>`}</div></div>
+      ${r.note?`<p style="white-space:pre-wrap;max-width:70ch">${esc(r.note)}</p>`:""}${roomReqHTML(r)}
+      <div class="codebox"><span class="mono">${t("partyCode")}</span>${RC.code?`<b>${esc(RC.code)}</b><button class="btn small" data-act="copy-code">${t("copy")}</button>`:`<span class="muted">${t("codeNone")}</span>`}</div>`; },
+  voice(){ const inV = RC.members.map(m=>m.user_id).filter(u=>voiceOf(u));
+    return `<span class="mono">${t("voice")}</span>
+      <div>${inV.length?inV.map(u=>personRow(u,voiceOf(u).muted?`<span class="muted">${t("mutedTag")}</span>`:"")+`</div>`).join(""):`<p class="muted">${t("noVoice")}</p>`}</div>
+      <div class="vbtns">${RC.inVoice?`<button class="btn small" data-act="v-mute" aria-pressed="${!!RC.muted}">${RC.muted?t("unmute"):t("mute")}</button><button class="btn small" data-act="v-deaf" aria-pressed="${!!RC.deaf}">${RC.deaf?t("undeafen"):t("deafen")}</button><button class="btn small coral" data-act="v-leave">${t("leaveVoice")}</button>`
+        :`<button class="btn small coral" data-act="v-join">${t("joinVoice")}</button>`}</div><p class="err" id="voice-err" role="alert" style="min-height:0"></p>`; },
+  members(){ const r = RC.data, host = S.me.id===r.host_id;
+    return `<span class="mono">${t("members")} · ${RC.members.length}/${r.size}</span><div>${RC.members.map(m=>personRow(m.user_id,
+      `<span class="muted">${[m.role,m.user_id===r.host_id?t("host"):"",m.user_id===S.me.id?t("you"):""].filter(Boolean).map(esc).join(" · ")}</span>`)
+      +`<i class="dot ${isOnline(m.user_id)||m.user_id===S.me.id?"on":""}" title="online"></i>${host&&m.user_id!==S.me.id?`<button class="icon" data-act="kick" data-uid="${m.user_id}" aria-label="${t("remove")}" title="${t("remove")}">✕</button>`:""}</div>`).join("")}</div>`; },
+  msgs(){ if(!RC.msgs.length) return `<p class="muted" style="margin:auto">${t("noMsgs")}</p>`;
+    return RC.msgs.map((m,i)=>{ const prev = RC.msgs[i-1], cont = prev && prev.user_id===m.user_id && new Date(m.created_at)-new Date(prev.created_at)<3e5, p = RC.people[m.user_id]||{};
+      const tm = new Date(m.created_at).toLocaleTimeString([], {hour:"2-digit",minute:"2-digit"});
+      return `<div class="msg ${cont?"cont":""}">${cont?"<span></span>":avatar(p,34)}<div>${cont?"":`<b>${esc(p.display_name||"")}</b><time>${tm}</time>`}<div class="b">${esc(m.body)}</div></div></div>`; }).join(""); }
+};
+function updateRoom(part){
+  const el = document.getElementById("rm-"+part); if(!el || !RC.data || !RC.member) return;
+  if(part==="msgs"){ const near = el.scrollHeight-el.scrollTop-el.clientHeight<120; el.innerHTML = roomParts.msgs(); if(near || RC.forceScroll){ el.scrollTop = el.scrollHeight; RC.forceScroll = false; } }
+  else el.innerHTML = roomParts[part]();
+}
+views.vroom = function(){
+  if(S.booting) return views.loading();
+  const id = location.hash.slice(3);
+  if(RC.id!==id){ startRoom(id); return views.loading(); }
+  if(RC.state==="loading") return views.loading();
+  if(RC.state==="gone") return `<div class="setup"><div class="card pop" style="display:flex;flex-direction:column;gap:12px;align-items:flex-start"><h2>${t("roomGone")}</h2><button class="btn" data-go="rooms">${t("seeAll")}</button></div></div>`;
+  const r = RC.data;
+  if(!RC.member) return `<div class="setup"><button class="back" data-go="rooms" style="align-self:flex-start">${t("backRooms")}</button><div class="card pop" style="display:flex;flex-direction:column;gap:12px;align-items:flex-start">
+    <span class="mono">VALORANT · ${esc(r.mode)}</span><h2 style="font-family:var(--font-body);font-weight:700;letter-spacing:0">${esc(r.title)}</h2>${roomReqHTML(r)}<p class="muted">${t("previewNote")}</p>
+    <button class="btn coral" data-act="vroom" data-id="${r.id}">${t("join")}</button></div></div>`;
+  setTimeout(()=>{ const el = $("#rm-msgs"); if(el) el.scrollTop = el.scrollHeight; },0);
+  return `<div class="rm"><div class="card rm-head" id="rm-head">${roomParts.head()}</div>
+    <div class="rm-body">
+      <aside class="card rm-col" id="rm-voice">${roomParts.voice()}</aside>
+      <section class="card rm-chat"><div id="rm-msgs">${roomParts.msgs()}</div>
+        <form class="chat-form" data-form="chat"><input class="inp" id="chat-in" maxlength="500" placeholder="${t("chatPh")}" autocomplete="off" aria-label="${t("chat")}"><button class="btn coral" type="submit">${t("send")}</button></form></section>
+      <aside class="card rm-col" id="rm-members">${roomParts.members()}</aside>
+    </div></div>`;
+};
+async function roomClick(a,d,el){
+  if(a==="vroom"){ const r = S.vrooms.find(x=>x.id===d.id) || (RC.data && RC.data.id===d.id ? RC.data : null); if(r){ S.dialog={type:"vroom",id:d.id}; renderDialog(); } }
+  else if(a==="chip1"){ document.querySelectorAll(`#dialog-root .chip[data-group="${d.group}"]`).forEach(b=>b.setAttribute("aria-pressed","false")); el.setAttribute("aria-pressed","true"); }
+  else if(a==="create-room") gate("actCreate",()=>{ S.dialog={type:"room-form"}; renderDialog(); });
+  else if(a==="vjoin"){ const role = pressed("join_role")[0]||""; gate("actJoin",async()=>{
+      const { error } = await sb.rpc("join_room",{p_room:d.id,p_role:role});
+      if(error){ const k = ["full","age","gender","vibe","gone"].find(x=>error.message.includes(x)); toast(t({full:"roomFull",age:"whyAge",gender:"whyGender",vibe:"whyVibe",gone:"roomGone"}[k]||"tFail")); return loadVRooms(); }
+      S.dialog=null; renderDialog(); loadVRooms(); toast(t("tJoined")); if(RC.id===d.id){ RC = {}; } go("r-"+d.id); }); }
+  else if(a==="room-settings"){ S.dialog={type:"room-form",edit:true}; renderDialog(); }
+  else if(a==="room-leave"){ const id = RC.id; await sb.from("room_members").delete().eq("room_id",id).eq("user_id",S.me.id); stopRoom(); loadVRooms(); go("rooms"); toast(t("tLeft")); }
+  else if(a==="room-close"){ const id = RC.id; const { error } = await sb.from("rooms").delete().eq("id",id); if(error) return toast(t("tFail")); stopRoom(); loadVRooms(); go("rooms"); toast(t("roomGone")); }
+  else if(a==="kick"){ await sb.from("room_members").delete().eq("room_id",RC.id).eq("user_id",d.uid); refreshRoom(); }
+  else if(a==="copy-code"){ try{ await navigator.clipboard.writeText(RC.code); toast(t("codeCopied")); }catch(_){ toast(RC.code); } }
+  else if(a==="v-join") joinVoice();
+  else if(a==="v-leave") leaveVoice();
+  else if(a==="v-mute"){ RC.muted = !RC.muted; if(RC.stream) RC.stream.getAudioTracks().forEach(tr=>{ tr.enabled = !RC.muted; }); trackMe(); updateRoom("voice"); }
+  else if(a==="v-deaf"){ RC.deaf = !RC.deaf; document.querySelectorAll("#audio-root audio").forEach(x=>{ x.muted = RC.deaf; }); updateRoom("voice"); }
+  else return false;
+  return true;
+}
+async function sendChat(){
+  const inp = $("#chat-in"), body = inp.value.trim(); if(!body || !RC.id) return; inp.value = "";
+  const { data, error } = await sb.from("room_messages").insert({room_id:RC.id,body}).select("id,body,created_at,user_id,room_id").single();
+  if(error){ inp.value = body; return toast(t("tFail")); }
+  RC.forceScroll = true; addMsg(data);
+}
+
 /* ---------- dialogs ---------- */
 const inp = (id,label,val,max) => `<label class="f">${label}<input class="inp" id="${id}" maxlength="${max||60}" value="${esc(val)}"></label>`;
 function editForm(d){
@@ -616,6 +904,8 @@ function renderDialog(){
       <div>${m.map(x=>`<div class="member">${x.you?avatar(S.me,32):nameAvatar(x.name,32)}<div><b>${esc(x.name)}</b>${x.name===r.host?` <span class="tag">${t("host")}</span>`:""}${x.you?` <span class="tag you">${t("you")}</span>`:""}${x.role?`<div class="muted">${esc(x.role)}</div>`:""}</div></div>`).join("")}</div>
       <div class="dialog-actions"><button class="btn ghost" data-act="close">${t("close")}</button>
       ${mine?`<button class="btn" data-act="leave" data-id="${r.id}">${t("leave")}</button>`:full?`<button class="btn" disabled>${t("roomFull")}</button>`:`<button class="btn coral" data-act="join" data-id="${r.id}">${t("join")}</button>`}</div></div>`;
+  } else if(d.type==="vroom"){ const r = S.vrooms.find(x=>x.id===d.id) || (RC.data&&RC.data.id===d.id?RC.data:null); if(!r){ S.dialog=null; root.innerHTML=""; return; } inner = vroomDialog(r);
+  } else if(d.type==="room-form"){ inner = roomFormDialog(d);
   } else if(d.type==="edit"){ const [title,body] = editForm(d);
     inner = wrap(esc(title),`<form data-form="edit">${body}<p class="err" id="e-err" role="alert"></p><div class="dialog-actions"><button class="btn ghost" type="button" data-act="close">${t("cancel")}</button><button class="btn coral" type="submit">${t("save")}</button></div></form>`,"wide");
   } else if(d.type==="story-new"){
@@ -684,7 +974,7 @@ async function login(){
     if(S.me && !isReady(S.me)){ S.setupStep=1; go("setup"); } else { render(); if(S.me) toast(t("tWelcome",{n:S.me.display_name})); }
   }catch(e){ btn.disabled=false; err.textContent = t("eNet"); }
 }
-async function logout(){ S.menu=false; try{ await sb.auth.signOut(); }catch(e){} S.me=null; go("home"); toast(t("tOut")); }
+async function logout(){ S.menu=false; stopRoom(); try{ await sb.auth.signOut(); }catch(e){} S.me=null; go("home"); toast(t("tOut")); }
 
 /* ---------- saving edit forms ---------- */
 const val = id => { const el = document.getElementById(id); return el ? el.value.trim() : ""; };
@@ -773,6 +1063,7 @@ document.addEventListener("click", async e => {
   else if(a==="match") gate("actMatch",()=>{ S.dialog={type:"info",rooms:d.game}; renderDialog(); });
   else if(a==="join") gate("actJoin",async()=>{ if(!S.me.joined.includes(d.id)) await saveProfile({joined:[...S.me.joined,d.id]},true); rerender(); S.dialog={type:"room",id:d.id}; renderDialog(); toast(t("tJoined")); });
   else if(a==="leave"){ await saveProfile({joined:S.me.joined.filter(x=>x!==d.id)},true); rerender(); renderDialog(); toast(t("tLeft")); }
+  else if(await roomClick(a,d,el)){}
   else if(a==="chip"){ el.setAttribute("aria-pressed", el.getAttribute("aria-pressed")!=="true"); }
   else if(a==="pf-toggle"){ const cur = [...S.me[d.group]], i = cur.indexOf(d.val); if(i>=0) cur.splice(i,1); else cur.push(d.val);
     const patch = {[d.group]:cur}; if(d.group==="playing"){ patch.main_game = cur.includes(S.me.main_game) ? S.me.main_game : (cur[0]||""); }
@@ -834,6 +1125,8 @@ document.addEventListener("submit", async e => {
     }catch(_){ btn.disabled=false; err.textContent=t("tFail"); } }
   else if(f==="hl"){ const s = curStory(), name = val("hl-name"); if(!name) return;
     const { error } = await sb.from("stories").update({highlight:name}).eq("id",s.id); if(error) return toast(t("tFail")); s.highlight=name; S.dialog.form=false; toast(t("saved")); renderDialog(); }
+  else if(f==="room-form") submitRoomForm();
+  else if(f==="chat") sendChat();
   else if(f==="add-roblox"){ const v = val("rbx-name"); if(!v) return;
     const all = GAMES.roblox.groups[0][1].map(x=>x[0]).concat(S.customRoblox), hit = all.find(x=>x.toLowerCase()===v.toLowerCase());
     if(!hit){ S.customRoblox.push(v); lsSet("gz.robloxCustom",JSON.stringify(S.customRoblox)); toast(t("tAdded",{n:v})); }
@@ -843,14 +1136,14 @@ document.addEventListener("keydown", e => {
   if(e.key==="Escape"){ if(S.dialog){ S.dialog=null; renderDialog(); } else if(S.arranging){ setArranging(false); rerender(); } else if(S.menu){ S.menu=false; $("#nav").innerHTML = navHTML(); } }
   if(S.dialog && S.dialog.type==="viewer" && !S.dialog.form){ if(e.key==="ArrowRight") stepViewer(1); if(e.key==="ArrowLeft") stepViewer(-1); }
 });
-window.addEventListener("hashchange", () => { S.menu=false; S.dialog=null; renderDialog(); render(); window.scrollTo(0,0); });
+window.addEventListener("hashchange", () => { S.menu=false; S.dialog=null; renderDialog(); if(RC.id && location.hash!=="#r-"+RC.id) stopRoom(); render(); window.scrollTo(0,0); if(["home","valorant","rooms"].includes(route())) loadVRooms(); });
 
 /* ---------- boot ---------- */
 render();
 (async () => {
   if(!sb){ S.booting=false; render(); toast(t("eNet")); return; }
   try{ await loadMe(); }catch(e){}
-  S.booting=false; render();
+  S.booting=false; render(); loadVRooms();
   sb.auth.onAuthStateChange(ev => { if(ev==="SIGNED_OUT" && S.me){ S.me=null; render(); } });
 })();
 </script>
