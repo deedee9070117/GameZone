@@ -242,6 +242,8 @@ footer{padding:36px 0 72px;color:var(--ink-soft);font-size:13.5px;border-top:2px
 .srow{display:grid;grid-template-columns:130px 1fr 36px 40px;gap:10px;align-items:center;font-size:14px;font-variant-numeric:tabular-nums}
 .srow b,.srow .muted{text-align:right}
 .sbar i{display:block;height:12px;background:var(--blue);border-radius:0 4px 4px 0}
+.rfbar{display:flex;flex-direction:column;gap:10px;margin-bottom:16px;padding:14px}
+.rf-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px}
 .vbtns{display:flex;gap:6px;flex-wrap:wrap}
 .req{display:flex;flex-direction:column;gap:6px}
 
@@ -426,6 +428,10 @@ visTitle:["Visitors","ผู้เข้าชมเว็บ","访客","訪問�
 visPerDay:["Visitors per day","ผู้เข้าชมต่อวัน","每日访客","日別訪問者"], visFrom:["Where they came from","เข้ามาจากไหน","来源","流入元"], visPeople:["visitors","คน","人","人"], visMembers:["logged in","ล็อกอินอยู่","已登录","ログイン中"], visNone:["No visits recorded yet","ยังไม่มีข้อมูลการเข้าชม","暂无访问记录","まだ記録がありません"],
 srcDirect:["Direct / unknown","เข้าตรง / ไม่ทราบ","直接访问 / 未知","直接 / 不明"], srcSearch:["Search","ค้นหาเจอ","搜索","検索"], srcOther:["Other sites","เว็บอื่น","其他网站","その他"],
 visNote:["Each person counts once a day. Links opened inside apps often hide where they came from, so tag your links: add ?src=fb, ?src=ig, ?src=tiktok, ?src=discord or ?src=line to the end.","นับคนละ 1 ครั้งต่อวัน ลิงก์ที่เปิดในแอปมักไม่บอกที่มา แนะนำให้ติดป้ายลิงก์โดยต่อท้ายด้วย ?src=fb, ?src=ig, ?src=tiktok, ?src=discord หรือ ?src=line","每人每天计一次。在应用内打开的链接常不带来源，建议在链接末尾加 ?src=fb、?src=ig、?src=tiktok、?src=discord 或 ?src=line。","1人1日1回でカウント。アプリ内で開いたリンクは流入元が分からないことが多いため、リンク末尾に ?src=fb、?src=ig、?src=tiktok、?src=discord、?src=line を付けてください。"],
+needGender:["This room is limited by gender, and your profile has no gender yet.","ห้องนี้จำกัดเพศ แต่โปรไฟล์คุณยังไม่ได้ระบุเพศ","该房间限制性别，而你的主页尚未填写性别。","このルームには性別条件がありますが、プロフィールに性別が未設定です。"], needVibe:["This room asks for certain vibes, and your profile has none yet.","ห้องนี้กำหนดนิสัยไว้ แต่โปรไฟล์คุณยังไม่ได้เลือกนิสัยการเล่น","该房间要求特定风格，而你的主页尚未选择风格。","このルームにはスタイル条件がありますが、プロフィールに未設定です。"], needRank:["This room has a rank range, and your profile has no Valorant rank yet.","ห้องนี้กำหนดช่วงแรงค์ไว้ แต่โปรไฟล์คุณยังไม่ได้ใส่แรงค์ Valorant","该房间限制段位，而你的主页尚未填写 Valorant 段位。","このルームにはランク条件がありますが、プロフィールに Valorant のランクが未設定です。"],
+whyRank:["Your rank is outside this room's range.","แรงค์ของคุณไม่อยู่ในช่วงที่ห้องนี้กำหนด","你的段位不在该房间的范围内。","ランクが参加条件の範囲外です。"], fillNow:["Fill in now","กรอกเลย","立即填写","今すぐ入力"],
+fTitle:["Filter rooms","กรองห้อง","筛选房间","ルームを絞り込む"], fAllModes:["All modes","ทุกโหมด","全部模式","すべてのモード"], fAnyRank:["Any rank","ทุกแรงค์","不限段位","ランク指定なし"], fAnyVibe:["Any vibe","ทุกนิสัย","不限风格","スタイル指定なし"], fAnyGender:["Any gender","ทุกเพศ","不限性别","性別指定なし"],
+fOpen:["Hide full rooms","ซ่อนห้องเต็ม","隐藏已满房间","満員を非表示"], fMine:["Only rooms I can join","เฉพาะห้องที่ฉันเข้าได้","只看我能加入的","参加できるルームのみ"], fClear:["Clear filters","ล้างตัวกรอง","清除筛选","条件をクリア"], fNone:["No rooms match these filters.","ไม่มีห้องที่ตรงกับตัวกรอง","没有符合条件的房间。","条件に合うルームがありません。"],
 tPic:["Picture updated","อัปเดตรูปแล้ว","头像已更新","画像を更新しました"], tNotImg:["That file isn't an image","ไฟล์นี้ไม่ใช่รูปภาพ","该文件不是图片","画像ファイルではありません"], tFail:["Something went wrong. Try again.","เกิดข้อผิดพลาด ลองใหม่อีกครั้ง","出了点问题，请重试。","エラーが発生しました。もう一度お試しください。"], tAdded:["Added {n}","เพิ่ม {n} แล้ว","已添加 {n}","{n} を追加しました"]
 };
 const OPT = { // option labels: [th, zh, ja]
@@ -472,7 +478,7 @@ const navLang = (navigator.language||"en").slice(0,2);
 const S = {
   lang: lsGet("gz.lang") || (LI[navLang]!=null?navLang:"en"),
   booting:true, ev:null, evAdmin:null, vrooms:[], theme:lsGet("gz.theme")||"original", isAdmin:false, match:null, me:null, viewing:null, viewKey:"", stories:{}, history:{}, rep:{}, friendsOf:{}, histMates:{}, arranging:false,
-  dialog:null, menu:false, setupStep:1, roomFilter:"all",
+  dialog:null, menu:false, setupStep:1, roomFilter:"all", rf:{mode:"",rank:"",vibe:"",gender:"",age:"",open:false,mine:false},
   pick:{valorant:{mode:"Unrated",size:2},rov:{mode:"Ranked Match",size:2},roblox:{mode:"Steal An Egg",size:2}},
   customRoblox: (()=>{ try{ return JSON.parse(lsGet("gz.robloxCustom"))||[]; }catch(e){ return []; } })()
 };
@@ -633,14 +639,14 @@ const views = {
       <div class="card pop queue"><div><span class="mono">${t("yourPick")}</span><div><b>${esc(pick.mode)}</b> · ${t("s"+pick.size)}</div></div>
         <button class="btn coral mid" data-act="match" data-game="${id}">${t("quick")}</button></div>
     </section>
-    <section class="block"><div class="head"><h2>${t("gRooms",{g:g.name})}</h2>${id==="valorant"?`<button class="btn coral" data-act="create-room">${t("createRoom")}</button>`:""}</div>${id==="valorant"?(S.vrooms.length?`<div class="grid g2">${S.vrooms.map(vroomCard).join("")}</div>`:`<p class="muted">${t("noRooms")}</p>`):`<p class="muted">${t("roomsSoon")}</p>`}</section>`;
+    <section class="block"><div class="head"><h2>${t("gRooms",{g:g.name})}</h2>${id==="valorant"?`<button class="btn coral" data-act="create-room">${t("createRoom")}</button>`:""}</div>${id==="valorant"?vroomListHTML():`<p class="muted">${t("roomsSoon")}</p>`}</section>`;
   },
   valorant(){ return views.game("valorant"); }, rov(){ return views.game("rov"); }, roblox(){ return views.game("roblox"); },
   rooms(){
     const list = ROOMS.filter(r=>S.roomFilter==="all"||r.game===S.roomFilter);
     return `<div class="game-hero"><h1>${t("rooms")}</h1><p class="muted">${t("roomsSub")}</p><button class="btn coral" data-act="create-room">${t("createRoom")}</button></div>
     <section class="block"><div class="chips" style="margin-bottom:16px">${[["all",t("allG")],...Object.entries(GAMES).map(([k,g])=>[k,g.name])].map(([k,l])=>
-      `<button class="chip" data-act="filter" data-val="${k}" aria-pressed="${S.roomFilter===k}">${l}</button>`).join("")}</div><div class="grid g2">${(S.roomFilter==="all"||S.roomFilter==="valorant"?S.vrooms.map(vroomCard).join(""):"")+list.map(roomCard).join("")}</div>${S.roomFilter!=="all"&&S.roomFilter!=="valorant"?`<p class="muted">${t("roomsSoon")}</p>`:!S.vrooms.length?`<p class="muted">${t("noRooms")}</p>`:""}</section>`;
+      `<button class="chip" data-act="filter" data-val="${k}" aria-pressed="${S.roomFilter===k}">${l}</button>`).join("")}</div>${S.roomFilter==="all"||S.roomFilter==="valorant"?(S.vrooms.length?vroomListHTML():""):""}${S.roomFilter!=="all"&&S.roomFilter!=="valorant"?`<p class="muted">${t("roomsSoon")}</p>`:!S.vrooms.length?`<p class="muted">${t("noRooms")}</p>`:""}</section>`;
   },
   setup(){
     if(S.booting) return views.loading(); const p = S.me; if(!p) return views.needLogin();
@@ -750,10 +756,35 @@ function whyNot(r){
   const m = membersOf(r); if(m.length>=r.size) return "roomFull";
   const p = S.me; if(!p || !isReady(p)) return "";
   if(p.age<r.age_min || p.age>r.age_max) return "whyAge";
-  if(r.req_gender.length && !r.req_gender.includes(p.gender)) return "whyGender";
-  if(r.req_vibes.length && !r.req_vibes.some(v=>p.vibes.includes(v))) return "whyVibe";
+  if(r.req_gender.length){ if(!p.gender) return "needGender"; if(!r.req_gender.includes(p.gender)) return "whyGender"; }
+  if(r.req_vibes.length){ if(!p.vibes.length) return "needVibe"; if(!r.req_vibes.some(v=>p.vibes.includes(v))) return "whyVibe"; }
+  if(r.rank_min || r.rank_max){ const mine = ((p.games||{}).valorant||{}).rank||"", i = VAL_RANKS.indexOf(mine);
+    if(!mine) return "needRank";
+    if(i<0 || (r.rank_min && i<VAL_RANKS.indexOf(r.rank_min)) || (r.rank_max && i>VAL_RANKS.indexOf(r.rank_max))) return "whyRank"; }
   return "";
 }
+const NEED_EDIT = {needGender:'data-what="basic"',needVibe:'data-what="about"',needRank:'data-what="game" data-game="valorant"'};
+const JOIN_ERR = {full:"roomFull",need_gender:"needGender",need_vibe:"needVibe",need_rank:"needRank",rank_range:"whyRank",age:"whyAge",gender:"whyGender",vibe:"whyVibe",gone:"roomGone",minor:"whyMinor",blocked:"whyBlocked"};
+const joinErrKey = msg => JOIN_ERR[Object.keys(JOIN_ERR).find(k=>msg.includes(k))] || "tFail";
+/* room list filters */
+const RF0 = {mode:"",rank:"",vibe:"",gender:"",age:"",open:false,mine:false};
+function filterRooms(list){ const f = S.rf, ri = VAL_RANKS.indexOf(f.rank), age = +f.age;
+  return list.filter(r=>(!f.mode || r.mode===f.mode)
+    && (ri<0 || ((!r.rank_min || ri>=VAL_RANKS.indexOf(r.rank_min)) && (!r.rank_max || ri<=VAL_RANKS.indexOf(r.rank_max))))
+    && (!f.vibe || !r.req_vibes.length || r.req_vibes.includes(f.vibe))
+    && (!f.gender || !r.req_gender.length || r.req_gender.includes(f.gender))
+    && (!(age>=13) || (age>=r.age_min && age<=r.age_max))
+    && (!f.open || membersOf(r).length<r.size)
+    && (!f.mine || (S.me && membersOf(r).some(m=>m.user_id===S.me.id)) || whyNot(r)===""));
+}
+function roomFilterBar(){ const f = S.rf, on = Object.keys(RF0).some(k=>f[k]);
+  const pick = (k,opts,blank) => `<select class="inp" data-rf="${k}" aria-label="${blank}"><option value="">${blank}</option>${opts.map(o=>`<option value="${esc(o)}" ${f[k]===o?"selected":""}>${esc(tl(o))}</option>`).join("")}</select>`;
+  return `<div class="card rfbar"><span class="mono">${t("fTitle")}</span><div class="rf-row">${pick("mode",VAL_MODES,t("fAllModes"))}${pick("rank",VAL_RANKS,t("fAnyRank"))}${pick("vibe",VIBES,t("fAnyVibe"))}${pick("gender",ROOM_GENDERS,t("fAnyGender"))}
+    <input class="inp" data-rf="age" type="number" min="13" max="99" inputmode="numeric" placeholder="${t("age")}" aria-label="${t("age")}" value="${esc(f.age)}"></div>
+    <div class="chips" style="align-items:center"><label class="check"><input type="checkbox" data-rf="open" ${f.open?"checked":""}> ${t("fOpen")}</label><label class="check"><input type="checkbox" data-rf="mine" ${f.mine?"checked":""}> ${t("fMine")}</label>${on?`<button class="btn small ghost" data-act="rf-clear">${t("fClear")}</button>`:""}</div></div>`;
+}
+function vroomListHTML(){ if(!S.vrooms.length) return `<p class="muted">${t("noRooms")}</p>`; const list = filterRooms(S.vrooms);
+  return roomFilterBar()+(list.length?`<div class="grid g2">${list.map(vroomCard).join("")}</div>`:`<p class="muted">${t("fNone")}</p>`); }
 function vroomCard(r){
   const m = membersOf(r), full = m.length>=r.size, mine = S.me && m.some(x=>x.user_id===S.me.id), host = m.find(x=>x.user_id===r.host_id);
   return `<button class="card room" data-act="vroom" data-id="${r.id}">
@@ -777,7 +808,7 @@ function vroomDialog(r){
     ${r.note?`<p style="white-space:pre-wrap">${esc(r.note)}</p>`:""}${roomReqHTML(r)}
     <div>${m.map(x=>`<div class="member"><button class="plink" data-go="u-${esc(x.profiles?x.profiles.username:"")}">${avatar(x.profiles,32)}</button><div><button class="plink" data-go="u-${esc(x.profiles?x.profiles.username:"")}"><b>${esc(x.profiles?x.profiles.display_name:"")}</b></button>${x.user_id===r.host_id?` <span class="tag">${t("host")}</span>`:""}${S.me&&x.user_id===S.me.id?` <span class="tag you">${t("you")}</span>`:""}${x.role?`<div class="muted">${esc(x.role)}</div>`:""}</div></div>`).join("")}</div>
     ${!mine&&!why?`<div><p class="mono" style="margin-bottom:8px">${t("pickRole")}</p>${chipSet("join_role",VAL_ROLES,[pre],"chip1")}</div>`:""}
-    ${!mine&&why&&why!=="roomFull"?`<p class="err">${t(why)}</p>`:""}
+    ${!mine&&why&&why!=="roomFull"?`<div class="banner" style="margin-top:0"><span>${t(why)}</span>${NEED_EDIT[why]?`<button class="btn small" data-act="edit" ${NEED_EDIT[why]}>${t("fillNow")}</button>`:""}</div>`:""}
     <div class="dialog-actions"><button class="btn ghost" data-act="close">${t("close")}</button>
     ${mine?`<button class="btn coral" data-act="close-go" data-to="r-${r.id}">${t("enterRoom")}</button>`:why?`<button class="btn" disabled>${why==="roomFull"?t("roomFull"):t("join")}</button>`:`<button class="btn coral" data-act="vjoin" data-id="${r.id}">${t("join")}</button>`}</div></div>`;
 }
@@ -975,7 +1006,7 @@ async function roomClick(a,d,el){
   else if(a==="create-room") gate("actCreate",()=>{ S.dialog={type:"room-form"}; renderDialog(); });
   else if(a==="vjoin"){ const role = pressed("join_role")[0]||""; gate("actJoin",async()=>{
       const { error } = await sb.rpc("join_room",{p_room:d.id,p_role:role});
-      if(error){ const k = ["full","age","gender","vibe","gone","minor","blocked"].find(x=>error.message.includes(x)); toast(t({full:"roomFull",age:"whyAge",gender:"whyGender",vibe:"whyVibe",gone:"roomGone",minor:"whyMinor",blocked:"whyBlocked"}[k]||"tFail")); return loadVRooms(); }
+      if(error){ toast(t(joinErrKey(error.message))); return loadVRooms(); }
       S.dialog=null; renderDialog(); loadVRooms(); toast(t("tJoined")); if(RC.id===d.id){ RC = {}; } go("r-"+d.id); }); }
   else if(a==="room-settings"){ S.dialog={type:"room-form",edit:true}; renderDialog(); }
   else if(a==="room-leave"){ const id = RC.id; const { error } = await sb.rpc("leave_room",{p_room:id}); if(error) return toast(t("tFail")); stopRoom(); loadVRooms(); go("rooms"); toast(t("tLeft")); setTimeout(()=>openRate(id),200); }
@@ -1147,7 +1178,8 @@ views.admin = function(){
 };
 
 async function featClick(a,d,el){
-  if(a==="ev-random"){ const list = S.evAdmin ? S.evAdmin.entries : []; if(list.length) setEventWinner(list[Math.floor(Math.random()*list.length)].number); }
+  if(a==="rf-clear"){ S.rf = {...RF0}; rerender(); }
+  else if(a==="ev-random"){ const list = S.evAdmin ? S.evAdmin.entries : []; if(list.length) setEventWinner(list[Math.floor(Math.random()*list.length)].number); }
   else if(a==="set-game"){ S.dialog.game = d.val; renderDialog(); }
   else if(a==="settings"){ S.menu = false; drawNav(); S.dialog = {type:"settings"}; renderDialog(); }
   else if(a==="theme"){ S.theme = d.val; lsSet("gz.theme",d.val); applyTheme(); renderDialog(); }
@@ -1362,7 +1394,7 @@ async function socialClick(a,d,el){
   else if(a==="unfriend-yes"){ await sb.from("friendships").delete().or(`and(requester.eq.${d.uid},addressee.eq.${S.me.id}),and(requester.eq.${S.me.id},addressee.eq.${d.uid})`); S.dialog=null; renderDialog(); rerenderAll(); }
   else if(a==="invite"){ const { error } = await sb.rpc("invite_friend",{p_to:d.uid,p_room:d.room}); toast(error?t("tFail"):t("invited")); }
   else if(a==="invite-join"){ const { error } = await sb.rpc("join_room",{p_room:d.room,p_role:""});
-      if(error){ const k = ["full","age","gender","vibe","gone","minor","blocked"].find(x=>error.message.includes(x)); toast(t({full:"roomFull",age:"whyAge",gender:"whyGender",vibe:"whyVibe",gone:"roomGone",minor:"whyMinor",blocked:"whyBlocked"}[k]||"tFail"));
+      if(error){ toast(t(joinErrKey(error.message)));
         await sb.from("invites").delete().eq("id",d.iid); return loadSocial(); }
       S.dialog=null; renderDialog(); loadSocial(); loadVRooms(); if(RC.id===d.room) RC = {}; go("r-"+d.room); }
   else if(a==="invite-dismiss"){ await sb.from("invites").delete().eq("id",d.iid); loadSocial(); }
@@ -1656,6 +1688,7 @@ document.addEventListener("change", async e => {
     try{ const blob = await resizeImage(f,1280,false); S.dialog={type:"story-new",blob,url:URL.createObjectURL(blob)}; renderDialog(); }catch(_){ toast(t("tNotImg")); }
     return;
   }
+  if(el.dataset && el.dataset.rf){ S.rf[el.dataset.rf] = el.type==="checkbox" ? el.checked : el.value; return rerender(); }
   if(el.dataset && el.dataset.pf && S.me){
     const k = el.dataset.pf; let v = el.value.trim();
     if(k==="display_name" && !v){ el.value = S.me.display_name; return; }
