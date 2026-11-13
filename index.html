@@ -1337,9 +1337,18 @@ async function loadSocial(){
   if(["profile","user"].includes(route()) && !S.dialog && !drag) rerender();
 }
 let socCh = null, socSeen = null, socDeb = null;
-function startSocial(){ clearInterval(socTimer); loadSocial(); socTimer = setInterval(()=>{ if(!document.hidden) loadSocial(); },15000);
+function startSocial(){ clearInterval(socTimer); loadSocial();
+  // fallback poll; it also rebuilds the live channel if that ever drops
+  socTimer = setInterval(()=>{ if(document.hidden || !S.me) return; loadSocial(); const st = socCh && socCh.state; if(st!=="joined" && st!=="joining") socConnect(); },10000);
+  socConnect();
+}
+async function socConnect(){
+  if(!S.me) return; const id = S.me.id;
+  // the live connection must carry the signed-in user's token, otherwise the server hides private rows (requests, invites) from it
+  try{ const { data:{ session } } = await sb.auth.getSession(); if(session) sb.realtime.setAuth(session.access_token); }catch(e){}
+  if(!S.me || S.me.id!==id) return;
   if(socCh) try{ sb.removeChannel(socCh); }catch(e){}
-  const id = S.me.id, ping = () => { clearTimeout(socDeb); socDeb = setTimeout(loadSocial,300); };
+  const ping = () => { clearTimeout(socDeb); socDeb = setTimeout(loadSocial,300); };
   socCh = sb.channel("user-"+id)
     .on("postgres_changes",{event:"*",schema:"public",table:"friendships",filter:"addressee=eq."+id},ping)
     .on("postgres_changes",{event:"*",schema:"public",table:"friendships",filter:"requester=eq."+id},ping)
@@ -1922,7 +1931,8 @@ render();
   logVisit();
   try{ await loadMe(); }catch(e){}
   S.booting=false; render(); loadVRooms(); if(route()==="event") loadEvent();
-  sb.auth.onAuthStateChange(ev => { if(ev==="SIGNED_OUT" && S.me){ S.me=null; render(); } });
+  sb.auth.onAuthStateChange((ev,session) => { if(ev==="SIGNED_OUT" && S.me){ S.me=null; render(); } else if(session && (ev==="TOKEN_REFRESHED" || ev==="SIGNED_IN")){ try{ sb.realtime.setAuth(session.access_token); }catch(e){} } });
+  document.addEventListener("visibilitychange",()=>{ if(!document.hidden && S.me) loadSocial(); });
 })();
 </script>
 </body>
