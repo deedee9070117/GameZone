@@ -259,6 +259,18 @@ footer{padding:36px 0 72px;color:var(--ink-soft);font-size:13.5px;border-top:2px
 .legal h2{font-family:var(--font-body)!important;font-weight:700!important;font-size:18px;letter-spacing:0;margin:22px 0 6px}
 .legal ul{margin:6px 0;padding-left:20px;display:flex;flex-direction:column;gap:4px}
 .badge{background:var(--coral);color:#2A2222;border:1.5px solid var(--ink);border-radius:999px;min-width:20px;height:20px;padding:0 5px;font-size:12px;line-height:17px;text-align:center;margin-left:2px}
+.qchat{max-width:720px;margin:28px auto}
+.qhead{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:flex-start;padding-bottom:12px;border-bottom:2px solid var(--line)}
+.qmsgs{height:min(50vh,440px);overflow-y:auto;display:flex;flex-direction:column;gap:6px;padding:14px 2px}
+.qm{max-width:78%;align-self:flex-start;background:var(--field);border:1.5px solid var(--ink);border-radius:14px 14px 14px 4px;padding:7px 12px;overflow-wrap:anywhere}
+.qm.me{align-self:flex-end;background:var(--sage);color:#2A2222;border-radius:14px 14px 4px 14px}
+.qsend{display:flex;gap:8px} .qsend .inp{flex:1}
+.qend{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding-top:12px;border-top:2px solid var(--line)}
+.qrep{padding:12px 0;border-bottom:2px solid var(--line);display:flex;flex-direction:column;gap:8px}
+.qdots{display:flex;gap:8px} .qdots i{width:12px;height:12px;border-radius:50%;background:var(--coral);border:1.5px solid var(--ink);animation:qd 1.1s infinite ease-in-out} .qdots i:nth-child(2){animation-delay:.18s} .qdots i:nth-child(3){animation-delay:.36s}
+@keyframes qd{0%,80%,100%{transform:translateY(0);opacity:.5}40%{transform:translateY(-8px);opacity:1}}
+@media (prefers-reduced-motion:reduce){.qdots i{animation:none}}
+.qlog{border-top:1.5px solid var(--line);padding:8px 0} .qlog summary{cursor:pointer} .qlog p{margin:4px 0 0 14px;font-size:14px;overflow-wrap:anywhere} .qlog.dim{opacity:.55}
 .vbtns{display:flex;gap:6px;flex-wrap:wrap}
 .req{display:flex;flex-direction:column;gap:6px}
 
@@ -429,6 +441,7 @@ evAdminNote:["Players can't see this number until the announcement time.","ผ�
 ignHint:["Valorant: use Name#TAG","Valorant: ใส่แบบ ชื่อ#TAG","Valorant：格式为 名称#TAG","Valorant：名前#TAG の形式"],
 addFriend:["Add friend","เพิ่มเพื่อน","加好友","フレンド追加"], isFriend:["Friends ✓","เป็นเพื่อนกันแล้ว ✓","已是好友 ✓","フレンド ✓"], acceptReq:["Accept","ยอมรับ","接受","承認"], decline:["Decline","ปฏิเสธ","拒绝","拒否"], requested:["Requested","ส่งคำขอแล้ว","已申请","申請済み"],
 invitePlay:["Invite to room","ชวนเข้าห้อง","邀请进房","ルームに招待"], more:["More","เพิ่มเติม","更多","その他"], friends:["Friends","เพื่อน","好友","フレンド"], stRep:["likes","ถูกใจ","好评","高評価"], friendsOf:["{n}'s friends","เพื่อนของ {n}","{n} 的好友","{n} のフレンド"],
+qNav:["Quick match", "จับคู่ด่วน", "快速匹配", "クイックマッチ"], qHero:["Quick match, no sign-up", "จับคู่ด่วน ไม่ต้องสมัคร", "快速匹配，无需注册", "登録なしでクイックマッチ"], qEyebrow:["No account needed", "ไม่ต้องมีบัญชี", "无需账号", "アカウント不要"], qTitle:["Quick match", "จับคู่ด่วน", "快速匹配", "クイックマッチ"], qSub:["Pick a game and get paired with one player who wants the same thing. You chat anonymously, swap in-game names if you click, and go play.", "เลือกเกมแล้วระบบจะจับคู่คุณกับผู้เล่นหนึ่งคนที่ต้องการแบบเดียวกัน คุยกันแบบไม่ระบุตัวตน ถ้าถูกใจก็แลกชื่อในเกมแล้วไปเล่นด้วยกันได้เลย", "选择游戏后，系统会为你匹配一位需求相同的玩家。匿名聊天，聊得来就交换游戏ID一起玩。", "ゲームを選ぶと、同じ条件のプレイヤー1人とマッチします。匿名でチャットし、気が合えばゲーム内名を交換して一緒に遊べます。"], qGame:["Game", "เกม", "游戏", "ゲーム"], qMode:["Mode", "โหมด", "模式", "モード"], qAny:["Any", "อะไรก็ได้", "不限", "なんでも"], qStyle:["Play style", "สไตล์การเล่น", "游戏风格", "プレイスタイル"], qChill:["Chill", "ชิล", "休闲", "まったり"], qSerious:["Serious", "จริงจัง", "认真", "ガチ"], qAge:["Your age group", "ช่วงอายุของคุณ", "你的年龄段", "年齢層"], qAdult:["18 or older", "18 ปีขึ้นไป", "18岁及以上", "18歳以上"], qMinor:["Under 18", "ต่ำกว่า 18 ปี", "未满18岁", "18歳未満"], qPickAge:["Choose your age group first", "เลือกช่วงอายุของคุณก่อน", "请先选择年龄段", "先に年齢層を選んでください"], qGo:["Start matching", "เริ่มจับคู่", "开始匹配", "マッチング開始"], qRules:["You appear as a guest number. Guests can chat here but cannot join rooms. Under-18s and adults are never matched together. Be kind, and never share passwords or personal details.", "คุณจะแสดงเป็นหมายเลข guest ใช้แชตตรงนี้ได้แต่เข้าห้องไม่ได้ ระบบไม่จับคู่ผู้ที่อายุต่ำกว่า 18 กับผู้ใหญ่ คุยกันดี ๆ และอย่าบอกรหัสผ่านหรือข้อมูลส่วนตัว", "你将以访客编号显示。访客可以在此聊天，但不能加入房间。未成年人与成年人不会被匹配在一起。请友善交流，不要透露密码或个人信息。", "ゲスト番号で表示されます。ゲストはここでチャットできますが、ルームには参加できません。18歳未満と成人はマッチしません。パスワードや個人情報は教えないでください。"], qRulesMe:["Your name and profile stay hidden unless you choose to show them. Under-18s and adults are never matched together. Be kind, and never share passwords.", "ชื่อและโปรไฟล์ของคุณจะถูกซ่อนไว้ จนกว่าคุณจะกดแสดงเอง ระบบไม่จับคู่ผู้ที่อายุต่ำกว่า 18 กับผู้ใหญ่ คุยกันดี ๆ และอย่าบอกรหัสผ่าน", "除非你选择公开，否则你的名字和资料保持隐藏。未成年人与成年人不会被匹配在一起。请友善交流，不要透露密码。", "自分で公開しない限り、名前とプロフィールは表示されません。18歳未満と成人はマッチしません。パスワードは教えないでください。"], qSearching:["Looking for a player…", "กำลังหาผู้เล่น…", "正在寻找玩家…", "プレイヤーを探しています…"], qWait0:["Waiting for someone who wants the same thing", "กำลังรอคนที่ต้องการแบบเดียวกัน", "正在等待需求相同的玩家", "同じ条件の人を待っています"], qWaitN:["{n} other player(s) searching in this game with different settings. Try “Any” to match faster.", "มีอีก {n} คนกำลังหาในเกมนี้แต่ตั้งค่าไม่ตรงกัน ลองเลือก “อะไรก็ได้” เพื่อให้เจอเร็วขึ้น", "还有 {n} 位玩家在此游戏中搜索，但设置不同。选择“不限”可更快匹配。", "このゲームで他に{n}人が別の条件で検索中です。「なんでも」にすると早くマッチします。"], qWaitLong:["Nobody else is searching right now. Keep this open, or come back in the evening when more players are on.", "ตอนนี้ยังไม่มีคนอื่นกำลังหาอยู่ เปิดหน้านี้ทิ้งไว้ได้ หรือกลับมาช่วงค่ำที่คนเล่นเยอะกว่า", "目前没有其他人在搜索。可以保持此页面打开，或晚上玩家较多时再来。", "今は他に検索中の人がいません。このまま待つか、人の多い夜にまた来てください。"], qCancel:["Cancel", "ยกเลิก", "取消", "キャンセル"], qFound:["Matched! Say hi", "จับคู่ได้แล้ว ทักทายกันเลย", "匹配成功！打个招呼吧", "マッチしました！挨拶しましょう"], qMember:["Member", "สมาชิก", "会员", "メンバー"], qGuestTag:["Guest", "Guest", "访客", "ゲスト"], qYouAre:["you are {n}", "คุณคือ {n}", "你是 {n}", "あなたは {n}"], qShow:["Show my profile", "แสดงโปรไฟล์ของฉัน", "公开我的资料", "プロフィールを見せる"], qShown:["Profile shown", "แสดงโปรไฟล์แล้ว", "已公开资料", "公開済み"], qSeeProfile:["View {n}'s profile", "ดูโปรไฟล์ของ {n}", "查看 {n} 的资料", "{n} のプロフィールを見る"], qSkip:["Next player", "หาคนถัดไป", "下一位", "次の人"], qLeave:["Leave", "ออก", "离开", "退出"], qPh:["Type a message", "พิมพ์ข้อความ", "输入消息", "メッセージを入力"], qSendBtn:["Send", "ส่ง", "发送", "送信"], qSayHi:["Say hi and swap in-game names", "ทักทายกัน แล้วแลกชื่อในเกมได้เลย", "打个招呼，交换游戏ID吧", "挨拶して、ゲーム内名を交換しましょう"], qEndPartner:["The other player left", "อีกฝ่ายออกไปแล้ว", "对方已离开", "相手が退出しました"], qEndYou:["Chat ended", "จบการสนทนาแล้ว", "聊天已结束", "チャットを終了しました"], qEndLost:["The other player disconnected", "อีกฝ่ายหลุดการเชื่อมต่อ", "对方已断开连接", "相手の接続が切れました"], qNext:["Find another player", "หาคนใหม่", "寻找其他玩家", "別の人を探す"], qBack:["Back", "กลับ", "返回", "戻る"], qWhy:["Why are you reporting this player?", "รายงานผู้เล่นคนนี้เรื่องอะไร", "举报原因", "通報の理由"], qReported:["Reported. Thank you", "รายงานแล้ว ขอบคุณครับ", "已举报，谢谢", "通報しました"], qSlow:["Slow down a little", "พิมพ์ช้าลงหน่อย", "请慢一点", "少しゆっくり送ってください"], qGuestCta:["Want to join rooms, add friends and use voice? Create a free account.", "อยากเข้าห้อง เพิ่มเพื่อน และคุยเสียง? สมัครบัญชีฟรี", "想加入房间、添加好友和语音？免费注册账号。", "ルーム参加・フレンド追加・ボイスを使うには無料登録を。"], aqTitle:["Quick match and guests", "จับคู่ด่วนและ guest", "快速匹配与访客", "クイックマッチとゲスト"], aqGuests:["Guest IDs (all)", "ไอดี guest ทั้งหมด", "访客ID总数", "ゲストID合計"], aqToday:["New guests, 24h", "guest ใหม่ใน 24 ชม.", "24小时新访客", "24時間の新規ゲスト"], aqNow:["Guests online now", "guest ออนไลน์ตอนนี้", "当前在线访客", "オンラインのゲスト"], aqSearching:["Searching now", "กำลังหาคู่ตอนนี้", "正在匹配", "検索中"], aqChats:["Chats open now", "แชตที่เปิดอยู่", "进行中的聊天", "進行中のチャット"], aqPairs:["Matches, 24h", "จับคู่สำเร็จใน 24 ชม.", "24小时匹配数", "24時間のマッチ数"], aqReports:["Quick match reports", "รายงานจากจับคู่ด่วน", "快速匹配举报", "クイックマッチの通報"], aqTarget:["Reported", "ผู้ถูกรายงาน", "被举报者", "通報された人"], aqReporter:["Reporter", "ผู้รายงาน", "举报者", "通報者"], aqNoLog:["No messages", "ไม่มีข้อความ", "没有消息", "メッセージなし"], aqDone:["Mark done", "ปิดเรื่อง", "标记完成", "完了にする"], aqBan:["Ban this guest", "แบน guest นี้", "封禁此访客", "このゲストをBAN"],
 wantsFriend:["sent you a friend request","ส่งคำขอเป็นเพื่อนถึงคุณ","向你发送了好友请求","からフレンド申請が届きました"], notifs:["Notifications","การแจ้งเตือน","通知","通知"], noNotifs:["Nothing new","ยังไม่มีอะไรใหม่","暂无新通知","新しい通知はありません"], wantsFriend:["wants to be friends","ขอเป็นเพื่อน","想加你为好友","からフレンド申請"], invitedYou:["invited you to","ชวนคุณเข้าห้อง","邀请你加入","からの招待"], joinNow:["Join","เข้าร่วม","加入","参加"], dismiss:["Dismiss","ปิด","忽略","閉じる"],
 noFriends:["No friends yet","ยังไม่มีเพื่อน","还没有好友","フレンドはまだいません"], blockedList:["Blocked","ที่บล็อกไว้","已屏蔽","ブロック中"], unblock:["Unblock","เลิกบล็อก","取消屏蔽","ブロック解除"], block:["Block","บล็อก","屏蔽","ブロック"], report:["Report","รายงาน","举报","通報"],
 unfriend:["Remove friend","ลบเพื่อน","删除好友","フレンド解除"], unfriendConfirm:["Remove {n} from your friends?","ลบ {n} ออกจากเพื่อน?","将 {n} 从好友中删除？","{n} をフレンドから外しますか？"], blockConfirm:["Block {n}? You won't be matched or share rooms, and their messages will be hidden.","บล็อก {n}? ระบบจะไม่จับคู่และไม่ให้อยู่ห้องเดียวกัน และจะซ่อนข้อความของเขา","屏蔽 {n}？你们将不会被匹配或同房，对方的消息也会被隐藏。","{n} をブロックしますか？マッチングや同室がなくなり、メッセージも非表示になります。"],
@@ -525,7 +538,7 @@ function layoutOf(p){
 /* ---------- helpers ---------- */
 const $ = s => document.querySelector(s);
 const esc = s => String(s==null?"":s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-const ROUTES = ["home","valorant","rov","roblox","rooms","setup","profile","admin","event","privacy","terms"];
+const ROUTES = ["home","quick","valorant","rov","roblox","rooms","setup","profile","admin","event","privacy","terms"];
 function route(){ const h = decodeURIComponent(location.hash.replace("#","")); if(/^u-[A-Za-z0-9_]{3,16}$/.test(h)) return "user"; if(/^r-[0-9a-f-]{36}$/.test(h)) return "vroom"; return ROUTES.includes(h)?h:"home"; }
 function go(r){ if(location.hash.replace("#","")===r){ render(); window.scrollTo(0,0); } else location.hash = r; }
 let toastT; function toast(msg){ const el=$("#toast"); el.textContent=msg; el.classList.add("show"); clearTimeout(toastT); toastT=setTimeout(()=>el.classList.remove("show"),2000); }
@@ -611,7 +624,7 @@ function navHTML(){
   const u = S.me, r = route();
   const link = (id,label) => `<button data-go="${id}" ${r===id?'aria-current="page"':""}>${label}</button>`;
   return `<button class="logo" data-go="home">GameZone</button>
-  <nav class="nav-links" aria-label="Main">${link("valorant","Valorant")}${link("rov","RoV")}${link("roblox","Roblox")}${link("rooms",t("rooms"))}${link("event",t("event"))}</nav>
+  <nav class="nav-links" aria-label="Main">${link("quick","⚡ "+t("qNav"))}${link("valorant","Valorant")}${link("rov","RoV")}${link("roblox","Roblox")}${link("rooms",t("rooms"))}${link("event",t("event"))}</nav>
   <div class="search" id="search"><input class="inp" id="q" type="search" placeholder="${t("searchPh")}" aria-label="${t("searchPh")}" autocomplete="off" maxlength="24"><div class="q-menu" id="q-menu" hidden></div></div>
   <div class="nav-right">${u
     ? `<button class="btn small" data-act="notifs" aria-label="${t("notifs")}">🔔${notifCount()?`<b class="badge">${notifCount()>99?"99+":notifCount()}</b>`:""}</button><button class="me-btn" data-act="menu" aria-haspopup="true" aria-expanded="${S.menu}"><span>${esc(u.display_name)}</span>${avatar(u,38)}</button>
@@ -643,7 +656,7 @@ const views = {
     const second = !u ? `<button class="btn blue mid" data-act="auth" data-tab="signup">${t("createCta")}</button>`
       : !isReady(u) ? `<button class="btn blue mid" data-go="setup">${t("finishCta")}</button>` : `<button class="btn blue mid" data-go="profile">${t("viewCta")}</button>`;
     return `<section class="hero"><span class="mono">${t("eyebrow")}</span><h1>${t("h1a")}<br><em>${t("h1b")}</em></h1><p>${t("heroSub")}</p>
-      <div class="hero-cta"><button class="btn coral big" data-act="scroll-games">${t("find")}</button>${second}</div></section>
+      <div class="hero-cta"><button class="btn coral big" data-act="scroll-games">${t("find")}</button><button class="btn mid" data-go="quick" style="background:var(--mustard);color:#2A2222;text-shadow:none">⚡ ${t("qHero")}</button>${second}</div></section>
     <section class="block" id="games-block"><div class="head"><h2>${t("pick")}</h2><span class="mono">${t("moreGames")}</span></div>
       <div class="grid g3">${Object.entries(GAMES).map(([id,g])=>`<button class="tile" data-go="${id}"><div class="band ${g.color}"><h3>${g.name}</h3></div><div class="body"><span>${g.blurb[LI[S.lang]]}</span><span class="mono">${id==="valorant"?t("nRooms",{n:S.vrooms.length}):t("roomsSoon")}</span></div></button>`).join("")}</div></section>
     <section class="block"><div class="head"><h2>${t("openRooms")}</h2><button class="btn small" data-go="rooms">${t("seeAll")}</button></div>
@@ -1211,8 +1224,8 @@ function visitsHTML(v){
 
 /* ---------- admin: every account on the site ---------- */
 async function loadAdmin(){
-  const [st,us,rp,vs] = await Promise.all([sb.rpc("admin_stats"), sb.rpc("admin_profiles"), sb.rpc("admin_reports"), sb.rpc("admin_visits")]);
-  S.admin = {stats:st.data||{},users:us.data||[],reports:rp.data||[],visits:vs.data||null}; if(route()==="admin") render();
+  const [st,us,rp,vs,qk] = await Promise.all([sb.rpc("admin_stats"), sb.rpc("admin_profiles"), sb.rpc("admin_reports"), sb.rpc("admin_visits"), sb.rpc("admin_quick")]);
+  S.admin = {stats:st.data||{},users:us.data||[],reports:rp.data||[],visits:vs.data||null,quick:qk.data||null}; if(route()==="admin") render();
 }
 function adminRows(){
   const q = (val("ad-q")||"").toLowerCase();
@@ -1228,6 +1241,7 @@ views.admin = function(){
   const s = S.admin.stats, tile = (n,l) => `<div class="card"><b style="font-size:26px">${n??0}</b><div class="mono">${l}</div></div>`;
   return `<div class="game-hero"><h1>${t("adTitle")}</h1><div class="chips"><button class="btn small" data-act="admin-refresh">${t("refresh")}</button></div></div>
     <section class="block"><div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(140px,1fr))">${tile(s.users,t("adUsers"))}${tile(s.today,t("adToday"))}${tile(s.rooms,t("adRooms"))}${tile(s.messages,t("adMsgs"))}${tile(s.stories,t("stStories"))}${tile(s.searching,t("adSearching"))}</div></section>
+    ${quickAdminHTML()}
     ${visitsHTML(S.admin.visits)}
     <section class="block"><label class="f" style="max-width:320px;margin-bottom:14px">${t("adFilter")}<input class="inp" id="ad-q" autocomplete="off"></label>
       <div class="card" style="padding:0;overflow-x:auto"><table class="tbl"><thead><tr><th>${t("dname")}</th><th>${t("username")}</th><th>${t("age")}</th><th>${t("gender")}</th><th>${t("stGames")}</th><th>${t("adReady")}</th><th>${t("stDone")}</th><th>${t("adJoined")}</th><th></th></tr></thead><tbody id="ad-rows">${adminRows()}</tbody></table></div></section>
@@ -1562,6 +1576,8 @@ function legalHTML(kind){
 }
 views.privacy = () => legalHTML("privacy");
 views.terms = () => legalHTML("terms");
+LEGAL.privacy.en[1].push(["Quick match (guests)","Quick match works without an account. We create a random guest ID kept in your browser, with no name or password. Chat messages are stored only so they can be delivered and are deleted about one hour after the chat ends. If a chat is reported, the recent messages from that chat are kept so admins can review the report. You tell us whether you are under 18 so that under-18s and adults are not matched together."]);
+LEGAL.privacy.th[1].push(["จับคู่ด่วน (guest)","จับคู่ด่วนใช้ได้โดยไม่ต้องมีบัญชี เราสร้างไอดี guest แบบสุ่มเก็บไว้ในเบราว์เซอร์ของคุณ ไม่มีชื่อหรือรหัสผ่าน ข้อความแชตถูกเก็บไว้เพื่อส่งถึงอีกฝ่ายเท่านั้น และถูกลบประมาณหนึ่งชั่วโมงหลังจบการสนทนา ถ้ามีการรายงาน ข้อความล่าสุดของการสนทนานั้นจะถูกเก็บไว้ให้ผู้ดูแลตรวจสอบ คุณเป็นผู้บอกเราว่าอายุต่ำกว่า 18 หรือไม่ เพื่อไม่ให้ระบบจับคู่ผู้ที่อายุต่ำกว่า 18 กับผู้ใหญ่"]);
 
 async function callManage(body){
   try{ const { data:{ session } } = await sb.auth.getSession(); if(!session) return {error:"auth"};
@@ -1692,6 +1708,125 @@ function renderDialog(){
 }
 function stepViewer(n){ const d = S.dialog; if(!d || d.type!=="viewer") return; const i = d.i+n; if(i<0) d.i=0; else if(i>=d.ids.length){ S.dialog=null; } else d.i=i; renderDialog(); }
 const curStory = () => { const d = S.dialog; return (S.stories[d.uid]||[]).find(s=>s.id===d.ids[d.i]); };
+
+/* ---------- quick match: anonymous 1-to-1 chat, no account needed ---------- */
+const Q = {st:"idle",form:{game:"valorant",mode:"any",style:"any",adult:null},msgs:[],last:0,info:null,timer:null,ch:null,waiting:0,busy:false,reporting:false,since:0,guest:null};
+try{ Object.assign(Q.form, JSON.parse(lsGet("gz.qform")||"{}")); if(!GAMES[Q.form.game]) Q.form.game = "valorant"; }catch(e){}
+const qNeedsAge = () => !(S.me && S.me.age);
+const qModes = g => GAMES[g].groups.flatMap(x=>x[1].map(m=>m[0]));
+function qGuest(){ if(Q.guest) return Q.guest; try{ Q.guest = JSON.parse(lsGet("gz.guest")||"null"); }catch(e){} return Q.guest; }
+async function qRpc(fn,args,retry){
+  let cred = {p_gid:null,p_secret:null};
+  if(!S.me){
+    if(!qGuest()){ const { data, error } = await sb.rpc("guest_new"); if(error || !data) return {error:error||{message:"net"}}; Q.guest = data; lsSet("gz.guest",JSON.stringify(data)); }
+    cred = {p_gid:Q.guest.id,p_secret:Q.guest.secret};
+  }
+  const res = await sb.rpc(fn,{...cred,...args});
+  // a guest id the server no longer knows is replaced once with a fresh one
+  if(res.error && /bad_guest/.test(res.error.message||"") && !S.me && !retry){ Q.guest = null; try{ localStorage.removeItem("gz.guest"); }catch(e){} return qRpc(fn,args,true); }
+  return res;
+}
+function qChan(pair){
+  if(Q.ch){ try{ sb.removeChannel(Q.ch); }catch(e){} Q.ch = null; }
+  if(pair) Q.ch = sb.channel("quick-"+pair).on("broadcast",{event:"m"},()=>qTick()).subscribe();
+}
+// the live channel only says "something changed"; the content always comes from the server check, so chat still works if the channel fails
+const qPing = () => { if(Q.ch && Q.ch.state==="joined") Q.ch.send({type:"broadcast",event:"m",payload:{}}); };
+function qStop(){ clearInterval(Q.timer); Q.timer = null; qChan(null); }
+function qApply(d){
+  if(!d) return; const prev = Q.st, prevPair = Q.info && Q.info.pair;
+  if(d.state==="none"){ qStop(); Q.st = "idle"; Q.info = null; }
+  else if(d.state==="searching"){ Q.st = "searching"; Q.waiting = d.waiting||0; }
+  else { Q.st = d.state; Q.info = d; (d.msgs||[]).forEach(m=>{ if(m.id>Q.last){ Q.msgs.push(m); Q.last = m.id; } });
+    if(d.state==="ended") qStop(); else if(d.pair!==prevPair || !Q.ch) qChan(d.pair); }
+  if(prev==="searching" && Q.st==="chat") toast(t("qFound"));
+  qDraw(prev!==Q.st);
+}
+async function qTick(){
+  if(Q.ticking || !["searching","chat"].includes(Q.st)) return; Q.ticking = true;
+  const { data, error } = await qRpc("quick_tick",{p_after:Q.last}); Q.ticking = false;
+  if(!error && ["searching","chat"].includes(Q.st)) qApply(data);
+}
+async function qStart(){
+  if(!sb) return toast(t("eNet")); if(Q.busy) return; const f = Q.form;
+  if(qNeedsAge() && f.adult!==true && f.adult!==false) return toast(t("qPickAge"));
+  Q.busy = true; lsSet("gz.qform",JSON.stringify(f));
+  const { data, error } = await qRpc("quick_start",{p_game:f.game,p_mode:f.mode,p_style:f.style,p_adult:qNeedsAge()?f.adult:null});
+  Q.busy = false;
+  if(error) return toast(/banned/.test(error.message||"")?t("youBanned"):t("tFail"));
+  qPing(); qStop(); Q.msgs = []; Q.last = 0; Q.info = null; Q.reporting = false; Q.since = Date.now(); Q.st = "idle";
+  qApply(data); if(Q.st!=="idle") Q.timer = setInterval(qTick,2000);
+}
+async function qLeave(){
+  const was = Q.st; if(was==="idle") return;
+  clearInterval(Q.timer); Q.timer = null; Q.st = "idle"; Q.reporting = false;
+  if(was!=="ended"){ await qRpc("quick_leave",{}); qPing(); }
+  qChan(null); Q.info = null; Q.msgs = []; Q.last = 0; qDraw(true);
+}
+async function qSend(){
+  const el = $("#q-in"); if(!el || Q.st!=="chat") return; const body = el.value.trim(); if(!body) return; el.value = "";
+  const { error } = await qRpc("quick_send",{p_body:body.slice(0,500)});
+  if(error){ if(!el.value) el.value = body; return toast(/slow_down/.test(error.message||"")?t("qSlow"):t("tFail")); }
+  qPing(); qTick();
+}
+const qWaitText = () => Q.waiting ? t("qWaitN",{n:Q.waiting}) : (Date.now()-Q.since>25000 ? t("qWaitLong") : t("qWait0"));
+function qHeadHTML(){
+  const d = Q.info, live = Q.st==="chat";
+  return `<div><b style="font-size:18px">${esc(d.partner)}</b> <span class="tag ${d.member?"open":""}">${d.member?t("qMember"):t("qGuestTag")}</span>
+      <div class="muted" style="font-size:14px">${GAMES[d.game]?GAMES[d.game].name:""}${d.mode&&d.mode!=="any"?" · "+esc(d.mode):""} · ${t("qYouAre",{n:esc(d.me)})}</div>
+      ${d.profile?`<a class="btn small" style="margin-top:8px;display:inline-block;text-decoration:none" href="#u-${esc(d.profile.username)}" target="_blank" rel="noopener">${t("qSeeProfile",{n:esc(d.profile.display_name)})}</a>`:""}</div>
+    <div class="chips">${live&&S.me?(d.shown?`<span class="tag you">${t("qShown")}</span>`:`<button class="btn small" data-act="q-show">${t("qShow")}</button>`):""}
+      ${live?`<button class="btn small" data-act="q-next">${t("qSkip")}</button>`:""}<button class="btn small" data-act="q-report">${t("report")}</button>${live?`<button class="btn small" data-act="q-leave">${t("qLeave")}</button>`:""}</div>`;
+}
+const qMsgsHTML = () => Q.msgs.length ? Q.msgs.map(m=>`<div class="qm ${m.me?"me":""}">${esc(m.body)}</div>`).join("") : `<p class="muted" style="margin:auto">${t("qSayHi")}</p>`;
+function qDraw(full){
+  if(route()!=="quick") return;
+  if(full) return rerender();
+  if(Q.st==="searching"){ const w = $("#q-wait"); if(w) w.textContent = qWaitText(); return; }
+  const h = $("#q-head"), m = $("#q-msgs"); if(h && Q.info) h.innerHTML = qHeadHTML();
+  if(m){ const n = Q.msgs.length; if(m.dataset.n!=String(n)){ m.innerHTML = qMsgsHTML(); m.dataset.n = n; m.scrollTop = m.scrollHeight; } }
+}
+views.quick = function(){
+  const f = Q.form, g = GAMES[f.game], chip = (k,v,label) => `<button type="button" class="chip" data-act="q-set" data-k="${k}" data-v="${esc(String(v))}" aria-pressed="${String(f[k])===String(v)}">${label}</button>`;
+  if(Q.st==="searching") return `<div class="setup"><div class="card pop" style="text-align:center;display:flex;flex-direction:column;gap:14px;align-items:center"><span class="mono">${g.name}${f.mode!=="any"?" · "+esc(f.mode):""}</span><h2>${t("qSearching")}</h2><div class="qdots"><i></i><i></i><i></i></div><p class="muted" id="q-wait">${qWaitText()}</p><button class="btn" data-act="q-leave">${t("qCancel")}</button></div></div>`;
+  if((Q.st==="chat" || Q.st==="ended") && Q.info){
+    const e = Q.info.ended_by;
+    return `<div class="qchat"><div class="card pop"><div class="qhead" id="q-head">${qHeadHTML()}</div>
+      ${Q.reporting?`<div class="qrep"><span class="mono">${t("qWhy")}</span><div class="chips">${REPORT_REASONS.map(r=>`<button class="chip" data-act="q-report-go" data-v="${r}">${t("r_"+r)}</button>`).join("")}</div></div>`:""}
+      <div class="qmsgs" id="q-msgs" data-n="${Q.msgs.length}">${qMsgsHTML()}</div>
+      ${Q.st==="ended"?`<div class="qend"><b>${t(e==="you"?"qEndYou":e==="timeout"?"qEndLost":"qEndPartner")}</b><div class="chips"><button class="btn coral" data-act="q-next">${t("qNext")}</button><button class="btn" data-act="q-leave">${t("qBack")}</button></div></div>`
+        :`<form class="qsend" data-form="q-send"><input class="inp" id="q-in" maxlength="500" autocomplete="off" placeholder="${t("qPh")}" aria-label="${t("qPh")}"><button class="btn coral">${t("qSendBtn")}</button></form>`}
+      ${!S.me?`<p class="hint" style="margin-top:12px">${t("qGuestCta")} <button class="btn small" data-act="auth" data-tab="signup">${t("signup")}</button></p>`:""}</div></div>`;
+  }
+  return `<div class="setup"><div class="card pop" style="display:flex;flex-direction:column;gap:12px"><span class="mono">${t("qEyebrow")}</span><h2>${t("qTitle")}</h2><p class="muted">${t("qSub")}</p>
+    <span class="mono">${t("qGame")}</span><div class="chips">${Object.keys(GAMES).map(k=>chip("game",k,GAMES[k].name)).join("")}</div>
+    <label class="f">${t("qMode")}<select class="inp" id="q-mode"><option value="any">${t("qAny")}</option>${qModes(f.game).map(m=>`<option value="${esc(m)}" ${f.mode===m?"selected":""}>${esc(m)}</option>`).join("")}</select></label>
+    <span class="mono">${t("qStyle")}</span><div class="chips">${chip("style","any",t("qAny"))}${chip("style","chill",t("qChill"))}${chip("style","serious",t("qSerious"))}</div>
+    ${qNeedsAge()?`<span class="mono">${t("qAge")}</span><div class="chips">${chip("adult",true,t("qAdult"))}${chip("adult",false,t("qMinor"))}</div>`:""}
+    <button class="btn coral" data-act="q-start" style="margin-top:6px">⚡ ${t("qGo")}</button>
+    <p class="hint">${t(S.me?"qRulesMe":"qRules")}</p></div></div>`;
+};
+document.addEventListener("click", async e => {
+  const el = e.target.closest("[data-act]"); if(!el) return; const a = el.dataset.act, d = el.dataset;
+  if(a==="q-set"){ const v = d.k==="adult" ? d.v==="true" : d.v; Q.form[d.k] = v; if(d.k==="game") Q.form.mode = "any"; rerender(); }
+  else if(a==="q-start" || a==="q-next") qStart();
+  else if(a==="q-leave") qLeave();
+  else if(a==="q-report"){ Q.reporting = !Q.reporting; rerender(); }
+  else if(a==="q-report-go"){ Q.reporting = false; const { error } = await qRpc("quick_report",{p_reason:d.v,p_detail:""}); toast(t(error?"tFail":"qReported")); qPing();
+    if(Q.st==="chat"){ Q.ticking = false; qTick(); } else rerender(); }
+  else if(a==="q-show"){ const { error } = await sb.rpc("quick_show"); if(error) return toast(t("tFail")); qPing(); qTick(); }
+  else if(a==="aq-done" || a==="aq-ban"){ const { error } = await sb.rpc("admin_quick_resolve",{p_id:+d.id,p_ban:a==="aq-ban"}); if(error) return toast(t("tFail")); S.admin = null; render(); }
+});
+document.addEventListener("submit", e => { if(e.target.dataset.form==="q-send"){ e.preventDefault(); qSend(); } });
+document.addEventListener("change", e => { if(e.target.id==="q-mode") Q.form.mode = e.target.value; });
+function quickAdminHTML(){
+  const q = S.admin && S.admin.quick; if(!q) return ""; const tile = (n,l) => `<div class="card"><b style="font-size:26px">${n??0}</b><div class="mono">${l}</div></div>`, when = x => new Date(x).toLocaleString([], {dateStyle:"medium",timeStyle:"short"});
+  return `<section class="block"><div class="head"><h2 style="font-size:20px">${t("aqTitle")}</h2></div>
+    <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(140px,1fr))">${tile(q.guests,t("aqGuests"))}${tile(q.guests_today,t("aqToday"))}${tile(q.guests_now,t("aqNow"))}${tile(q.searching,t("aqSearching"))}${tile(q.chats_now,t("aqChats"))}${tile(q.pairs_today,t("aqPairs"))}</div>
+    ${(q.reports||[]).length?`<div class="card" style="margin-top:14px"><span class="mono">${t("aqReports")} · ${q.reports.filter(r=>r.status==="open").length}</span>${q.reports.map(r=>`<details class="qlog ${r.status==="done"?"dim":""}"><summary><b>${esc(r.target_name||"?")}</b>${r.username?` <a href="#u-${esc(r.username)}">@${esc(r.username)}</a>`:""} · ${t("r_"+(REPORT_REASONS.includes(r.reason)?r.reason:"other"))} · <span class="muted">${when(r.created_at)}</span>${r.guest_banned?` <span class="tag full">${t("banned")}</span>`:""}</summary>
+      ${(r.log||[]).map(m=>`<p><span class="mono">${t(m.who==="target"?"aqTarget":"aqReporter")}</span> ${esc(m.body)}</p>`).join("")||`<p class="muted">${t("aqNoLog")}</p>`}
+      ${r.status==="open"?`<div class="chips" style="margin-top:8px"><button class="btn small" data-act="aq-done" data-id="${r.id}">${t("aqDone")}</button>${String(r.target).startsWith("g:")&&!r.guest_banned?`<button class="btn small coral" data-act="aq-ban" data-id="${r.id}">${t("aqBan")}</button>`:""}</div>`:""}</details>`).join("")}</div>`:""}</section>`;
+}
 
 /* ---------- render ---------- */
 function render(){
@@ -1921,7 +2056,7 @@ document.addEventListener("keydown", e => {
   if(S.dialog && S.dialog.type==="viewer" && !S.dialog.form){ if(e.key==="ArrowRight") stepViewer(1); if(e.key==="ArrowLeft") stepViewer(-1); }
 });
 setInterval(()=>{ if(!document.hidden && !S.dialog && sb && (["home","valorant","rooms"].includes(route()) || (S.me && !RC.id))) loadVRooms(); },12000);
-window.addEventListener("hashchange", () => { S.menu=false; S.dialog=null; renderDialog(); render(); window.scrollTo(0,0); if(["home","valorant","rooms"].includes(route())) loadVRooms(); if(route()==="event") loadEvent(); });
+window.addEventListener("hashchange", () => { if(route()!=="quick" && Q.st!=="idle") qLeave(); S.menu=false; S.dialog=null; renderDialog(); render(); window.scrollTo(0,0); if(["home","valorant","rooms"].includes(route())) loadVRooms(); if(route()==="event") loadEvent(); });
 
 /* ---------- boot ---------- */
 applyTheme();
