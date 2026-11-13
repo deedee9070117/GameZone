@@ -258,6 +258,7 @@ footer{padding:36px 0 72px;color:var(--ink-soft);font-size:13.5px;border-top:2px
 .legal{max-width:72ch}
 .legal h2{font-family:var(--font-body)!important;font-weight:700!important;font-size:18px;letter-spacing:0;margin:22px 0 6px}
 .legal ul{margin:6px 0;padding-left:20px;display:flex;flex-direction:column;gap:4px}
+.badge{background:var(--coral);color:#2A2222;border:1.5px solid var(--ink);border-radius:999px;min-width:20px;height:20px;padding:0 5px;font-size:12px;line-height:17px;text-align:center;margin-left:2px}
 .vbtns{display:flex;gap:6px;flex-wrap:wrap}
 .req{display:flex;flex-direction:column;gap:6px}
 
@@ -428,7 +429,7 @@ evAdminNote:["Players can't see this number until the announcement time.","ผ�
 ignHint:["Valorant: use Name#TAG","Valorant: ใส่แบบ ชื่อ#TAG","Valorant：格式为 名称#TAG","Valorant：名前#TAG の形式"],
 addFriend:["Add friend","เพิ่มเพื่อน","加好友","フレンド追加"], isFriend:["Friends ✓","เป็นเพื่อนกันแล้ว ✓","已是好友 ✓","フレンド ✓"], acceptReq:["Accept","ยอมรับ","接受","承認"], decline:["Decline","ปฏิเสธ","拒绝","拒否"], requested:["Requested","ส่งคำขอแล้ว","已申请","申請済み"],
 invitePlay:["Invite to room","ชวนเข้าห้อง","邀请进房","ルームに招待"], more:["More","เพิ่มเติม","更多","その他"], friends:["Friends","เพื่อน","好友","フレンド"], stRep:["likes","ถูกใจ","好评","高評価"], friendsOf:["{n}'s friends","เพื่อนของ {n}","{n} 的好友","{n} のフレンド"],
-notifs:["Notifications","การแจ้งเตือน","通知","通知"], noNotifs:["Nothing new","ยังไม่มีอะไรใหม่","暂无新通知","新しい通知はありません"], wantsFriend:["wants to be friends","ขอเป็นเพื่อน","想加你为好友","からフレンド申請"], invitedYou:["invited you to","ชวนคุณเข้าห้อง","邀请你加入","からの招待"], joinNow:["Join","เข้าร่วม","加入","参加"], dismiss:["Dismiss","ปิด","忽略","閉じる"],
+wantsFriend:["sent you a friend request","ส่งคำขอเป็นเพื่อนถึงคุณ","向你发送了好友请求","からフレンド申請が届きました"], notifs:["Notifications","การแจ้งเตือน","通知","通知"], noNotifs:["Nothing new","ยังไม่มีอะไรใหม่","暂无新通知","新しい通知はありません"], wantsFriend:["wants to be friends","ขอเป็นเพื่อน","想加你为好友","からフレンド申請"], invitedYou:["invited you to","ชวนคุณเข้าห้อง","邀请你加入","からの招待"], joinNow:["Join","เข้าร่วม","加入","参加"], dismiss:["Dismiss","ปิด","忽略","閉じる"],
 noFriends:["No friends yet","ยังไม่มีเพื่อน","还没有好友","フレンドはまだいません"], blockedList:["Blocked","ที่บล็อกไว้","已屏蔽","ブロック中"], unblock:["Unblock","เลิกบล็อก","取消屏蔽","ブロック解除"], block:["Block","บล็อก","屏蔽","ブロック"], report:["Report","รายงาน","举报","通報"],
 unfriend:["Remove friend","ลบเพื่อน","删除好友","フレンド解除"], unfriendConfirm:["Remove {n} from your friends?","ลบ {n} ออกจากเพื่อน?","将 {n} 从好友中删除？","{n} をフレンドから外しますか？"], blockConfirm:["Block {n}? You won't be matched or share rooms, and their messages will be hidden.","บล็อก {n}? ระบบจะไม่จับคู่และไม่ให้อยู่ห้องเดียวกัน และจะซ่อนข้อความของเขา","屏蔽 {n}？你们将不会被匹配或同房，对方的消息也会被隐藏。","{n} をブロックしますか？マッチングや同室がなくなり、メッセージも非表示になります。"],
 reportTitle:["Report {n}","รายงาน {n}","举报 {n}","{n} を通報"], reason:["Reason","เหตุผล","原因","理由"], reportDetail:["What happened? (optional)","เกิดอะไรขึ้น? (ไม่บังคับ)","发生了什么？（选填）","詳細（任意）"], sendReport:["Send report","ส่งรายงาน","提交举报","通報する"],
@@ -613,7 +614,7 @@ function navHTML(){
   <nav class="nav-links" aria-label="Main">${link("valorant","Valorant")}${link("rov","RoV")}${link("roblox","Roblox")}${link("rooms",t("rooms"))}${link("event",t("event"))}</nav>
   <div class="search" id="search"><input class="inp" id="q" type="search" placeholder="${t("searchPh")}" aria-label="${t("searchPh")}" autocomplete="off" maxlength="24"><div class="q-menu" id="q-menu" hidden></div></div>
   <div class="nav-right">${u
-    ? `<button class="btn small" data-act="notifs" aria-label="${t("notifs")}">🔔${notifCount()?` <b>${notifCount()}</b>`:""}</button><button class="me-btn" data-act="menu" aria-haspopup="true" aria-expanded="${S.menu}"><span>${esc(u.display_name)}</span>${avatar(u,38)}</button>
+    ? `<button class="btn small" data-act="notifs" aria-label="${t("notifs")}">🔔${notifCount()?`<b class="badge">${notifCount()>99?"99+":notifCount()}</b>`:""}</button><button class="me-btn" data-act="menu" aria-haspopup="true" aria-expanded="${S.menu}"><span>${esc(u.display_name)}</span>${avatar(u,38)}</button>
        ${S.menu?`<div class="menu"><button data-go="profile">${t("yourProfile")}</button><button data-go="rooms">${t("openRooms")}</button><button data-act="settings">${t("settings")}</button>${S.isAdmin?`<button data-go="admin">${t("admin")}</button>`:""}<button data-act="logout">${t("logout")}</button></div>`:""}`
     : `<button class="btn small" data-act="auth" data-tab="login">${t("login")}</button><button class="me-btn" data-act="auth" data-tab="signup" aria-label="${t("signup")}">${avatar(null,38)}</button>`}
   </div>`;
@@ -880,7 +881,7 @@ let RC = {};
 const ICE = {iceServers:[{urls:["stun:stun.l.google.com:19302","stun:stun1.l.google.com:19302"]}]};
 function stopRoom(){ if(!RC.id) return; leaveVoice(true); clearInterval(RC.poll); clearInterval(RC.hb); if(RC.ch) try{ sb.removeChannel(RC.ch); }catch(e){} RC = {}; drawDock(); }
 async function startRoom(id){
-  stopRoom(); RC = {id,state:"loading",msgs:[],people:{},presence:{},pcs:{},pend:{},spk:{},meters:{},seenAt:{},gone:[]};
+  stopRoom(); RC = {id,state:"loading",msgs:[],people:{},presence:{},pcs:{},pend:{},spk:{},vmute:{},meters:{},seenAt:{},gone:[]};
   await refreshRoom(true);
   if(RC.id!==id) return;
   if(RC.state==="ok" && RC.member){ await openRoomLive(); loadHistory(S.me.id); }
@@ -920,7 +921,10 @@ async function openRoomLive(){
     // members-only channel first; falls back to an open one only if the private join is refused
     const ch = RC.ch = sb.channel("room-"+id,{config:{private:priv,presence:{key:S.me.id}}});
     ch.on("postgres_changes",{event:"INSERT",schema:"public",table:"room_messages",filter:"room_id=eq."+id},p=>addMsg(p.new))
-      .on("postgres_changes",{event:"*",schema:"public",table:"room_members",filter:"room_id=eq."+id},()=>refreshRoom())
+      .on("postgres_changes",{event:"INSERT",schema:"public",table:"room_members",filter:"room_id=eq."+id},()=>refreshRoom())
+      .on("postgres_changes",{event:"DELETE",schema:"public",table:"room_members",filter:"room_id=eq."+id},()=>refreshRoom())
+      .on("broadcast",{event:"sync"},()=>refreshRoom())
+      .on("broadcast",{event:"vs"},({payload})=>{ if(!payload || !payload.from) return; RC.vmute[payload.from] = !!payload.muted; if(payload.left){ closePc(payload.from); delete RC.vmute[payload.from]; } else if(payload.hello && RC.inVoice) bsend("vs",{muted:!!RC.muted}); updateRoom("voice"); })
       .on("postgres_changes",{event:"*",schema:"public",table:"rooms",filter:"id=eq."+id},()=>refreshRoom())
       .on("presence",{event:"sync"},()=>{ if(RC.ch!==ch) return; const old = RC.presence||{}; RC.presence = ch.presenceState();
         Object.keys(old).forEach(u=>{ if(!RC.presence[u]){ RC.seenAt[u] = Date.now(); delete RC.spk[u]; } });
@@ -928,34 +932,53 @@ async function openRoomLive(){
       .on("broadcast",{event:"spk"},({payload})=>{ if(payload && payload.from) RC.spk[payload.from] = !!payload.on; })
       .on("broadcast",{event:"rtc"},({payload})=>onSignal(payload))
       .subscribe(st=>{ if(RC.ch!==ch) return;
-        if(st==="SUBSCRIBED"){ joined = true; RC.priv = priv; trackMe(); }
+        if(st==="SUBSCRIBED"){ joined = true; RC.priv = priv; trackMe(true); bsend("sync",{}); if(RC.inVoice) bsend("vs",{muted:!!RC.muted}); }
         else if(priv && !joined && (st==="CHANNEL_ERROR" || st==="TIMED_OUT")){ try{ sb.removeChannel(ch); }catch(e){} if(RC.id===id) connect(false); } });
   };
-  connect(true);
-  RC.poll = setInterval(()=>{ refreshRoom(); loadMsgs(); },10000); // safety net if a live event is missed
+  RC.connect = connect; connect(true);
+  RC.poll = setInterval(()=>{ refreshRoom(); loadMsgs();
+    // if the live channel dropped (for example after a rate limit), rebuild it instead of staying silently disconnected
+    const st = RC.ch && RC.ch.state; if(RC.connect && st!=="joined" && st!=="joining"){ try{ sb.removeChannel(RC.ch); }catch(e){} RC.connect(RC.priv!==false); }
+  },8000);
   const beat = () => sb.from("room_members").update({last_seen:new Date().toISOString()}).eq("room_id",id).eq("user_id",S.me.id).then(()=>{});
-  beat(); RC.hb = setInterval(beat,30000);
+  beat(); RC.hb = setInterval(beat,20000);
 }
-const trackMe = () => RC.ch && RC.ch.track({voice:!!RC.inVoice,muted:!!RC.muted}).catch(()=>{});
+// presence updates are rate limited by the server, so they are sent at most once every few seconds; mute state travels by broadcast instead
+let trackT = null, trackAt = 0;
+function trackMe(now){
+  const go = () => { trackT = null; trackAt = Date.now(); if(chOk()) RC.ch.track({voice:!!RC.inVoice}).catch(()=>{}); };
+  clearTimeout(trackT); const wait = 3000-(Date.now()-trackAt);
+  if(now || wait<=0) go(); else trackT = setTimeout(go,wait);
+  return Promise.resolve();
+}
+const chOk = () => !!(RC.ch && RC.ch.state==="joined");
+function bsend(event,payload){ if(chOk()) RC.ch.send({type:"broadcast",event,payload:{...payload,from:S.me.id}}); }
 const isOnline = u => !!(RC.presence && RC.presence[u]);
+// "here" = seen on the live channel, or checked in within the last minute (so one dropped connection doesn't show someone as gone)
+function isHere(m){ return m.user_id===S.me.id || isOnline(m.user_id) || !!(RC.pcs && RC.pcs[m.user_id]) || (m.last_seen && Date.now()-new Date(m.last_seen) < 60000); }
+const inVoiceNow = u => !!voiceOf(u) || !!(RC.pcs && RC.pcs[u] && RC.pcs[u].connectionState==="connected");
 const voiceOf = u => { const p = RC.presence && RC.presence[u]; return p && p.find(x=>x.voice) || null; };
 
 /* voice: direct peer-to-peer audio between room members, signalled over the room channel */
-function sendSig(m){ if(RC.ch) RC.ch.send({type:"broadcast",event:"rtc",payload:{...m,from:S.me.id}}); }
+function sendSig(m){ bsend("rtc",m); }
 function makePc(peer){
   const pc = new RTCPeerConnection(ICE); RC.pcs[peer] = pc; RC.pend[peer] = [];
   RC.stream.getTracks().forEach(tr=>pc.addTrack(tr,RC.stream));
   pc.onicecandidate = e => { if(e.candidate) sendSig({kind:"ice",to:peer,cand:e.candidate.toJSON()}); };
   pc.ontrack = e => { let a = document.getElementById("au-"+peer); if(!a){ a = document.createElement("audio"); a.id = "au-"+peer; a.autoplay = true; $("#audio-root").appendChild(a); }
     a.srcObject = e.streams[0]; a.muted = !!RC.deaf; a.play().catch(()=>{}); addMeter(peer,e.streams[0]); };
-  pc.onconnectionstatechange = () => { if(pc.connectionState==="failed" && RC.pcs[peer]===pc){ closePc(peer); setTimeout(syncVoice,1500); } };
+  pc.onconnectionstatechange = () => { if(RC.pcs[peer]!==pc) return; const st = pc.connectionState;
+    if(st==="failed" || st==="closed"){ closePc(peer); setTimeout(syncVoice,1500); }
+    else if(st==="disconnected") setTimeout(()=>{ if(RC.pcs[peer]===pc && pc.connectionState==="disconnected"){ closePc(peer); syncVoice(); } },8000);
+    updateRoom("voice"); updateRoom("members"); };
   return pc;
 }
 function closePc(peer){ const pc = RC.pcs && RC.pcs[peer]; if(pc){ try{ pc.close(); }catch(e){} delete RC.pcs[peer]; } const a = document.getElementById("au-"+peer); if(a) a.remove(); if(RC.meters) delete RC.meters[peer]; }
 async function syncVoice(){
   if(!RC.inVoice) return;
   const peers = Object.keys(RC.presence||{}).filter(u=>u!==S.me.id && voiceOf(u) && RC.members.some(m=>m.user_id===u));
-  Object.keys(RC.pcs).forEach(u=>{ if(!peers.includes(u)) closePc(u); });
+  // keep a working call even if the other side briefly drops off the live channel; only clear calls that are not connected
+  Object.keys(RC.pcs).forEach(u=>{ if(!peers.includes(u) && (RC.pcs[u].connectionState!=="connected" || !RC.members.some(m=>m.user_id===u))) closePc(u); });
   for(const u of peers){ if(RC.pcs[u] || S.me.id>u) continue; // the smaller id calls, so two people never call each other at once
     try{ const pc = makePc(u); const offer = await pc.createOffer(); await pc.setLocalDescription(offer); sendSig({kind:"offer",to:u,sdp:pc.localDescription}); }catch(e){ closePc(u); } }
 }
@@ -975,13 +998,13 @@ async function joinVoice(){
   catch(e){ if(err) err.textContent = t("micErr"); return; }
   RC.inVoice = true; RC.muted = false; RC.deaf = false;
   try{ RC.actx = new (window.AudioContext||window.webkitAudioContext)(); RC.meters = {}; addMeter(S.me.id,RC.stream); }catch(e){}
-  await trackMe(); updateRoom("voice"); updateRoom("members"); syncVoice(); drawDock();
+  await trackMe(true); bsend("vs",{muted:!!RC.muted,hello:true}); updateRoom("voice"); updateRoom("members"); syncVoice(); drawDock();
 }
 function leaveVoice(silent){
   if(!RC.inVoice) return; Object.keys(RC.pcs||{}).forEach(closePc);
   if(RC.stream) RC.stream.getTracks().forEach(tr=>tr.stop()); RC.stream = null; RC.inVoice = false; RC.muted = false; RC.deaf = false;
-  if(RC.actx) try{ RC.actx.close(); }catch(e){} RC.actx = null; RC.meters = {}; if(RC.spkSent && RC.ch) RC.ch.send({type:"broadcast",event:"spk",payload:{from:S.me.id,on:false}}); RC.spkSent = false;
-  if(!silent){ trackMe(); updateRoom("voice"); drawDock(); }
+  if(RC.actx) try{ RC.actx.close(); }catch(e){} RC.actx = null; RC.meters = {}; if(RC.spkSent) bsend("spk",{on:false}); RC.spkSent = false; bsend("vs",{muted:false,left:true});
+  if(!silent){ trackMe(true); updateRoom("voice"); drawDock(); }
 }
 
 /* room page pieces: each part re-renders on its own so typing in chat is never interrupted */
@@ -992,13 +1015,13 @@ const roomParts = {
       <div class="chips"><button class="btn small" data-act="rate-open" data-room="${r.id}">${t("rateBtn")}</button>${host?`<button class="btn small" data-act="room-settings">${t("roomSettings")}</button><button class="btn small" data-act="room-close">${t("closeRoom")}</button>`:`<button class="btn small" data-act="room-leave">${t("leave")}</button>`}</div></div>
       ${r.note?`<p style="white-space:pre-wrap;max-width:70ch">${esc(r.note)}</p>`:""}${roomReqHTML(r)}
       <div class="codebox"><span class="mono">${t("partyCode")}</span>${RC.code?`<b>${esc(RC.code)}</b><button class="btn small" data-act="copy-code">${t("copy")}</button>`:`<span class="muted">${t("codeNone")}</span>`}</div>`; },
-  voice(){ const inV = RC.members.map(m=>m.user_id).filter(u=>voiceOf(u));
+  voice(){ const inV = RC.members.map(m=>m.user_id).filter(u=>u===S.me.id ? RC.inVoice : inVoiceNow(u)), vm = u => u===S.me.id ? RC.muted : RC.vmute[u];
     return `<span class="mono">${t("voice")}</span>
-      <div>${inV.length?inV.map(u=>personRow(u,voiceOf(u).muted?`<span class="muted">${t("mutedTag")}</span>`:"")+`</div>`).join(""):`<p class="muted">${t("noVoice")}</p>`}</div>
+      <div>${inV.length?inV.map(u=>personRow(u,vm(u)?`<span class="muted">${t("mutedTag")}</span>`:"")+`</div>`).join(""):`<p class="muted">${t("noVoice")}</p>`}</div>
       <div class="vbtns">${RC.inVoice?`<button class="btn small" data-act="v-mute" aria-pressed="${!!RC.muted}">${RC.muted?t("unmute"):t("mute")}</button><button class="btn small" data-act="v-deaf" aria-pressed="${!!RC.deaf}">${RC.deaf?t("undeafen"):t("deafen")}</button><button class="btn small coral" data-act="v-leave">${t("leaveVoice")}</button>`
         :`<button class="btn small coral" data-act="v-join">${t("joinVoice")}</button>`}</div><p class="err" id="voice-err" role="alert" style="min-height:0"></p>`; },
   members(){ const r = RC.data, host = S.me.id===r.host_id;
-    const here = RC.members.filter(m=>m.user_id===S.me.id||isOnline(m.user_id)), away = RC.members.filter(m=>!here.includes(m));
+    const here = RC.members.filter(isHere), away = RC.members.filter(m=>!here.includes(m));
     const kick = m => host&&m.user_id!==S.me.id?`<button class="icon" data-act="kick" data-uid="${m.user_id}" aria-label="${t("remove")}" title="${t("remove")}">✕</button>`:"";
     const row = (m,sub,on) => personRow(m.user_id,`<span class="muted" style="display:block">${sub}</span>`)+`<i class="dot ${on?"on":""}"></i>${on===null?"":kick(m)}</div>`;
     return `<span class="mono">${t("hereNow")} · ${here.length}/${r.size}</span><div>${here.map(m=>row(m,[m.role,m.user_id===r.host_id?t("host"):"",m.user_id===S.me.id?t("you"):""].filter(Boolean).map(esc).join(" · "),true)).join("")}</div>
@@ -1043,13 +1066,13 @@ async function roomClick(a,d,el){
       if(error){ toast(t(joinErrKey(error.message))); return loadVRooms(); }
       S.dialog=null; renderDialog(); loadVRooms(); toast(t("tJoined")); if(RC.id===d.id){ RC = {}; } go("r-"+d.id); }); }
   else if(a==="room-settings"){ S.dialog={type:"room-form",edit:true}; renderDialog(); }
-  else if(a==="room-leave"){ const id = RC.id; const { error } = await sb.rpc("leave_room",{p_room:id}); if(error) return toast(t("tFail")); stopRoom(); loadVRooms(); go("rooms"); toast(t("tLeft")); setTimeout(()=>openRate(id),200); }
+  else if(a==="room-leave"){ const id = RC.id; const { error } = await sb.rpc("leave_room",{p_room:id}); if(error) return toast(t("tFail")); bsend("sync",{}); await new Promise(r=>setTimeout(r,150)); stopRoom(); loadVRooms(); go("rooms"); toast(t("tLeft")); setTimeout(()=>openRate(id),200); }
   else if(a==="room-close"){ const id = RC.id; const { error } = await sb.from("rooms").delete().eq("id",id); if(error) return toast(t("tFail")); stopRoom(); loadVRooms(); go("rooms"); toast(t("roomGone")); }
   else if(a==="kick"){ await sb.from("room_members").delete().eq("room_id",RC.id).eq("user_id",d.uid); refreshRoom(); }
   else if(a==="copy-code"){ try{ await navigator.clipboard.writeText(RC.code); toast(t("codeCopied")); }catch(_){ toast(RC.code); } }
   else if(a==="v-join"){ if(lsGet("gz.voiceok")==="1") joinVoice(); else { S.dialog = {type:"confirm",title:t("voice"),text:t("voiceWarn"),act:"v-join-yes",uid:"",ok:t("joinVoice")}; renderDialog(); } }
   else if(a==="v-leave") leaveVoice();
-  else if(a==="v-mute"){ RC.muted = !RC.muted; if(RC.stream) RC.stream.getAudioTracks().forEach(tr=>{ tr.enabled = !RC.muted; }); trackMe(); updateRoom("voice"); }
+  else if(a==="v-mute"){ RC.muted = !RC.muted; if(RC.stream) RC.stream.getAudioTracks().forEach(tr=>{ tr.enabled = !RC.muted; }); bsend("vs",{muted:RC.muted}); updateRoom("voice"); }
   else if(a==="v-deaf"){ RC.deaf = !RC.deaf; document.querySelectorAll("#audio-root audio").forEach(x=>{ x.muted = RC.deaf; }); updateRoom("voice"); }
   else return false;
   return true;
@@ -1078,10 +1101,10 @@ function spkTick(){
     const mine = RC.muted ? 0 : (lv[S.me.id]||0); lv[S.me.id] = mine;
     if(mine>0.1) RC.spkHold = Date.now();
     const flag = Date.now()-(RC.spkHold||0) < 450;
-    if(flag!==!!RC.spkSent){ RC.spkSent = flag; if(RC.ch) RC.ch.send({type:"broadcast",event:"spk",payload:{from:S.me.id,on:flag}}); }
+    if(flag!==!!RC.spkSent && Date.now()-(RC.spkAt||0)>400){ RC.spkSent = flag; RC.spkAt = Date.now(); bsend("spk",{on:flag}); }
   }
   document.querySelectorAll("[data-spk]").forEach(el=>{ const u = el.dataset.spk; let v = 0;
-    if(voiceOf(u) || (u===S.me.id && RC.inVoice)){ if(lv[u]!=null) v = lv[u]>0.1 ? Math.max(.25,lv[u]) : 0; else if(RC.spk && RC.spk[u]) v = .5; }
+    if(inVoiceNow(u) || (u===S.me.id && RC.inVoice)){ if(lv[u]!=null) v = lv[u]>0.1 ? Math.max(.25,lv[u]) : 0; else if(RC.spk && RC.spk[u]) v = .5; }
     el.classList.toggle("on",v>0); el.style.setProperty("--lv",v.toFixed(2)); });
 }
 setInterval(spkTick,90);
@@ -1094,7 +1117,7 @@ function drawDock(){
   if(RC.id && RC.member && RC.data) room = {id:RC.id,title:RC.data.title,live:true};
   else if(S.me){ const r = S.vrooms.find(x=>membersOf(x).some(m=>m.user_id===S.me.id)); if(r) room = {id:r.id,title:r.title}; }
   if(room && location.hash!=="#r-"+room.id){
-    const here = room.live ? RC.members.filter(m=>m.user_id===S.me.id||isOnline(m.user_id)).length : 0;
+    const here = room.live ? RC.members.filter(isHere).length : 0;
     h += `<button class="dock" data-go="r-${room.id}"><span class="mono">${t("inRoom")}</span><b>${esc(room.title)}</b><span class="muted">${room.live?t("nHere",{n:here})+(RC.inVoice?" · "+t("voice"):"")+" · ":""}${t("backToRoom")} →</span></button>`;
   }
   el.innerHTML = h; matchClock();
@@ -1304,13 +1327,26 @@ async function loadSocial(){
   SOC.outgoing = rows.filter(f=>f.status==="pending" && f.requester===id).map(f=>f.a).filter(Boolean);
   SOC.blocked = (bl.data||[]).map(b=>b.p).filter(Boolean);
   SOC.invites = (inv.data||[]).filter(x=>x.f && x.rooms && !SOC.blocked.some(b=>b.id===x.from_id));
+  const keys = new Set([...SOC.incoming.map(p=>"f"+p.id),...SOC.invites.map(x=>"i"+x.id)]);
+  if(socSeen){ const inv = SOC.invites.find(x=>!socSeen.has("i"+x.id)), fr = SOC.incoming.find(p=>!socSeen.has("f"+p.id));
+    if(inv) toast(inv.f.display_name+" "+t("invitedYou")+" "+inv.rooms.title); else if(fr) toast(fr.display_name+" "+t("wantsFriend")); }
+  socSeen = keys; document.title = (keys.size?"("+keys.size+") ":"")+"GameZone";
   SOC.loaded = true;
   drawNav();
   if(S.dialog && ["notifs","friends"].includes(S.dialog.type)) renderDialog();
   if(["profile","user"].includes(route()) && !S.dialog && !drag) rerender();
 }
-function startSocial(){ clearInterval(socTimer); loadSocial(); socTimer = setInterval(loadSocial,25000); }
-function stopSocial(){ clearInterval(socTimer); Object.assign(SOC,{friends:[],incoming:[],outgoing:[],blocked:[],invites:[],loaded:false}); }
+let socCh = null, socSeen = null, socDeb = null;
+function startSocial(){ clearInterval(socTimer); loadSocial(); socTimer = setInterval(()=>{ if(!document.hidden) loadSocial(); },15000);
+  if(socCh) try{ sb.removeChannel(socCh); }catch(e){}
+  const id = S.me.id, ping = () => { clearTimeout(socDeb); socDeb = setTimeout(loadSocial,300); };
+  socCh = sb.channel("user-"+id)
+    .on("postgres_changes",{event:"*",schema:"public",table:"friendships",filter:"addressee=eq."+id},ping)
+    .on("postgres_changes",{event:"*",schema:"public",table:"friendships",filter:"requester=eq."+id},ping)
+    .on("postgres_changes",{event:"*",schema:"public",table:"invites",filter:"to_id=eq."+id},ping)
+    .subscribe();
+}
+function stopSocial(){ clearInterval(socTimer); if(socCh){ try{ sb.removeChannel(socCh); }catch(e){} socCh = null; } socSeen = null; Object.assign(SOC,{friends:[],incoming:[],outgoing:[],blocked:[],invites:[],loaded:false}); }
 const isBlockedId = id => SOC.blocked.some(b=>b.id===id);
 function relation(id){
   if(SOC.friends.some(p=>p.id===id)) return "friends";
@@ -1875,6 +1911,7 @@ document.addEventListener("keydown", e => {
   if(e.key==="Escape"){ if(S.dialog){ S.dialog=null; renderDialog(); } else if(S.arranging){ setArranging(false); rerender(); } else if(S.menu){ S.menu=false; drawNav(); } }
   if(S.dialog && S.dialog.type==="viewer" && !S.dialog.form){ if(e.key==="ArrowRight") stepViewer(1); if(e.key==="ArrowLeft") stepViewer(-1); }
 });
+setInterval(()=>{ if(!document.hidden && !S.dialog && sb && (["home","valorant","rooms"].includes(route()) || (S.me && !RC.id))) loadVRooms(); },12000);
 window.addEventListener("hashchange", () => { S.menu=false; S.dialog=null; renderDialog(); render(); window.scrollTo(0,0); if(["home","valorant","rooms"].includes(route())) loadVRooms(); if(route()==="event") loadEvent(); });
 
 /* ---------- boot ---------- */
