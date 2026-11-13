@@ -188,7 +188,8 @@ footer{padding:36px 0 72px;color:var(--ink-soft);font-size:13.5px;border-top:2px
 .v-who{display:flex;align-items:center;gap:10px;font-size:14px}
 .v-who .x{margin-left:auto;background:none;border:0;color:#F3EADB;font-size:24px;line-height:1;padding:4px 8px}
 .v-stage{flex:1;width:min(460px,100%);position:relative;min-height:0;display:grid;place-items:center}
-.v-stage img{max-width:100%;max-height:100%;object-fit:contain;border-radius:10px}
+.v-stage img,.v-stage video{max-width:100%;max-height:100%;object-fit:contain;border-radius:10px}
+.hl span.c video{width:100%;height:100%;object-fit:cover}
 .v-stage button.z{position:absolute;top:0;bottom:0;width:38%;background:none;border:0}
 .v-stage button.z.l{left:0}.v-stage button.z.r{right:0}
 .v-cap{position:absolute;left:12px;right:12px;bottom:12px;background:rgba(29,23,23,.7);padding:8px 12px;border-radius:10px;text-align:center}
@@ -290,7 +291,7 @@ button.dock:hover{background:var(--field)}
 </div>
 <div id="lang-root"></div>
 <div id="dialog-root"></div>
-<input type="file" id="story-file" accept="image/*" hidden>
+<input type="file" id="story-file" accept="image/*,video/mp4,video/webm,video/quicktime" hidden>
 <input type="file" id="av-file" accept="image/*" hidden>
 <div id="dock-root"></div>
 <div id="audio-root" hidden></div>
@@ -433,6 +434,7 @@ whyRank:["Your rank is outside this room's range.","แรงค์ของค�
 fTitle:["Filter rooms","กรองห้อง","筛选房间","ルームを絞り込む"], fAllModes:["All modes","ทุกโหมด","全部模式","すべてのモード"], fAnyRank:["Any rank","ทุกแรงค์","不限段位","ランク指定なし"], fAnyVibe:["Any vibe","ทุกนิสัย","不限风格","スタイル指定なし"], fAnyGender:["Any gender","ทุกเพศ","不限性别","性別指定なし"],
 fOpen:["Hide full rooms","ซ่อนห้องเต็ม","隐藏已满房间","満員を非表示"], fMine:["Only rooms I can join","เฉพาะห้องที่ฉันเข้าได้","只看我能加入的","参加できるルームのみ"], fClear:["Clear filters","ล้างตัวกรอง","清除筛选","条件をクリア"], fNone:["No rooms match these filters.","ไม่มีห้องที่ตรงกับตัวกรอง","没有符合条件的房间。","条件に合うルームがありません。"],
 fShort:["Filter","ตัวกรอง","筛选","絞り込み"],
+vidLong:["Clips can be up to 10 seconds.","คลิปยาวได้ไม่เกิน 10 วินาที","视频最长 10 秒。","動画は10秒までです。"], vidBig:["Clips can be up to 10 MB.","คลิปต้องมีขนาดไม่เกิน 10 MB","视频最大 10 MB。","動画は10MBまでです。"], vidType:["This clip can't be used. Try an MP4 file.","ใช้คลิปนี้ไม่ได้ ลองใช้ไฟล์ MP4","无法使用该视频，请尝试 MP4 文件。","この動画は使用できません。MP4をお試しください。"], vidHlMax:["You can keep up to 5 clips in highlights.","เก็บคลิปในไฮไลท์ได้สูงสุด 5 คลิป","精选中最多保留 5 个视频。","ハイライトに保存できる動画は5本までです。"],
 tPic:["Picture updated","อัปเดตรูปแล้ว","头像已更新","画像を更新しました"], tNotImg:["That file isn't an image","ไฟล์นี้ไม่ใช่รูปภาพ","该文件不是图片","画像ファイルではありません"], tFail:["Something went wrong. Try again.","เกิดข้อผิดพลาด ลองใหม่อีกครั้ง","出了点问题，请重试。","エラーが発生しました。もう一度お試しください。"], tAdded:["Added {n}","เพิ่ม {n} แล้ว","已添加 {n}","{n} を追加しました"]
 };
 const OPT = { // option labels: [th, zh, ja]
@@ -721,7 +723,7 @@ function profileHTML(p,own){
     </div>
     <div class="hls">
       ${own?`<button class="hl" data-act="add-story"><span class="c">+</span><span class="n">${t("newS")}</span></button>`:""}
-      ${hls.map(([name,list])=>`<button class="hl" data-act="view-hl" data-uid="${p.id}" data-name="${esc(name)}"><span class="c"><img src="${esc(mediaURL(list[0].path))}" alt=""></span><span class="n">${esc(name)}</span></button>`).join("")}
+      ${hls.map(([name,list])=>`<button class="hl" data-act="view-hl" data-uid="${p.id}" data-name="${esc(name)}"><span class="c">${list[0].kind==="video"?`<video src="${esc(mediaURL(list[0].path))}#t=0.1" muted playsinline preload="metadata"></video>`:`<img src="${esc(mediaURL(list[0].path))}" alt="">`}</span><span class="n">${esc(name)}</span></button>`).join("")}
       ${!own&&!hls.length?`<span class="muted" style="align-self:center">${t("empty")}</span>`:""}
     </div>
     ${own?`<div class="arrbar"><span>${t("arrHint")}</span><div class="hidden-list">${hidden.length?`<span class="mono">${t("hiddenB")}</span>`+hidden.map(x=>`<button class="chip" data-act="w-show" data-wid="${x.id}">+ ${t(W_TITLE[x.id])}</button>`).join(""):""}<button class="btn small" data-act="arrange-done">${t("done")}</button></div></div>`:""}
@@ -1488,7 +1490,7 @@ function renderDialog(){
   } else if(d.type==="edit"){ const [title,body] = editForm(d);
     inner = wrap(esc(title),`<form data-form="edit">${body}<p class="err" id="e-err" role="alert"></p><div class="dialog-actions"><button class="btn ghost" type="button" data-act="close">${t("cancel")}</button><button class="btn coral" type="submit">${t("save")}</button></div></form>`,"wide");
   } else if(d.type==="story-new"){
-    inner = wrap(t("addStory"),`<img class="preview" src="${d.url}" alt=""><form data-form="story"><label class="f">${t("caption")}<input class="inp" id="st-cap" maxlength="120"></label>
+    inner = wrap(t("addStory"),`${d.video?`<video class="preview" src="${d.url}" controls playsinline muted autoplay loop></video>`:`<img class="preview" src="${d.url}" alt="">`}<form data-form="story"><label class="f">${t("caption")}<input class="inp" id="st-cap" maxlength="120"></label>
       <p class="err" id="st-err" role="alert"></p><div class="dialog-actions"><button class="btn ghost" type="button" data-act="close">${t("cancel")}</button><button class="btn coral" type="submit" id="st-go">${t("post")}</button></div></form>`);
   } else if(d.type==="viewer"){
     const all = S.stories[d.uid]||[], list = d.ids.map(id=>all.find(s=>s.id===id)).filter(Boolean);
@@ -1497,12 +1499,14 @@ function renderDialog(){
     root.innerHTML = `<div class="viewer" role="dialog" aria-modal="true" aria-label="${t("stStories")}">
       <div class="v-top"><div class="v-bars">${list.map((_,i)=>`<i class="${i<=d.i?"on":""}"></i>`).join("")}</div>
         <div class="v-who">${avatar(who,32)}<b>${esc(who?who.display_name:"")}</b><span>${s.highlight&&d.hl?esc(s.highlight):ago(s.created_at)}</span><button class="x" data-act="close" aria-label="${t("close")}">×</button></div></div>
-      <div class="v-stage"><img src="${esc(mediaURL(s.path))}" alt="">${s.caption?`<div class="v-cap">${esc(s.caption)}</div>`:""}
+      <div class="v-stage">${s.kind==="video"?`<video id="v-vid" src="${esc(mediaURL(s.path))}" autoplay playsinline></video>`:`<img src="${esc(mediaURL(s.path))}" alt="">`}${s.caption?`<div class="v-cap">${esc(s.caption)}</div>`:""}
         <button class="z l" data-act="v-prev" aria-label="Previous"></button><button class="z r" data-act="v-next" aria-label="Next"></button></div>
       <div class="v-foot">${own ? (d.form
         ? `<form data-form="hl" style="display:flex;gap:8px;flex:1;flex-wrap:wrap"><input class="inp" id="hl-name" maxlength="20" placeholder="${t("hlName")}" list="hl-list" value="${esc(s.highlight||"")}"><datalist id="hl-list">${highlights(d.uid).map(([n])=>`<option value="${esc(n)}">`).join("")}</datalist><button class="btn" type="submit">${t("save")}</button><button class="btn" type="button" data-act="v-form-off">${t("cancel")}</button></form>`
         : `<button class="btn" data-act="v-form">${t("addHl")}</button>${s.highlight?`<button class="btn" data-act="v-unhl">${t("rmHl")}</button>`:""}<button class="btn" data-act="v-del">${t("del")}</button>`) : ""}</div></div>`;
-    if(!d.form) viewTimer = setTimeout(()=>stepViewer(1),5000); else { const f=$("#hl-name"); if(f) f.focus(); }
+    const vid = $("#v-vid");
+    if(vid){ vid.play().catch(()=>{ vid.muted = true; vid.play().catch(()=>{}); }); if(!d.form) vid.onended = () => stepViewer(1); }
+    if(!d.form) viewTimer = setTimeout(()=>stepViewer(1),vid?15000:5000); else { const f=$("#hl-name"); if(f) f.focus(); }
     return;
   }
   root.innerHTML = `<div class="scrim" data-act="scrim">${inner}</div>`;
@@ -1689,6 +1693,14 @@ document.addEventListener("change", async e => {
   }
   if(el.id==="story-file" && el.files && el.files[0]){
     if(!S.me) return; const f = el.files[0]; el.value="";
+    if(f.type.startsWith("video/")){
+      if(!["video/mp4","video/webm","video/quicktime"].includes(f.type)) return toast(t("vidType"));
+      if(f.size>10*1024*1024) return toast(t("vidBig"));
+      const url = URL.createObjectURL(f), dur = await new Promise(res=>{ const v = document.createElement("video"); v.preload = "metadata"; v.onloadedmetadata = () => res(v.duration); v.onerror = () => res(NaN); setTimeout(()=>res(NaN),8000); v.src = url; });
+      if(!(dur>0)){ URL.revokeObjectURL(url); return toast(t("vidType")); }
+      if(dur>10.5){ URL.revokeObjectURL(url); return toast(t("vidLong")); }
+      S.dialog={type:"story-new",blob:f,url,video:true,mime:f.type}; return renderDialog();
+    }
     try{ const blob = await resizeImage(f,1280,false); S.dialog={type:"story-new",blob,url:URL.createObjectURL(blob)}; renderDialog(); }catch(_){ toast(t("tNotImg")); }
     return;
   }
@@ -1704,11 +1716,13 @@ document.addEventListener("submit", async e => {
   e.preventDefault(); const f = e.target.dataset.form;
   if(f==="signup") signup(); else if(f==="login") login(); else if(f==="edit") saveEdit();
   else if(f==="story"){ const d = S.dialog, btn = $("#st-go"), err = $("#st-err"); btn.disabled=true; err.textContent=t("working");
-    try{ const path = S.me.id+"/stories/"+uid()+".jpg"; const up = await sb.storage.from("media").upload(path,d.blob,{contentType:"image/jpeg"}); if(up.error) throw up.error;
-      const { data, error } = await sb.from("stories").insert({path,caption:val("st-cap")}).select().single(); if(error) throw error;
+    try{ const ext = d.video ? ({"video/mp4":"mp4","video/webm":"webm","video/quicktime":"mov"})[d.mime] : "jpg", cap = val("st-cap");
+      const path = S.me.id+"/stories/"+uid()+"."+ext; const up = await sb.storage.from("media").upload(path,d.blob,{contentType:d.video?d.mime:"image/jpeg"}); if(up.error) throw up.error;
+      const { data, error } = await sb.from("stories").insert({path,caption:cap,kind:d.video?"video":"image"}).select().single(); if(error){ sb.storage.from("media").remove([path]); throw error; }
       (S.stories[S.me.id] = S.stories[S.me.id]||[]).push(data); URL.revokeObjectURL(d.url); S.dialog=null; renderDialog(); rerender(); toast(t("posted"));
     }catch(_){ btn.disabled=false; err.textContent=t("tFail"); } }
   else if(f==="hl"){ const s = curStory(), name = val("hl-name"); if(!name) return;
+    if(s.kind==="video" && !s.highlight && (S.stories[S.me.id]||[]).filter(x=>x.kind==="video"&&x.highlight).length>=5) return toast(t("vidHlMax"));
     const { error } = await sb.from("stories").update({highlight:name}).eq("id",s.id); if(error) return toast(t("tFail")); s.highlight=name; S.dialog.form=false; toast(t("saved")); renderDialog(); }
   else if(f==="room-form") submitRoomForm();
   else if(f==="report") submitReport();
