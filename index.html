@@ -255,6 +255,9 @@ footer{padding:36px 0 72px;color:var(--ink-soft);font-size:13.5px;border-top:2px
 .sbar i{display:block;height:12px;background:var(--blue);border-radius:0 4px 4px 0}
 .rfbar{display:flex;flex-direction:column;gap:10px;margin-bottom:16px;padding:14px}
 .rf-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px}
+.legal{max-width:72ch}
+.legal h2{font-family:var(--font-body)!important;font-weight:700!important;font-size:18px;letter-spacing:0;margin:22px 0 6px}
+.legal ul{margin:6px 0;padding-left:20px;display:flex;flex-direction:column;gap:4px}
 .vbtns{display:flex;gap:6px;flex-wrap:wrap}
 .req{display:flex;flex-direction:column;gap:6px}
 
@@ -446,6 +449,14 @@ fTitle:["Filter rooms","กรองห้อง","筛选房间","ルームを�
 fOpen:["Hide full rooms","ซ่อนห้องเต็ม","隐藏已满房间","満員を非表示"], fMine:["Only rooms I can join","เฉพาะห้องที่ฉันเข้าได้","只看我能加入的","参加できるルームのみ"], fClear:["Clear filters","ล้างตัวกรอง","清除筛选","条件をクリア"], fNone:["No rooms match these filters.","ไม่มีห้องที่ตรงกับตัวกรอง","没有符合条件的房间。","条件に合うルームがありません。"],
 fShort:["Filter","ตัวกรอง","筛选","絞り込み"],
 vidLong:["Clips can be up to 10 seconds.","คลิปยาวได้ไม่เกิน 10 วินาที","视频最长 10 秒。","動画は10秒までです。"], vidBig:["Clips can be up to 10 MB.","คลิปต้องมีขนาดไม่เกิน 10 MB","视频最大 10 MB。","動画は10MBまでです。"], vidType:["This clip can't be used. Try an MP4 file.","ใช้คลิปนี้ไม่ได้ ลองใช้ไฟล์ MP4","无法使用该视频，请尝试 MP4 文件。","この動画は使用できません。MP4をお試しください。"], vidHlMax:["You can keep up to 5 clips in highlights.","เก็บคลิปในไฮไลท์ได้สูงสุด 5 คลิป","精选中最多保留 5 个视频。","ハイライトに保存できる動画は5本までです。"],
+privacyP:["Privacy","นโยบายความเป็นส่วนตัว","隐私政策","プライバシー"], termsP:["Terms","ข้อตกลงการใช้งาน","使用条款","利用規約"], agree:["By creating an account you agree to the","การสร้างบัญชีถือว่าคุณยอมรับ","创建账号即表示你同意","アカウントを作成すると次に同意したことになります："], andW:["and","และ","和","と"],
+pvTitle:["Privacy","ความเป็นส่วนตัว","隐私","プライバシー"], pvAge:["Hide my age from other players","ซ่อนอายุจากผู้เล่นอื่น","向其他玩家隐藏年龄","年齢を他のプレイヤーに非表示"], pvGender:["Hide my gender from other players","ซ่อนเพศจากผู้เล่นอื่น","向其他玩家隐藏性别","性別を他のプレイヤーに非表示"], pvHistory:["Hide my play history","ซ่อนประวัติการเล่น","隐藏游戏记录","プレイ履歴を非表示"],
+pvNote:["Hidden age and gender are still used to check room rules and matchmaking.","แม้ซ่อน ระบบยังใช้อายุและเพศเพื่อตรวจเงื่อนไขเข้าห้องและจับคู่","隐藏后，系统仍会用年龄和性别检查房间条件和匹配。","非表示でも、ルーム条件とマッチングの判定には使用されます。"],
+account:["Account","บัญชี","账号","アカウント"], delAcc:["Delete account","ลบบัญชี","删除账号","アカウント削除"], delAccText:["This permanently deletes your profile, pictures, clips, chat messages, friends and history. It can't be undone.","การลบบัญชีจะลบโปรไฟล์ รูป คลิป ข้อความแชท เพื่อน และประวัติทั้งหมดอย่างถาวร และกู้คืนไม่ได้","这将永久删除你的主页、图片、视频、聊天消息、好友和记录，且无法恢复。","プロフィール、画像、動画、チャット、フレンド、履歴がすべて完全に削除され、元に戻せません。"],
+delAccType:["Type your username ({n}) to confirm","พิมพ์ชื่อผู้ใช้ของคุณ ({n}) เพื่อยืนยัน","输入你的用户名（{n}）以确认","確認のためユーザー名（{n}）を入力"], delAccBtn:["Delete forever","ลบถาวร","永久删除","完全に削除"], delAccWrong:["That doesn't match your username.","ชื่อผู้ใช้ไม่ตรง","用户名不匹配。","ユーザー名が一致しません。"], delAccDone:["Your account was deleted.","ลบบัญชีแล้ว","账号已删除。","アカウントを削除しました。"],
+ban:["Ban user","แบนผู้ใช้","封禁用户","ユーザーをBAN"], unban:["Unban","ปลดแบน","解封","BAN解除"], banned:["Banned","ถูกแบน","已封禁","BAN中"], banConfirm:["Ban {n}? They will be removed from rooms and can't log in.","แบน {n}? เขาจะถูกนำออกจากห้องและเข้าสู่ระบบไม่ได้","封禁 {n}？对方将被移出房间且无法登录。","{n} をBANしますか？ルームから外され、ログインできなくなります。"], banAdmin:["Admins can't be banned.","แบนแอดมินไม่ได้","无法封禁管理员。","管理者はBANできません。"],
+adminClear:["Reset picture and bio","ล้างรูปและข้อความแนะนำตัว","重置头像和简介","画像と自己紹介をリセット"], adminDel:["Delete (admin)","ลบ (แอดมิน)","删除（管理员）","削除（管理者）"], youBanned:["This account has been suspended.","บัญชีนี้ถูกระงับการใช้งาน","该账号已被停用。","このアカウントは停止されています。"],
+voiceWarn:["Voice connects directly between players. Technically skilled people in the same voice room may be able to see your IP address. Voice is not recorded.","ห้องเสียงเชื่อมต่อตรงระหว่างผู้เล่น คนในห้องเสียงเดียวกันที่มีความรู้ทางเทคนิคอาจเห็น IP ของคุณได้ เสียงไม่ถูกบันทึก","语音在玩家之间直接连接，同一语音房内懂技术的人可能看到你的 IP 地址。语音不会被录制。","ボイスはプレイヤー間で直接接続されます。同じボイスルームの技術に詳しい人にIPアドレスが見える可能性があります。音声は録音されません。"],
 tPic:["Picture updated","อัปเดตรูปแล้ว","头像已更新","画像を更新しました"], tNotImg:["That file isn't an image","ไฟล์นี้ไม่ใช่รูปภาพ","该文件不是图片","画像ファイルではありません"], tFail:["Something went wrong. Try again.","เกิดข้อผิดพลาด ลองใหม่อีกครั้ง","出了点问题，请重试。","エラーが発生しました。もう一度お試しください。"], tAdded:["Added {n}","เพิ่ม {n} แล้ว","已添加 {n}","{n} を追加しました"]
 };
 const OPT = { // option labels: [th, zh, ja]
@@ -513,7 +524,7 @@ function layoutOf(p){
 /* ---------- helpers ---------- */
 const $ = s => document.querySelector(s);
 const esc = s => String(s==null?"":s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-const ROUTES = ["home","valorant","rov","roblox","rooms","setup","profile","admin","event"];
+const ROUTES = ["home","valorant","rov","roblox","rooms","setup","profile","admin","event","privacy","terms"];
 function route(){ const h = decodeURIComponent(location.hash.replace("#","")); if(/^u-[A-Za-z0-9_]{3,16}$/.test(h)) return "user"; if(/^r-[0-9a-f-]{36}$/.test(h)) return "vroom"; return ROUTES.includes(h)?h:"home"; }
 function go(r){ if(location.hash.replace("#","")===r){ render(); window.scrollTo(0,0); } else location.hash = r; }
 let toastT; function toast(msg){ const el=$("#toast"); el.textContent=msg; el.classList.add("show"); clearTimeout(toastT); toastT=setTimeout(()=>el.classList.remove("show"),2000); }
@@ -541,7 +552,8 @@ async function loadMe(){
   if(!session){ S.me=null; S.isAdmin=false; return; }
   const [{data:p},{data:c}] = await Promise.all([sb.rpc("get_profile",{p_id:session.user.id}), sb.from("profile_contacts").select("*").eq("id",session.user.id).maybeSingle()]);
   S.me = p ? {...p, contacts: c || {discord:"",line:"",instagram:"",show:"friends"}} : null;
-  if(S.me){ loadStories(S.me.id,true); loadHistory(S.me.id); loadRep(S.me.id); startSocial(); sb.from("admins").select("user_id").eq("user_id",S.me.id).maybeSingle().then(({data})=>{ S.isAdmin = !!data; drawNav(); if(route()==="admin") render(); if(route()==="event") loadEvent(); }); }
+  if(S.me){ sb.from("bans").select("user_id").eq("user_id",S.me.id).maybeSingle().then(async({data})=>{ if(data){ stopRoom(); stopSocial(); try{ await sb.auth.signOut(); }catch(e){} S.me=null; S.isAdmin=false; go("home"); toast(t("youBanned")); } });
+    loadStories(S.me.id,true); loadHistory(S.me.id); loadRep(S.me.id); startSocial(); sb.from("admins").select("user_id").eq("user_id",S.me.id).maybeSingle().then(({data})=>{ S.isAdmin = !!data; drawNav(); if(route()==="admin") render(); if(route()==="event") loadEvent(); }); }
 }
 async function saveProfile(patch,quiet){
   Object.assign(S.me,patch);
@@ -904,16 +916,22 @@ function addMsg(m){ if(!RC.id || m.room_id!==RC.id || RC.msgs.some(x=>x.id===m.i
 async function openRoomLive(){
   const id = RC.id; await loadMsgs();
   try{ const { data:{ session } } = await sb.auth.getSession(); if(session) sb.realtime.setAuth(session.access_token); }catch(e){}
-  const ch = RC.ch = sb.channel("room-"+id,{config:{presence:{key:S.me.id}}});
-  ch.on("postgres_changes",{event:"INSERT",schema:"public",table:"room_messages",filter:"room_id=eq."+id},p=>addMsg(p.new))
-    .on("postgres_changes",{event:"*",schema:"public",table:"room_members",filter:"room_id=eq."+id},()=>refreshRoom())
-    .on("postgres_changes",{event:"*",schema:"public",table:"rooms",filter:"id=eq."+id},()=>refreshRoom())
-    .on("presence",{event:"sync"},()=>{ if(RC.ch!==ch) return; const old = RC.presence||{}; RC.presence = ch.presenceState();
-      Object.keys(old).forEach(u=>{ if(!RC.presence[u]){ RC.seenAt[u] = Date.now(); delete RC.spk[u]; } });
-      updateRoom("members"); updateRoom("voice"); syncVoice(); drawDock(); })
-    .on("broadcast",{event:"spk"},({payload})=>{ if(payload && payload.from) RC.spk[payload.from] = !!payload.on; })
-    .on("broadcast",{event:"rtc"},({payload})=>onSignal(payload))
-    .subscribe(st=>{ if(st==="SUBSCRIBED" && RC.ch===ch) trackMe(); });
+  const connect = priv => { let joined = false;
+    // members-only channel first; falls back to an open one only if the private join is refused
+    const ch = RC.ch = sb.channel("room-"+id,{config:{private:priv,presence:{key:S.me.id}}});
+    ch.on("postgres_changes",{event:"INSERT",schema:"public",table:"room_messages",filter:"room_id=eq."+id},p=>addMsg(p.new))
+      .on("postgres_changes",{event:"*",schema:"public",table:"room_members",filter:"room_id=eq."+id},()=>refreshRoom())
+      .on("postgres_changes",{event:"*",schema:"public",table:"rooms",filter:"id=eq."+id},()=>refreshRoom())
+      .on("presence",{event:"sync"},()=>{ if(RC.ch!==ch) return; const old = RC.presence||{}; RC.presence = ch.presenceState();
+        Object.keys(old).forEach(u=>{ if(!RC.presence[u]){ RC.seenAt[u] = Date.now(); delete RC.spk[u]; } });
+        updateRoom("members"); updateRoom("voice"); syncVoice(); drawDock(); })
+      .on("broadcast",{event:"spk"},({payload})=>{ if(payload && payload.from) RC.spk[payload.from] = !!payload.on; })
+      .on("broadcast",{event:"rtc"},({payload})=>onSignal(payload))
+      .subscribe(st=>{ if(RC.ch!==ch) return;
+        if(st==="SUBSCRIBED"){ joined = true; RC.priv = priv; trackMe(); }
+        else if(priv && !joined && (st==="CHANNEL_ERROR" || st==="TIMED_OUT")){ try{ sb.removeChannel(ch); }catch(e){} if(RC.id===id) connect(false); } });
+  };
+  connect(true);
   RC.poll = setInterval(()=>{ refreshRoom(); loadMsgs(); },10000); // safety net if a live event is missed
   const beat = () => sb.from("room_members").update({last_seen:new Date().toISOString()}).eq("room_id",id).eq("user_id",S.me.id).then(()=>{});
   beat(); RC.hb = setInterval(beat,30000);
@@ -1029,7 +1047,7 @@ async function roomClick(a,d,el){
   else if(a==="room-close"){ const id = RC.id; const { error } = await sb.from("rooms").delete().eq("id",id); if(error) return toast(t("tFail")); stopRoom(); loadVRooms(); go("rooms"); toast(t("roomGone")); }
   else if(a==="kick"){ await sb.from("room_members").delete().eq("room_id",RC.id).eq("user_id",d.uid); refreshRoom(); }
   else if(a==="copy-code"){ try{ await navigator.clipboard.writeText(RC.code); toast(t("codeCopied")); }catch(_){ toast(RC.code); } }
-  else if(a==="v-join") joinVoice();
+  else if(a==="v-join"){ if(lsGet("gz.voiceok")==="1") joinVoice(); else { S.dialog = {type:"confirm",title:t("voice"),text:t("voiceWarn"),act:"v-join-yes",uid:"",ok:t("joinVoice")}; renderDialog(); } }
   else if(a==="v-leave") leaveVoice();
   else if(a==="v-mute"){ RC.muted = !RC.muted; if(RC.stream) RC.stream.getAudioTracks().forEach(tr=>{ tr.enabled = !RC.muted; }); trackMe(); updateRoom("voice"); }
   else if(a==="v-deaf"){ RC.deaf = !RC.deaf; document.querySelectorAll("#audio-root audio").forEach(x=>{ x.muted = RC.deaf; }); updateRoom("voice"); }
@@ -1137,6 +1155,7 @@ function settingsDialog(){
   return `<div class="dialog" role="dialog" aria-modal="true" aria-labelledby="dlg-t"><h2 id="dlg-t">${t("settings")}</h2>
     <div><p class="mono" style="margin-bottom:8px">${t("theme")}</p><div class="chips">${THEMES.map(([k,l,c])=>`<button class="chip" data-act="theme" data-val="${k}" aria-pressed="${(S.theme||"original")===k}"><i class="sw" style="background:${c}"></i>${t(l)}</button>`).join("")}</div></div>
     <div><p class="mono" style="margin-bottom:8px">${t("language")}</p><div class="chips">${LANGS.map(([k,l])=>`<button class="chip" data-act="lang" data-val="${k}" aria-pressed="${S.lang===k}">${l}</button>`).join("")}</div></div>
+    ${S.me?privacyTogglesHTML():""}
     <div class="dialog-actions"><button class="btn coral" data-act="close">${t("done")}</button></div></div>`;
 }
 
@@ -1176,7 +1195,7 @@ function adminRows(){
   const q = (val("ad-q")||"").toLowerCase();
   return S.admin.users.filter(p=>!q || p.username.toLowerCase().includes(q) || p.display_name.toLowerCase().includes(q)).map(p=>`<tr>
     <td><button class="plink" data-go="u-${esc(p.username)}" style="gap:8px;align-items:center;border-radius:8px">${avatar(p,30)}<b>${esc(p.display_name)}</b></button></td><td>@${esc(p.username)}</td><td>${p.age||"–"}</td><td>${esc(p.gender?tl(p.gender):"–")}</td>
-    <td>${p.playing.map(k=>GAMES[k]?GAMES[k].name:"").filter(Boolean).join(", ")||"–"}</td><td>${isReady(p)?"✓":"–"}</td><td>${percent(p)}%</td><td>${new Date(p.created_at).toLocaleString([], {dateStyle:"medium",timeStyle:"short"})}</td></tr>`).join("");
+    <td>${p.playing.map(k=>GAMES[k]?GAMES[k].name:"").filter(Boolean).join(", ")||"–"}</td><td>${isReady(p)?"✓":"–"}</td><td>${percent(p)}%</td><td>${new Date(p.created_at).toLocaleString([], {dateStyle:"medium",timeStyle:"short"})}</td><td>${p.banned?`<span class="tag full">${t("banned")}</span> <button class="btn small" data-act="admin-unban" data-uid="${p.id}">${t("unban")}</button>`:p.id===S.me.id?"":`<button class="btn small" data-act="admin-ban" data-uid="${p.id}" data-name="${esc(p.display_name)}">${t("ban")}</button>`}</td></tr>`).join("");
 }
 function drawAdminRows(){ const el = $("#ad-rows"); if(el && S.admin) el.innerHTML = adminRows(); }
 views.admin = function(){
@@ -1188,7 +1207,7 @@ views.admin = function(){
     <section class="block"><div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(140px,1fr))">${tile(s.users,t("adUsers"))}${tile(s.today,t("adToday"))}${tile(s.rooms,t("adRooms"))}${tile(s.messages,t("adMsgs"))}${tile(s.stories,t("stStories"))}${tile(s.searching,t("adSearching"))}</div></section>
     ${visitsHTML(S.admin.visits)}
     <section class="block"><label class="f" style="max-width:320px;margin-bottom:14px">${t("adFilter")}<input class="inp" id="ad-q" autocomplete="off"></label>
-      <div class="card" style="padding:0;overflow-x:auto"><table class="tbl"><thead><tr><th>${t("dname")}</th><th>${t("username")}</th><th>${t("age")}</th><th>${t("gender")}</th><th>${t("stGames")}</th><th>${t("adReady")}</th><th>${t("stDone")}</th><th>${t("adJoined")}</th></tr></thead><tbody id="ad-rows">${adminRows()}</tbody></table></div></section>
+      <div class="card" style="padding:0;overflow-x:auto"><table class="tbl"><thead><tr><th>${t("dname")}</th><th>${t("username")}</th><th>${t("age")}</th><th>${t("gender")}</th><th>${t("stGames")}</th><th>${t("adReady")}</th><th>${t("stDone")}</th><th>${t("adJoined")}</th><th></th></tr></thead><tbody id="ad-rows">${adminRows()}</tbody></table></div></section>
     <section class="block"><div class="head"><h2 style="font-size:20px">${t("adReports")}</h2><span class="mono">${(S.admin.reports||[]).filter(r=>r.status==="open").length}</span></div>
       ${(S.admin.reports||[]).length?`<div class="card" style="padding:0;overflow-x:auto"><table class="tbl"><tbody>${S.admin.reports.map(r=>`<tr class="${r.status==="done"?"dim":""}"><td><button class="plink" data-go="u-${esc(r.target.username)}"><b>${esc(r.target.display_name)}</b></button></td><td>${t("r_"+r.reason)}</td><td style="white-space:normal;min-width:180px">${esc(r.detail)}</td><td class="muted">@${esc(r.reporter.username)}</td><td>${new Date(r.created_at).toLocaleString([], {dateStyle:"medium",timeStyle:"short"})}</td><td>${r.status==="open"?`<button class="btn small" data-act="report-resolve" data-id="${r.id}">${t("resolve")}</button>`:"✓"}</td></tr>`).join("")}</tbody></table></div>`:`<p class="muted">${t("noReports")}</p>`}</section>`;
 };
@@ -1354,6 +1373,7 @@ function moreDialog(d){
   return `<div class="dialog" role="dialog" aria-modal="true" aria-labelledby="dlg-t"><h2 id="dlg-t">${esc(d.name)}</h2>
     <button class="btn" data-act="report" data-uid="${d.uid}" data-name="${esc(d.name)}">${t("report")}</button>
     <button class="btn" data-act="block-ask" data-uid="${d.uid}" data-name="${esc(d.name)}">${t("block")}</button>
+    ${S.isAdmin?`<p class="mono">${t("admin")}</p><button class="btn" data-act="admin-ban" data-uid="${d.uid}" data-name="${esc(d.name)}">${t("ban")}</button><button class="btn" data-act="admin-clear" data-uid="${d.uid}">${t("adminClear")}</button>`:""}
     <div class="dialog-actions"><button class="btn ghost" data-act="close">${t("cancel")}</button></div></div>`;
 }
 function confirmDialog(d){
@@ -1435,6 +1455,106 @@ async function submitReport(){
   if(error){ btn.disabled = false; return $("#rp-err").textContent = t("tFail"); }
   toast(t("tReported")); S.dialog = d.back || null; renderDialog();
 }
+/* ---------- privacy policy, terms, account deletion, moderation ---------- */
+const CONTACT = ""; // public contact email for privacy requests; shown on the policy pages when set
+const LEGAL_DATE = "2026-11-13";
+const LEGAL = {
+privacy:{
+th:["นโยบายความเป็นส่วนตัว",[
+["เราคือใคร","GameZone (joingamezone.com) เป็นเว็บหาเพื่อนเล่นเกมที่อยู่ในช่วงทดลอง (เบต้า) ดูแลโดยทีมผู้พัฒนา GameZone ในประเทศไทย"],
+["ข้อมูลที่เราเก็บ","<ul><li><b>บัญชี:</b> ชื่อผู้ใช้ และรหัสผ่านซึ่งถูกเข้ารหัสแบบทางเดียว เราและผู้ดูแลมองไม่เห็นรหัสผ่านของคุณ</li><li><b>โปรไฟล์ที่คุณกรอกเอง:</b> ชื่อที่แสดง รูปโปรไฟล์ อายุ เพศ MBTI ข้อความแนะนำตัว นิสัยการเล่น เกมที่เล่น ชื่อในเกม แรงค์ ตำแหน่ง สเปคคอม อุปกรณ์ การตั้งค่า และช่องทางติดต่อ (Discord, LINE, Instagram)</li><li><b>เนื้อหาที่คุณโพสต์:</b> รูปและคลิปสตอรี่ ข้อความแชทในห้อง</li><li><b>การใช้งาน:</b> ห้องที่สร้างหรือเข้าร่วม ประวัติการเล่น 10 ห้องล่าสุด รายชื่อเพื่อน การบล็อก คะแนนที่ให้เพื่อนร่วมทีม รายงานที่ส่ง และเลขที่ส่งร่วมกิจกรรม</li><li><b>สถิติผู้เข้าชม:</b> รหัสสุ่มที่เก็บในเบราว์เซอร์ของคุณ และแหล่งที่มาของการเข้าชม (เช่น มาจาก Facebook) นับวันละหนึ่งครั้ง</li></ul>"],
+["สิ่งที่เราไม่เก็บ","เราไม่ขออีเมล เบอร์โทร ชื่อจริง หรือรหัสผ่านบัญชีเกมของคุณ ไม่มีระบบชำระเงิน และเราไม่บันทึกเสียงจากห้องเสียง เราไม่บันทึก IP ของคุณลงฐานข้อมูลของเรา แต่ผู้ให้บริการโครงสร้างพื้นฐาน (ดูด้านล่าง) อาจบันทึก IP ในบันทึกระบบของเขาตามปกติของการให้บริการเว็บ"],
+["ใครเห็นอะไรบ้าง","<ul><li><b>ทุกคนเห็น:</b> ชื่อ รูป ข้อความแนะนำตัว ข้อมูลเกม อุปกรณ์ สตอรี่ รายชื่อเพื่อน จำนวนคะแนนถูกใจและแท็กที่ได้รับ</li><li><b>คุณเลือกซ่อนได้:</b> อายุ เพศ และประวัติการเล่น ที่เมนูตั้งค่า (แม้ซ่อน ระบบยังใช้อายุและเพศเพื่อตรวจเงื่อนไขเข้าห้องและจับคู่)</li><li><b>ช่องทางติดต่อ:</b> ค่าเริ่มต้นเห็นเฉพาะเพื่อน คุณเปลี่ยนเป็นทุกคนหรือซ่อนได้</li><li><b>แชทและเลขห้องในเกม:</b> เห็นเฉพาะสมาชิกของห้องนั้น</li><li><b>คะแนนที่คุณให้คนอื่น และการบล็อก:</b> เห็นเฉพาะคุณ</li><li><b>ผู้ดูแลระบบ:</b> เข้าถึงข้อมูลโปรไฟล์ รายงาน และรายการเลขกิจกรรมเพื่อดูแลความปลอดภัย</li></ul>"],
+["ห้องเสียง","เสียงในห้องเสียงส่งตรงระหว่างอุปกรณ์ของผู้เล่น (peer-to-peer) ไม่ผ่านและไม่ถูกบันทึกบนเซิร์ฟเวอร์ของเรา ข้อจำกัดของวิธีนี้คือผู้เล่นคนอื่นในห้องเสียงเดียวกันที่มีความรู้ทางเทคนิคอาจเห็น IP ของคุณได้ หากไม่สะดวกใจ ให้ใช้เฉพาะแชทข้อความ"],
+["เราใช้ข้อมูลเพื่ออะไร","เพื่อแสดงโปรไฟล์ จับคู่ผู้เล่นและตรวจเงื่อนไขเข้าห้อง แยกผู้เล่นอายุต่ำกว่า 18 ปีออกจากผู้ใหญ่ ดูแลความปลอดภัยและจัดการรายงาน และดูสถิติการใช้งานโดยรวม เราไม่ขายข้อมูลของคุณ และไม่ใช้เพื่อโฆษณาแบบเจาะจงบุคคล"],
+["ผู้ให้บริการที่เราใช้","<ul><li><b>Supabase</b> ฐานข้อมูล ระบบบัญชี และที่เก็บไฟล์ (เซิร์ฟเวอร์ในสิงคโปร์)</li><li><b>GitHub Pages</b> ให้บริการหน้าเว็บ</li><li><b>Cloudflare</b> ระบบชื่อโดเมน</li><li><b>Google Fonts, jsDelivr</b> ไฟล์ฟอนต์และไลบรารี</li><li><b>Google STUN</b> ช่วยเชื่อมต่อห้องเสียง</li></ul>"],
+["การเก็บรักษาและการลบ","สตอรี่ที่ไม่ได้เก็บเข้าไฮไลท์จะถูกลบหลัง 24 ชั่วโมง ประวัติการเล่นเก็บ 10 รายการล่าสุด ข้อมูลอื่นเก็บไว้จนกว่าคุณจะลบเองหรือลบบัญชี คุณลบบัญชีได้ทุกเมื่อที่เมนูตั้งค่า → ลบบัญชี ซึ่งจะลบโปรไฟล์ รูป คลิป ข้อความแชท และข้อมูลที่เกี่ยวข้องออกอย่างถาวร"],
+["สิทธิ์ของคุณ","คุณดูและแก้ไขข้อมูลของตัวเองได้ในหน้าโปรไฟล์ เลือกซ่อนข้อมูลบางส่วน ลบบัญชี และติดต่อเราเพื่อสอบถามหรือขอใช้สิทธิ์ตามกฎหมายคุ้มครองข้อมูลส่วนบุคคล (PDPA)"],
+["ผู้เยาว์","ผู้ใช้ต้องมีอายุ 13 ปีขึ้นไป ผู้ที่ยังไม่บรรลุนิติภาวะควรได้รับความยินยอมจากผู้ปกครองก่อนใช้งาน ระบบแยกผู้เล่นอายุต่ำกว่า 18 ปีออกจากผู้ใหญ่ในห้องและการจับคู่ โดยอ้างอิงจากอายุที่ผู้ใช้กรอกเอง ซึ่งเราไม่สามารถยืนยันความถูกต้องได้"],
+["ข้อมูลที่เก็บในเบราว์เซอร์","เว็บใช้ที่เก็บข้อมูลของเบราว์เซอร์ (local storage) เพื่อจำการเข้าสู่ระบบ ภาษา ธีม และรหัสสุ่มสำหรับนับผู้เข้าชม ไม่มีคุกกี้โฆษณา"],
+["การเปลี่ยนแปลงและการติดต่อ","หากนโยบายนี้เปลี่ยนแปลง เราจะปรับวันที่ด้านบนและแจ้งในเว็บ {contact}"]]],
+en:["Privacy Policy",[
+["Who we are","GameZone (joingamezone.com) is a website for finding people to play games with. It is in beta and run by the GameZone developers in Thailand."],
+["What we collect","<ul><li><b>Account:</b> your username and a one-way hashed password. Neither we nor admins can see your password.</li><li><b>Profile details you enter:</b> display name, picture, age, gender, MBTI, bio, play style, games, in-game name, rank, roles, PC specs, gear, settings, and contacts (Discord, LINE, Instagram).</li><li><b>Content you post:</b> story images and clips, and room chat messages.</li><li><b>Activity:</b> rooms you create or join, your last 10 rooms, friends, blocks, ratings you give teammates, reports you send, and event entries.</li><li><b>Visitor statistics:</b> a random ID stored in your browser and where the visit came from (for example Facebook), counted once a day.</li></ul>"],
+["What we don't collect","We don't ask for your email, phone number, real name or game account password. There are no payments, and voice chat is not recorded. We don't store your IP address in our database, though our infrastructure providers (below) may log IP addresses in their own server logs as part of normal web hosting."],
+["Who can see what","<ul><li><b>Everyone:</b> name, picture, bio, game details, gear, stories, friends list, and the likes and tags you have received.</li><li><b>You can hide:</b> age, gender and play history, in Settings. Hidden age and gender are still used to check room rules and matchmaking.</li><li><b>Contacts:</b> friends only by default. You can change this to everyone or hidden.</li><li><b>Room chat and party code:</b> members of that room only.</li><li><b>Ratings you give and your blocks:</b> only you.</li><li><b>Admins:</b> can access profiles, reports and event entries to keep the site safe.</li></ul>"],
+["Voice chat","Voice is sent directly between players' devices (peer-to-peer). It does not pass through and is not recorded on our servers. A limit of this method is that technically skilled players in the same voice room may be able to see your IP address. If you are not comfortable with that, use text chat only."],
+["How we use data","To show profiles, match players and check room rules, keep players under 18 apart from adults, handle safety reports, and understand overall usage. We do not sell your data or use it for targeted advertising."],
+["Providers we use","<ul><li><b>Supabase:</b> database, accounts and file storage (servers in Singapore)</li><li><b>GitHub Pages:</b> serves the website</li><li><b>Cloudflare:</b> domain name service</li><li><b>Google Fonts, jsDelivr:</b> fonts and libraries</li><li><b>Google STUN:</b> helps connect voice chat</li></ul>"],
+["Retention and deletion","Stories not saved to a highlight are deleted after 24 hours. Play history keeps your last 10 rooms. Other data is kept until you remove it or delete your account. You can delete your account at any time in Settings → Delete account, which permanently removes your profile, images, clips, chat messages and related data."],
+["Your rights","You can view and edit your data on your profile, hide parts of it, delete your account, and contact us with questions or to exercise your rights under data protection law (Thailand's PDPA)."],
+["Minors","You must be 13 or older. Minors should have a parent's or guardian's consent. Players under 18 are kept apart from adults in rooms and matchmaking, based on self-reported age, which we cannot verify."],
+["Browser storage","The site uses your browser's local storage to remember your login, language, theme and the random visitor ID. There are no advertising cookies."],
+["Changes and contact","If this policy changes we will update the date above and announce it on the site. {contact}"]]]},
+terms:{
+th:["ข้อตกลงการใช้งาน",[
+["การใช้งาน","GameZone เป็นบริการฟรีในช่วงทดลอง (เบต้า) ฟีเจอร์อาจเปลี่ยนแปลง หยุดชะงัก หรือข้อมูลอาจสูญหายได้ การสร้างบัญชีถือว่าคุณยอมรับข้อตกลงนี้และนโยบายความเป็นส่วนตัว"],
+["บัญชีของคุณ","ต้องมีอายุ 13 ปีขึ้นไปและกรอกอายุตามจริง หนึ่งคนควรมีหนึ่งบัญชี คุณรับผิดชอบการรักษารหัสผ่านของตัวเอง ขณะนี้ยังไม่มีระบบกู้รหัสผ่าน หากลืมรหัสผ่านจะไม่สามารถกู้บัญชีได้"],
+["สิ่งที่ห้ามทำ","<ul><li>คุกคาม ข่มขู่ เหยียด หรือใช้ถ้อยคำสร้างความเกลียดชัง</li><li>โพสต์เนื้อหาลามก รุนแรง ผิดกฎหมาย หรือละเมิดลิขสิทธิ์</li><li>แอบอ้างเป็นผู้อื่น หรือเผยแพร่ข้อมูลส่วนตัวของผู้อื่น</li><li>หลอกลวง ขอรหัสผ่านหรือข้อมูลบัญชีเกมของผู้อื่น</li><li>ซื้อขายบัญชีเกม รับจ้างปั๊มแรงค์ ใช้หรือโฆษณาโปรแกรมโกง</li><li>ติดต่อผู้เยาว์ในทางที่ไม่เหมาะสม</li><li>ใช้บอต สแปม หรือพยายามรบกวนระบบ</li></ul>"],
+["เนื้อหาของคุณ","คุณเป็นเจ้าของเนื้อหาที่โพสต์ และอนุญาตให้เราแสดงเนื้อหานั้นบนเว็บเพื่อให้บริการ คุณต้องมีสิทธิ์ในรูปและคลิปที่อัปโหลด"],
+["การดูแลและการระงับบัญชี","ผู้ใช้รายงานและบล็อกผู้ใช้อื่นได้ ผู้ดูแลอาจลบเนื้อหาหรือระงับบัญชีที่ฝ่าฝืนข้อตกลงนี้โดยไม่ต้องแจ้งล่วงหน้า"],
+["ความปลอดภัยของคุณ","GameZone จะไม่ขอรหัสผ่านบัญชีเกมของคุณ อย่าให้รหัสผ่านหรือโอนเงินให้คนที่เจอผ่านเว็บ เว็บไม่ได้เป็นตัวกลางในการซื้อขายหรือธุรกรรมใดๆ ระหว่างผู้ใช้ และโปรดระวังการเปิดเผยข้อมูลส่วนตัวกับคนที่ไม่รู้จัก"],
+["กิจกรรมแจกรางวัล","กิจกรรมแต่ละครั้งมีเงื่อนไขตามที่ประกาศในหน้ากิจกรรม หนึ่งคนร่วมได้หนึ่งบัญชี ผู้ดูแลขอสงวนสิทธิ์ตัดสิทธิ์ผู้ที่ใช้หลายบัญชีหรือทุจริต"],
+["ความเกี่ยวข้องกับค่ายเกม","GameZone ไม่ได้เป็นส่วนหนึ่งของ ไม่ได้รับการรับรองหรือสนับสนุนจาก Riot Games, Garena, Roblox หรือผู้พัฒนาเกมรายใด ชื่อและเครื่องหมายการค้าของเกมเป็นของเจ้าของแต่ละราย"],
+["ข้อจำกัดความรับผิด","บริการนี้ให้ใช้ตามสภาพที่เป็นอยู่ เราไม่รับประกันว่าจะใช้งานได้ต่อเนื่องหรือไม่มีข้อผิดพลาด และไม่รับผิดชอบต่อพฤติกรรมของผู้ใช้รายอื่นหรือความเสียหายที่เกิดจากการพบปะหรือทำธุรกรรมกันนอกเว็บ เท่าที่กฎหมายอนุญาต"],
+["การเปลี่ยนแปลงและการติดต่อ","เราอาจปรับข้อตกลงนี้และจะแจ้งในเว็บ ข้อตกลงนี้อยู่ภายใต้กฎหมายไทย {contact}"]]],
+en:["Terms of Use",[
+["Using GameZone","GameZone is a free service in beta. Features may change or break, and data may be lost. By creating an account you accept these terms and the Privacy Policy."],
+["Your account","You must be 13 or older and enter your real age. One account per person. You are responsible for keeping your password safe. There is no password recovery yet, so a forgotten password means the account cannot be recovered."],
+["What is not allowed","<ul><li>Harassment, threats, slurs or hate speech</li><li>Sexual, violent, illegal or copyright-infringing content</li><li>Impersonating others or sharing other people's private information</li><li>Scams, or asking for other people's passwords or game account details</li><li>Selling game accounts, paid rank boosting, or using or advertising cheats</li><li>Inappropriate contact with minors</li><li>Bots, spam, or attempts to disrupt the service</li></ul>"],
+["Your content","You own what you post and allow us to display it on the site to provide the service. You must have the rights to the images and clips you upload."],
+["Moderation","You can report and block other users. Admins may remove content or suspend accounts that break these terms, without prior notice."],
+["Your safety","GameZone will never ask for your game account password. Do not share passwords or send money to people you meet through the site. The site does not act as a middleman for any trade between users. Be careful about sharing personal information with strangers."],
+["Giveaways","Each giveaway follows the rules shown on its event page. One account per person. Admins may disqualify anyone using multiple accounts or cheating."],
+["Game publishers","GameZone is not affiliated with, endorsed or sponsored by Riot Games, Garena, Roblox or any game developer. Game names and trademarks belong to their owners."],
+["Liability","The service is provided as is. We do not guarantee it will be uninterrupted or error-free, and to the extent the law allows we are not responsible for other users' behaviour or for harm arising from meetings or dealings outside the site."],
+["Changes and contact","We may update these terms and will announce changes on the site. These terms are governed by the laws of Thailand. {contact}"]]]}};
+function legalHTML(kind){
+  const th = S.lang==="th", [title,secs] = LEGAL[kind][th?"th":"en"];
+  const contact = CONTACT ? (th?"ติดต่อเราได้ที่ ":"Contact us at ")+`<b>${esc(CONTACT)}</b>` : (th?"ติดต่อผู้ดูแลได้ผ่านปุ่มรายงานในเว็บ หรือช่องทางที่ประกาศในหน้าแรก":"Contact the admins through the Report button on the site or the channels announced on the home page.");
+  return `<div class="game-hero"><button class="back" data-go="home">${t("allGames").replace(/^← .*/,"← GameZone")}</button><h1>${title}</h1><p class="muted">${th?"ปรับปรุงล่าสุด":"Last updated"}: ${new Date(LEGAL_DATE+"T00:00:00").toLocaleDateString(EV_LOCALE[S.lang],{dateStyle:"long"})}</p></div>
+    <section class="block legal">${secs.map(([h,b],i)=>`<h2>${i+1}. ${h}</h2><div>${b.replace("{contact}",contact)}</div>`).join("")}</section>`;
+}
+views.privacy = () => legalHTML("privacy");
+views.terms = () => legalHTML("terms");
+
+async function callManage(body){
+  try{ const { data:{ session } } = await sb.auth.getSession(); if(!session) return {error:"auth"};
+    const res = await fetch(SB_URL+"/functions/v1/manage",{method:"POST",headers:{"Content-Type":"application/json",apikey:SB_KEY,Authorization:"Bearer "+session.access_token},body:JSON.stringify(body)});
+    return await res.json().catch(()=>({error:"failed"}));
+  }catch(e){ return {error:"network"}; }
+}
+function delAccountDialog(){
+  return `<div class="dialog" role="dialog" aria-modal="true" aria-labelledby="dlg-t"><h2 id="dlg-t">${t("delAcc")}</h2><p>${t("delAccText")}</p><form data-form="del-account">
+    <label class="f">${t("delAccType",{n:esc(S.me.username)})}<input class="inp" id="da-name" autocomplete="off" autocapitalize="off" spellcheck="false"></label><p class="err" id="da-err" role="alert"></p>
+    <div class="dialog-actions"><button class="btn ghost" type="button" data-act="close">${t("cancel")}</button><button class="btn coral" type="submit" id="da-go">${t("delAccBtn")}</button></div></form></div>`;
+}
+async function submitDelAccount(){
+  const err = $("#da-err"), btn = $("#da-go");
+  if(val("da-name").toLowerCase()!==S.me.username.toLowerCase()) return err.textContent = t("delAccWrong");
+  btn.disabled = true; err.textContent = t("working");
+  stopRoom(); stopMatch(true);
+  const out = await callManage({action:"delete_self"});
+  if(!out.ok){ btn.disabled = false; return err.textContent = t("tFail"); }
+  stopSocial(); S.isAdmin = false; try{ await sb.auth.signOut(); }catch(e){} S.me = null; S.dialog = null; renderDialog(); go("home"); toast(t("delAccDone"));
+}
+function privacyTogglesHTML(){
+  const pv = S.me.privacy||{}, row = (k,l) => `<label class="check"><input type="checkbox" data-pv="${k}" ${pv[k]?"checked":""}> ${t(l)}</label>`;
+  return `<div><p class="mono" style="margin-bottom:8px">${t("pvTitle")}</p><div style="display:flex;flex-direction:column;gap:8px">${row("hide_age","pvAge")}${row("hide_gender","pvGender")}${row("hide_history","pvHistory")}</div><p class="hint" style="margin-top:6px">${t("pvNote")}</p></div>
+    <div><p class="mono" style="margin-bottom:8px">${t("account")}</p><button class="btn small" data-act="del-account">${t("delAcc")}</button></div>`;
+}
+async function legalClick(a,d,el){
+  if(a==="del-account"){ S.dialog = {type:"del-account"}; renderDialog(); }
+  else if(a==="admin-ban"){ S.dialog = {type:"confirm",title:t("ban"),text:t("banConfirm",{n:esc(d.name)}),act:"admin-ban-yes",uid:d.uid,ok:t("ban")}; renderDialog(); }
+  else if(a==="admin-ban-yes" || a==="admin-unban" || a==="admin-clear"){
+    const out = await callManage({action:a==="admin-ban-yes"?"ban":a==="admin-unban"?"unban":"clear_profile",target:d.uid});
+    toast(out.ok?t("saved"):out.error==="is_admin"?t("banAdmin"):t("tFail")); S.dialog = null; renderDialog(); S.admin = null; S.viewKey = ""; render(); }
+  else if(a==="v-admin-del"){ const s = curStory(), dl = S.dialog; const out = await callManage({action:"delete_story",story_id:s.id}); if(!out.ok) return toast(t("tFail"));
+    S.stories[dl.uid] = S.stories[dl.uid].filter(x=>x.id!==s.id); dl.ids = dl.ids.filter(id=>id!==s.id); toast(t("deleted")); renderDialog(); if(!S.dialog) rerender(); }
+  else if(a==="v-join-yes"){ lsSet("gz.voiceok","1"); S.dialog = null; renderDialog(); joinVoice(); }
+  else return false;
+  return true;
+}
 /* ---------- dialogs ---------- */
 const inp = (id,label,val,max) => `<label class="f">${label}<input class="inp" id="${id}" maxlength="${max||60}" value="${esc(val)}"></label>`;
 function editForm(d){
@@ -1472,6 +1592,7 @@ function renderDialog(){
         <label class="f">${t("password")}${su?` <span class="hint">${t("passHint")}</span>`:""}<input class="inp" id="au-pass" type="password" maxlength="72" autocomplete="${su?"new-password":"current-password"}"></label>
         ${su?`<label class="f">${t("confirm")}<input class="inp" id="au-pass2" type="password" maxlength="72" autocomplete="new-password"></label>`:""}
         <label class="check"><input type="checkbox" id="au-remember" checked> ${t("remember")}</label>
+        ${su?`<p class="hint">${t("agree")} <button type="button" class="plink" data-go="terms" style="text-decoration:underline">${t("termsP")}</button> ${t("andW")} <button type="button" class="plink" data-go="privacy" style="text-decoration:underline">${t("privacyP")}</button></p>`:""}
         <p class="err" id="au-err" role="alert"></p>
         <div class="dialog-actions"><button class="btn ghost" type="button" data-act="close">${t("cancel")}</button><button class="btn coral" type="submit" id="au-go">${su?t("createBtn"):t("login")}</button></div></form>`);
   } else if(d.type==="gate"){
@@ -1491,6 +1612,7 @@ function renderDialog(){
   } else if(d.type==="vroom"){ const r = S.vrooms.find(x=>x.id===d.id) || (RC.data&&RC.data.id===d.id?RC.data:null); if(!r){ S.dialog=null; root.innerHTML=""; return; } inner = vroomDialog(r);
   } else if(d.type==="room-form"){ inner = roomFormDialog(d);
   } else if(d.type==="match-form"){ inner = matchFormDialog();
+  } else if(d.type==="del-account"){ inner = delAccountDialog();
   } else if(d.type==="notifs"){ inner = notifsDialog();
   } else if(d.type==="friends"){ inner = friendsDialog(d);
   } else if(d.type==="more"){ inner = moreDialog(d);
@@ -1514,7 +1636,7 @@ function renderDialog(){
         <button class="z l" data-act="v-prev" aria-label="Previous"></button><button class="z r" data-act="v-next" aria-label="Next"></button></div>
       <div class="v-foot">${own ? (d.form
         ? `<form data-form="hl" style="display:flex;gap:8px;flex:1;flex-wrap:wrap"><input class="inp" id="hl-name" maxlength="20" placeholder="${t("hlName")}" list="hl-list" value="${esc(s.highlight||"")}"><datalist id="hl-list">${highlights(d.uid).map(([n])=>`<option value="${esc(n)}">`).join("")}</datalist><button class="btn" type="submit">${t("save")}</button><button class="btn" type="button" data-act="v-form-off">${t("cancel")}</button></form>`
-        : `<button class="btn" data-act="v-form">${t("addHl")}</button>${s.highlight?`<button class="btn" data-act="v-unhl">${t("rmHl")}</button>`:""}<button class="btn" data-act="v-del">${t("del")}</button>`) : ""}</div></div>`;
+        : `<button class="btn" data-act="v-form">${t("addHl")}</button>${s.highlight?`<button class="btn" data-act="v-unhl">${t("rmHl")}</button>`:""}<button class="btn" data-act="v-del">${t("del")}</button>`) : (S.isAdmin?`<button class="btn" data-act="v-admin-del">${t("adminDel")}</button>`:"")}</div></div>`;
     const vid = $("#v-vid");
     if(vid){ vid.play().catch(()=>{ vid.muted = true; vid.play().catch(()=>{}); }); if(!d.form) vid.onended = () => stepViewer(1); }
     if(!d.form) viewTimer = setTimeout(()=>stepViewer(1),vid?15000:5000); else { const f=$("#hl-name"); if(f) f.focus(); }
@@ -1533,7 +1655,7 @@ function render(){
   const r = route();
   if(r!=="profile" && r!=="user") S.arranging=false;
   $("#view").innerHTML = views[r]();
-  $("#foot").textContent = t("foot");
+  $("#foot").innerHTML = esc(t("foot"))+` · <button class="plink" data-go="privacy" style="text-decoration:underline">${t("privacyP")}</button> · <button class="plink" data-go="terms" style="text-decoration:underline">${t("termsP")}</button>`;
   drawDock();
   $("#lang-root").innerHTML = r==="home" ? `<div class="lang" role="group" aria-label="Language">${LANGS.map(([k,l])=>`<button data-act="lang" data-val="${k}" aria-pressed="${S.lang===k}">${l}</button>`).join("")}</div>` : "";
 }
@@ -1661,6 +1783,7 @@ document.addEventListener("click", async e => {
   else if(a==="join") gate("actJoin",async()=>{ if(!S.me.joined.includes(d.id)) await saveProfile({joined:[...S.me.joined,d.id]},true); rerender(); S.dialog={type:"room",id:d.id}; renderDialog(); toast(t("tJoined")); });
   else if(a==="leave"){ await saveProfile({joined:S.me.joined.filter(x=>x!==d.id)},true); rerender(); renderDialog(); toast(t("tLeft")); }
   else if(await featClick(a,d,el)){}
+  else if(await legalClick(a,d,el)){}
   else if(await socialClick(a,d,el)){}
   else if(await roomClick(a,d,el)){}
   else if(a==="chip"){ el.setAttribute("aria-pressed", el.getAttribute("aria-pressed")!=="true"); }
@@ -1715,6 +1838,7 @@ document.addEventListener("change", async e => {
     try{ const blob = await resizeImage(f,1280,false); S.dialog={type:"story-new",blob,url:URL.createObjectURL(blob)}; renderDialog(); }catch(_){ toast(t("tNotImg")); }
     return;
   }
+  if(el.dataset && el.dataset.pv && S.me){ const pv = {...(S.me.privacy||{})}; pv[el.dataset.pv] = el.checked; return saveProfile({privacy:pv}); }
   if(el.dataset && el.dataset.rf){ S.rf[el.dataset.rf] = el.type==="checkbox" ? el.checked : el.value; return rerender(); }
   if(el.dataset && el.dataset.pf && S.me){
     const k = el.dataset.pf; let v = el.value.trim();
@@ -1737,6 +1861,7 @@ document.addEventListener("submit", async e => {
     const { error } = await sb.from("stories").update({highlight:name}).eq("id",s.id); if(error) return toast(t("tFail")); s.highlight=name; S.dialog.form=false; toast(t("saved")); renderDialog(); }
   else if(f==="room-form") submitRoomForm();
   else if(f==="report") submitReport();
+  else if(f==="del-account") submitDelAccount();
   else if(f==="event") submitEvent();
   else if(f==="event-win") setEventWinner(val("ev-win"));
   else if(f==="match-form") submitMatchForm();
