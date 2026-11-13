@@ -408,6 +408,7 @@ tag_good:["Plays well","เล่นดี","打得好","上手い"], tag_chill:
 actFriend:["do this","ทำสิ่งนี้","进行此操作","この操作"], whyBlocked:["You can't do this because one of you blocked the other.","ทำไม่ได้เพราะมีการบล็อกกันอยู่","因存在屏蔽关系，无法操作。","ブロック関係があるため操作できません。"], whyMinor:["This room has players from a different age group (under 18 and adults are kept apart).","ห้องนี้มีผู้เล่นคนละกลุ่มอายุ (ระบบแยกผู้เล่นอายุต่ำกว่า 18 กับผู้ใหญ่)","该房间有不同年龄组的玩家（未满 18 岁与成年人分开）。","このルームには別の年齢層のプレイヤーがいます（18歳未満と成人は分けられます）。"],
 tNowFriends:["You're now friends","เป็นเพื่อนกันแล้ว","已成为好友","フレンドになりました"], tReqSent:["Friend request sent","ส่งคำขอเป็นเพื่อนแล้ว","已发送好友申请","フレンド申請を送りました"], invited:["Invite sent","ส่งคำชวนแล้ว","已发送邀请","招待を送りました"], tBlocked:["Blocked","บล็อกแล้ว","已屏蔽","ブロックしました"], tUnblocked:["Unblocked","เลิกบล็อกแล้ว","已取消屏蔽","ブロックを解除しました"], tReported:["Report sent. Thank you.","ส่งรายงานแล้ว ขอบคุณครับ","举报已提交，谢谢。","通報しました。ありがとうございます。"],
 adReports:["Reports","รายงานจากผู้ใช้","举报","通報"], noReports:["No reports","ยังไม่มีรายงาน","暂无举报","通報はありません"], resolve:["Mark done","จัดการแล้ว","标记已处理","対応済みにする"], hiddenMsg:["Message from a blocked player","ข้อความจากผู้เล่นที่คุณบล็อก","来自已屏蔽玩家的消息","ブロック中のプレイヤーのメッセージ"],
+playedWith:["Played with","เล่นกับ","一起玩的人","一緒に遊んだ人"], playedAlone:["Nobody else joined","ไม่มีคนอื่นเข้าห้อง","没有其他人加入","他の参加者なし"],
 tPic:["Picture updated","อัปเดตรูปแล้ว","头像已更新","画像を更新しました"], tNotImg:["That file isn't an image","ไฟล์นี้ไม่ใช่รูปภาพ","该文件不是图片","画像ファイルではありません"], tFail:["Something went wrong. Try again.","เกิดข้อผิดพลาด ลองใหม่อีกครั้ง","出了点问题，请重试。","エラーが発生しました。もう一度お試しください。"], tAdded:["Added {n}","เพิ่ม {n} แล้ว","已添加 {n}","{n} を追加しました"]
 };
 const OPT = { // option labels: [th, zh, ja]
@@ -453,7 +454,7 @@ const W_TITLE = {main:"bMain",about:"bAbout",times:"bTimes",pc:"bPc",gear:"bGear
 const navLang = (navigator.language||"en").slice(0,2);
 const S = {
   lang: lsGet("gz.lang") || (LI[navLang]!=null?navLang:"en"),
-  booting:true, ev:null, evAdmin:null, vrooms:[], theme:lsGet("gz.theme")||"original", isAdmin:false, match:null, me:null, viewing:null, viewKey:"", stories:{}, history:{}, rep:{}, friendsOf:{}, arranging:false,
+  booting:true, ev:null, evAdmin:null, vrooms:[], theme:lsGet("gz.theme")||"original", isAdmin:false, match:null, me:null, viewing:null, viewKey:"", stories:{}, history:{}, rep:{}, friendsOf:{}, histMates:{}, arranging:false,
   dialog:null, menu:false, setupStep:1, roomFilter:"all",
   pick:{valorant:{mode:"Unrated",size:2},rov:{mode:"Ranked Match",size:2},roblox:{mode:"Steal An Egg",size:2}},
   customRoblox: (()=>{ try{ return JSON.parse(lsGet("gz.robloxCustom"))||[]; }catch(e){ return []; } })()
@@ -522,12 +523,19 @@ async function loadStories(userId,own){
 async function loadHistory(userId){
   const { data } = await sb.from("play_history").select("id,room_id,game,mode,title,joined_at").eq("user_id",userId).order("joined_at",{ascending:false}).limit(10);
   S.history[userId] = data || [];
+  const ids = [...new Set((data||[]).map(h=>h.room_id).filter(Boolean))];
+  if(ids.length){ const { data:v } = await sb.from("room_visits").select("room_id,user_id,profiles(id,username,display_name,avatar)").in("room_id",ids).limit(300);
+    ids.forEach(r=>{ S.histMates[r] = []; }); (v||[]).forEach(x=>{ if(x.profiles) S.histMates[x.room_id].push(x.profiles); }); }
   if(["profile","user"].includes(route()) && !S.dialog && !drag) rerender();
+}
+function histMatesHTML(h,p){
+  const list = (S.histMates[h.room_id]||[]).filter(m=>m.id!==p.id); if(!list.length) return `<span class="muted" style="display:block">${t("playedAlone")}</span>`;
+  return `<span class="chips" style="margin-top:6px;gap:6px;align-items:center"><span class="muted">${t("playedWith")}</span>${list.slice(0,8).map(m=>`<button class="plink" data-go="u-${esc(m.username)}" title="${esc(m.display_name)}" aria-label="${esc(m.display_name)}" style="gap:5px;align-items:center">${avatar(m,26)}<span style="font-size:13.5px">${esc(m.display_name)}</span></button>`).join("")}${list.length>8?`<span class="muted">+${list.length-8}</span>`:""}</span>`;
 }
 function historyHTML(p){
   const list = S.history[p.id] || [];
   return `<section class="block" style="border-top:2px dashed var(--line)"><div class="head"><h2 style="font-size:20px">${t("history")}</h2><span class="mono">${t("last10")}</span></div>
-    ${list.length?`<div class="card" style="padding:4px 16px">${list.map(h=>`<div class="g-row"><span style="min-width:0"><b style="display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(h.title)}</b><span class="muted">${GAMES[h.game]?GAMES[h.game].name:esc(h.game)} · ${esc(h.mode)}</span></span>
+    ${list.length?`<div class="card" style="padding:4px 16px">${list.map(h=>`<div class="g-row"><span style="min-width:0"><b style="display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(h.title)}</b><span class="muted">${GAMES[h.game]?GAMES[h.game].name:esc(h.game)} · ${esc(h.mode)}</span>${histMatesHTML(h,p)}</span>
       <span class="muted" style="text-align:right;white-space:nowrap">${new Date(h.joined_at).toLocaleString([], {dateStyle:"medium",timeStyle:"short"})}${S.me&&p.id===S.me.id&&h.room_id?` <button class="btn small" data-act="rate-open" data-room="${h.room_id}" style="margin-left:8px">${t("rateBtn")}</button>`:""}</span></div>`).join("")}</div>`:`<p class="muted">${t("noHistory")}</p>`}</section>`;
 }
 const activeStories = id => (S.stories[id]||[]).filter(s=>Date.now()-new Date(s.created_at)<864e5);
@@ -1266,7 +1274,7 @@ function reportDialog(d){
 }
 async function openRate(roomId){
   S.dialog = {type:"rate",room:roomId,mates:null,picks:{}}; renderDialog();
-  const { data:h } = await sb.from("play_history").select("user_id").eq("room_id",roomId);
+  const { data:h } = await sb.from("room_visits").select("user_id").eq("room_id",roomId);
   const ids = [...new Set((h||[]).map(x=>x.user_id))].filter(u=>u!==S.me.id);
   let mates = [];
   if(ids.length){ const { data } = await sb.from("profiles").select(PFIELDS).in("id",ids); mates = data||[]; }
