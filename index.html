@@ -539,7 +539,7 @@ function ago(ts){ const m = Math.max(1,Math.round((Date.now()-new Date(ts))/6000
 async function loadMe(){
   const { data:{ session } } = await sb.auth.getSession();
   if(!session){ S.me=null; S.isAdmin=false; return; }
-  const [{data:p},{data:c}] = await Promise.all([sb.from("profiles").select("*").eq("id",session.user.id).maybeSingle(), sb.from("profile_contacts").select("*").eq("id",session.user.id).maybeSingle()]);
+  const [{data:p},{data:c}] = await Promise.all([sb.rpc("get_profile",{p_id:session.user.id}), sb.from("profile_contacts").select("*").eq("id",session.user.id).maybeSingle()]);
   S.me = p ? {...p, contacts: c || {discord:"",line:"",instagram:"",show:"friends"}} : null;
   if(S.me){ loadStories(S.me.id,true); loadHistory(S.me.id); loadRep(S.me.id); startSocial(); sb.from("admins").select("user_id").eq("user_id",S.me.id).maybeSingle().then(({data})=>{ S.isAdmin = !!data; drawNav(); if(route()==="admin") render(); if(route()==="event") loadEvent(); }); }
 }
@@ -579,7 +579,7 @@ const activeStories = id => (S.stories[id]||[]).filter(s=>Date.now()-new Date(s.
 function highlights(id){ const m = new Map(); (S.stories[id]||[]).forEach(s=>{ if(s.highlight){ if(!m.has(s.highlight)) m.set(s.highlight,[]); m.get(s.highlight).push(s); } }); return [...m.entries()]; }
 async function loadViewing(name){
   S.viewKey = name; S.viewing = undefined;
-  const { data:p } = await sb.from("profiles").select("*").ilike("username",name.replace(/_/g,"\\_")).maybeSingle();
+  const { data:p } = await sb.rpc("get_profile",{p_username:name});
   if(S.viewKey!==name) return;
   if(p){ const { data:c } = await sb.from("profile_contacts").select("*").eq("id",p.id).maybeSingle(); S.viewing = {...p,contacts:c||null}; loadStories(p.id,false); loadHistory(p.id); loadRep(p.id); loadFriendsOf(p.id); }
   else S.viewing = null;
@@ -1169,7 +1169,7 @@ function visitsHTML(v){
 
 /* ---------- admin: every account on the site ---------- */
 async function loadAdmin(){
-  const [st,us,rp,vs] = await Promise.all([sb.rpc("admin_stats"), sb.from("profiles").select("*").order("created_at",{ascending:false}).limit(1000), sb.rpc("admin_reports"), sb.rpc("admin_visits")]);
+  const [st,us,rp,vs] = await Promise.all([sb.rpc("admin_stats"), sb.rpc("admin_profiles"), sb.rpc("admin_reports"), sb.rpc("admin_visits")]);
   S.admin = {stats:st.data||{},users:us.data||[],reports:rp.data||[],visits:vs.data||null}; if(route()==="admin") render();
 }
 function adminRows(){
