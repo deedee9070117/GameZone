@@ -229,6 +229,19 @@ footer{padding:36px 0 72px;color:var(--ink-soft);font-size:13.5px;border-top:2px
 .cd b{font-family:var(--font-display);font-weight:400;font-size:clamp(30px,6vw,46px);line-height:1;font-variant-numeric:tabular-nums}
 .ev-num{font-family:var(--font-display);font-size:44px;letter-spacing:.14em;line-height:1}
 .ev-in{font-family:var(--font-mono);font-size:26px;letter-spacing:.3em;width:170px;text-align:center}
+.vchart{display:flex;align-items:flex-end;gap:2px;height:150px;margin-top:22px;border-bottom:1.5px solid var(--line)}
+.vcol{flex:1;height:100%;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;position:relative;min-width:0}
+.vcol i{display:block;width:100%;max-width:24px;background:var(--blue);border-radius:4px 4px 0 0}
+.vcol:hover i,.vcol:focus i{filter:brightness(1.25)}
+.vlab{font-size:12px;font-weight:600;margin-bottom:2px;font-variant-numeric:tabular-nums}
+.vtip{display:none;position:absolute;bottom:100%;left:50%;transform:translateX(-50%);background:var(--ink);color:var(--paper);font-size:12.5px;line-height:1.35;padding:6px 10px;border-radius:8px;white-space:nowrap;z-index:5;pointer-events:none;margin-bottom:4px}
+.vcol:hover .vtip,.vcol:focus .vtip{display:block}
+.vcol:first-child .vtip{left:0;transform:none}.vcol:last-child .vtip{left:auto;right:0;transform:none}
+.vaxis{display:flex;justify-content:space-between;font-size:12px;color:var(--ink-soft);margin-top:4px}
+.srcs{display:flex;flex-direction:column;gap:8px;margin-top:12px}
+.srow{display:grid;grid-template-columns:130px 1fr 36px 40px;gap:10px;align-items:center;font-size:14px;font-variant-numeric:tabular-nums}
+.srow b,.srow .muted{text-align:right}
+.sbar i{display:block;height:12px;background:var(--blue);border-radius:0 4px 4px 0}
 .vbtns{display:flex;gap:6px;flex-wrap:wrap}
 .req{display:flex;flex-direction:column;gap:6px}
 
@@ -409,6 +422,10 @@ actFriend:["do this","ทำสิ่งนี้","进行此操作","この操�
 tNowFriends:["You're now friends","เป็นเพื่อนกันแล้ว","已成为好友","フレンドになりました"], tReqSent:["Friend request sent","ส่งคำขอเป็นเพื่อนแล้ว","已发送好友申请","フレンド申請を送りました"], invited:["Invite sent","ส่งคำชวนแล้ว","已发送邀请","招待を送りました"], tBlocked:["Blocked","บล็อกแล้ว","已屏蔽","ブロックしました"], tUnblocked:["Unblocked","เลิกบล็อกแล้ว","已取消屏蔽","ブロックを解除しました"], tReported:["Report sent. Thank you.","ส่งรายงานแล้ว ขอบคุณครับ","举报已提交，谢谢。","通報しました。ありがとうございます。"],
 adReports:["Reports","รายงานจากผู้ใช้","举报","通報"], noReports:["No reports","ยังไม่มีรายงาน","暂无举报","通報はありません"], resolve:["Mark done","จัดการแล้ว","标记已处理","対応済みにする"], hiddenMsg:["Message from a blocked player","ข้อความจากผู้เล่นที่คุณบล็อก","来自已屏蔽玩家的消息","ブロック中のプレイヤーのメッセージ"],
 playedWith:["Played with","เล่นกับ","一起玩的人","一緒に遊んだ人"], playedAlone:["Nobody else joined","ไม่มีคนอื่นเข้าห้อง","没有其他人加入","他の参加者なし"],
+visTitle:["Visitors","ผู้เข้าชมเว็บ","访客","訪問者"], visRange:["Last 14 days","14 วันล่าสุด","最近 14 天","直近14日間"], visToday:["visitors today","เข้าชมวันนี้","今日访客","今日の訪問者"], visWeek:["visitors in 7 days","เข้าชมใน 7 วัน","7 天访客","7日間の訪問者"],
+visPerDay:["Visitors per day","ผู้เข้าชมต่อวัน","每日访客","日別訪問者"], visFrom:["Where they came from","เข้ามาจากไหน","来源","流入元"], visPeople:["visitors","คน","人","人"], visMembers:["logged in","ล็อกอินอยู่","已登录","ログイン中"], visNone:["No visits recorded yet","ยังไม่มีข้อมูลการเข้าชม","暂无访问记录","まだ記録がありません"],
+srcDirect:["Direct / unknown","เข้าตรง / ไม่ทราบ","直接访问 / 未知","直接 / 不明"], srcSearch:["Search","ค้นหาเจอ","搜索","検索"], srcOther:["Other sites","เว็บอื่น","其他网站","その他"],
+visNote:["Each person counts once a day. Links opened inside apps often hide where they came from, so tag your links: add ?src=fb, ?src=ig, ?src=tiktok, ?src=discord or ?src=line to the end.","นับคนละ 1 ครั้งต่อวัน ลิงก์ที่เปิดในแอปมักไม่บอกที่มา แนะนำให้ติดป้ายลิงก์โดยต่อท้ายด้วย ?src=fb, ?src=ig, ?src=tiktok, ?src=discord หรือ ?src=line","每人每天计一次。在应用内打开的链接常不带来源，建议在链接末尾加 ?src=fb、?src=ig、?src=tiktok、?src=discord 或 ?src=line。","1人1日1回でカウント。アプリ内で開いたリンクは流入元が分からないことが多いため、リンク末尾に ?src=fb、?src=ig、?src=tiktok、?src=discord、?src=line を付けてください。"],
 tPic:["Picture updated","อัปเดตรูปแล้ว","头像已更新","画像を更新しました"], tNotImg:["That file isn't an image","ไฟล์นี้ไม่ใช่รูปภาพ","该文件不是图片","画像ファイルではありません"], tFail:["Something went wrong. Try again.","เกิดข้อผิดพลาด ลองใหม่อีกครั้ง","出了点问题，请重试。","エラーが発生しました。もう一度お試しください。"], tAdded:["Added {n}","เพิ่ม {n} แล้ว","已添加 {n}","{n} を追加しました"]
 };
 const OPT = { // option labels: [th, zh, ja]
@@ -1076,10 +1093,37 @@ function settingsDialog(){
     <div class="dialog-actions"><button class="btn coral" data-act="close">${t("done")}</button></div></div>`;
 }
 
+/* ---------- visits: count each visitor once a day, with where they came from ---------- */
+function logVisit(){
+  if(!sb) return;
+  try{ let vid = lsGet("gz.vid"); if(!vid){ vid = uid(); lsSet("gz.vid",vid); }
+    const q = new URLSearchParams(location.search), tag = q.get("utm_source") || q.get("src") || q.get("ref") || "";
+    sb.rpc("log_visit",{p_visitor:vid,p_ref:document.referrer||"",p_tag:tag}).then(()=>{});
+  }catch(e){}
+}
+function visitsHTML(v){
+  if(!v || !v.days) return "";
+  const max = Math.max(1,...v.days.map(d=>d.n)), total = v.sources.reduce((a,x)=>a+x.n,0), smax = Math.max(1,...v.sources.map(x=>x.n));
+  const fmt = d => new Date(d+"T00:00:00").toLocaleDateString(EV_LOCALE[S.lang],{day:"numeric",month:"short"});
+  const peak = v.days.reduce((a,d)=>d.n>a.n?d:a,v.days[0]), last = v.days[v.days.length-1];
+  const src = x => x.source==="Direct"?t("srcDirect"):x.source==="Search"?t("srcSearch"):x.source==="Other"?t("srcOther"):x.source;
+  return `<section class="block"><div class="head"><h2 style="font-size:20px">${t("visTitle")}</h2><span class="mono">${t("visRange")}</span></div>
+    <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(140px,1fr));margin-bottom:16px"><div class="card"><b style="font-size:26px">${v.today}</b><div class="mono">${t("visToday")}</div></div><div class="card"><b style="font-size:26px">${v.week}</b><div class="mono">${t("visWeek")}</div></div></div>
+    <div class="grid g2">
+      <div class="card"><span class="mono">${t("visPerDay")}</span>
+        <div class="vchart" role="img" aria-label="${t("visPerDay")}">${v.days.map(d=>`<div class="vcol" tabindex="0"><span class="vtip">${fmt(d.day)}<br><b>${d.n}</b> ${t("visPeople")} · ${d.members} ${t("visMembers")}</span>${(d===peak&&d.n)||d===last?`<span class="vlab">${d.n}</span>`:""}<i style="height:${d.n?Math.max(3,Math.round(d.n/max*100)):0}%"></i></div>`).join("")}</div>
+        <div class="vaxis"><span>${fmt(v.days[0].day)}</span><span>${fmt(last.day)}</span></div></div>
+      <div class="card"><span class="mono">${t("visFrom")}</span>
+        ${v.sources.length?`<div class="srcs">${v.sources.map(x=>`<div class="srow"><span>${esc(src(x))}</span><div class="sbar"><i style="width:${Math.max(2,Math.round(x.n/smax*100))}%"></i></div><b>${x.n}</b><span class="muted">${Math.round(x.n/total*100)}%</span></div>`).join("")}</div>
+          ${v.others.length?`<p class="muted" style="margin-top:10px">${t("srcOther")}: ${v.others.map(o=>esc(o.host)+" ("+o.n+")").join(", ")}</p>`:""}`:`<p class="muted">${t("visNone")}</p>`}
+        <p class="hint" style="margin-top:10px">${t("visNote")}</p></div>
+    </div></section>`;
+}
+
 /* ---------- admin: every account on the site ---------- */
 async function loadAdmin(){
-  const [st,us,rp] = await Promise.all([sb.rpc("admin_stats"), sb.from("profiles").select("*").order("created_at",{ascending:false}).limit(1000), sb.rpc("admin_reports")]);
-  S.admin = {stats:st.data||{},users:us.data||[],reports:rp.data||[]}; if(route()==="admin") render();
+  const [st,us,rp,vs] = await Promise.all([sb.rpc("admin_stats"), sb.from("profiles").select("*").order("created_at",{ascending:false}).limit(1000), sb.rpc("admin_reports"), sb.rpc("admin_visits")]);
+  S.admin = {stats:st.data||{},users:us.data||[],reports:rp.data||[],visits:vs.data||null}; if(route()==="admin") render();
 }
 function adminRows(){
   const q = (val("ad-q")||"").toLowerCase();
@@ -1095,6 +1139,7 @@ views.admin = function(){
   const s = S.admin.stats, tile = (n,l) => `<div class="card"><b style="font-size:26px">${n??0}</b><div class="mono">${l}</div></div>`;
   return `<div class="game-hero"><h1>${t("adTitle")}</h1><div class="chips"><button class="btn small" data-act="admin-refresh">${t("refresh")}</button></div></div>
     <section class="block"><div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(140px,1fr))">${tile(s.users,t("adUsers"))}${tile(s.today,t("adToday"))}${tile(s.rooms,t("adRooms"))}${tile(s.messages,t("adMsgs"))}${tile(s.stories,t("stStories"))}${tile(s.searching,t("adSearching"))}</div></section>
+    ${visitsHTML(S.admin.visits)}
     <section class="block"><label class="f" style="max-width:320px;margin-bottom:14px">${t("adFilter")}<input class="inp" id="ad-q" autocomplete="off"></label>
       <div class="card" style="padding:0;overflow-x:auto"><table class="tbl"><thead><tr><th>${t("dname")}</th><th>${t("username")}</th><th>${t("age")}</th><th>${t("gender")}</th><th>${t("stGames")}</th><th>${t("adReady")}</th><th>${t("stDone")}</th><th>${t("adJoined")}</th></tr></thead><tbody id="ad-rows">${adminRows()}</tbody></table></div></section>
     <section class="block"><div class="head"><h2 style="font-size:20px">${t("adReports")}</h2><span class="mono">${(S.admin.reports||[]).filter(r=>r.status==="open").length}</span></div>
@@ -1650,6 +1695,7 @@ applyTheme();
 render();
 (async () => {
   if(!sb){ S.booting=false; render(); toast(t("eNet")); return; }
+  logVisit();
   try{ await loadMe(); }catch(e){}
   S.booting=false; render(); loadVRooms(); if(route()==="event") loadEvent();
   sb.auth.onAuthStateChange(ev => { if(ev==="SIGNED_OUT" && S.me){ S.me=null; render(); } });
