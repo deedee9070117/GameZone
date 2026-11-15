@@ -430,7 +430,7 @@ evReveal:["Winner announced on this page: {d} (Thailand time)","ประกา�
 evD:["days","วัน","天","日"], evH:["hours","ชั่วโมง","小时","時間"], evM:["min","นาที","分","分"], evS:["sec","วินาที","秒","秒"],
 evHow:["How to enter","วิธีร่วมกิจกรรม","参与方式","参加方法"],
 evR1:["Add your Valorant in-game name with tag (Name#TAG) to your profile.","ใส่ชื่อในเกม Valorant พร้อมแท็ก (ชื่อ#TAG) ในโปรไฟล์ของคุณ","在主页填写 Valorant 游戏名和标签（名称#TAG）。","プロフィールに Valorant のゲーム内名とタグ（名前#TAG）を登録する。"],
-evR2:["Pick a 4-digit number and submit it. One entry per account, and it can't be changed.","เลือกเลข 4 หลักแล้วกดส่ง 1 บัญชีส่งได้ 1 ครั้ง และแก้ไขไม่ได้","选择一个四位数字并提交。每个账号仅限一次，提交后不可修改。","4桁の番号を選んで応募。1アカウント1回のみ、変更はできません。"],
+evR2:["Pick a 4-digit number and submit it. One entry per account, and it can't be changed. Each number can be taken by one account only.","เลือกเลข 4 หลักแล้วกดส่ง 1 บัญชีส่งได้ 1 ครั้ง และแก้ไขไม่ได้ เลขแต่ละเลขมีได้แค่คนเดียว เลือกซ้ำกับคนอื่นไม่ได้","选择一个四位数字并提交。每个账号仅限一次，提交后不可修改。每个号码只能被一个账号选择。","4桁の番号を選んで応募。1アカウント1回のみ、変更はできません。同じ番号は1人だけが選べます。"], evTaken:["Someone already picked that number. Try another one.","เลขนี้มีคนเลือกแล้ว ลองเลขอื่น","该号码已被选择，请换一个。","その番号は選択済みです。別の番号をお試しください。"],
 evR3:["Come back at the announcement time to see the result.","กลับมาดูผลที่หน้านี้ตามเวลาประกาศ","在公布时间回到本页查看结果。","発表時刻にこのページで結果を確認する。"],
 evYour:["Your 4-digit number","เลข 4 หลักของคุณ","你的四位数字","4桁の番号"], evSubmit:["Submit entry","ส่งเลข","提交","応募する"],
 evNeedAcc:["Log in or create an account to enter.","เข้าสู่ระบบหรือสร้างบัญชีก่อนเพื่อร่วมกิจกรรม","请先登录或创建账号。","参加するにはログインまたはアカウント作成が必要です。"],
@@ -1323,8 +1323,8 @@ async function submitEvent(){
   if(!/^[0-9]{4}$/.test(n)) return err.textContent = t("evBad");
   btn.disabled = true; err.textContent = t("working");
   const { error } = await sb.rpc("event_enter",{p_number:n});
-  if(error){ btn.disabled = false; const k = ["already","closed","need_ign","bad_number"].find(x=>error.message.includes(x));
-    err.textContent = t({already:"evAlready",closed:"evClosed",need_ign:"evNeedIgn",bad_number:"evBad"}[k]||"tFail"); if(k==="already"||k==="closed") loadEvent(); return; }
+  if(error){ btn.disabled = false; const k = ["already","closed","need_ign","bad_number","taken"].find(x=>error.message.includes(x));
+    err.textContent = t({already:"evAlready",closed:"evClosed",need_ign:"evNeedIgn",bad_number:"evBad",taken:"evTaken"}[k]||"tFail"); if(k==="already"||k==="closed") loadEvent(); return; }
   toast(t("evSent")); await loadEvent(); rerender();
 }
 async function setEventWinner(n){
