@@ -306,6 +306,23 @@ input.vol{display:block;width:100%;max-width:160px;margin-top:4px;accent-color:v
 .vsopts{display:flex;flex-direction:column;gap:8px} .vsopt{display:flex;flex-direction:column;align-items:flex-start;gap:2px;text-align:left;border:2px solid var(--ink);border-radius:12px;background:var(--card);padding:10px 14px}
 .vsopt span{font-size:13.5px;color:var(--ink-soft)} .vsopt[aria-pressed="true"]{background:var(--ink);color:var(--paper)} .vsopt[aria-pressed="true"] span{color:var(--line)}
 .vtmeter{height:14px;border:2px solid var(--ink);border-radius:999px;background:var(--field);overflow:hidden} .vtmeter i{display:block;height:100%;width:0;background:var(--sage);transition:width .06s linear}
+.avw{position:relative;display:inline-flex;flex:none;border-radius:50%}
+.avw .odot{display:none;position:absolute;right:-1px;bottom:-1px;width:max(10px,calc(var(--s,40px) * .26));height:max(10px,calc(var(--s,40px) * .26));border-radius:50%;background:#34B865;border:2px solid var(--paper);box-sizing:border-box}
+.avw.on .odot{display:block}
+.odot-inline{display:inline-block;width:9px;height:9px;border-radius:50%;background:#34B865;vertical-align:1px}
+#side-root .side{position:fixed;top:16px;right:16px;bottom:16px;width:272px;z-index:30;background:var(--card);border:2px solid var(--ink);border-radius:var(--r);box-shadow:var(--shadow);padding:14px;display:flex;flex-direction:column;gap:8px;overflow:hidden}
+.side-head{display:flex;justify-content:space-between;align-items:center;gap:8px} .side-head b{font-size:17px}
+.sgbar{display:flex;flex-direction:column;gap:4px}
+.sglist{display:flex;flex-direction:column;gap:2px;overflow-y:auto;min-height:0;margin-right:-6px;padding-right:6px}
+.sg{display:flex;gap:10px;align-items:center;padding:8px 0;border-bottom:1.5px dashed var(--line)}
+.sgb{flex:1;min-width:0;display:flex;flex-direction:column;gap:3px} .sgn{display:flex;align-items:center;gap:6px;min-width:0} .sgn b{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:block;max-width:120px}
+.sgon{font-size:11px;font-weight:700;color:#1f7a42;background:#dff3e6;border-radius:999px;padding:0 6px}
+.sgm{height:6px;border-radius:999px;background:var(--line);overflow:hidden} .sgm i{display:block;height:100%;background:var(--coral)}
+.sgr{font-size:12.5px;color:var(--ink-soft);overflow:hidden;text-overflow:ellipsis;white-space:nowrap} .sgr b{color:var(--ink)}
+.sgadd{width:36px;height:36px;padding:0;font-size:20px;line-height:1;flex:none}
+.side-open{position:fixed;top:16px;right:16px;z-index:30;background:var(--card);border:2px solid var(--ink);border-radius:999px;box-shadow:var(--shadow);padding:8px 14px;font-weight:600}
+@media (min-width:1400px){ body.side{padding-right:300px} .home-sugg{display:none} }
+.home-sugg .sglist{max-height:none}
 .lb-pos{min-width:28px;text-align:center;font-family:var(--font-display);font-weight:400;font-size:18px}
 .member.lb-me{background:var(--field);border-radius:10px;padding-left:6px;padding-right:8px}
 .notice{padding:10px 0;border-bottom:1.5px dashed var(--line)} .notice p{margin:4px 0 6px;white-space:pre-wrap;overflow-wrap:anywhere}
@@ -359,6 +376,7 @@ button.dock:hover{background:var(--field)}
 <input type="file" id="story-file" accept="image/*,video/mp4,video/webm,video/quicktime" hidden>
 <input type="file" id="av-file" accept="image/*" hidden>
 <div id="dock-root"></div>
+<div id="side-root"></div>
 <div id="audio-root" hidden></div>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
@@ -487,6 +505,7 @@ invPaid:["+20 paid","ได้ +20 แล้ว","已发 +20","+20 付与済み"
 styleT:["Play style in this game", "สไตล์การเล่นในเกมนี้", "此游戏中的风格", "このゲームでのスタイル"], stOpt:["(optional)", "(ไม่บังคับ)", "（选填）", "（任意）"], styleNote:["More detail than the general vibes on your profile, just for this game. Pick as many as you like.", "ละเอียดกว่านิสัยทั่วไปในโปรไฟล์ ใช้เฉพาะเกมนี้ เลือกได้หลายข้อ", "比个人资料里的风格更详细，只针对此游戏，可多选。", "プロフィールの雰囲気より詳しく、このゲーム専用。複数選択できます。"], st_play:["How you play", "สไตล์การเล่น", "打法", "プレイの仕方"], st_goal:["What you want", "เป้าหมายในการเล่น", "目标", "目的"], st_comms:["Talking in game", "การคุยในเกม", "游戏中交流", "ゲーム中の会話"], st_lead:["In the team", "บทบาทในทีม", "团队角色", "チームでの役割"], st_tilt:["When losing", "เวลาแพ้", "输的时候", "負けているとき"], st_session:["Usual session", "เล่นต่อครั้งประมาณ", "每次游戏时长", "1回のプレイ時間"], st_lang:["Languages", "ภาษาที่คุยได้", "语言", "話せる言語"], st_note:["Anything else about how you play", "อยากบอกอะไรเพิ่มเกี่ยวกับสไตล์ในเกมนี้", "关于你的玩法还有什么想说的", "プレイスタイルについて一言"], nNav:["News", "ข่าว", "新闻", "ニュース"], nEyebrow:["Game news", "ข่าวเกม", "游戏新闻", "ゲームニュース"], nTitle:["News", "ข่าวเกม", "新闻", "ニュース"], nSub:["Esports results, roster moves and talking points, mostly Valorant. Short summaries with a link to the full story.", "ผลการแข่งขัน การย้ายทีม และประเด็นร้อน เน้น Valorant สรุปสั้น ๆ พร้อมลิงก์ไปอ่านต่อที่ต้นทาง", "赛事结果、转会和热门话题，以 Valorant 为主。简短摘要并附原文链接。", "大会結果、移籍、話題をValorant中心に。短い要約と元記事へのリンク付き。"], nAll:["All", "ทั้งหมด", "全部", "すべて"], nThOnly:["Summaries are written in Thai.", "สรุปข่าวเขียนเป็นภาษาไทย", "摘要为泰语。", "要約はタイ語です。"], nRead:["Read more on {s}", "อ่านต่อที่ {s}", "在 {s} 阅读全文", "{s} で続きを読む"], nEmpty:["No news yet. Check back soon.", "ยังไม่มีข่าว กลับมาดูใหม่เร็ว ๆ นี้", "暂无新闻，请稍后再来。", "まだニュースはありません。"], nDrafts:["News waiting for you", "ข่าวที่รอคุณเลือก", "待选新闻", "選択待ちのニュース"], nDraftNote:["Only admins see this. Publish puts a story on the page for everyone.", "เห็นเฉพาะแอดมิน กด \"ลงหน้าเว็บ\" แล้วทุกคนจะเห็นข่าวนั้น", "仅管理员可见。点击发布后所有人可见。", "管理者のみ表示。公開すると全員に表示されます。"], nNoDrafts:["No new drafts. New ones arrive every morning.", "ยังไม่มีข่าวใหม่ ข่าวชุดใหม่จะมาทุกเช้า", "暂无新草稿，每天早上会有新的。", "新しい下書きはありません。毎朝届きます。"], nHidden:["Skipped ({n})", "ข่าวที่ข้ามไป ({n})", "已跳过（{n}）", "スキップ済み（{n}）"], nPublish:["Publish", "ลงหน้าเว็บ", "发布", "公開"], nEdit:["Edit", "แก้ไข", "编辑", "編集"], nUnpublish:["Take down", "เอาออกจากหน้าเว็บ", "下架", "非公開にする"], nSkip:["Skip", "ข้าม", "跳过", "スキップ"], nDelete:["Delete", "ลบ", "删除", "削除"], nSure:["Tap again to delete", "กดอีกครั้งเพื่อลบ", "再点一次删除", "もう一度押して削除"], nDonePub:["Published", "ลงหน้าเว็บแล้ว", "已发布", "公開しました"], nDoneHide:["Hidden", "ซ่อนแล้ว", "已隐藏", "非表示にしました"], nDoneDel:["Deleted", "ลบแล้ว", "已删除", "削除しました"], nSaved:["Saved", "บันทึกแล้ว", "已保存", "保存しました"], nEditT:["Edit news", "แก้ไขข่าว", "编辑新闻", "ニュースを編集"], nHead:["Headline", "หัวข้อข่าว", "标题", "見出し"], nSum:["Summary", "สรุปข่าว", "摘要", "要約"], nGame:["Game", "เกม", "游戏", "ゲーム"], nKind:["Type", "ประเภท", "类型", "種類"], nOther:["Other", "อื่น ๆ", "其他", "その他"], nSavePub:["Save and publish", "บันทึกและลงหน้าเว็บ", "保存并发布", "保存して公開"], nk_esports:["Esports", "การแข่งขัน", "赛事", "大会"], nk_roster:["Roster move", "ย้ายทีม", "转会", "移籍"], nk_drama:["Drama", "ดราม่า", "话题", "話題"], nk_update:["Game update", "อัปเดตเกม", "游戏更新", "アップデート"], nk_general:["News", "ทั่วไป", "综合", "一般"], tourNav:["Tournaments", "ทัวร์นาเมนต์", "锦标赛", "トーナメント"], tourTitle:["Tournaments", "ทัวร์นาเมนต์", "锦标赛", "トーナメント"], tourDev:["In development", "กำลังพัฒนา", "开发中", "開発中"], tourSub:["Soon you will be able to run your own game tournaments on GameZone.", "อีกไม่นานคุณจะจัดทัวร์นาเมนต์เกมของตัวเองบน GameZone ได้", "很快你就能在 GameZone 上举办自己的游戏锦标赛。", "近日、GameZoneで自分のトーナメントを開催できるようになります。"], tourComing:["What is coming", "สิ่งที่กำลังจะมา", "即将推出", "予定している機能"], tour1:["Create a tournament and open team sign-ups", "สร้างทัวร์นาเมนต์และเปิดรับสมัครทีม", "创建锦标赛并开放队伍报名", "トーナメント作成とチーム募集"], tour2:["Automatic brackets and match schedule", "สายการแข่งขันและตารางแข่งอัตโนมัติ", "自动生成对阵表和赛程", "対戦表とスケジュールの自動作成"], tour3:["Teams report scores, results update live", "ทีมส่งผลการแข่งเอง และอัปเดตผลแบบสด", "队伍上报比分，实时更新结果", "スコア報告と結果のリアルタイム更新"], tour4:["Winners announced on the site", "ประกาศผู้ชนะบนหน้าเว็บ", "在网站上公布获胜者", "サイトで優勝者を発表"], tourMean:["Until then, find teammates in rooms and keep up with the news.", "ระหว่างนี้ หาเพื่อนร่วมทีมในห้อง และติดตามข่าวเกมไปก่อนได้", "在此之前，可以先在房间里找队友，关注新闻。", "それまではルームで仲間を探し、ニュースをチェックしましょう。"], tourRooms:["Find teammates", "หาเพื่อนร่วมทีม", "寻找队友", "仲間を探す"], tourNews:["Read the news", "อ่านข่าวเกม", "看新闻", "ニュースを見る"],
 trSub:["Valorant · Gold, Platinum and Diamond divisions · 6 teams each · BO3 · from 1 Dec, one match a day at 18:00", "Valorant · แข่ง 3 แรงค์ Gold, Platinum, Diamond · แรงค์ละ 6 ทีม · BO3 · เริ่ม 1 ธ.ค. แข่งวันละนัด 18:00 น.", "Valorant · 黄金、铂金、钻石三个组别 · 每组 6 队 · BO3 · 12 月 1 日起每天 18:00 一场", "Valorant · ゴールド/プラチナ/ダイヤ 3部門 · 各6チーム · BO3 · 12月1日から毎日18:00に1試合"], trOpen:["Sign-ups open", "เปิดรับสมัคร", "报名中", "エントリー受付中"], trClosedTag:["Sign-ups closed", "ปิดรับสมัคร", "报名已截止", "受付終了"], trPrize:["Prizes", "ของรางวัล", "奖励", "賞品"], trNext:["Next match", "นัดต่อไป", "下一场", "次の試合"], trNowLive:["Live now", "กำลังแข่งตอนนี้", "正在进行", "ライブ中"], trNoNext:["No more matches", "ไม่มีนัดต่อไปแล้ว", "没有更多比赛", "試合はありません"], trQF:["Round 1 · Match {n}", "รอบแรก นัดที่ {n}", "首轮 第 {n} 场", "1回戦 第{n}試合"], trSF:["Semi-final {n}", "รอบรองชนะเลิศ {n}", "半决赛 {n}", "準決勝 {n}"], trFinal:["Final", "รอบชิงชนะเลิศ", "决赛", "決勝"], trRound1:["Round 1", "รอบแรก", "首轮", "1回戦"], trSemis:["Semi-finals", "รอบรองชนะเลิศ", "半决赛", "準決勝"], trChamp:["Champion", "แชมป์", "冠军", "優勝"], trSeedNote:["Seeds 1 and 2 go straight to the semi-finals. Seeds are drawn at random from the approved teams.", "ทีมอันดับ 1 และ 2 เข้ารอบรองชนะเลิศเลย อันดับทั้งหมดได้จากการจับสลากทีมที่ผ่านการอนุมัติ", "1、2 号种子直接进入半决赛。种子由已通过审核的队伍随机抽签决定。", "第1・第2シードは準決勝から。シードは承認済みチームから抽選で決定。"], trDone:["Finished", "จบแล้ว", "已结束", "終了"], trMapN:["Map {n}", "แมพ {n}", "地图 {n}", "マップ{n}"], trEditMatch:["Edit result", "แก้ผลการแข่ง", "编辑结果", "結果を編集"], trPlayersN:["{n}/5 players", "ผู้เล่น {n}/5", "{n}/5 名选手", "選手 {n}/5"], trSt_pending:["Waiting for approval", "รออนุมัติ", "待审核", "承認待ち"], trSt_approved:["Approved", "อนุมัติแล้ว", "已通过", "承認済み"], trSt_rejected:["Not approved", "ไม่ผ่าน", "未通过", "不承認"], trSt_withdrawn:["Withdrawn", "ถอนตัว", "已退出", "辞退"], trRole_player:["Player", "ผู้เล่น", "选手", "選手"], trRole_sub:["Substitute", "ตัวสำรอง", "替补", "控え"], trRole_coach:["Coach", "โค้ช", "教练", "コーチ"], trApprove:["Approve", "อนุมัติ", "通过", "承認"], trReject:["Reject", "ไม่อนุมัติ", "拒绝", "却下"], trRename:["Rename team", "แก้ชื่อทีม", "修改队名", "チーム名変更"], trMyTeam:["My team", "ทีมของฉัน", "我的队伍", "マイチーム"], trNeedPlayers:["{n} more player(s) needed before the team can be approved.", "ต้องมีผู้เล่นเพิ่มอีก {n} คน ทีมจึงจะได้รับการอนุมัติ", "还需 {n} 名选手才能通过审核。", "承認にはあと{n}人の選手が必要です。"], trReady:["Your team is approved. See you on match day!", "ทีมของคุณผ่านการอนุมัติแล้ว เจอกันวันแข่ง!", "你的队伍已通过审核，比赛日见！", "承認されました。試合日に会いましょう！"], trWaitApprove:["Team is full. An admin will check and approve it.", "ทีมครบแล้ว รอแอดมินตรวจสอบและอนุมัติ", "队伍已满员，等待管理员审核。", "メンバーが揃いました。管理者の承認待ちです。"], trTeamCode:["Team code", "โค้ดทีม", "队伍代码", "チームコード"], trCodeHint:["Send this code to your teammates. They join the team with it from this page.", "ส่งโค้ดนี้ให้เพื่อนร่วมทีม แล้วให้เข้าร่วมทีมจากหน้านี้", "把代码发给队友，他们在此页面用代码加入。", "このコードをチームメイトに送り、このページから参加してもらいます。"], trTeamRoom:["Open team voice room", "เข้าห้องเสียงของทีม", "进入队伍语音房间", "チームのボイスルームへ"], trWithdraw:["Withdraw team", "ถอนทีม", "退出比赛", "チームを辞退"], trLeave:["Leave team", "ออกจากทีม", "离开队伍", "チームを抜ける"], trWithdrawQ:["As captain, leaving withdraws the whole team from the tournament. Continue?", "คุณเป็นหัวหน้าทีม ถ้าออก ทีมทั้งทีมจะถอนตัวจากทัวร์นาเมนต์ ต้องการทำต่อไหม", "你是队长，离开将使整支队伍退出比赛。继续吗？", "キャプテンが抜けるとチーム全体が辞退になります。続けますか？"], trLeaveQ:["Leave this team?", "ออกจากทีมนี้ไหม", "确定离开此队伍？", "このチームを抜けますか？"], trLeft:["Done", "เรียบร้อย", "完成", "完了"], trKickHint:["Remove a member:", "นำสมาชิกออกจากทีม:", "移除成员：", "メンバーを外す："], trKicked:["{n} removed", "นำ {n} ออกแล้ว", "已移除 {n}", "{n} を外しました"], trNeedAcc:["Log in to register a team. You need your Valorant in-game name and rank in your profile.", "ล็อกอินเพื่อสมัครทีม ต้องมีชื่อในเกมและแรงค์ Valorant ในโปรไฟล์", "登录后报名队伍。需要在资料中填写 Valorant 游戏名和段位。", "チーム登録にはログインが必要です。プロフィールにValorantのゲーム内名とランクが必要です。"], trRegClosed:["Sign-ups are closed.", "ปิดรับสมัครแล้ว", "报名已截止。", "エントリーは締め切りました。"], trJoinTitle:["Join the tournament", "สมัครแข่งขัน", "报名参赛", "エントリー"], trJoinSub:["Free to enter. Create a team as captain, or join a friend's team with their team code. Sign-ups close {d}.", "สมัครฟรี สร้างทีมในฐานะหัวหน้าทีม หรือเข้าร่วมทีมเพื่อนด้วยโค้ดทีม ปิดรับสมัคร {d}", "免费参赛。作为队长创建队伍，或用队伍代码加入朋友的队伍。报名截止 {d}。", "参加無料。キャプテンとしてチームを作るか、チームコードで友達のチームに参加。締切 {d}。"], trCreate:["Create a team", "สร้างทีม", "创建队伍", "チームを作る"], trJoinCode:["Join with team code", "เข้าร่วมด้วยโค้ดทีม", "用代码加入", "コードで参加"], trJoinBtn:["Join team", "เข้าร่วมทีม", "加入队伍", "参加する"], trTeamsIn:["{d} teams", "ทีมในแรงค์ {d}", "{d} 组队伍", "{d} 部門のチーム"], trNoTeams:["No teams yet.", "ยังไม่มีทีม", "还没有队伍。", "まだチームはありません。"], trSchedule:["Full schedule", "ตารางแข่งทั้งหมด", "完整赛程", "全日程"], trDaily:["one match a day", "วันละ 1 นัด", "每天一场", "1日1試合"], trRules:["Rules", "กติกา", "规则", "ルール"], trAdmin:["Tournament admin", "จัดการทัวร์นาเมนต์ (แอดมิน)", "赛事管理", "大会管理"], trRegOpen:["Accept sign-ups", "เปิดรับสมัคร", "开放报名", "エントリー受付"], trPrizeT:["Prizes (one line each)", "ของรางวัล (บรรทัดละข้อ)", "奖励（每行一条）", "賞品（1行に1つ）"], trRulesT:["Rules (one line each)", "กติกา (บรรทัดละข้อ)", "规则（每行一条）", "ルール（1行に1つ）"], trSeedT:["Draw seeds", "จับสลากอันดับทีม", "抽签种子", "シード抽選"], trSeedHint:["Randomly places the approved teams into the bracket. You can still edit any name afterwards. Tap twice to confirm.", "สุ่มวางทีมที่อนุมัติแล้วลงสายการแข่ง หลังจากนั้นยังแก้ชื่อในแต่ละนัดได้ตลอด กดสองครั้งเพื่อยืนยัน", "把已通过的队伍随机放入对阵表，之后仍可修改名称。点两次确认。", "承認済みチームを対戦表にランダム配置。後から名前を編集できます。2回押して確定。"], trSeedBtn:["Draw {d}", "จับสลาก {d}", "抽签 {d}", "{d} を抽選"], trAllTeams:["All teams in this division", "ทีมทั้งหมดในแรงค์นี้", "此组别全部队伍", "この部門の全チーム"], trSeeded:["Bracket updated", "อัปเดตสายการแข่งแล้ว", "对阵表已更新", "対戦表を更新しました"], trPointsDone:["GZ Point given to {n} member(s)", "ให้ GZ Point แก่สมาชิก {n} คนแล้ว", "已向 {n} 名成员发放 GZ Point", "{n}人にGZ Pointを付与しました"], trDivision:["Division", "แรงค์ที่สมัคร", "组别", "部門"], trMyRole:["My role", "ตำแหน่งของฉันในทีม", "我的身份", "役割"], trTeamName:["Team name", "ชื่อทีม", "队名", "チーム名"], trCreateHint:["Your in-game name and rank are taken from your profile. Players and the substitute must not be ranked above the division.", "ระบบใช้ชื่อในเกมและแรงค์จากโปรไฟล์ของคุณ ผู้เล่นและตัวสำรองต้องมีแรงค์ไม่สูงกว่าแรงค์ที่สมัคร", "游戏名和段位取自你的资料。选手和替补的段位不得高于所报组别。", "ゲーム内名とランクはプロフィールから。選手・控えは部門より上のランク不可。"], trFixProfile:["Edit my Valorant details", "แก้ข้อมูล Valorant ของฉัน", "编辑我的 Valorant 信息", "Valorant情報を編集"], trCreated:["Team created. Share the team code with your teammates.", "สร้างทีมแล้ว ส่งโค้ดทีมให้เพื่อนร่วมทีมได้เลย", "队伍已创建，把代码发给队友吧。", "チームを作成しました。コードを共有しましょう。"], trJoined:["You joined the team", "เข้าร่วมทีมแล้ว", "已加入队伍", "チームに参加しました"], trTeamA:["Team A", "ทีม A", "A 队", "チームA"], trTeamB:["Team B", "ทีม B", "B 队", "チームB"], trStatus:["Status", "สถานะ", "状态", "状態"], trTime:["Start time (Thailand)", "เวลาเริ่ม (เวลาไทย)", "开始时间（泰国）", "開始時刻（タイ時間）"], trNote:["Note (shown on the card)", "หมายเหตุ (แสดงบนการ์ด)", "备注（显示在卡片上）", "メモ（カードに表示）"], trSt2_scheduled:["Not started", "ยังไม่แข่ง", "未开始", "未開始"], trSt2_live:["Live now", "กำลังแข่ง", "进行中", "ライブ中"], trSt2_done:["Finished", "จบแล้ว", "已结束", "終了"], trMatchHint:["Enter round scores per map (e.g. 13 and 9). Two map wins finish the match, and the winner moves to the next round automatically.", "กรอกคะแนนรอบของแต่ละแมพ เช่น 13 กับ 9 ชนะครบ 2 แมพ นัดนั้นจะจบ และทีมที่ชนะจะถูกใส่ในนัดถัดไปให้อัตโนมัติ", "按地图填写回合比分（如 13 和 9）。先赢两张图即结束，胜者自动晋级下一轮。", "マップごとのラウンドスコアを入力（例 13 と 9）。2マップ先取で終了し、勝者は自動で次へ。"], trE_login:["Please log in first", "ล็อกอินก่อน", "请先登录", "先にログインしてください"], trE_banned:["This account can't take part", "บัญชีนี้ร่วมแข่งไม่ได้", "此账号无法参赛", "このアカウントは参加できません"], trE_closed:["Sign-ups are closed", "ปิดรับสมัครแล้ว", "报名已截止", "受付は終了しました"], trE_bad_role:["Pick a role", "เลือกตำแหน่งในทีม", "请选择身份", "役割を選んでください"], trE_in_team:["You are already in a team", "คุณอยู่ในทีมอื่นแล้ว", "你已在一支队伍中", "すでにチームに所属しています"], trE_need_ign:["Add your Valorant in-game name (Name#TAG) to your profile first", "เพิ่มชื่อในเกม Valorant (ชื่อ#แท็ก) ในโปรไฟล์ก่อน", "请先在资料中填写 Valorant 游戏名（名字#标签）", "先にプロフィールにValorantのゲーム内名（名前#タグ）を追加してください"], trE_need_rank:["Add your Valorant rank to your profile first", "เพิ่มแรงค์ Valorant ในโปรไฟล์ก่อน", "请先在资料中填写 Valorant 段位", "先にプロフィールにValorantのランクを追加してください"], trE_rank_high:["Your rank is above this division. Pick a higher division.", "แรงค์ของคุณสูงกว่าแรงค์นี้ เลือกแรงค์ที่สูงขึ้น", "你的段位高于此组别，请选择更高组别。", "ランクがこの部門より上です。上の部門を選んでください。"], trE_div_full:["This division already has 6 teams", "แรงค์นี้ครบ 6 ทีมแล้ว", "此组别已满 6 队", "この部門は6チームで満員です"], trE_bad_name:["Team name must be 2–24 characters", "ชื่อทีมต้องยาว 2–24 ตัวอักษร", "队名需 2–24 个字符", "チーム名は2〜24文字"], trE_name_taken:["That team name is taken", "ชื่อทีมนี้มีคนใช้แล้ว", "队名已被使用", "そのチーム名は使用済みです"], trE_bad_code:["Team code not found", "ไม่พบโค้ดทีมนี้", "找不到该队伍代码", "チームコードが見つかりません"], trE_role_full:["That role is already filled in this team", "ตำแหน่งนี้ในทีมเต็มแล้ว", "该身份在队中已满", "その役割は埋まっています"],
 vsTitle:["Voice settings", "ตั้งค่าเสียง", "语音设置", "ボイス設定"], vsShort:["Settings", "ตั้งค่า", "设置", "設定"], vsNs:["Noise reduction", "ตัดเสียงรบกวน", "降噪", "ノイズ除去"], vs_strong:["Strong", "แรง", "强", "強"], vs_strongD:["Recommended for games. Removes keyboard, fan and room noise and stays silent when you are not talking.", "แนะนำตอนเล่นเกม ตัดเสียงคีย์บอร์ด พัดลม เสียงรอบห้อง และเงียบสนิทตอนคุณไม่พูด", "推荐游戏时使用。去除键盘、风扇和环境噪音，不说话时完全静音。", "ゲーム向け推奨。キーボード・ファン・環境音を除去し、話していない時は無音に。"], vs_standard:["Standard", "ปกติ", "标准", "標準"], vs_standardD:["The browser's built-in noise and echo reduction only.", "ใช้ระบบตัดเสียงรบกวนและเสียงก้องของเบราว์เซอร์อย่างเดียว", "仅使用浏览器自带的降噪和回声消除。", "ブラウザ内蔵のノイズ・エコー除去のみ。"], vs_off:["Off", "ปิด", "关闭", "オフ"], vs_offD:["Raw microphone sound. Use only with a studio mic in a quiet room.", "เสียงไมค์ดิบ ใช้เฉพาะเมื่อมีไมค์ดีและอยู่ในห้องเงียบ", "原始麦克风声音，仅适用于安静环境中的专业麦克风。", "マイクそのままの音。静かな部屋の高品質マイク向け。"], vsMic:["Microphone", "ไมโครโฟน", "麦克风", "マイク"], vsOut:["Speaker or headphones", "ลำโพงหรือหูฟัง", "扬声器或耳机", "スピーカー・ヘッドホン"], vsDefault:["System default", "ค่าเริ่มต้นของเครื่อง", "系统默认", "システムの既定"], vsTest:["Test mic", "ทดสอบไมค์", "测试麦克风", "マイクテスト"], vsStopTest:["Stop test", "หยุดทดสอบ", "停止测试", "テスト停止"], vsHear:["Hear myself (use headphones)", "ฟังเสียงตัวเอง (ใส่หูฟัง)", "听自己的声音（请戴耳机）", "自分の声を聞く（ヘッドホン使用）"], vsHint:["The bar should move only when you talk. Voice keeps working when you switch to the game; leave this tab open.", "แถบควรขยับเฉพาะตอนคุณพูด เสียงยังทำงานต่อตอนสลับไปเล่นเกม แค่อย่าปิดแท็บนี้", "进度条只应在你说话时跳动。切到游戏时语音仍会工作，请保持此标签页打开。", "話した時だけバーが動けばOK。ゲームに切り替えても通話は続きます。このタブは閉じないでください。"], vsBadge:["Noise reduction: {m}", "ตัดเสียงรบกวน: {m}", "降噪：{m}", "ノイズ除去：{m}"], qLoss:["lost", "เสียงหาย", "丢包", "ロス"], volOf:["Volume for {n}", "ระดับเสียงของ {n}", "{n} 的音量", "{n} の音量"], adminTag:["Admin", "แอดมิน", "管理员", "管理者"], trAdminRoom:["Enter team voice room", "เข้าห้องเสียงทีมนี้", "进入该队语音房间", "チームのボイスルームへ"],
+sgTitle:["Find new friends", "ลองค้นหาเพื่อนใหม่ ๆ ดูสิ", "寻找新朋友", "新しい仲間を探そう"], sgSort:["Best match first, same rank first when tied.", "เรียงจากความเข้ากันได้มากไปน้อย ถ้าเท่ากัน แรงค์เดียวกันขึ้นก่อน", "按契合度排序，相同时同段位优先。", "相性順。同じなら同ランクを優先。"], sgSortShort:["By how well you match", "เรียงตามความเข้ากัน", "按契合度", "相性順"], sgOnline:["Online", "ออนไลน์", "在线", "オンライン"], sgOnlineN:["{n} online now", "ออนไลน์ตอนนี้ {n} คน", "当前在线 {n} 人", "オンライン {n}人"], sgOnlyOnline:["Online only", "เฉพาะคนที่ออนไลน์", "仅在线", "オンラインのみ"], sgMatch:["{n}% match", "เข้ากันได้ {n}%", "契合度 {n}%", "相性 {n}%"], sgSameRank:["Same rank ({r})", "แรงค์ {r} เหมือนกัน", "同为 {r}", "同じ{r}"], sgNearRank:["Close rank", "แรงค์ใกล้กัน", "段位相近", "近いランク"], sgNoInfo:["Plays the same game", "เล่นเกมเดียวกัน", "玩同款游戏", "同じゲーム"], sgSent:["Sent", "ส่งแล้ว", "已发送", "送信済み"], sgAdd:["Add friend", "เพิ่มเพื่อน", "加好友", "フレンド追加"], sgLogin:["Log in to see players who match your style.", "ล็อกอินเพื่อดูผู้เล่นที่เข้ากับสไตล์คุณ", "登录后查看与你风格相合的玩家。", "ログインすると相性の良いプレイヤーが表示されます。"], sgSetup:["Finish your profile to see how well you match others.", "กรอกโปรไฟล์ให้ครบ เพื่อดูว่าเข้ากับใครได้บ้าง", "完善资料后可查看契合度。", "プロフィールを完成させると相性が見られます。"], sgNone:["No new suggestions right now.", "ตอนนี้ยังไม่มีคนแนะนำเพิ่ม", "暂无新的推荐。", "今はおすすめがありません。"], sgNoneOnline:["None of your matches are online right now.", "คนที่เข้ากับคุณยังไม่ออนไลน์ตอนนี้", "契合的玩家目前都不在线。", "相性の良い人は今オフラインです。"], sgMore:["Show {n} more", "ดูเพิ่มอีก {n} คน", "再显示 {n} 人", "あと{n}人を表示"], sgHide:["Hide this panel", "ซ่อนแถบนี้", "隐藏此栏", "このパネルを隠す"], pvOnline:["Hide my online status", "ซ่อนสถานะออนไลน์ของฉัน", "隐藏我的在线状态", "オンライン状態を隠す"],
 wantsFriend:["sent you a friend request","ส่งคำขอเป็นเพื่อนถึงคุณ","向你发送了好友请求","からフレンド申請が届きました"], notifs:["Notifications","การแจ้งเตือน","通知","通知"], noNotifs:["Nothing new","ยังไม่มีอะไรใหม่","暂无新通知","新しい通知はありません"], wantsFriend:["wants to be friends","ขอเป็นเพื่อน","想加你为好友","からフレンド申請"], invitedYou:["invited you to","ชวนคุณเข้าห้อง","邀请你加入","からの招待"], joinNow:["Join","เข้าร่วม","加入","参加"], dismiss:["Dismiss","ปิด","忽略","閉じる"],
 noFriends:["No friends yet","ยังไม่มีเพื่อน","还没有好友","フレンドはまだいません"], blockedList:["Blocked","ที่บล็อกไว้","已屏蔽","ブロック中"], unblock:["Unblock","เลิกบล็อก","取消屏蔽","ブロック解除"], block:["Block","บล็อก","屏蔽","ブロック"], report:["Report","รายงาน","举报","通報"],
 unfriend:["Remove friend","ลบเพื่อน","删除好友","フレンド解除"], unfriendConfirm:["Remove {n} from your friends?","ลบ {n} ออกจากเพื่อน?","将 {n} 从好友中删除？","{n} をフレンドから外しますか？"], blockConfirm:["Block {n}? You won't be matched or share rooms, and their messages will be hidden.","บล็อก {n}? ระบบจะไม่จับคู่และไม่ให้อยู่ห้องเดียวกัน และจะซ่อนข้อความของเขา","屏蔽 {n}？你们将不会被匹配或同房，对方的消息也会被隐藏。","{n} をブロックしますか？マッチングや同室がなくなり、メッセージも非表示になります。"],
@@ -590,7 +609,9 @@ function go(r){ if(location.hash.replace("#","")===r){ render(); window.scrollTo
 let toastT; function toast(msg,ms){ const el=$("#toast"); el.textContent=msg; el.classList.add("show"); clearTimeout(toastT); toastT=setTimeout(()=>el.classList.remove("show"),ms||2000); }
 function presetSVG(i){ const c = AV_COLORS[i%AV_COLORS.length]; const m = ['<rect x="22" y="40" width="20" height="5"/>','<rect x="22" y="40" width="20" height="5"/><rect x="18" y="36" width="5" height="5"/><rect x="41" y="36" width="5" height="5"/>','<rect x="26" y="39" width="12" height="8"/>'];
   return `<svg viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" fill="${c}"/><g fill="#3B2F2F"><rect x="18" y="22" width="8" height="8"/><rect x="38" y="22" width="8" height="8"/>${m[i%3]}</g></svg>`; }
-function avatar(p,size){ const s = `style="--s:${size||40}px"`;
+function avatar(p,size){ const inner = avatarInner(p,size), id = p && (p.id||p.user_id);
+  return id ? `<span class="avw ${ONLINE.has(id)?"on":""}" data-uid="${esc(id)}" style="--s:${size||40}px">${inner}<i class="odot" aria-hidden="true"></i></span>` : inner; }
+function avatarInner(p,size){ const s = `style="--s:${size||40}px"`;
   if(p && p.avatar && p.avatar.startsWith("preset:")) return `<span class="av" ${s}>${presetSVG(+p.avatar.slice(7)||0)}</span>`;
   if(p && p.avatar) return `<span class="av" ${s}><img src="${esc(mediaURL(p.avatar))}" alt=""></span>`;
   return `<span class="av" ${s}><svg viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" fill="#345E8F"/><circle cx="32" cy="25" r="9" fill="none" stroke="#3B2F2F" stroke-width="4"/><path d="M14 54c2-12 10-17 18-17s16 5 18 17" fill="none" stroke="#3B2F2F" stroke-width="4" stroke-linecap="round"/></svg></span>`; }
@@ -613,7 +634,7 @@ async function loadMe(){
   const [{data:p},{data:c}] = await Promise.all([sb.rpc("get_profile",{p_id:session.user.id}), sb.from("profile_contacts").select("*").eq("id",session.user.id).maybeSingle()]);
   S.me = p ? {...p, contacts: c || {discord:"",line:"",instagram:"",show:"friends"}} : null;
   if(S.me){ sb.from("bans").select("user_id").eq("user_id",S.me.id).maybeSingle().then(async({data})=>{ if(data){ stopRoom(); stopSocial(); try{ await sb.auth.signOut(); }catch(e){} S.me=null; S.isAdmin=false; go("home"); toast(t("youBanned")); } });
-    loadStories(S.me.id,true); loadHistory(S.me.id); loadRep(S.me.id); startSocial(); sb.from("admins").select("user_id").eq("user_id",S.me.id).maybeSingle().then(({data})=>{ S.isAdmin = !!data; drawNav(); if(route()==="admin") render(); if(route()==="event") loadEvent(); }); }
+    loadStories(S.me.id,true); loadHistory(S.me.id); loadRep(S.me.id); startSocial(); startOnline(); loadSugg(true); sb.from("admins").select("user_id").eq("user_id",S.me.id).maybeSingle().then(({data})=>{ S.isAdmin = !!data; drawNav(); if(route()==="admin") render(); if(route()==="event") loadEvent(); }); }
 }
 async function saveProfile(patch,quiet){
   Object.assign(S.me,patch);
@@ -705,6 +726,7 @@ const views = {
       <div class="hero-cta"><button class="btn coral big" data-act="scroll-games">${t("find")}</button><button class="btn mid" data-go="quick" style="background:var(--mustard);color:#2A2222;text-shadow:none">⚡ ${t("qHero")}</button>${second}</div></section>
     <section class="block" id="games-block"><div class="head"><h2>${t("pick")}</h2><span class="mono">${t("moreGames")}</span></div>
       <div class="grid g3">${Object.entries(GAMES).map(([id,g])=>`<button class="tile" data-go="${id}"><div ${bandAttr(id)}><h3>${g.name}</h3></div><div class="body"><span>${g.blurb[LI[S.lang]]}</span><span class="mono">${id==="valorant"?t("nRooms",{n:S.vrooms.length}):t("roomsSoon")}</span></div></button>`).join("")}</div></section>
+    ${S.me?`<section class="block home-sugg"><div class="head"><h2>${t("sgTitle")}</h2><span class="mono">${t("sgSortShort")}</span></div><div class="card"><div id="home-sugg" class="sglist">${suggListHTML(6)}</div></div></section>`:""}
     <section class="block"><div class="head"><h2>${t("openRooms")}</h2><button class="btn small" data-go="rooms">${t("seeAll")}</button></div>
       ${S.vrooms.some(r=>membersOf(r).length<r.size)?`<div class="grid g2">${S.vrooms.filter(r=>membersOf(r).length<r.size).slice(0,4).map(vroomCard).join("")}</div>`:`<p class="muted">${t("noRooms")}</p>`}</section>`;
   },
@@ -1427,7 +1449,7 @@ async function socConnect(){
     .on("postgres_changes",{event:"INSERT",schema:"public",table:"notices",filter:"user_id=eq."+id},ping)
     .subscribe();
 }
-function stopSocial(){ clearInterval(socTimer); if(socCh){ try{ sb.removeChannel(socCh); }catch(e){} socCh = null; } socSeen = null; Object.assign(SOC,{friends:[],incoming:[],outgoing:[],blocked:[],invites:[],notices:[],loaded:false}); }
+function stopSocial(){ stopOnline(); S.sugg = null; S.suggSent = null; clearInterval(socTimer); if(socCh){ try{ sb.removeChannel(socCh); }catch(e){} socCh = null; } socSeen = null; Object.assign(SOC,{friends:[],incoming:[],outgoing:[],blocked:[],invites:[],notices:[],loaded:false}); }
 const isBlockedId = id => SOC.blocked.some(b=>b.id===id);
 function relation(id){
   if(SOC.friends.some(p=>p.id===id)) return "friends";
@@ -1659,7 +1681,7 @@ async function submitDelAccount(){
 }
 function privacyTogglesHTML(){
   const pv = S.me.privacy||{}, row = (k,l) => `<label class="check"><input type="checkbox" data-pv="${k}" ${pv[k]?"checked":""}> ${t(l)}</label>`;
-  return `<div><p class="mono" style="margin-bottom:8px">${t("pvTitle")}</p><div style="display:flex;flex-direction:column;gap:8px">${row("hide_age","pvAge")}${row("hide_gender","pvGender")}${row("hide_history","pvHistory")}</div><p class="hint" style="margin-top:6px">${t("pvNote")}</p></div>
+  return `<div><p class="mono" style="margin-bottom:8px">${t("pvTitle")}</p><div style="display:flex;flex-direction:column;gap:8px">${row("hide_age","pvAge")}${row("hide_gender","pvGender")}${row("hide_history","pvHistory")}${row("hide_online","pvOnline")}</div><p class="hint" style="margin-top:6px">${t("pvNote")}</p></div>
     <div><p class="mono" style="margin-bottom:8px">${t("account")}</p><button class="btn small" data-act="del-account">${t("delAcc")}</button></div>`;
 }
 async function legalClick(a,d,el){
@@ -2303,6 +2325,82 @@ document.addEventListener("change", async e => {
 });
 document.addEventListener("input", e => { const u = e.target.dataset && e.target.dataset.vol; if(!u) return; const v = (+e.target.value)/100; VS.vol[u] = v; saveVS(); const a = document.getElementById("au-"+u); if(a) a.volume = v; });
 
+/* ---------- who is online (green dot on avatars) and friend suggestions sidebar ---------- */
+const ONLINE = new Set(); let onCh = null, onKey = "";
+function startOnline(){
+  if(!sb || !S.me) return; const key = S.me.id + (S.me.privacy && S.me.privacy.hide_online ? ":hidden" : "");
+  if(onCh && onKey===key) return; stopOnline(); onKey = key;
+  sb.auth.getSession().then(({data})=>{ if(data && data.session) try{ sb.realtime.setAuth(data.session.access_token); }catch(e){}
+    if(!S.me || onKey!==key) return;
+    onCh = sb.channel("online-users",{config:{private:true,presence:{key:S.me.id}}})
+      .on("presence",{event:"sync"},()=>{ ONLINE.clear(); Object.keys(onCh.presenceState()).forEach(k=>ONLINE.add(k)); paintOnline(); })
+      .subscribe(st=>{ if(st==="SUBSCRIBED" && S.me && !(S.me.privacy && S.me.privacy.hide_online)) onCh.track({at:Date.now()}).catch(()=>{}); });
+  });
+}
+function stopOnline(){ if(onCh){ try{ sb.removeChannel(onCh); }catch(e){} onCh = null; } onKey = ""; ONLINE.clear(); paintOnline(); }
+const isOnlineUser = id => ONLINE.has(id);
+let paintT = null;
+function paintOnline(){ clearTimeout(paintT); paintT = setTimeout(()=>{ document.querySelectorAll(".avw[data-uid]").forEach(el=>el.classList.toggle("on", ONLINE.has(el.dataset.uid))); drawSide(); },150); }
+// watchdog: rejoin the channel if it dropped
+setInterval(()=>{ if(S.me && (!onCh || !["joined","joining"].includes(onCh.state))){ onKey = ""; startOnline(); } },20000);
+
+let suggT = 0;
+async function loadSugg(force){
+  if(!sb || !S.me || !isReady(S.me)) { S.sugg = null; return drawSide(); }
+  if(!force && S.sugg && Date.now()-suggT < 180000) return drawSide();
+  const { data } = await sb.rpc("suggest_players",{p_limit:30}); S.sugg = data || []; suggT = Date.now(); drawSide();
+}
+setInterval(()=>{ if(S.me && !document.hidden) loadSugg(true); },180000);
+const SIDE_HIDE = ["vroom","quick","admin","setup","privacy","terms"];
+function suggReasons(p){
+  const r = [];
+  if(p.same_rank && p.rank) r.push(t("sgSameRank",{r:tl(p.rank)})); else if(p.near_rank) r.push(t("sgNearRank"));
+  (p.vibes||[]).slice(0,1).forEach(v=>r.push(tl(v))); (p.styles||[]).slice(0,1).forEach(v=>r.push(tl(v))); (p.times||[]).slice(0,1).forEach(v=>r.push(tl(v)));
+  return r.slice(0,3);
+}
+function suggItem(p){
+  const sent = S.suggSent && S.suggSent.has(p.id), on = ONLINE.has(p.id);
+  return `<div class="sg"><button class="plink" data-go="u-${esc(p.username)}" aria-label="${esc(p.display_name)}">${avatar(p,42)}</button>
+    <div class="sgb"><div class="sgn"><button class="plink" data-go="u-${esc(p.username)}"><b>${esc(p.display_name)}</b></button>${on?`<span class="sgon">${t("sgOnline")}</span>`:""}</div>
+      <div class="sgm" title="${t("sgMatch",{n:p.score})}"><i style="width:${p.score}%"></i></div><div class="sgr"><b>${p.score}%</b> · ${suggReasons(p).map(esc).join(" · ")||esc(t("sgNoInfo"))}</div></div>
+    ${sent?`<span class="tag" style="font-size:12px">${t("sgSent")}</span>`:`<button class="btn small sgadd" data-act="friend-add" data-uid="${p.id}" aria-label="${t("sgAdd")} ${esc(p.display_name)}">+</button>`}</div>`;
+}
+function suggListHTML(max){
+  if(!S.me) return `<p class="muted">${t("sgLogin")}</p><button class="btn small coral" data-act="auth" data-tab="signup">${t("signup")}</button>`;
+  if(!isReady(S.me)) return `<p class="muted">${t("sgSetup")}</p><button class="btn small coral" data-go="setup">${t("finishCta")}</button>`;
+  if(!S.sugg) return `<p class="mono">${t("loading")}</p>`;
+  let list = S.sugg.filter(p=>!(SOC.friends||[]).some(f=>f.id===p.id));
+  if(S.sgOnline) list = list.filter(p=>ONLINE.has(p.id));
+  if(!list.length) return `<p class="muted">${t(S.sgOnline?"sgNoneOnline":"sgNone")}</p>`;
+  const shown = list.slice(0, S.sgMore ? 30 : max);
+  return shown.map(suggItem).join("") + (list.length>shown.length?`<button class="btn small ghost" data-act="sg-more">${t("sgMore",{n:list.length-shown.length})}</button>`:"");
+}
+function sideHTML(){
+  const n = [...ONLINE].filter(id=>!S.me || id!==S.me.id).length;
+  return `<div class="side-head"><b>${t("sgTitle")}</b><button class="icon" data-act="sg-hide" aria-label="${t("sgHide")}" title="${t("sgHide")}">✕</button></div>
+    ${S.me?`<div class="sgbar"><span class="mono"><i class="odot-inline"></i> ${t("sgOnlineN",{n})}</span><label class="check" style="font-size:13px"><input type="checkbox" data-act="sg-online" ${S.sgOnline?"checked":""}> ${t("sgOnlyOnline")}</label></div><p class="hint">${t("sgSort")}</p>`:""}
+    <div class="sglist">${suggListHTML(8)}</div>`;
+}
+function drawSide(){
+  const root = $("#side-root"); if(!root) return; const r = route(), wide = window.innerWidth >= 1400;
+  const show = wide && !SIDE_HIDE.includes(r) && lsGet("gz.side")!=="0";
+  document.body.classList.toggle("side", show);
+  root.innerHTML = show ? `<aside class="side" aria-label="${t("sgTitle")}">${sideHTML()}</aside>` : (wide && !SIDE_HIDE.includes(r) ? `<button class="side-open" data-act="sg-show">👥 ${t("sgTitle")}</button>` : "");
+  const hs = $("#home-sugg"); if(hs) hs.innerHTML = suggListHTML(6);
+  fitSide();
+}
+function fitSide(){ const a = document.querySelector("#side-root .side"); if(!a) return; const d = $("#dock-root"); const h = d ? d.offsetHeight : 0; a.style.bottom = (h ? h + 28 : 16) + "px"; }
+window.addEventListener("resize", ()=>{ clearTimeout(window.__sideRT); window.__sideRT = setTimeout(drawSide,150); });
+try{ new ResizeObserver(fitSide).observe(document.getElementById("dock-root")); }catch(e){}
+document.addEventListener("click", e => {
+  const el = e.target.closest("[data-act]"); if(!el) return; const a = el.dataset.act;
+  if(a==="sg-hide"){ lsSet("gz.side","0"); drawSide(); }
+  else if(a==="sg-show"){ lsSet("gz.side","1"); drawSide(); }
+  else if(a==="sg-more"){ S.sgMore = true; drawSide(); }
+  else if(a==="friend-add" && el.closest(".sg")){ (S.suggSent = S.suggSent || new Set()).add(el.dataset.uid); setTimeout(drawSide,400); }
+});
+document.addEventListener("change", e => { if(e.target.dataset && e.target.dataset.act==="sg-online"){ S.sgOnline = e.target.checked; drawSide(); } });
+
 /* ---------- render ---------- */
 function render(){
   document.documentElement.lang = S.lang;
@@ -2311,7 +2409,7 @@ function render(){
   if(r!=="profile" && r!=="user") S.arranging=false;
   $("#view").innerHTML = views[r]();
   $("#foot").innerHTML = esc(t("foot"))+` · <button class="plink" data-go="privacy" style="text-decoration:underline">${t("privacyP")}</button> · <button class="plink" data-go="terms" style="text-decoration:underline">${t("termsP")}</button>`;
-  drawDock();
+  drawDock(); drawSide();
   $("#lang-root").innerHTML = r==="home" ? `<div class="lang" role="group" aria-label="Language">${LANGS.map(([k,l])=>`<button data-act="lang" data-val="${k}" aria-pressed="${S.lang===k}">${l}</button>`).join("")}</div>` : "";
 }
 function drawNav(){ const q = $("#q"), v = q ? q.value : "", f = q && document.activeElement===q; $("#nav").innerHTML = navHTML(); const n = $("#q"); if(n){ n.value = v; if(f) n.focus(); } }
@@ -2498,7 +2596,7 @@ document.addEventListener("change", async e => {
     try{ const blob = await resizeImage(f,1280,false); S.dialog={type:"story-new",blob,url:URL.createObjectURL(blob)}; renderDialog(); }catch(_){ toast(t("tNotImg")); }
     return;
   }
-  if(el.dataset && el.dataset.pv && S.me){ const pv = {...(S.me.privacy||{})}; pv[el.dataset.pv] = el.checked; return saveProfile({privacy:pv}); }
+  if(el.dataset && el.dataset.pv && S.me){ const pv = {...(S.me.privacy||{})}; pv[el.dataset.pv] = el.checked; const r = saveProfile({privacy:pv}); if(el.dataset.pv==="hide_online"){ S.me.privacy = pv; onKey = ""; startOnline(); } return r; }
   if(el.dataset && el.dataset.rf){ S.rf[el.dataset.rf] = el.type==="checkbox" ? el.checked : el.value; return rerender(); }
   if(el.dataset && el.dataset.pf && S.me){
     const k = el.dataset.pf; let v = el.value.trim();
