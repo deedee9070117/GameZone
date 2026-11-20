@@ -300,6 +300,12 @@ details.more{border:2px dashed var(--line);border-radius:12px;padding:10px 14px;
 .tteam{display:flex;flex-direction:column;gap:8px} .tmembers{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:8px 12px}
 .tmem{display:flex;gap:10px;align-items:center;text-align:left} .tmem>span{display:flex;flex-direction:column;line-height:1.3;min-width:0} .tmem .muted{font-size:13px} .tmem img{vertical-align:-3px}
 .trules{margin:10px 0 0;padding-left:22px;display:flex;flex-direction:column;gap:6px}
+.qb{display:inline-flex;align-items:flex-end;gap:2px;height:12px;margin-left:6px;vertical-align:middle} .qb i{width:4px;background:var(--line);border-radius:1px} .qb i:nth-child(1){height:5px} .qb i:nth-child(2){height:8px} .qb i:nth-child(3){height:12px}
+.qb.q3 i{background:var(--sage)} .qb.q2 i:nth-child(-n+2){background:var(--mustard)} .qb.q1 i:nth-child(1){background:var(--coral)}
+input.vol{display:block;width:100%;max-width:160px;margin-top:4px;accent-color:var(--coral);height:18px}
+.vsopts{display:flex;flex-direction:column;gap:8px} .vsopt{display:flex;flex-direction:column;align-items:flex-start;gap:2px;text-align:left;border:2px solid var(--ink);border-radius:12px;background:var(--card);padding:10px 14px}
+.vsopt span{font-size:13.5px;color:var(--ink-soft)} .vsopt[aria-pressed="true"]{background:var(--ink);color:var(--paper)} .vsopt[aria-pressed="true"] span{color:var(--line)}
+.vtmeter{height:14px;border:2px solid var(--ink);border-radius:999px;background:var(--field);overflow:hidden} .vtmeter i{display:block;height:100%;width:0;background:var(--sage);transition:width .06s linear}
 .lb-pos{min-width:28px;text-align:center;font-family:var(--font-display);font-weight:400;font-size:18px}
 .member.lb-me{background:var(--field);border-radius:10px;padding-left:6px;padding-right:8px}
 .notice{padding:10px 0;border-bottom:1.5px dashed var(--line)} .notice p{margin:4px 0 6px;white-space:pre-wrap;overflow-wrap:anywhere}
@@ -480,6 +486,7 @@ cnR6:["Invite friends: when someone signs up with your invite code, finishes the
 invPaid:["+20 paid","ได้ +20 แล้ว","已发 +20","+20 付与済み"], invWait:["Waiting for friend to play","รอเพื่อนเริ่มเล่น","等待好友开始游戏","友達のプレイ待ち"],
 styleT:["Play style in this game", "สไตล์การเล่นในเกมนี้", "此游戏中的风格", "このゲームでのスタイル"], stOpt:["(optional)", "(ไม่บังคับ)", "（选填）", "（任意）"], styleNote:["More detail than the general vibes on your profile, just for this game. Pick as many as you like.", "ละเอียดกว่านิสัยทั่วไปในโปรไฟล์ ใช้เฉพาะเกมนี้ เลือกได้หลายข้อ", "比个人资料里的风格更详细，只针对此游戏，可多选。", "プロフィールの雰囲気より詳しく、このゲーム専用。複数選択できます。"], st_play:["How you play", "สไตล์การเล่น", "打法", "プレイの仕方"], st_goal:["What you want", "เป้าหมายในการเล่น", "目标", "目的"], st_comms:["Talking in game", "การคุยในเกม", "游戏中交流", "ゲーム中の会話"], st_lead:["In the team", "บทบาทในทีม", "团队角色", "チームでの役割"], st_tilt:["When losing", "เวลาแพ้", "输的时候", "負けているとき"], st_session:["Usual session", "เล่นต่อครั้งประมาณ", "每次游戏时长", "1回のプレイ時間"], st_lang:["Languages", "ภาษาที่คุยได้", "语言", "話せる言語"], st_note:["Anything else about how you play", "อยากบอกอะไรเพิ่มเกี่ยวกับสไตล์ในเกมนี้", "关于你的玩法还有什么想说的", "プレイスタイルについて一言"], nNav:["News", "ข่าว", "新闻", "ニュース"], nEyebrow:["Game news", "ข่าวเกม", "游戏新闻", "ゲームニュース"], nTitle:["News", "ข่าวเกม", "新闻", "ニュース"], nSub:["Esports results, roster moves and talking points, mostly Valorant. Short summaries with a link to the full story.", "ผลการแข่งขัน การย้ายทีม และประเด็นร้อน เน้น Valorant สรุปสั้น ๆ พร้อมลิงก์ไปอ่านต่อที่ต้นทาง", "赛事结果、转会和热门话题，以 Valorant 为主。简短摘要并附原文链接。", "大会結果、移籍、話題をValorant中心に。短い要約と元記事へのリンク付き。"], nAll:["All", "ทั้งหมด", "全部", "すべて"], nThOnly:["Summaries are written in Thai.", "สรุปข่าวเขียนเป็นภาษาไทย", "摘要为泰语。", "要約はタイ語です。"], nRead:["Read more on {s}", "อ่านต่อที่ {s}", "在 {s} 阅读全文", "{s} で続きを読む"], nEmpty:["No news yet. Check back soon.", "ยังไม่มีข่าว กลับมาดูใหม่เร็ว ๆ นี้", "暂无新闻，请稍后再来。", "まだニュースはありません。"], nDrafts:["News waiting for you", "ข่าวที่รอคุณเลือก", "待选新闻", "選択待ちのニュース"], nDraftNote:["Only admins see this. Publish puts a story on the page for everyone.", "เห็นเฉพาะแอดมิน กด \"ลงหน้าเว็บ\" แล้วทุกคนจะเห็นข่าวนั้น", "仅管理员可见。点击发布后所有人可见。", "管理者のみ表示。公開すると全員に表示されます。"], nNoDrafts:["No new drafts. New ones arrive every morning.", "ยังไม่มีข่าวใหม่ ข่าวชุดใหม่จะมาทุกเช้า", "暂无新草稿，每天早上会有新的。", "新しい下書きはありません。毎朝届きます。"], nHidden:["Skipped ({n})", "ข่าวที่ข้ามไป ({n})", "已跳过（{n}）", "スキップ済み（{n}）"], nPublish:["Publish", "ลงหน้าเว็บ", "发布", "公開"], nEdit:["Edit", "แก้ไข", "编辑", "編集"], nUnpublish:["Take down", "เอาออกจากหน้าเว็บ", "下架", "非公開にする"], nSkip:["Skip", "ข้าม", "跳过", "スキップ"], nDelete:["Delete", "ลบ", "删除", "削除"], nSure:["Tap again to delete", "กดอีกครั้งเพื่อลบ", "再点一次删除", "もう一度押して削除"], nDonePub:["Published", "ลงหน้าเว็บแล้ว", "已发布", "公開しました"], nDoneHide:["Hidden", "ซ่อนแล้ว", "已隐藏", "非表示にしました"], nDoneDel:["Deleted", "ลบแล้ว", "已删除", "削除しました"], nSaved:["Saved", "บันทึกแล้ว", "已保存", "保存しました"], nEditT:["Edit news", "แก้ไขข่าว", "编辑新闻", "ニュースを編集"], nHead:["Headline", "หัวข้อข่าว", "标题", "見出し"], nSum:["Summary", "สรุปข่าว", "摘要", "要約"], nGame:["Game", "เกม", "游戏", "ゲーム"], nKind:["Type", "ประเภท", "类型", "種類"], nOther:["Other", "อื่น ๆ", "其他", "その他"], nSavePub:["Save and publish", "บันทึกและลงหน้าเว็บ", "保存并发布", "保存して公開"], nk_esports:["Esports", "การแข่งขัน", "赛事", "大会"], nk_roster:["Roster move", "ย้ายทีม", "转会", "移籍"], nk_drama:["Drama", "ดราม่า", "话题", "話題"], nk_update:["Game update", "อัปเดตเกม", "游戏更新", "アップデート"], nk_general:["News", "ทั่วไป", "综合", "一般"], tourNav:["Tournaments", "ทัวร์นาเมนต์", "锦标赛", "トーナメント"], tourTitle:["Tournaments", "ทัวร์นาเมนต์", "锦标赛", "トーナメント"], tourDev:["In development", "กำลังพัฒนา", "开发中", "開発中"], tourSub:["Soon you will be able to run your own game tournaments on GameZone.", "อีกไม่นานคุณจะจัดทัวร์นาเมนต์เกมของตัวเองบน GameZone ได้", "很快你就能在 GameZone 上举办自己的游戏锦标赛。", "近日、GameZoneで自分のトーナメントを開催できるようになります。"], tourComing:["What is coming", "สิ่งที่กำลังจะมา", "即将推出", "予定している機能"], tour1:["Create a tournament and open team sign-ups", "สร้างทัวร์นาเมนต์และเปิดรับสมัครทีม", "创建锦标赛并开放队伍报名", "トーナメント作成とチーム募集"], tour2:["Automatic brackets and match schedule", "สายการแข่งขันและตารางแข่งอัตโนมัติ", "自动生成对阵表和赛程", "対戦表とスケジュールの自動作成"], tour3:["Teams report scores, results update live", "ทีมส่งผลการแข่งเอง และอัปเดตผลแบบสด", "队伍上报比分，实时更新结果", "スコア報告と結果のリアルタイム更新"], tour4:["Winners announced on the site", "ประกาศผู้ชนะบนหน้าเว็บ", "在网站上公布获胜者", "サイトで優勝者を発表"], tourMean:["Until then, find teammates in rooms and keep up with the news.", "ระหว่างนี้ หาเพื่อนร่วมทีมในห้อง และติดตามข่าวเกมไปก่อนได้", "在此之前，可以先在房间里找队友，关注新闻。", "それまではルームで仲間を探し、ニュースをチェックしましょう。"], tourRooms:["Find teammates", "หาเพื่อนร่วมทีม", "寻找队友", "仲間を探す"], tourNews:["Read the news", "อ่านข่าวเกม", "看新闻", "ニュースを見る"],
 trSub:["Valorant · Gold, Platinum and Diamond divisions · 6 teams each · BO3 · from 1 Dec, one match a day at 18:00", "Valorant · แข่ง 3 แรงค์ Gold, Platinum, Diamond · แรงค์ละ 6 ทีม · BO3 · เริ่ม 1 ธ.ค. แข่งวันละนัด 18:00 น.", "Valorant · 黄金、铂金、钻石三个组别 · 每组 6 队 · BO3 · 12 月 1 日起每天 18:00 一场", "Valorant · ゴールド/プラチナ/ダイヤ 3部門 · 各6チーム · BO3 · 12月1日から毎日18:00に1試合"], trOpen:["Sign-ups open", "เปิดรับสมัคร", "报名中", "エントリー受付中"], trClosedTag:["Sign-ups closed", "ปิดรับสมัคร", "报名已截止", "受付終了"], trPrize:["Prizes", "ของรางวัล", "奖励", "賞品"], trNext:["Next match", "นัดต่อไป", "下一场", "次の試合"], trNowLive:["Live now", "กำลังแข่งตอนนี้", "正在进行", "ライブ中"], trNoNext:["No more matches", "ไม่มีนัดต่อไปแล้ว", "没有更多比赛", "試合はありません"], trQF:["Round 1 · Match {n}", "รอบแรก นัดที่ {n}", "首轮 第 {n} 场", "1回戦 第{n}試合"], trSF:["Semi-final {n}", "รอบรองชนะเลิศ {n}", "半决赛 {n}", "準決勝 {n}"], trFinal:["Final", "รอบชิงชนะเลิศ", "决赛", "決勝"], trRound1:["Round 1", "รอบแรก", "首轮", "1回戦"], trSemis:["Semi-finals", "รอบรองชนะเลิศ", "半决赛", "準決勝"], trChamp:["Champion", "แชมป์", "冠军", "優勝"], trSeedNote:["Seeds 1 and 2 go straight to the semi-finals. Seeds are drawn at random from the approved teams.", "ทีมอันดับ 1 และ 2 เข้ารอบรองชนะเลิศเลย อันดับทั้งหมดได้จากการจับสลากทีมที่ผ่านการอนุมัติ", "1、2 号种子直接进入半决赛。种子由已通过审核的队伍随机抽签决定。", "第1・第2シードは準決勝から。シードは承認済みチームから抽選で決定。"], trDone:["Finished", "จบแล้ว", "已结束", "終了"], trMapN:["Map {n}", "แมพ {n}", "地图 {n}", "マップ{n}"], trEditMatch:["Edit result", "แก้ผลการแข่ง", "编辑结果", "結果を編集"], trPlayersN:["{n}/5 players", "ผู้เล่น {n}/5", "{n}/5 名选手", "選手 {n}/5"], trSt_pending:["Waiting for approval", "รออนุมัติ", "待审核", "承認待ち"], trSt_approved:["Approved", "อนุมัติแล้ว", "已通过", "承認済み"], trSt_rejected:["Not approved", "ไม่ผ่าน", "未通过", "不承認"], trSt_withdrawn:["Withdrawn", "ถอนตัว", "已退出", "辞退"], trRole_player:["Player", "ผู้เล่น", "选手", "選手"], trRole_sub:["Substitute", "ตัวสำรอง", "替补", "控え"], trRole_coach:["Coach", "โค้ช", "教练", "コーチ"], trApprove:["Approve", "อนุมัติ", "通过", "承認"], trReject:["Reject", "ไม่อนุมัติ", "拒绝", "却下"], trRename:["Rename team", "แก้ชื่อทีม", "修改队名", "チーム名変更"], trMyTeam:["My team", "ทีมของฉัน", "我的队伍", "マイチーム"], trNeedPlayers:["{n} more player(s) needed before the team can be approved.", "ต้องมีผู้เล่นเพิ่มอีก {n} คน ทีมจึงจะได้รับการอนุมัติ", "还需 {n} 名选手才能通过审核。", "承認にはあと{n}人の選手が必要です。"], trReady:["Your team is approved. See you on match day!", "ทีมของคุณผ่านการอนุมัติแล้ว เจอกันวันแข่ง!", "你的队伍已通过审核，比赛日见！", "承認されました。試合日に会いましょう！"], trWaitApprove:["Team is full. An admin will check and approve it.", "ทีมครบแล้ว รอแอดมินตรวจสอบและอนุมัติ", "队伍已满员，等待管理员审核。", "メンバーが揃いました。管理者の承認待ちです。"], trTeamCode:["Team code", "โค้ดทีม", "队伍代码", "チームコード"], trCodeHint:["Send this code to your teammates. They join the team with it from this page.", "ส่งโค้ดนี้ให้เพื่อนร่วมทีม แล้วให้เข้าร่วมทีมจากหน้านี้", "把代码发给队友，他们在此页面用代码加入。", "このコードをチームメイトに送り、このページから参加してもらいます。"], trTeamRoom:["Open team voice room", "เข้าห้องเสียงของทีม", "进入队伍语音房间", "チームのボイスルームへ"], trWithdraw:["Withdraw team", "ถอนทีม", "退出比赛", "チームを辞退"], trLeave:["Leave team", "ออกจากทีม", "离开队伍", "チームを抜ける"], trWithdrawQ:["As captain, leaving withdraws the whole team from the tournament. Continue?", "คุณเป็นหัวหน้าทีม ถ้าออก ทีมทั้งทีมจะถอนตัวจากทัวร์นาเมนต์ ต้องการทำต่อไหม", "你是队长，离开将使整支队伍退出比赛。继续吗？", "キャプテンが抜けるとチーム全体が辞退になります。続けますか？"], trLeaveQ:["Leave this team?", "ออกจากทีมนี้ไหม", "确定离开此队伍？", "このチームを抜けますか？"], trLeft:["Done", "เรียบร้อย", "完成", "完了"], trKickHint:["Remove a member:", "นำสมาชิกออกจากทีม:", "移除成员：", "メンバーを外す："], trKicked:["{n} removed", "นำ {n} ออกแล้ว", "已移除 {n}", "{n} を外しました"], trNeedAcc:["Log in to register a team. You need your Valorant in-game name and rank in your profile.", "ล็อกอินเพื่อสมัครทีม ต้องมีชื่อในเกมและแรงค์ Valorant ในโปรไฟล์", "登录后报名队伍。需要在资料中填写 Valorant 游戏名和段位。", "チーム登録にはログインが必要です。プロフィールにValorantのゲーム内名とランクが必要です。"], trRegClosed:["Sign-ups are closed.", "ปิดรับสมัครแล้ว", "报名已截止。", "エントリーは締め切りました。"], trJoinTitle:["Join the tournament", "สมัครแข่งขัน", "报名参赛", "エントリー"], trJoinSub:["Free to enter. Create a team as captain, or join a friend's team with their team code. Sign-ups close {d}.", "สมัครฟรี สร้างทีมในฐานะหัวหน้าทีม หรือเข้าร่วมทีมเพื่อนด้วยโค้ดทีม ปิดรับสมัคร {d}", "免费参赛。作为队长创建队伍，或用队伍代码加入朋友的队伍。报名截止 {d}。", "参加無料。キャプテンとしてチームを作るか、チームコードで友達のチームに参加。締切 {d}。"], trCreate:["Create a team", "สร้างทีม", "创建队伍", "チームを作る"], trJoinCode:["Join with team code", "เข้าร่วมด้วยโค้ดทีม", "用代码加入", "コードで参加"], trJoinBtn:["Join team", "เข้าร่วมทีม", "加入队伍", "参加する"], trTeamsIn:["{d} teams", "ทีมในแรงค์ {d}", "{d} 组队伍", "{d} 部門のチーム"], trNoTeams:["No teams yet.", "ยังไม่มีทีม", "还没有队伍。", "まだチームはありません。"], trSchedule:["Full schedule", "ตารางแข่งทั้งหมด", "完整赛程", "全日程"], trDaily:["one match a day", "วันละ 1 นัด", "每天一场", "1日1試合"], trRules:["Rules", "กติกา", "规则", "ルール"], trAdmin:["Tournament admin", "จัดการทัวร์นาเมนต์ (แอดมิน)", "赛事管理", "大会管理"], trRegOpen:["Accept sign-ups", "เปิดรับสมัคร", "开放报名", "エントリー受付"], trPrizeT:["Prizes (one line each)", "ของรางวัล (บรรทัดละข้อ)", "奖励（每行一条）", "賞品（1行に1つ）"], trRulesT:["Rules (one line each)", "กติกา (บรรทัดละข้อ)", "规则（每行一条）", "ルール（1行に1つ）"], trSeedT:["Draw seeds", "จับสลากอันดับทีม", "抽签种子", "シード抽選"], trSeedHint:["Randomly places the approved teams into the bracket. You can still edit any name afterwards. Tap twice to confirm.", "สุ่มวางทีมที่อนุมัติแล้วลงสายการแข่ง หลังจากนั้นยังแก้ชื่อในแต่ละนัดได้ตลอด กดสองครั้งเพื่อยืนยัน", "把已通过的队伍随机放入对阵表，之后仍可修改名称。点两次确认。", "承認済みチームを対戦表にランダム配置。後から名前を編集できます。2回押して確定。"], trSeedBtn:["Draw {d}", "จับสลาก {d}", "抽签 {d}", "{d} を抽選"], trAllTeams:["All teams in this division", "ทีมทั้งหมดในแรงค์นี้", "此组别全部队伍", "この部門の全チーム"], trSeeded:["Bracket updated", "อัปเดตสายการแข่งแล้ว", "对阵表已更新", "対戦表を更新しました"], trPointsDone:["GZ Point given to {n} member(s)", "ให้ GZ Point แก่สมาชิก {n} คนแล้ว", "已向 {n} 名成员发放 GZ Point", "{n}人にGZ Pointを付与しました"], trDivision:["Division", "แรงค์ที่สมัคร", "组别", "部門"], trMyRole:["My role", "ตำแหน่งของฉันในทีม", "我的身份", "役割"], trTeamName:["Team name", "ชื่อทีม", "队名", "チーム名"], trCreateHint:["Your in-game name and rank are taken from your profile. Players and the substitute must not be ranked above the division.", "ระบบใช้ชื่อในเกมและแรงค์จากโปรไฟล์ของคุณ ผู้เล่นและตัวสำรองต้องมีแรงค์ไม่สูงกว่าแรงค์ที่สมัคร", "游戏名和段位取自你的资料。选手和替补的段位不得高于所报组别。", "ゲーム内名とランクはプロフィールから。選手・控えは部門より上のランク不可。"], trFixProfile:["Edit my Valorant details", "แก้ข้อมูล Valorant ของฉัน", "编辑我的 Valorant 信息", "Valorant情報を編集"], trCreated:["Team created. Share the team code with your teammates.", "สร้างทีมแล้ว ส่งโค้ดทีมให้เพื่อนร่วมทีมได้เลย", "队伍已创建，把代码发给队友吧。", "チームを作成しました。コードを共有しましょう。"], trJoined:["You joined the team", "เข้าร่วมทีมแล้ว", "已加入队伍", "チームに参加しました"], trTeamA:["Team A", "ทีม A", "A 队", "チームA"], trTeamB:["Team B", "ทีม B", "B 队", "チームB"], trStatus:["Status", "สถานะ", "状态", "状態"], trTime:["Start time (Thailand)", "เวลาเริ่ม (เวลาไทย)", "开始时间（泰国）", "開始時刻（タイ時間）"], trNote:["Note (shown on the card)", "หมายเหตุ (แสดงบนการ์ด)", "备注（显示在卡片上）", "メモ（カードに表示）"], trSt2_scheduled:["Not started", "ยังไม่แข่ง", "未开始", "未開始"], trSt2_live:["Live now", "กำลังแข่ง", "进行中", "ライブ中"], trSt2_done:["Finished", "จบแล้ว", "已结束", "終了"], trMatchHint:["Enter round scores per map (e.g. 13 and 9). Two map wins finish the match, and the winner moves to the next round automatically.", "กรอกคะแนนรอบของแต่ละแมพ เช่น 13 กับ 9 ชนะครบ 2 แมพ นัดนั้นจะจบ และทีมที่ชนะจะถูกใส่ในนัดถัดไปให้อัตโนมัติ", "按地图填写回合比分（如 13 和 9）。先赢两张图即结束，胜者自动晋级下一轮。", "マップごとのラウンドスコアを入力（例 13 と 9）。2マップ先取で終了し、勝者は自動で次へ。"], trE_login:["Please log in first", "ล็อกอินก่อน", "请先登录", "先にログインしてください"], trE_banned:["This account can't take part", "บัญชีนี้ร่วมแข่งไม่ได้", "此账号无法参赛", "このアカウントは参加できません"], trE_closed:["Sign-ups are closed", "ปิดรับสมัครแล้ว", "报名已截止", "受付は終了しました"], trE_bad_role:["Pick a role", "เลือกตำแหน่งในทีม", "请选择身份", "役割を選んでください"], trE_in_team:["You are already in a team", "คุณอยู่ในทีมอื่นแล้ว", "你已在一支队伍中", "すでにチームに所属しています"], trE_need_ign:["Add your Valorant in-game name (Name#TAG) to your profile first", "เพิ่มชื่อในเกม Valorant (ชื่อ#แท็ก) ในโปรไฟล์ก่อน", "请先在资料中填写 Valorant 游戏名（名字#标签）", "先にプロフィールにValorantのゲーム内名（名前#タグ）を追加してください"], trE_need_rank:["Add your Valorant rank to your profile first", "เพิ่มแรงค์ Valorant ในโปรไฟล์ก่อน", "请先在资料中填写 Valorant 段位", "先にプロフィールにValorantのランクを追加してください"], trE_rank_high:["Your rank is above this division. Pick a higher division.", "แรงค์ของคุณสูงกว่าแรงค์นี้ เลือกแรงค์ที่สูงขึ้น", "你的段位高于此组别，请选择更高组别。", "ランクがこの部門より上です。上の部門を選んでください。"], trE_div_full:["This division already has 6 teams", "แรงค์นี้ครบ 6 ทีมแล้ว", "此组别已满 6 队", "この部門は6チームで満員です"], trE_bad_name:["Team name must be 2–24 characters", "ชื่อทีมต้องยาว 2–24 ตัวอักษร", "队名需 2–24 个字符", "チーム名は2〜24文字"], trE_name_taken:["That team name is taken", "ชื่อทีมนี้มีคนใช้แล้ว", "队名已被使用", "そのチーム名は使用済みです"], trE_bad_code:["Team code not found", "ไม่พบโค้ดทีมนี้", "找不到该队伍代码", "チームコードが見つかりません"], trE_role_full:["That role is already filled in this team", "ตำแหน่งนี้ในทีมเต็มแล้ว", "该身份在队中已满", "その役割は埋まっています"],
+vsTitle:["Voice settings", "ตั้งค่าเสียง", "语音设置", "ボイス設定"], vsShort:["Settings", "ตั้งค่า", "设置", "設定"], vsNs:["Noise reduction", "ตัดเสียงรบกวน", "降噪", "ノイズ除去"], vs_strong:["Strong", "แรง", "强", "強"], vs_strongD:["Recommended for games. Removes keyboard, fan and room noise and stays silent when you are not talking.", "แนะนำตอนเล่นเกม ตัดเสียงคีย์บอร์ด พัดลม เสียงรอบห้อง และเงียบสนิทตอนคุณไม่พูด", "推荐游戏时使用。去除键盘、风扇和环境噪音，不说话时完全静音。", "ゲーム向け推奨。キーボード・ファン・環境音を除去し、話していない時は無音に。"], vs_standard:["Standard", "ปกติ", "标准", "標準"], vs_standardD:["The browser's built-in noise and echo reduction only.", "ใช้ระบบตัดเสียงรบกวนและเสียงก้องของเบราว์เซอร์อย่างเดียว", "仅使用浏览器自带的降噪和回声消除。", "ブラウザ内蔵のノイズ・エコー除去のみ。"], vs_off:["Off", "ปิด", "关闭", "オフ"], vs_offD:["Raw microphone sound. Use only with a studio mic in a quiet room.", "เสียงไมค์ดิบ ใช้เฉพาะเมื่อมีไมค์ดีและอยู่ในห้องเงียบ", "原始麦克风声音，仅适用于安静环境中的专业麦克风。", "マイクそのままの音。静かな部屋の高品質マイク向け。"], vsMic:["Microphone", "ไมโครโฟน", "麦克风", "マイク"], vsOut:["Speaker or headphones", "ลำโพงหรือหูฟัง", "扬声器或耳机", "スピーカー・ヘッドホン"], vsDefault:["System default", "ค่าเริ่มต้นของเครื่อง", "系统默认", "システムの既定"], vsTest:["Test mic", "ทดสอบไมค์", "测试麦克风", "マイクテスト"], vsStopTest:["Stop test", "หยุดทดสอบ", "停止测试", "テスト停止"], vsHear:["Hear myself (use headphones)", "ฟังเสียงตัวเอง (ใส่หูฟัง)", "听自己的声音（请戴耳机）", "自分の声を聞く（ヘッドホン使用）"], vsHint:["The bar should move only when you talk. Voice keeps working when you switch to the game; leave this tab open.", "แถบควรขยับเฉพาะตอนคุณพูด เสียงยังทำงานต่อตอนสลับไปเล่นเกม แค่อย่าปิดแท็บนี้", "进度条只应在你说话时跳动。切到游戏时语音仍会工作，请保持此标签页打开。", "話した時だけバーが動けばOK。ゲームに切り替えても通話は続きます。このタブは閉じないでください。"], vsBadge:["Noise reduction: {m}", "ตัดเสียงรบกวน: {m}", "降噪：{m}", "ノイズ除去：{m}"], qLoss:["lost", "เสียงหาย", "丢包", "ロス"], volOf:["Volume for {n}", "ระดับเสียงของ {n}", "{n} 的音量", "{n} の音量"], adminTag:["Admin", "แอดมิน", "管理员", "管理者"], trAdminRoom:["Enter team voice room", "เข้าห้องเสียงทีมนี้", "进入该队语音房间", "チームのボイスルームへ"],
 wantsFriend:["sent you a friend request","ส่งคำขอเป็นเพื่อนถึงคุณ","向你发送了好友请求","からフレンド申請が届きました"], notifs:["Notifications","การแจ้งเตือน","通知","通知"], noNotifs:["Nothing new","ยังไม่มีอะไรใหม่","暂无新通知","新しい通知はありません"], wantsFriend:["wants to be friends","ขอเป็นเพื่อน","想加你为好友","からフレンド申請"], invitedYou:["invited you to","ชวนคุณเข้าห้อง","邀请你加入","からの招待"], joinNow:["Join","เข้าร่วม","加入","参加"], dismiss:["Dismiss","ปิด","忽略","閉じる"],
 noFriends:["No friends yet","ยังไม่มีเพื่อน","还没有好友","フレンドはまだいません"], blockedList:["Blocked","ที่บล็อกไว้","已屏蔽","ブロック中"], unblock:["Unblock","เลิกบล็อก","取消屏蔽","ブロック解除"], block:["Block","บล็อก","屏蔽","ブロック"], report:["Report","รายงาน","举报","通報"],
 unfriend:["Remove friend","ลบเพื่อน","删除好友","フレンド解除"], unfriendConfirm:["Remove {n} from your friends?","ลบ {n} ออกจากเพื่อน?","将 {n} 从好友中删除？","{n} をフレンドから外しますか？"], blockConfirm:["Block {n}? You won't be matched or share rooms, and their messages will be hidden.","บล็อก {n}? ระบบจะไม่จับคู่และไม่ให้อยู่ห้องเดียวกัน และจะซ่อนข้อความของเขา","屏蔽 {n}？你们将不会被匹配或同房，对方的消息也会被隐藏。","{n} をブロックしますか？マッチングや同室がなくなり、メッセージも非表示になります。"],
@@ -1018,13 +1025,18 @@ function makePc(peer){
   RC.stream.getTracks().forEach(tr=>pc.addTrack(tr,RC.stream));
   pc.onicecandidate = e => { if(e.candidate) sendSig({kind:"ice",to:peer,cand:e.candidate.toJSON()}); };
   pc.ontrack = e => { let a = document.getElementById("au-"+peer); if(!a){ a = document.createElement("audio"); a.id = "au-"+peer; a.autoplay = true; $("#audio-root").appendChild(a); }
-    a.srcObject = e.streams[0]; a.muted = !!RC.deaf; a.play().catch(()=>{}); addMeter(peer,e.streams[0]); };
+    a.srcObject = e.streams[0]; a.muted = !!RC.deaf; setupAudioEl(a,peer); a.play().catch(()=>{}); addMeter(peer,e.streams[0]); };
   pc.onconnectionstatechange = () => { if(RC.pcs[peer]!==pc) return; const st = pc.connectionState;
-    if(st==="failed" || st==="closed"){ closePc(peer); setTimeout(syncVoice,1500); }
-    else if(st==="disconnected") setTimeout(()=>{ if(RC.pcs[peer]===pc && pc.connectionState==="disconnected"){ closePc(peer); syncVoice(); } },8000);
+    if(st==="connected"){ pc._rs = 0; tuneSender(pc); }
+    // first try to repair the path (ICE restart) without dropping the call, then rebuild it
+    else if(st==="failed" && S.me.id<peer && (pc._rs||0)<2){ pc._rs = (pc._rs||0)+1; restartPc(peer,pc); }
+    else if(st==="failed" || st==="closed"){ closePc(peer); setTimeout(syncVoice,1500); }
+    else if(st==="disconnected"){ setTimeout(()=>{ if(RC.pcs[peer]===pc && pc.connectionState==="disconnected" && S.me.id<peer) restartPc(peer,pc); },2500);
+      setTimeout(()=>{ if(RC.pcs[peer]===pc && pc.connectionState!=="connected"){ closePc(peer); syncVoice(); } },15000); }
     updateRoom("voice"); updateRoom("members"); };
   return pc;
 }
+async function restartPc(peer,pc){ try{ if(pc.restartIce) pc.restartIce(); const o = await pc.createOffer({iceRestart:true}); await pc.setLocalDescription({type:o.type,sdp:opusTune(o.sdp)}); sendSig({kind:"offer",to:peer,sdp:pc.localDescription,restart:true}); }catch(e){ closePc(peer); syncVoice(); } }
 function closePc(peer){ const pc = RC.pcs && RC.pcs[peer]; if(pc){ try{ pc.close(); }catch(e){} delete RC.pcs[peer]; } const a = document.getElementById("au-"+peer); if(a) a.remove(); if(RC.meters) delete RC.meters[peer]; }
 async function syncVoice(){
   if(!RC.inVoice) return;
@@ -1032,29 +1044,29 @@ async function syncVoice(){
   // keep a working call even if the other side briefly drops off the live channel; only clear calls that are not connected
   Object.keys(RC.pcs).forEach(u=>{ if(!peers.includes(u) && (RC.pcs[u].connectionState!=="connected" || !RC.members.some(m=>m.user_id===u))) closePc(u); });
   for(const u of peers){ if(RC.pcs[u] || S.me.id>u) continue; // the smaller id calls, so two people never call each other at once
-    try{ const pc = makePc(u); const offer = await pc.createOffer(); await pc.setLocalDescription(offer); sendSig({kind:"offer",to:u,sdp:pc.localDescription}); }catch(e){ closePc(u); } }
+    try{ const pc = makePc(u); const offer = await pc.createOffer(); await pc.setLocalDescription({type:offer.type,sdp:opusTune(offer.sdp)}); sendSig({kind:"offer",to:u,sdp:pc.localDescription}); }catch(e){ closePc(u); } }
 }
 async function onSignal(m){
   if(!RC.inVoice || !m || m.to!==S.me.id || !RC.members.some(x=>x.user_id===m.from)) return;
   try{
-    if(m.kind==="offer"){ closePc(m.from); const pc = makePc(m.from); await pc.setRemoteDescription(m.sdp);
+    if(m.kind==="offer"){ let pc = RC.pcs[m.from]; if(!(m.restart && pc)){ closePc(m.from); pc = makePc(m.from); } await pc.setRemoteDescription(m.sdp);
       for(const c of RC.pend[m.from]) await pc.addIceCandidate(c).catch(()=>{}); RC.pend[m.from] = [];
-      const ans = await pc.createAnswer(); await pc.setLocalDescription(ans); sendSig({kind:"answer",to:m.from,sdp:pc.localDescription}); }
+      const ans = await pc.createAnswer(); await pc.setLocalDescription({type:ans.type,sdp:opusTune(ans.sdp)}); sendSig({kind:"answer",to:m.from,sdp:pc.localDescription}); }
     else if(m.kind==="answer"){ const pc = RC.pcs[m.from]; if(pc){ await pc.setRemoteDescription(m.sdp); for(const c of RC.pend[m.from]||[]) await pc.addIceCandidate(c).catch(()=>{}); RC.pend[m.from] = []; } }
     else if(m.kind==="ice"){ const pc = RC.pcs[m.from]; if(pc && pc.remoteDescription) await pc.addIceCandidate(m.cand).catch(()=>{}); else (RC.pend[m.from] = RC.pend[m.from]||[]).push(m.cand); }
   }catch(e){}
 }
 async function joinVoice(){
   const err = $("#voice-err");
-  try{ RC.stream = await navigator.mediaDevices.getUserMedia({audio:{echoCancellation:true,noiseSuppression:true,autoGainControl:true}}); }
-  catch(e){ if(err) err.textContent = t("micErr"); return; }
-  RC.inVoice = true; RC.muted = false; RC.deaf = false;
-  try{ RC.actx = new (window.AudioContext||window.webkitAudioContext)(); RC.meters = {}; addMeter(S.me.id,RC.stream); }catch(e){}
+  try{ RC.actx = new (window.AudioContext||window.webkitAudioContext)(); }catch(e){ RC.actx = null; }
+  let ch; try{ ch = await voiceChain(RC.actx); }catch(e){ if(err) err.textContent = t("micErr"); if(RC.actx) try{ RC.actx.close(); }catch(_){} RC.actx = null; return; }
+  RC.raw = ch.raw; RC.stream = ch.out; RC.inVoice = true; RC.muted = false; RC.deaf = false; RC.meters = {}; RC.q = {}; RC.qs = {};
+  if(RC.actx){ RC.actx.resume().catch(()=>{}); addMeter(S.me.id,RC.stream); }
   await trackMe(true); bsend("vs",{muted:!!RC.muted,hello:true}); updateRoom("voice"); updateRoom("members"); syncVoice(); drawDock();
 }
 function leaveVoice(silent){
   if(!RC.inVoice) return; Object.keys(RC.pcs||{}).forEach(closePc);
-  if(RC.stream) RC.stream.getTracks().forEach(tr=>tr.stop()); RC.stream = null; RC.inVoice = false; RC.muted = false; RC.deaf = false;
+  [RC.stream,RC.raw].forEach(st=>st && st.getTracks().forEach(tr=>tr.stop())); RC.stream = null; RC.raw = null; RC.inVoice = false; RC.muted = false; RC.deaf = false;
   if(RC.actx) try{ RC.actx.close(); }catch(e){} RC.actx = null; RC.meters = {}; if(RC.spkSent) bsend("spk",{on:false}); RC.spkSent = false; bsend("vs",{muted:false,left:true});
   if(!silent){ trackMe(true); updateRoom("voice"); drawDock(); }
 }
@@ -1069,14 +1081,15 @@ const roomParts = {
       <div class="codebox"><span class="mono">${t("partyCode")}</span>${RC.code?`<b>${esc(RC.code)}</b><button class="btn small" data-act="copy-code">${t("copy")}</button>`:`<span class="muted">${t("codeNone")}</span>`}</div>`; },
   voice(){ const inV = RC.members.map(m=>m.user_id).filter(u=>u===S.me.id ? RC.inVoice : inVoiceNow(u)), vm = u => u===S.me.id ? RC.muted : RC.vmute[u];
     return `<span class="mono">${t("voice")}</span>
-      <div>${inV.length?inV.map(u=>personRow(u,vm(u)?`<span class="muted">${t("mutedTag")}</span>`:"")+`</div>`).join(""):`<p class="muted">${t("noVoice")}</p>`}</div>
-      <div class="vbtns">${RC.inVoice?`<button class="btn small" data-act="v-mute" aria-pressed="${!!RC.muted}">${RC.muted?t("unmute"):t("mute")}</button><button class="btn small" data-act="v-deaf" aria-pressed="${!!RC.deaf}">${RC.deaf?t("undeafen"):t("deafen")}</button><button class="btn small coral" data-act="v-leave">${t("leaveVoice")}</button>`
+      <div>${inV.length?inV.map(u=>{ const other = RC.inVoice && u!==S.me.id, p = RC.people[u]||{};
+        return personRow(u,(vm(u)?`<span class="muted">${t("mutedTag")}</span>`:"")+(other?`<span class="qb q${(RC.q&&RC.q[u])||0}" data-q="${u}" aria-hidden="true"><i></i><i></i><i></i></span><input type="range" class="vol" min="0" max="100" value="${Math.round((VS.vol[u]??1)*100)}" data-vol="${u}" aria-label="${t("volOf",{n:esc(p.display_name||"")})}">`:""))+`</div>`; }).join(""):`<p class="muted">${t("noVoice")}</p>`}</div>
+      <div class="vbtns">${RC.inVoice?`<button class="btn small" data-act="v-mute" aria-pressed="${!!RC.muted}">${RC.muted?t("unmute"):t("mute")}</button><button class="btn small" data-act="v-deaf" aria-pressed="${!!RC.deaf}">${RC.deaf?t("undeafen"):t("deafen")}</button><button class="btn small" data-act="v-set" aria-label="${t("vsTitle")}">⚙ ${t("vsShort")}</button><button class="btn small coral" data-act="v-leave">${t("leaveVoice")}</button><span class="hint" style="flex-basis:100%">${t("vsBadge",{m:t("vs_"+VS.ns)})}</span>`
         :`<button class="btn small coral" data-act="v-join">${t("joinVoice")}</button>`}</div><p class="err" id="voice-err" role="alert" style="min-height:0"></p>`; },
   members(){ const r = RC.data, host = S.me.id===r.host_id;
     const here = RC.members.filter(isHere), away = RC.members.filter(m=>!here.includes(m));
-    const kick = m => host&&m.user_id!==S.me.id?`<button class="icon" data-act="kick" data-uid="${m.user_id}" aria-label="${t("remove")}" title="${t("remove")}">✕</button>`:"";
+    const kick = m => host&&m.user_id!==S.me.id&&m.role!=="admin"?`<button class="icon" data-act="kick" data-uid="${m.user_id}" aria-label="${t("remove")}" title="${t("remove")}">✕</button>`:"";
     const row = (m,sub,on) => personRow(m.user_id,`<span class="muted" style="display:block">${sub}</span>`)+`<i class="dot ${on?"on":""}"></i>${on===null?"":kick(m)}</div>`;
-    return `<span class="mono">${t("hereNow")} · ${here.length}/${r.size}</span><div>${here.map(m=>row(m,[m.role,m.user_id===r.host_id?t("host"):"",m.user_id===S.me.id?t("you"):""].filter(Boolean).map(esc).join(" · "),true)).join("")}</div>
+    return `<span class="mono">${t("hereNow")} · ${here.filter(m=>m.role!=="admin").length}/${r.size}</span><div>${here.map(m=>row(m,[m.role==="admin"?t("adminTag"):m.role,m.user_id===r.host_id?t("host"):"",m.user_id===S.me.id?t("you"):""].filter(Boolean).map(esc).join(" · "),true)).join("")}</div>
       ${away.length?`<span class="mono">${t("awaySec")} · ${away.length}</span><div class="dim">${away.map(m=>row(m,esc(leftText(RC.seenAt[m.user_id]||m.last_seen||m.joined_at)),false)).join("")}</div>`:""}
       ${RC.gone.length?`<span class="mono">${t("leftSec")} · ${RC.gone.length}</span><div class="dim">${RC.gone.map(m=>row(m,esc(leftText(m.left_at)),null)).join("")}</div>`:""}`; },
   msgs(){ if(!RC.msgs.length) return `<p class="muted" style="margin:auto">${t("noMsgs")}</p>`;
@@ -1085,7 +1098,7 @@ const roomParts = {
       const link = inner => `<button class="plink" data-go="u-${esc(p.username||"")}">${inner}</button>`;
       return `<div class="msg ${cont?"cont":""}">${cont?"<span></span>":link(avatar(p,34))}<div>${cont?"":`${link(`<b>${esc(p.display_name||"")}</b>`)}<time>${tm}</time>`}<div class="b">${isBlockedId(m.user_id)?`<span class="muted">${t("hiddenMsg")}</span>`:esc(m.body)}</div></div></div>`; }).join(""); }
 };
-function updateRoom(part){
+function updateRoom(part){ if(part==="voice" && document.activeElement && document.activeElement.classList && document.activeElement.classList.contains("vol")) return;
   const el = document.getElementById("rm-"+part); if(!el || !RC.data || !RC.member) return;
   if(part==="msgs"){ const near = el.scrollHeight-el.scrollTop-el.clientHeight<120; el.innerHTML = roomParts.msgs(); if(near || RC.forceScroll){ el.scrollTop = el.scrollHeight; RC.forceScroll = false; } }
   else el.innerHTML = roomParts[part]();
@@ -1726,6 +1739,7 @@ function renderDialog(){
   } else if(d.type==="news-edit"){ inner = newsEditDialog(d);
   } else if(d.type==="tour-create" || d.type==="tour-join"){ inner = tourFormDialog(d);
   } else if(d.type==="tour-match"){ inner = tourMatchDialog(d);
+  } else if(d.type==="voice-set"){ inner = voiceSetDialog();
   } else if(d.type==="confirm"){ inner = confirmDialog(d);
   } else if(d.type==="report"){ inner = reportDialog(d);
   } else if(d.type==="rate"){ inner = rateDialog(d);
@@ -2087,7 +2101,7 @@ function teamBlock(tm, full){
   return `<div class="card tteam"><div class="rm-row" style="align-items:flex-start"><div><b style="font-size:19px">${esc(tm.name)}</b> ${tm.seed?`<span class="tag">#${tm.seed}</span>`:""}
       <div class="mono" style="margin-top:2px">${TDIV_NAME[tm.division]} · ${t("trPlayersN",{n:players})}</div></div><span class="tag ${tm.status==="approved"?"open":tm.status==="pending"?"you":"full"}">${t("trSt_"+tm.status)}</span></div>
     <div class="tmembers">${tm.members.map(x=>`<button class="plink tmem" data-go="u-${esc(x.username)}">${avatar(x,34)}<span><b>${esc(x.display_name)}</b><span class="muted">${t("trRole_"+x.role)}${x.rank?" · "+(VAL_RANKS.includes(x.rank)?rankImg(x.rank,16)+" ":"")+esc(x.rank):""}${full&&x.ign?" · "+esc(x.ign):""}</span></span></button>`).join("")||`<p class="muted">–</p>`}</div>
-    ${full && S.tour.admin ? `<div class="chips" style="margin-top:10px">${tm.status!=="approved"?`<button class="btn small coral" data-act="ta-team" data-id="${tm.id}" data-v="approved">${t("trApprove")}</button>`:""}${tm.status!=="rejected"?`<button class="btn small" data-act="ta-team" data-id="${tm.id}" data-v="rejected">${t("trReject")}</button>`:""}<button class="btn small" data-act="ta-rename" data-id="${tm.id}" data-name="${esc(tm.name)}">${t("trRename")}</button><button class="btn small" data-act="ta-points" data-id="${tm.id}" data-name="${esc(tm.name)}">+100 GZ Point</button></div>` : ""}</div>`;
+    ${full && S.tour.admin ? `<div class="chips" style="margin-top:10px">${tm.status!=="approved"?`<button class="btn small coral" data-act="ta-team" data-id="${tm.id}" data-v="approved">${t("trApprove")}</button>`:""}${tm.status!=="rejected"?`<button class="btn small" data-act="ta-team" data-id="${tm.id}" data-v="rejected">${t("trReject")}</button>`:""}<button class="btn small" data-act="ta-rename" data-id="${tm.id}" data-name="${esc(tm.name)}">${t("trRename")}</button><button class="btn small" data-act="ta-points" data-id="${tm.id}" data-name="${esc(tm.name)}">+100 GZ Point</button><button class="btn small" data-act="ta-room" data-id="${tm.id}">🎧 ${t("trAdminRoom")}</button></div>` : ""}</div>`;
 }
 function myTeamHTML(){
   const tm = myTeam(); if(!tm) return "";
@@ -2197,6 +2211,97 @@ document.addEventListener("submit", async e => {
   if(res.error){ S.dialog = {...d, err:tourErr(res.error.message), name:val("tc-name"), code:val("tj-code"), div:pressed("tr_div")[0]}; return renderDialog(); }
   S.dialog = null; renderDialog(); toast(t(f==="tour-create"?"trCreated":"trJoined")); loadTour();
 });
+
+/* ---------- voice quality: noise reduction, devices, mic test, per-person volume, connection quality ---------- */
+const VS = Object.assign({ns:"strong",mic:"",out:"",vol:{}}, (()=>{ try{ return JSON.parse(lsGet("gz.voice")||"{}"); }catch(e){ return {}; } })());
+const saveVS = () => lsSet("gz.voice", JSON.stringify(VS));
+// noise gate that runs on the audio thread, so it keeps working while the browser is in the background behind a game
+const GATE_SRC = `class G extends AudioWorkletProcessor{constructor(){super();this.f=.004;this.g=0;this.h=0;}
+process(i,o){const a=i[0]&&i[0][0],out=o[0];if(!a){return true;}let s=0;for(let k=0;k<a.length;k++)s+=a[k]*a[k];const r=Math.sqrt(s/a.length);
+if(r<this.f*1.5)this.f=this.f*.995+r*.005;else this.f=Math.min(.05,this.f*1.0002);const th=Math.max(.006,this.f*2.6);
+if(r>th)this.h=Math.round(sampleRate*.35/a.length);else if(this.h>0)this.h--;const tg=this.h>0?1:0;const b=out[0];
+for(let k=0;k<a.length;k++){this.g+=(tg-this.g)*(tg>this.g?.02:.0012);b[k]=a[k]*this.g;}for(let c=1;c<out.length;c++)out[c].set(b);return true;}}
+registerProcessor('gz-gate',G);`;
+async function voiceChain(ac){
+  const on = VS.ns!=="off", c = {echoCancellation:on,noiseSuppression:on,autoGainControl:on,channelCount:1};
+  if(VS.mic) c.deviceId = {exact:VS.mic};
+  let raw; try{ raw = await navigator.mediaDevices.getUserMedia({audio:c}); }
+  catch(e){ if(!VS.mic) throw e; VS.mic = ""; saveVS(); delete c.deviceId; raw = await navigator.mediaDevices.getUserMedia({audio:c}); }
+  if(VS.ns!=="strong" || !ac || !ac.audioWorklet) return {raw, out:raw};
+  try{
+    if(!ac.__gz){ await ac.audioWorklet.addModule(URL.createObjectURL(new Blob([GATE_SRC],{type:"application/javascript"}))); ac.__gz = 1; }
+    const src = ac.createMediaStreamSource(raw), hp = ac.createBiquadFilter(), lp = ac.createBiquadFilter(), comp = ac.createDynamicsCompressor(), gate = new AudioWorkletNode(ac,"gz-gate"), dest = ac.createMediaStreamDestination();
+    hp.type = "highpass"; hp.frequency.value = 90; lp.type = "lowpass"; lp.frequency.value = 9000;   // cut rumble (fans, desk knocks) and hiss
+    comp.threshold.value = -28; comp.knee.value = 12; comp.ratio.value = 4; comp.attack.value = .004; comp.release.value = .2;  // even out shouting and whispering
+    src.connect(hp); hp.connect(lp); lp.connect(comp); comp.connect(gate); gate.connect(dest);
+    return {raw, out:dest.stream};
+  }catch(e){ return {raw, out:raw}; }
+}
+// Opus with forward error correction (survives lost packets) and silence suppression
+function opusTune(sdp){ const m = sdp.match(/a=rtpmap:(\d+) opus\/48000/i); if(!m) return sdp; const pt = m[1];
+  return sdp.replace(new RegExp("a=fmtp:"+pt+" ([^\\r\\n]*)"), (all,p)=>"a=fmtp:"+pt+" "+p.split(";").map(x=>x.trim()).filter(x=>x && !/^(useinbandfec|usedtx|maxaveragebitrate|stereo)=/.test(x)).concat(["useinbandfec=1","usedtx=1","stereo=0","maxaveragebitrate=48000"]).join(";")); }
+function tuneSender(pc){ pc.getSenders().forEach(s=>{ if(!s.track || s.track.kind!=="audio") return; try{ const p = s.getParameters(); if(!p.encodings || !p.encodings.length) p.encodings = [{}];
+  p.encodings[0].maxBitrate = 48000; p.encodings[0].priority = "high"; p.encodings[0].networkPriority = "high"; s.setParameters(p).catch(()=>{}); }catch(e){} }); }
+function setupAudioEl(a,peer){ const v = VS.vol[peer]; a.volume = v==null ? 1 : v; if(VS.out && a.setSinkId) a.setSinkId(VS.out).catch(()=>{}); }
+async function applyVoice(){
+  if(!RC.inVoice) return; let ch;
+  try{ ch = await voiceChain(RC.actx); }catch(e){ return toast(t("micErr")); }
+  const old = [RC.raw,RC.stream]; RC.raw = ch.raw; RC.stream = ch.out; const tr = RC.stream.getAudioTracks()[0]; if(tr) tr.enabled = !RC.muted;
+  for(const pc of Object.values(RC.pcs||{})) pc.getSenders().forEach(s=>{ if(!s.track || s.track.kind==="audio") s.replaceTrack(tr).catch(()=>{}); });
+  old.forEach(st=>{ if(st && st!==RC.raw && st!==RC.stream) st.getTracks().forEach(x=>x.stop()); });
+  addMeter(S.me.id,RC.stream); document.querySelectorAll("#audio-root audio").forEach(a=>setupAudioEl(a,a.id.slice(3)));
+}
+// connection quality per person (round trip time and packet loss)
+function setQ(u,q,rtt,loss){ (RC.q = RC.q||{})[u] = q; const el = document.querySelector(`[data-q="${u}"]`); if(el){ el.className = "qb q"+q; el.title = rtt!=null ? `${Math.round(rtt*1000)} ms`+(loss>.005?` · ${t("qLoss")} ${Math.round(loss*100)}%`:"") : ""; } }
+setInterval(async ()=>{ if(!RC.inVoice || !RC.pcs) return;
+  for(const [u,pc] of Object.entries(RC.pcs)){ if(pc.connectionState!=="connected"){ setQ(u,0); continue; }
+    try{ const st = await pc.getStats(); let rtt = null, lost = 0, recv = 0;
+      st.forEach(r=>{ if(r.type==="candidate-pair" && r.state==="succeeded" && r.nominated && r.currentRoundTripTime!=null) rtt = r.currentRoundTripTime; if(r.type==="inbound-rtp" && r.kind==="audio"){ lost = r.packetsLost||0; recv = r.packetsReceived||0; } });
+      const pv = (RC.qs = RC.qs||{})[u]||{lost,recv}, dl = Math.max(0,lost-pv.lost), dr = Math.max(0,recv-pv.recv); RC.qs[u] = {lost,recv}; const loss = dl+dr>0 ? dl/(dl+dr) : 0;
+      setQ(u, rtt==null ? 2 : (rtt<.15 && loss<.03) ? 3 : (rtt<.3 && loss<.1) ? 2 : 1, rtt, loss); }catch(e){} } },3000);
+// settings dialog with a live mic test
+const VT = {};
+function stopVT(){ if(VT.loop) cancelAnimationFrame(VT.loop); VT.loop = 0; if(VT.hear) try{ VT.hear.disconnect(); }catch(e){} VT.hear = null;
+  if(VT.own){ [VT.ch&&VT.ch.raw,VT.ch&&VT.ch.out].forEach(s=>s&&s.getTracks().forEach(x=>x.stop())); try{ VT.ac.close(); }catch(e){} } VT.own = false; VT.ac = null; VT.ch = null; VT.an = null; VT.on = false; }
+async function startVT(){
+  stopVT(); VT.on = true;
+  try{
+    if(RC.inVoice && RC.actx){ VT.ac = RC.actx; VT.ch = {out:RC.stream}; }
+    else { VT.ac = new (window.AudioContext||window.webkitAudioContext)(); VT.ch = await voiceChain(VT.ac); VT.own = true; }
+    const src = VT.ac.createMediaStreamSource(VT.ch.out); VT.an = VT.ac.createAnalyser(); VT.an.fftSize = 512; src.connect(VT.an); VT.src = src;
+    if($("#vt-hear") && $("#vt-hear").checked){ src.connect(VT.ac.destination); VT.hear = src; }
+  }catch(e){ VT.on = false; toast(t("micErr")); }
+  const buf = new Uint8Array(512);
+  const tick = () => { if(!S.dialog || S.dialog.type!=="voice-set"){ stopVT(); return; } const bar = $("#vt-bar"); if(bar && VT.an){ VT.an.getByteTimeDomainData(buf); let s = 0; for(const x of buf){ const v = (x-128)/128; s += v*v; } bar.style.width = Math.min(100,Math.sqrt(s/buf.length)*420)+"%"; } VT.loop = requestAnimationFrame(tick); };
+  VT.loop = requestAnimationFrame(tick); const b = $("#vt-btn"); if(b) b.textContent = t("vsStopTest");
+}
+function voiceSetDialog(){
+  const mics = (S.vdev||[]).filter(x=>x.kind==="audioinput"), outs = (S.vdev||[]).filter(x=>x.kind==="audiooutput"), canOut = "setSinkId" in HTMLMediaElement.prototype;
+  const opt = (list,cur,lbl) => `<option value="">${t("vsDefault")}</option>`+list.filter(x=>x.deviceId && x.deviceId!=="default").map((x,i)=>`<option value="${esc(x.deviceId)}" ${cur===x.deviceId?"selected":""}>${esc(x.label||lbl+" "+(i+1))}</option>`).join("");
+  return `<div class="dialog" role="dialog" aria-modal="true" aria-labelledby="dlg-t"><h2 id="dlg-t">${t("vsTitle")}</h2>
+    <div><p class="mono" style="margin-bottom:8px">${t("vsNs")}</p><div class="vsopts">${["strong","standard","off"].map(k=>`<button type="button" class="vsopt" data-act="vs-ns" data-v="${k}" aria-pressed="${VS.ns===k}"><b>${t("vs_"+k)}</b><span>${t("vs_"+k+"D")}</span></button>`).join("")}</div></div>
+    <label class="f">${t("vsMic")}<select class="inp" id="vs-mic">${opt(mics,VS.mic,t("vsMic"))}</select></label>
+    ${canOut?`<label class="f">${t("vsOut")}<select class="inp" id="vs-out">${opt(outs,VS.out,t("vsOut"))}</select></label>`:""}
+    <div style="display:flex;flex-direction:column;gap:8px"><p class="mono">${t("vsTest")}</p><div class="vtmeter"><i id="vt-bar"></i></div>
+      <div class="chips" style="align-items:center"><button type="button" class="btn small" id="vt-btn" data-act="vs-test">${t("vsTest")}</button><label class="f" style="flex-direction:row;align-items:center;gap:8px;font-weight:400"><input type="checkbox" id="vt-hear"> ${t("vsHear")}</label></div>
+      <p class="hint">${t("vsHint")}</p></div>
+    <div class="dialog-actions"><button class="btn coral" data-act="close">${t("done")}</button></div></div>`;
+}
+async function openVoiceSet(){ try{ S.vdev = await navigator.mediaDevices.enumerateDevices(); }catch(e){ S.vdev = []; } S.dialog = {type:"voice-set"}; renderDialog(); }
+document.addEventListener("click", async e => {
+  const el = e.target.closest("[data-act]"); if(!el) return; const a = el.dataset.act;
+  if(a==="v-set") openVoiceSet();
+  else if(a==="vs-ns"){ VS.ns = el.dataset.v; saveVS(); document.querySelectorAll(".vsopt").forEach(b=>b.setAttribute("aria-pressed", b.dataset.v===VS.ns)); await applyVoice(); if(VT.on) startVT(); updateRoom("voice"); }
+  else if(a==="vs-test"){ if(VT.on){ stopVT(); el.textContent = t("vsTest"); const b = $("#vt-bar"); if(b) b.style.width = "0"; } else startVT(); }
+  else if(a==="ta-room"){ const { data, error } = await sb.rpc("admin_tour_room",{p_team:el.dataset.id}); if(error) return toast(t("tFail")); RC.id && RC.id!==data && stopRoom(); go("r-"+data); }
+});
+document.addEventListener("change", async e => {
+  const id = e.target.id;
+  if(id==="vs-mic"){ VS.mic = e.target.value; saveVS(); await applyVoice(); if(VT.on) startVT(); }
+  else if(id==="vs-out"){ VS.out = e.target.value; saveVS(); document.querySelectorAll("#audio-root audio").forEach(a=>setupAudioEl(a,a.id.slice(3))); }
+  else if(id==="vt-hear" && VT.on && VT.src){ if(e.target.checked){ VT.src.connect(VT.ac.destination); VT.hear = VT.src; } else { try{ VT.src.disconnect(VT.ac.destination); }catch(_){} VT.hear = null; } }
+});
+document.addEventListener("input", e => { const u = e.target.dataset && e.target.dataset.vol; if(!u) return; const v = (+e.target.value)/100; VS.vol[u] = v; saveVS(); const a = document.getElementById("au-"+u); if(a) a.volume = v; });
 
 /* ---------- render ---------- */
 function render(){
