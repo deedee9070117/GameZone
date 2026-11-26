@@ -277,12 +277,23 @@ footer{padding:36px 0 72px;color:var(--ink-soft);font-size:13.5px;border-top:2px
 .band.img::after{display:none}
 details.more{border:2px dashed var(--line);border-radius:12px;padding:10px 14px;margin-top:4px} details.more summary{cursor:pointer}
 .nlist{display:flex;flex-direction:column;gap:14px}
-.ncard{display:grid;grid-template-columns:150px minmax(0,1fr);background:var(--card);border:2px solid var(--ink);border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow)}
-.nthumb{background-size:cover;border-right:2px solid var(--ink);min-height:130px}
-.nbody{padding:14px 18px;display:flex;flex-direction:column;gap:6px;min-width:0}
-.nbody h3{font-size:19px;margin:0;line-height:1.35} .nbody p{margin:0;overflow-wrap:anywhere}
-.nlink{font-weight:600;color:var(--ink);text-underline-offset:3px}
-@media (max-width:620px){.ncard{grid-template-columns:1fr}.nthumb{min-height:110px;border-right:0;border-bottom:2px solid var(--ink)}}
+.ngrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-top:18px}
+.ncard{display:flex;flex-direction:column;background:var(--card);border:2px solid var(--ink);border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow);min-width:0}
+.nimg{position:relative;display:block;aspect-ratio:16/9;border-bottom:2px solid var(--ink);overflow:hidden}
+.nimg img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;transition:transform .3s}
+.ncard:hover .nimg img{transform:scale(1.04)}
+.nimg img.fit{object-fit:contain;padding:18px 24px;box-sizing:border-box;background:var(--card)}
+.nkind{position:absolute;left:10px;top:10px;background:var(--cream);color:#2A2222;border:2px solid #2A2222;border-radius:999px;padding:1px 10px;font-size:12.5px;font-weight:700}
+.nbody{padding:14px 16px 16px;display:flex;flex-direction:column;gap:7px;min-width:0;flex:1}
+.nbody h3{font-size:18px;margin:0;line-height:1.38;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.nbody h3 a{color:inherit;text-decoration:none} .nbody h3 a:hover{text-decoration:underline;text-underline-offset:3px}
+.nsum{margin:0;color:var(--ink-soft);line-height:1.55;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;overflow-wrap:anywhere}
+.nlink{font-weight:600;color:var(--ink);text-underline-offset:3px;margin-top:auto}
+.ncard.big{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr)}
+.ncard.big .nimg{aspect-ratio:auto;min-height:300px;border-bottom:0;border-right:2px solid var(--ink)}
+.ncard.big .nbody{padding:22px 24px;justify-content:center} .ncard.big h3{font-size:25px;-webkit-line-clamp:4} .ncard.big .nsum{-webkit-line-clamp:5;font-size:16px}
+@media (max-width:900px){.ngrid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:620px){.ngrid{grid-template-columns:1fr}.ncard.big{display:flex}.ncard.big .nimg{min-height:0;aspect-ratio:16/9;border-right:0;border-bottom:2px solid var(--ink)}.ncard.big h3{font-size:20px}}
 .bracket-wrap{overflow-x:auto;padding-bottom:6px}
 .bracket{display:grid;grid-template-columns:repeat(3,minmax(240px,1fr));gap:18px;min-width:760px}
 .bcol{display:flex;flex-direction:column;justify-content:space-around;gap:14px}
@@ -323,6 +334,11 @@ input.vol{display:block;width:100%;max-width:160px;margin-top:4px;accent-color:v
 .side-open{position:fixed;top:16px;right:16px;z-index:30;background:var(--card);border:2px solid var(--ink);border-radius:999px;box-shadow:var(--shadow);padding:8px 14px;font-weight:600}
 @media (min-width:1400px){ body.side{padding-right:300px} .home-sugg{display:none} }
 .home-sugg .sglist{max-height:none}
+.tile .band{position:relative}
+.soon-tag{display:inline-block;background:var(--mustard);color:#2A2222;border:2px solid #2A2222;border-radius:999px;padding:1px 10px;font-size:12.5px;font-weight:700;text-shadow:none;font-family:var(--font-body);letter-spacing:0}
+.tile .soon-tag{position:absolute;right:10px;top:10px}
+.tile.soon .band{filter:saturate(.55)}
+.soon-card{padding:0;overflow:hidden}
 .lb-pos{min-width:28px;text-align:center;font-family:var(--font-display);font-weight:400;font-size:18px}
 .member.lb-me{background:var(--field);border-radius:10px;padding-left:6px;padding-right:8px}
 .notice{padding:10px 0;border-bottom:1.5px dashed var(--line)} .notice p{margin:4px 0 6px;white-space:pre-wrap;overflow-wrap:anywhere}
@@ -405,7 +421,7 @@ eyebrow:["Find teammates who play like you","หาเพื่อนร่ว�
 h1a:["Done for the day?","เสร็จงานวันนี้แล้ว?","今天忙完了？","今日はもう終わり？"], h1b:["Squad up.","รวมทีมกันเลย","组队开玩。","さあ、集まろう。"],
 heroSub:["Nobody to play with tonight? Pick a game, see who is looking, and jump in with people who match your rank, role and vibe.","คืนนี้ไม่มีเพื่อนเล่น? เลือกเกม ดูว่าใครกำลังหาทีม แล้วเข้าไปเล่นกับคนที่แรงค์ ตำแหน่ง และนิสัยตรงกับคุณ","今晚没人一起玩？选一个游戏，看看谁在找队友，和段位、位置、性格都合拍的人一起玩。","今夜一緒に遊ぶ相手がいない？ゲームを選んで、ランクや役割、雰囲気が合う仲間と遊ぼう。"],
 find:["Find friends","หาเพื่อนเล่น","找朋友","仲間を探す"], createCta:["or create your profile","หรือสร้างโปรไฟล์ของคุณ","或创建你的主页","またはプロフィールを作成"], finishCta:["finish your profile","ตั้งโปรไฟล์ให้เสร็จ","完成你的主页","プロフィールを完成させる"], viewCta:["view your profile","ดูโปรไฟล์ของคุณ","查看我的主页","プロフィールを見る"],
-pick:["Pick a game","เลือกเกม","选择游戏","ゲームを選ぶ"], moreGames:["More games coming","เกมอื่นๆ กำลังจะมา","更多游戏即将上线","対応ゲーム追加予定"], seeAll:["See all rooms","ดูห้องทั้งหมด","查看全部房间","すべてのルーム"], nRooms:["{n} open rooms","เปิดอยู่ {n} ห้อง","{n} 个开放房间","募集中 {n} 件"],
+pick:["Pick a game","เลือกเกม","选择游戏","ゲームを選ぶ"], moreGames:["More games coming","เกมอื่นๆ กำลังทยอยเปิด","更多游戏即将上线","対応ゲーム追加予定"], seeAll:["See all rooms","ดูห้องทั้งหมด","查看全部房间","すべてのルーム"], nRooms:["{n} open rooms","เปิดอยู่ {n} ห้อง","{n} 个开放房间","募集中 {n} 件"],
 allGames:["← All games","← เกมทั้งหมด","← 全部游戏","← すべてのゲーム"], chooseMode:["Choose the mode you want to play.","เลือกโหมดที่อยากเล่น","选择你想玩的模式。","遊びたいモードを選んでください。"], chooseExp:["Choose the experience you want to play.","เลือกแมพที่อยากเล่น","选择你想玩的体验。","遊びたいゲームを選んでください。"],
 browseNote:["Anyone can browse. You need an account to match or join.","ทุกคนเข้ามาดูได้ แต่ต้องมีบัญชีก่อนถึงจะจับคู่หรือเข้าห้องได้","任何人都可以浏览，匹配或加入需要账号。","閲覧は誰でもできます。マッチングや参加にはアカウントが必要です。"],
 findFor:["Find friends for {x}","หาเพื่อนเล่น {x}","找人一起玩 {x}","{x} の仲間を探す"], cant:["Can't find your game?","ไม่เจอเกมที่อยากเล่น?","没找到想玩的？","見つからない？"], addExp:["Add any Roblox experience you want to play","เพิ่มแมพ Roblox ที่คุณอยากหาเพื่อนเล่นได้เลย","添加任何你想玩的 Roblox 体验","遊びたい Roblox のゲームを追加"], addPh:["Type the experience name","พิมพ์ชื่อแมพ","输入体验名称","ゲーム名を入力"], add:["Add","เพิ่ม","添加","追加"],
@@ -444,7 +460,7 @@ discord:["Discord","Discord","Discord","Discord"], line:["LINE ID","LINE ID","LI
 bio:["Bio","แนะนำตัว","简介","自己紹介文"], bioPh:["What kind of teammate are you?","คุณเป็นเพื่อนร่วมทีมแบบไหน?","你是怎样的队友？","どんなチームメイトですか？"],
 notFound:["Player not found","ไม่พบผู้เล่นนี้","未找到该玩家","プレイヤーが見つかりません"], loading:["Loading…","กำลังโหลด…","加载中…","読み込み中…"], needLogin:["Log in first","เข้าสู่ระบบก่อน","请先登录","ログインしてください"], needLoginSub:["You need an account to see this page.","ต้องมีบัญชีก่อนถึงจะดูหน้านี้ได้","需要账号才能查看此页面。","このページにはアカウントが必要です。"],
 almost:["Almost there. Finish the required steps to unlock matching and joining rooms.","อีกนิดเดียว ตั้งค่าส่วนที่จำเป็นให้เสร็จเพื่อปลดล็อกการจับคู่และเข้าห้อง","就差一点。完成必填步骤即可匹配和加入房间。","あと少し。必須項目を完了するとマッチングと参加ができます。"], setupBtn:["Finish setup","ตั้งค่าต่อ","继续设置","設定を完了"],
-foot:["GameZone beta. Rooms and matchmaking are open for Valorant first.","GameZone เวอร์ชันทดลอง ตอนนี้เปิดห้องและจับคู่ได้สำหรับ Valorant ก่อน","GameZone 测试版。房间和匹配功能目前先开放 Valorant。","GameZone ベータ版。ルームとマッチングは現在 Valorant のみ対応です。"],
+foot:["GameZone beta. Rooms and matchmaking are open for Valorant, RoV and Roblox, with more games on the way.", "GameZone เวอร์ชันทดลอง ตอนนี้เปิดห้องและจับคู่ได้สำหรับ Valorant, RoV และ Roblox เกมอื่นกำลังทยอยเปิด", "GameZone 测试版。房间和匹配已开放 Valorant、RoV 和 Roblox，更多游戏即将上线。", "GameZone ベータ版。ルームとマッチは Valorant・RoV・Roblox で利用でき、他のゲームも準備中です。"],
 tJoined:["You joined the room","เข้าร่วมห้องแล้ว","已加入房间","参加しました"], tLeft:["You left the room","ออกจากห้องแล้ว","已离开房间","退出しました"], tWelcome:["Welcome back, {n}","ยินดีต้อนรับกลับมา {n}","欢迎回来，{n}","おかえりなさい、{n}"], tOut:["Logged out","ออกจากระบบแล้ว","已退出登录","ログアウトしました"], tReady:["Profile ready. You can match and join now.","โปรไฟล์พร้อมแล้ว จับคู่และเข้าห้องได้เลย","主页已就绪，可以匹配和加入了。","準備完了。マッチングと参加ができます。"],
 createRoom:["Create room","สร้างห้อง","创建房间","ルーム作成"], noRooms:["No rooms yet. Open the first one.","ยังไม่มีห้อง มาเปิดห้องแรกกัน","还没有房间，来创建第一个吧。","まだルームがありません。最初のルームを作りましょう。"], sample:["Sample","ตัวอย่าง","示例","サンプル"], actCreate:["create a room","สร้างห้อง","创建房间","ルーム作成"],
 roomTitle:["Room name","ชื่อห้อง","房间名称","ルーム名"], roomTitlePh:["e.g. Gold lobby needs a Controller","เช่น ห้อง Gold ขาด Controller","例如：黄金局缺控场","例：ゴールド帯 コントローラー募集"], mode:["Mode","โหมด","模式","モード"], players:["Players in total","จำนวนผู้เล่นทั้งหมด","总人数","合計人数"],
@@ -506,6 +522,7 @@ styleT:["Play style in this game", "สไตล์การเล่นใน�
 trSub:["Valorant · Gold, Platinum and Diamond divisions · 6 teams each · BO3 · from 1 Dec, one match a day at 18:00", "Valorant · แข่ง 3 แรงค์ Gold, Platinum, Diamond · แรงค์ละ 6 ทีม · BO3 · เริ่ม 1 ธ.ค. แข่งวันละนัด 18:00 น.", "Valorant · 黄金、铂金、钻石三个组别 · 每组 6 队 · BO3 · 12 月 1 日起每天 18:00 一场", "Valorant · ゴールド/プラチナ/ダイヤ 3部門 · 各6チーム · BO3 · 12月1日から毎日18:00に1試合"], trOpen:["Sign-ups open", "เปิดรับสมัคร", "报名中", "エントリー受付中"], trClosedTag:["Sign-ups closed", "ปิดรับสมัคร", "报名已截止", "受付終了"], trPrize:["Prizes", "ของรางวัล", "奖励", "賞品"], trNext:["Next match", "นัดต่อไป", "下一场", "次の試合"], trNowLive:["Live now", "กำลังแข่งตอนนี้", "正在进行", "ライブ中"], trNoNext:["No more matches", "ไม่มีนัดต่อไปแล้ว", "没有更多比赛", "試合はありません"], trQF:["Round 1 · Match {n}", "รอบแรก นัดที่ {n}", "首轮 第 {n} 场", "1回戦 第{n}試合"], trSF:["Semi-final {n}", "รอบรองชนะเลิศ {n}", "半决赛 {n}", "準決勝 {n}"], trFinal:["Final", "รอบชิงชนะเลิศ", "决赛", "決勝"], trRound1:["Round 1", "รอบแรก", "首轮", "1回戦"], trSemis:["Semi-finals", "รอบรองชนะเลิศ", "半决赛", "準決勝"], trChamp:["Champion", "แชมป์", "冠军", "優勝"], trSeedNote:["Seeds 1 and 2 go straight to the semi-finals. Seeds are drawn at random from the approved teams.", "ทีมอันดับ 1 และ 2 เข้ารอบรองชนะเลิศเลย อันดับทั้งหมดได้จากการจับสลากทีมที่ผ่านการอนุมัติ", "1、2 号种子直接进入半决赛。种子由已通过审核的队伍随机抽签决定。", "第1・第2シードは準決勝から。シードは承認済みチームから抽選で決定。"], trDone:["Finished", "จบแล้ว", "已结束", "終了"], trMapN:["Map {n}", "แมพ {n}", "地图 {n}", "マップ{n}"], trEditMatch:["Edit result", "แก้ผลการแข่ง", "编辑结果", "結果を編集"], trPlayersN:["{n}/5 players", "ผู้เล่น {n}/5", "{n}/5 名选手", "選手 {n}/5"], trSt_pending:["Waiting for approval", "รออนุมัติ", "待审核", "承認待ち"], trSt_approved:["Approved", "อนุมัติแล้ว", "已通过", "承認済み"], trSt_rejected:["Not approved", "ไม่ผ่าน", "未通过", "不承認"], trSt_withdrawn:["Withdrawn", "ถอนตัว", "已退出", "辞退"], trRole_player:["Player", "ผู้เล่น", "选手", "選手"], trRole_sub:["Substitute", "ตัวสำรอง", "替补", "控え"], trRole_coach:["Coach", "โค้ช", "教练", "コーチ"], trApprove:["Approve", "อนุมัติ", "通过", "承認"], trReject:["Reject", "ไม่อนุมัติ", "拒绝", "却下"], trRename:["Rename team", "แก้ชื่อทีม", "修改队名", "チーム名変更"], trMyTeam:["My team", "ทีมของฉัน", "我的队伍", "マイチーム"], trNeedPlayers:["{n} more player(s) needed before the team can be approved.", "ต้องมีผู้เล่นเพิ่มอีก {n} คน ทีมจึงจะได้รับการอนุมัติ", "还需 {n} 名选手才能通过审核。", "承認にはあと{n}人の選手が必要です。"], trReady:["Your team is approved. See you on match day!", "ทีมของคุณผ่านการอนุมัติแล้ว เจอกันวันแข่ง!", "你的队伍已通过审核，比赛日见！", "承認されました。試合日に会いましょう！"], trWaitApprove:["Team is full. An admin will check and approve it.", "ทีมครบแล้ว รอแอดมินตรวจสอบและอนุมัติ", "队伍已满员，等待管理员审核。", "メンバーが揃いました。管理者の承認待ちです。"], trTeamCode:["Team code", "โค้ดทีม", "队伍代码", "チームコード"], trCodeHint:["Send this code to your teammates. They join the team with it from this page.", "ส่งโค้ดนี้ให้เพื่อนร่วมทีม แล้วให้เข้าร่วมทีมจากหน้านี้", "把代码发给队友，他们在此页面用代码加入。", "このコードをチームメイトに送り、このページから参加してもらいます。"], trTeamRoom:["Open team voice room", "เข้าห้องเสียงของทีม", "进入队伍语音房间", "チームのボイスルームへ"], trWithdraw:["Withdraw team", "ถอนทีม", "退出比赛", "チームを辞退"], trLeave:["Leave team", "ออกจากทีม", "离开队伍", "チームを抜ける"], trWithdrawQ:["As captain, leaving withdraws the whole team from the tournament. Continue?", "คุณเป็นหัวหน้าทีม ถ้าออก ทีมทั้งทีมจะถอนตัวจากทัวร์นาเมนต์ ต้องการทำต่อไหม", "你是队长，离开将使整支队伍退出比赛。继续吗？", "キャプテンが抜けるとチーム全体が辞退になります。続けますか？"], trLeaveQ:["Leave this team?", "ออกจากทีมนี้ไหม", "确定离开此队伍？", "このチームを抜けますか？"], trLeft:["Done", "เรียบร้อย", "完成", "完了"], trKickHint:["Remove a member:", "นำสมาชิกออกจากทีม:", "移除成员：", "メンバーを外す："], trKicked:["{n} removed", "นำ {n} ออกแล้ว", "已移除 {n}", "{n} を外しました"], trNeedAcc:["Log in to register a team. You need your Valorant in-game name and rank in your profile.", "ล็อกอินเพื่อสมัครทีม ต้องมีชื่อในเกมและแรงค์ Valorant ในโปรไฟล์", "登录后报名队伍。需要在资料中填写 Valorant 游戏名和段位。", "チーム登録にはログインが必要です。プロフィールにValorantのゲーム内名とランクが必要です。"], trRegClosed:["Sign-ups are closed.", "ปิดรับสมัครแล้ว", "报名已截止。", "エントリーは締め切りました。"], trJoinTitle:["Join the tournament", "สมัครแข่งขัน", "报名参赛", "エントリー"], trJoinSub:["Free to enter. Create a team as captain, or join a friend's team with their team code. Sign-ups close {d}.", "สมัครฟรี สร้างทีมในฐานะหัวหน้าทีม หรือเข้าร่วมทีมเพื่อนด้วยโค้ดทีม ปิดรับสมัคร {d}", "免费参赛。作为队长创建队伍，或用队伍代码加入朋友的队伍。报名截止 {d}。", "参加無料。キャプテンとしてチームを作るか、チームコードで友達のチームに参加。締切 {d}。"], trCreate:["Create a team", "สร้างทีม", "创建队伍", "チームを作る"], trJoinCode:["Join with team code", "เข้าร่วมด้วยโค้ดทีม", "用代码加入", "コードで参加"], trJoinBtn:["Join team", "เข้าร่วมทีม", "加入队伍", "参加する"], trTeamsIn:["{d} teams", "ทีมในแรงค์ {d}", "{d} 组队伍", "{d} 部門のチーム"], trNoTeams:["No teams yet.", "ยังไม่มีทีม", "还没有队伍。", "まだチームはありません。"], trSchedule:["Full schedule", "ตารางแข่งทั้งหมด", "完整赛程", "全日程"], trDaily:["one match a day", "วันละ 1 นัด", "每天一场", "1日1試合"], trRules:["Rules", "กติกา", "规则", "ルール"], trAdmin:["Tournament admin", "จัดการทัวร์นาเมนต์ (แอดมิน)", "赛事管理", "大会管理"], trRegOpen:["Accept sign-ups", "เปิดรับสมัคร", "开放报名", "エントリー受付"], trPrizeT:["Prizes (one line each)", "ของรางวัล (บรรทัดละข้อ)", "奖励（每行一条）", "賞品（1行に1つ）"], trRulesT:["Rules (one line each)", "กติกา (บรรทัดละข้อ)", "规则（每行一条）", "ルール（1行に1つ）"], trSeedT:["Draw seeds", "จับสลากอันดับทีม", "抽签种子", "シード抽選"], trSeedHint:["Randomly places the approved teams into the bracket. You can still edit any name afterwards. Tap twice to confirm.", "สุ่มวางทีมที่อนุมัติแล้วลงสายการแข่ง หลังจากนั้นยังแก้ชื่อในแต่ละนัดได้ตลอด กดสองครั้งเพื่อยืนยัน", "把已通过的队伍随机放入对阵表，之后仍可修改名称。点两次确认。", "承認済みチームを対戦表にランダム配置。後から名前を編集できます。2回押して確定。"], trSeedBtn:["Draw {d}", "จับสลาก {d}", "抽签 {d}", "{d} を抽選"], trAllTeams:["All teams in this division", "ทีมทั้งหมดในแรงค์นี้", "此组别全部队伍", "この部門の全チーム"], trSeeded:["Bracket updated", "อัปเดตสายการแข่งแล้ว", "对阵表已更新", "対戦表を更新しました"], trPointsDone:["GZ Point given to {n} member(s)", "ให้ GZ Point แก่สมาชิก {n} คนแล้ว", "已向 {n} 名成员发放 GZ Point", "{n}人にGZ Pointを付与しました"], trDivision:["Division", "แรงค์ที่สมัคร", "组别", "部門"], trMyRole:["My role", "ตำแหน่งของฉันในทีม", "我的身份", "役割"], trTeamName:["Team name", "ชื่อทีม", "队名", "チーム名"], trCreateHint:["Your in-game name and rank are taken from your profile. Players and the substitute must not be ranked above the division.", "ระบบใช้ชื่อในเกมและแรงค์จากโปรไฟล์ของคุณ ผู้เล่นและตัวสำรองต้องมีแรงค์ไม่สูงกว่าแรงค์ที่สมัคร", "游戏名和段位取自你的资料。选手和替补的段位不得高于所报组别。", "ゲーム内名とランクはプロフィールから。選手・控えは部門より上のランク不可。"], trFixProfile:["Edit my Valorant details", "แก้ข้อมูล Valorant ของฉัน", "编辑我的 Valorant 信息", "Valorant情報を編集"], trCreated:["Team created. Share the team code with your teammates.", "สร้างทีมแล้ว ส่งโค้ดทีมให้เพื่อนร่วมทีมได้เลย", "队伍已创建，把代码发给队友吧。", "チームを作成しました。コードを共有しましょう。"], trJoined:["You joined the team", "เข้าร่วมทีมแล้ว", "已加入队伍", "チームに参加しました"], trTeamA:["Team A", "ทีม A", "A 队", "チームA"], trTeamB:["Team B", "ทีม B", "B 队", "チームB"], trStatus:["Status", "สถานะ", "状态", "状態"], trTime:["Start time (Thailand)", "เวลาเริ่ม (เวลาไทย)", "开始时间（泰国）", "開始時刻（タイ時間）"], trNote:["Note (shown on the card)", "หมายเหตุ (แสดงบนการ์ด)", "备注（显示在卡片上）", "メモ（カードに表示）"], trSt2_scheduled:["Not started", "ยังไม่แข่ง", "未开始", "未開始"], trSt2_live:["Live now", "กำลังแข่ง", "进行中", "ライブ中"], trSt2_done:["Finished", "จบแล้ว", "已结束", "終了"], trMatchHint:["Enter round scores per map (e.g. 13 and 9). Two map wins finish the match, and the winner moves to the next round automatically.", "กรอกคะแนนรอบของแต่ละแมพ เช่น 13 กับ 9 ชนะครบ 2 แมพ นัดนั้นจะจบ และทีมที่ชนะจะถูกใส่ในนัดถัดไปให้อัตโนมัติ", "按地图填写回合比分（如 13 和 9）。先赢两张图即结束，胜者自动晋级下一轮。", "マップごとのラウンドスコアを入力（例 13 と 9）。2マップ先取で終了し、勝者は自動で次へ。"], trE_login:["Please log in first", "ล็อกอินก่อน", "请先登录", "先にログインしてください"], trE_banned:["This account can't take part", "บัญชีนี้ร่วมแข่งไม่ได้", "此账号无法参赛", "このアカウントは参加できません"], trE_closed:["Sign-ups are closed", "ปิดรับสมัครแล้ว", "报名已截止", "受付は終了しました"], trE_bad_role:["Pick a role", "เลือกตำแหน่งในทีม", "请选择身份", "役割を選んでください"], trE_in_team:["You are already in a team", "คุณอยู่ในทีมอื่นแล้ว", "你已在一支队伍中", "すでにチームに所属しています"], trE_need_ign:["Add your Valorant in-game name (Name#TAG) to your profile first", "เพิ่มชื่อในเกม Valorant (ชื่อ#แท็ก) ในโปรไฟล์ก่อน", "请先在资料中填写 Valorant 游戏名（名字#标签）", "先にプロフィールにValorantのゲーム内名（名前#タグ）を追加してください"], trE_need_rank:["Add your Valorant rank to your profile first", "เพิ่มแรงค์ Valorant ในโปรไฟล์ก่อน", "请先在资料中填写 Valorant 段位", "先にプロフィールにValorantのランクを追加してください"], trE_rank_high:["Your rank is above this division. Pick a higher division.", "แรงค์ของคุณสูงกว่าแรงค์นี้ เลือกแรงค์ที่สูงขึ้น", "你的段位高于此组别，请选择更高组别。", "ランクがこの部門より上です。上の部門を選んでください。"], trE_div_full:["This division already has 6 teams", "แรงค์นี้ครบ 6 ทีมแล้ว", "此组别已满 6 队", "この部門は6チームで満員です"], trE_bad_name:["Team name must be 2–24 characters", "ชื่อทีมต้องยาว 2–24 ตัวอักษร", "队名需 2–24 个字符", "チーム名は2〜24文字"], trE_name_taken:["That team name is taken", "ชื่อทีมนี้มีคนใช้แล้ว", "队名已被使用", "そのチーム名は使用済みです"], trE_bad_code:["Team code not found", "ไม่พบโค้ดทีมนี้", "找不到该队伍代码", "チームコードが見つかりません"], trE_role_full:["That role is already filled in this team", "ตำแหน่งนี้ในทีมเต็มแล้ว", "该身份在队中已满", "その役割は埋まっています"],
 vsTitle:["Voice settings", "ตั้งค่าเสียง", "语音设置", "ボイス設定"], vsShort:["Settings", "ตั้งค่า", "设置", "設定"], vsNs:["Noise reduction", "ตัดเสียงรบกวน", "降噪", "ノイズ除去"], vs_strong:["Strong", "แรง", "强", "強"], vs_strongD:["Recommended for games. Removes keyboard, fan and room noise and stays silent when you are not talking.", "แนะนำตอนเล่นเกม ตัดเสียงคีย์บอร์ด พัดลม เสียงรอบห้อง และเงียบสนิทตอนคุณไม่พูด", "推荐游戏时使用。去除键盘、风扇和环境噪音，不说话时完全静音。", "ゲーム向け推奨。キーボード・ファン・環境音を除去し、話していない時は無音に。"], vs_standard:["Standard", "ปกติ", "标准", "標準"], vs_standardD:["The browser's built-in noise and echo reduction only.", "ใช้ระบบตัดเสียงรบกวนและเสียงก้องของเบราว์เซอร์อย่างเดียว", "仅使用浏览器自带的降噪和回声消除。", "ブラウザ内蔵のノイズ・エコー除去のみ。"], vs_off:["Off", "ปิด", "关闭", "オフ"], vs_offD:["Raw microphone sound. Use only with a studio mic in a quiet room.", "เสียงไมค์ดิบ ใช้เฉพาะเมื่อมีไมค์ดีและอยู่ในห้องเงียบ", "原始麦克风声音，仅适用于安静环境中的专业麦克风。", "マイクそのままの音。静かな部屋の高品質マイク向け。"], vsMic:["Microphone", "ไมโครโฟน", "麦克风", "マイク"], vsOut:["Speaker or headphones", "ลำโพงหรือหูฟัง", "扬声器或耳机", "スピーカー・ヘッドホン"], vsDefault:["System default", "ค่าเริ่มต้นของเครื่อง", "系统默认", "システムの既定"], vsTest:["Test mic", "ทดสอบไมค์", "测试麦克风", "マイクテスト"], vsStopTest:["Stop test", "หยุดทดสอบ", "停止测试", "テスト停止"], vsHear:["Hear myself (use headphones)", "ฟังเสียงตัวเอง (ใส่หูฟัง)", "听自己的声音（请戴耳机）", "自分の声を聞く（ヘッドホン使用）"], vsHint:["The bar should move only when you talk. Voice keeps working when you switch to the game; leave this tab open.", "แถบควรขยับเฉพาะตอนคุณพูด เสียงยังทำงานต่อตอนสลับไปเล่นเกม แค่อย่าปิดแท็บนี้", "进度条只应在你说话时跳动。切到游戏时语音仍会工作，请保持此标签页打开。", "話した時だけバーが動けばOK。ゲームに切り替えても通話は続きます。このタブは閉じないでください。"], vsBadge:["Noise reduction: {m}", "ตัดเสียงรบกวน: {m}", "降噪：{m}", "ノイズ除去：{m}"], qLoss:["lost", "เสียงหาย", "丢包", "ロス"], volOf:["Volume for {n}", "ระดับเสียงของ {n}", "{n} 的音量", "{n} の音量"], adminTag:["Admin", "แอดมิน", "管理员", "管理者"], trAdminRoom:["Enter team voice room", "เข้าห้องเสียงทีมนี้", "进入该队语音房间", "チームのボイスルームへ"],
 sgTitle:["Find new friends", "ลองค้นหาเพื่อนใหม่ ๆ ดูสิ", "寻找新朋友", "新しい仲間を探そう"], sgSort:["Best match first, same rank first when tied.", "เรียงจากความเข้ากันได้มากไปน้อย ถ้าเท่ากัน แรงค์เดียวกันขึ้นก่อน", "按契合度排序，相同时同段位优先。", "相性順。同じなら同ランクを優先。"], sgSortShort:["By how well you match", "เรียงตามความเข้ากัน", "按契合度", "相性順"], sgOnline:["Online", "ออนไลน์", "在线", "オンライン"], sgOnlineN:["{n} online now", "ออนไลน์ตอนนี้ {n} คน", "当前在线 {n} 人", "オンライン {n}人"], sgOnlyOnline:["Online only", "เฉพาะคนที่ออนไลน์", "仅在线", "オンラインのみ"], sgMatch:["{n}% match", "เข้ากันได้ {n}%", "契合度 {n}%", "相性 {n}%"], sgSameRank:["Same rank ({r})", "แรงค์ {r} เหมือนกัน", "同为 {r}", "同じ{r}"], sgNearRank:["Close rank", "แรงค์ใกล้กัน", "段位相近", "近いランク"], sgNoInfo:["Plays the same game", "เล่นเกมเดียวกัน", "玩同款游戏", "同じゲーム"], sgSent:["Sent", "ส่งแล้ว", "已发送", "送信済み"], sgAdd:["Add friend", "เพิ่มเพื่อน", "加好友", "フレンド追加"], sgLogin:["Log in to see players who match your style.", "ล็อกอินเพื่อดูผู้เล่นที่เข้ากับสไตล์คุณ", "登录后查看与你风格相合的玩家。", "ログインすると相性の良いプレイヤーが表示されます。"], sgSetup:["Finish your profile to see how well you match others.", "กรอกโปรไฟล์ให้ครบ เพื่อดูว่าเข้ากับใครได้บ้าง", "完善资料后可查看契合度。", "プロフィールを完成させると相性が見られます。"], sgNone:["No new suggestions right now.", "ตอนนี้ยังไม่มีคนแนะนำเพิ่ม", "暂无新的推荐。", "今はおすすめがありません。"], sgNoneOnline:["None of your matches are online right now.", "คนที่เข้ากับคุณยังไม่ออนไลน์ตอนนี้", "契合的玩家目前都不在线。", "相性の良い人は今オフラインです。"], sgMore:["Show {n} more", "ดูเพิ่มอีก {n} คน", "再显示 {n} 人", "あと{n}人を表示"], sgHide:["Hide this panel", "ซ่อนแถบนี้", "隐藏此栏", "このパネルを隠す"], pvOnline:["Hide my online status", "ซ่อนสถานะออนไลน์ของฉัน", "隐藏我的在线状态", "オンライン状態を隠す"],
+devTag:["In development", "กำลังพัฒนา", "开发中", "開発中"], devShort:["Rooms coming soon", "ห้องและการจับคู่กำลังจะมา", "房间与匹配即将上线", "ルームとマッチは近日公開"], devTitle:["{g} is on the way", "{g} กำลังจะมาเร็ว ๆ นี้", "{g} 即将上线", "{g} は準備中です"], devBody:["We are building rooms and matchmaking for this game. Add it to your games now, and you will be ready when it opens.", "เรากำลังทำระบบห้องและจับคู่ของเกมนี้อยู่ เพิ่มเกมนี้ไว้ในโปรไฟล์ได้เลย พอเปิดใช้ก็พร้อมหาทีมทันที", "我们正在为这款游戏开发房间和匹配功能。现在就把它加入你的游戏，开放后即可组队。", "このゲームのルームとマッチングを準備中です。今のうちにプロフィールへ追加しておきましょう。"], devAdd:["Add {g} to my games", "เพิ่ม {g} ในเกมของฉัน", "把 {g} 加入我的游戏", "{g} をマイゲームに追加"], expLbl:["Experience", "แมพ / เกมใน Roblox", "体验", "エクスペリエンス"],
 wantsFriend:["sent you a friend request","ส่งคำขอเป็นเพื่อนถึงคุณ","向你发送了好友请求","からフレンド申請が届きました"], notifs:["Notifications","การแจ้งเตือน","通知","通知"], noNotifs:["Nothing new","ยังไม่มีอะไรใหม่","暂无新通知","新しい通知はありません"], wantsFriend:["wants to be friends","ขอเป็นเพื่อน","想加你为好友","からフレンド申請"], invitedYou:["invited you to","ชวนคุณเข้าห้อง","邀请你加入","からの招待"], joinNow:["Join","เข้าร่วม","加入","参加"], dismiss:["Dismiss","ปิด","忽略","閉じる"],
 noFriends:["No friends yet","ยังไม่มีเพื่อน","还没有好友","フレンドはまだいません"], blockedList:["Blocked","ที่บล็อกไว้","已屏蔽","ブロック中"], unblock:["Unblock","เลิกบล็อก","取消屏蔽","ブロック解除"], block:["Block","บล็อก","屏蔽","ブロック"], report:["Report","รายงาน","举报","通報"],
 unfriend:["Remove friend","ลบเพื่อน","删除好友","フレンド解除"], unfriendConfirm:["Remove {n} from your friends?","ลบ {n} ออกจากเพื่อน?","将 {n} 从好友中删除？","{n} をフレンドから外しますか？"], blockConfirm:["Block {n}? You won't be matched or share rooms, and their messages will be hidden.","บล็อก {n}? ระบบจะไม่จับคู่และไม่ให้อยู่ห้องเดียวกัน และจะซ่อนข้อความของเขา","屏蔽 {n}？你们将不会被匹配或同房，对方的消息也会被隐藏。","{n} をブロックしますか？マッチングや同室がなくなり、メッセージも非表示になります。"],
@@ -562,8 +579,18 @@ const GAMES = {
       ["gCasual2",[["Abyssal Clash","5v5 single-lane with random heroes"],["Valley Skirmish (3v3)","Shorter, faster team fights"],["Solo Battle (1v1)","Find a sparring partner to practice with"]]],
       ["gArcade",[["Arcade Modes","Hook Wars, Football Fever and other rotating modes"],["Custom Room","Scrims, practice matches and tournaments"]]]]},
   roblox:{ name:"Roblox", color:"c-mustard", blurb:["Pick an experience, bring friends","เลือกแมพ แล้วชวนเพื่อนมาเล่น","选个体验，叫上朋友","ゲームを選んで仲間と遊ぼう"], ranks:[], roles:[],
-    groups:[["gPopular",[["Steal An Egg",""],["Murder Mystery 2",""],["Brookhaven RP",""],["Blox Fruits",""],["Throw Food For Animals",""],["Adopt Me!",""],["99 Nights in the Forest",""],["RIVALS",""],["Steal a Brainrot",""],["Anime Adventures",""]]]]}
+    groups:[["gPopular",[["Steal An Egg",""],["Murder Mystery 2",""],["Brookhaven RP",""],["Blox Fruits",""],["Throw Food For Animals",""],["Adopt Me!",""],["99 Nights in the Forest",""],["RIVALS",""],["Steal a Brainrot",""],["Anime Adventures",""]]]]},
+  // games still in development: they get a tile and a "coming soon" page, players can list them on their profile
+  pubg:{ name:"PUBG", color:"c-mustard", soon:true, blurb:["Battle royale, squad up to four","แบทเทิลรอยัล ลงสควอดได้ 4 คน","大逃杀，四人小队","バトロワ、最大4人スクワッド"], ranks:[], roles:[], groups:[]},
+  cs2:{ name:"Counter-Strike 2", color:"c-coral", soon:true, blurb:["5v5 tactical shooter","เกมยิงแทคติก 5v5","5v5 战术射击","5v5 タクティカルFPS"], ranks:[], roles:[], groups:[]},
+  apex:{ name:"Apex Legends", color:"c-mustard", soon:true, blurb:["Hero battle royale in trios","แบทเทิลรอยัลฮีโร่ ทีมละ 3 คน","英雄大逃杀，三人小队","3人チームのヒーローバトロワ"], ranks:[], roles:[], groups:[]},
+  lol:{ name:"League of Legends", color:"c-blue", soon:true, blurb:["5v5 MOBA on PC","MOBA บนคอม 5v5","5v5 端游 MOBA","PC向け5v5 MOBA"], ranks:[], roles:[], groups:[]},
+  dota2:{ name:"Dota 2", color:"c-coral", soon:true, blurb:["5v5 MOBA on PC","MOBA บนคอม 5v5","5v5 端游 MOBA","PC向け5v5 MOBA"], ranks:[], roles:[], groups:[]},
+  mlbb:{ name:"Mobile Legends", color:"c-sage", soon:true, blurb:["5v5 mobile MOBA","MOBA มือถือ 5v5","5v5 手机 MOBA","5v5 モバイルMOBA"], ranks:[], roles:[], groups:[]}
 };
+const LIVE = Object.keys(GAMES).filter(k=>!GAMES[k].soon);
+// games whose rooms and team matchmaking are open
+const ROOM_GAMES = ["valorant"]; // RoV and Roblox switch on once the database accepts their rooms
 const SIZES = [2,3,4,5];
 const VIBES = ["Chill","Tryhard","Mic on","No mic","Shotcaller","Quiet","Funny","Patient with new players","No toxicity"];
 const TIMES = ["Weekday mornings","Weekday afternoons","Weekday evenings","Late night","Weekends"];
@@ -603,7 +630,7 @@ function layoutOf(p){
 /* ---------- helpers ---------- */
 const $ = s => document.querySelector(s);
 const esc = s => String(s==null?"":s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-const ROUTES = ["home","quick","news","tournament","valorant","rov","roblox","rooms","setup","profile","admin","event","privacy","terms"];
+const ROUTES = ["home","quick","news","tournament","valorant","rov","roblox","pubg","cs2","apex","lol","dota2","mlbb","rooms","setup","profile","admin","event","privacy","terms"];
 function route(){ const h = decodeURIComponent(location.hash.replace("#","")); if(/^u-[A-Za-z0-9_]{3,16}$/.test(h)) return "user"; if(/^r-[0-9a-f-]{36}$/.test(h)) return "vroom"; return ROUTES.includes(h)?h:"home"; }
 function go(r){ if(location.hash.replace("#","")===r){ render(); window.scrollTo(0,0); } else location.hash = r; }
 let toastT; function toast(msg,ms){ const el=$("#toast"); el.textContent=msg; el.classList.add("show"); clearTimeout(toastT); toastT=setTimeout(()=>el.classList.remove("show"),ms||2000); }
@@ -725,13 +752,17 @@ const views = {
     return `<section class="hero"><span class="mono">${t("eyebrow")}</span><h1>${t("h1a")}<br><em>${t("h1b")}</em></h1><p>${t("heroSub")}</p>
       <div class="hero-cta"><button class="btn coral big" data-act="scroll-games">${t("find")}</button><button class="btn mid" data-go="quick" style="background:var(--mustard);color:#2A2222;text-shadow:none">⚡ ${t("qHero")}</button>${second}</div></section>
     <section class="block" id="games-block"><div class="head"><h2>${t("pick")}</h2><span class="mono">${t("moreGames")}</span></div>
-      <div class="grid g3">${Object.entries(GAMES).map(([id,g])=>`<button class="tile" data-go="${id}"><div ${bandAttr(id)}><h3>${g.name}</h3></div><div class="body"><span>${g.blurb[LI[S.lang]]}</span><span class="mono">${id==="valorant"?t("nRooms",{n:S.vrooms.length}):t("roomsSoon")}</span></div></button>`).join("")}</div></section>
+      <div class="grid g3">${Object.entries(GAMES).map(([id,g])=>`<button class="tile ${g.soon?"soon":""}" data-go="${id}"><div ${bandAttr(id)}><h3>${g.name}</h3>${g.soon?`<span class="soon-tag">${t("devTag")}</span>`:""}</div><div class="body"><span>${g.blurb[LI[S.lang]]}</span><span class="mono">${g.soon?t("devShort"):t("nRooms",{n:S.vrooms.filter(r=>(r.game||"valorant")===id).length})}</span></div></button>`).join("")}</div></section>
     ${S.me?`<section class="block home-sugg"><div class="head"><h2>${t("sgTitle")}</h2><span class="mono">${t("sgSortShort")}</span></div><div class="card"><div id="home-sugg" class="sglist">${suggListHTML(6)}</div></div></section>`:""}
     <section class="block"><div class="head"><h2>${t("openRooms")}</h2><button class="btn small" data-go="rooms">${t("seeAll")}</button></div>
       ${S.vrooms.some(r=>membersOf(r).length<r.size)?`<div class="grid g2">${S.vrooms.filter(r=>membersOf(r).length<r.size).slice(0,4).map(vroomCard).join("")}</div>`:`<p class="muted">${t("noRooms")}</p>`}</section>`;
   },
   game(id){
-    const g = GAMES[id], pick = S.pick[id], groups = g.groups.slice();
+    const g = GAMES[id];
+    if(g.soon) return `<div class="game-hero"><button class="back" data-go="home">${t("allGames")}</button><h1 style="font-family:var(--font-display);font-weight:400">${g.name}</h1><p class="muted">${g.blurb[LI[S.lang]]}</p></div>
+      <section class="block"><div class="card pop soon-card"><div ${bandAttr(id)} style="min-height:180px"></div><div style="padding:22px;display:flex;flex-direction:column;gap:10px;align-items:flex-start"><span class="soon-tag">${t("devTag")}</span><h2 style="margin:0">${t("devTitle",{g:g.name})}</h2><p class="muted" style="margin:0">${t("devBody")}</p>
+        <div class="chips">${S.me?`<button class="btn coral" data-act="edit" data-what="games">${t("devAdd",{g:g.name})}</button>`:`<button class="btn coral" data-act="auth" data-tab="signup">${t("signup")}</button>`}<button class="btn" data-go="quick">⚡ ${t("qHero")}</button></div></div></div></section>`;
+    const pick = S.pick[id], groups = g.groups.slice();
     if(id==="roblox" && S.customRoblox.length) groups.push(["gAdded",S.customRoblox.map(n=>[n,""])]);
     const rooms = ROOMS.filter(r=>r.game===id);
     return `<div class="game-hero"><button class="back" data-go="home">${t("allGames")}</button><h1 style="font-family:var(--font-display);font-weight:400">${g.name}</h1><p class="muted">${t(id==="roblox"?"chooseExp":"chooseMode")} ${t("browseNote")}</p></div>
@@ -747,14 +778,15 @@ const views = {
       <div class="card pop queue"><div><span class="mono">${t("yourPick")}</span><div><b>${esc(pick.mode)}</b> · ${t("s"+pick.size)}</div></div>
         <button class="btn coral mid" data-act="match" data-game="${id}">${t("quick")}</button></div>
     </section>
-    <section class="block"><div class="head"><h2>${t("gRooms",{g:g.name})}</h2>${id==="valorant"?`<button class="btn coral" data-act="create-room">${t("createRoom")}</button>`:""}</div>${id==="valorant"?vroomListHTML():`<p class="muted">${t("roomsSoon")}</p>`}</section>`;
+    <section class="block"><div class="head"><h2>${t("gRooms",{g:g.name})}</h2>${ROOM_GAMES.includes(id)?`<button class="btn coral" data-act="create-room" data-game="${id}">${t("createRoom")}</button>`:""}</div>${ROOM_GAMES.includes(id)?vroomListHTML(id):`<p class="muted">${t("roomsSoon")}</p>`}</section>`;
   },
   valorant(){ return views.game("valorant"); }, rov(){ return views.game("rov"); }, roblox(){ return views.game("roblox"); },
+  pubg(){ return views.game("pubg"); }, cs2(){ return views.game("cs2"); }, apex(){ return views.game("apex"); }, lol(){ return views.game("lol"); }, dota2(){ return views.game("dota2"); }, mlbb(){ return views.game("mlbb"); },
   rooms(){
     const list = ROOMS.filter(r=>S.roomFilter==="all"||r.game===S.roomFilter);
-    return `<div class="game-hero"><h1>${t("rooms")}</h1><p class="muted">${t("roomsSub")}</p><button class="btn coral" data-act="create-room">${t("createRoom")}</button></div>
-    <section class="block"><div class="chips" style="margin-bottom:16px">${[["all",t("allG")],...Object.entries(GAMES).map(([k,g])=>[k,g.name])].map(([k,l])=>
-      `<button class="chip" data-act="filter" data-val="${k}" aria-pressed="${S.roomFilter===k}">${l}</button>`).join("")}</div>${S.roomFilter==="all"||S.roomFilter==="valorant"?(S.vrooms.length?vroomListHTML():""):""}${S.roomFilter!=="all"&&S.roomFilter!=="valorant"?`<p class="muted">${t("roomsSoon")}</p>`:!S.vrooms.length?`<p class="muted">${t("noRooms")}</p>`:""}</section>`;
+    return `<div class="game-hero"><h1>${t("rooms")}</h1><p class="muted">${t("roomsSub")}</p><button class="btn coral" data-act="create-room" data-game="${ROOM_GAMES.includes(S.roomFilter)?S.roomFilter:""}">${t("createRoom")}</button></div>
+    <section class="block"><div class="chips" style="margin-bottom:16px">${[["all",t("allG")],...LIVE.map(k=>[k,GAMES[k].name])].map(([k,l])=>
+      `<button class="chip" data-act="filter" data-val="${k}" aria-pressed="${S.roomFilter===k}">${l}</button>`).join("")}</div>${S.roomFilter==="all"||ROOM_GAMES.includes(S.roomFilter)?vroomListHTML(S.roomFilter==="all"?"":S.roomFilter):`<p class="muted">${t("roomsSoon")}</p>`}</section>`;
   },
   setup(){
     if(S.booting) return views.loading(); const p = S.me; if(!p) return views.needLogin();
@@ -846,19 +878,26 @@ const VAL_RANKS = GAMES.valorant.ranks.slice(1), VAL_ROLES = GAMES.valorant.role
 const ROOM_GENDERS = ["Male","Female","Non-binary"];
 const ROOM_SELECT = "*, room_members(user_id, role, joined_at, left_at, last_seen, profiles(username, display_name, avatar))";
 const membersOf = r => (r.room_members||[]).filter(m=>!m.left_at).sort((a,b)=>new Date(a.joined_at)-new Date(b.joined_at));
-const isRanked = r => /Competitive/.test(r.mode);
+const gRanks = g => ((GAMES[g]||{}).ranks||[]).filter(x=>x!=="Unranked");
+const gRoles = g => (GAMES[g]||{}).roles||[];
+const gModes = g => g==="roblox" ? [...GAMES.roblox.groups.flatMap(x=>x[1].map(m=>m[0])),...S.customRoblox.filter(n=>n.length<=40)] : ((GAMES[g]||GAMES.valorant).groups).flatMap(x=>x[1].map(m=>m[0]));
+const roomGame = r => (r && r.game) || "valorant";
+const gameLabel = r => (GAMES[roomGame(r)]||GAMES.valorant).name.toUpperCase();
+const myGame = g => ((S.me && S.me.games)||{})[g]||{};
+const isRanked = r => roomGame(r)==="valorant" ? /Competitive/.test(r.mode) : roomGame(r)==="rov" ? /Ranked/.test(r.mode) : false;
 const rankImg = (n,sz) => `<img src="ranks/${n.toLowerCase()}.png" alt="${n}" title="${n}" width="${sz}" height="${sz}" loading="lazy">`;
 // ranked rooms show the rank range as badges; other modes keep the plain text tag
 function rankTag(r,sz){ sz = sz||30;
-  if(!isRanked(r) || (!r.rank_min && !r.rank_max)) return `<span class="tag">${esc(rankText(r))}</span>`;
+  if(roomGame(r)==="roblox") return "";
+  if(!isRanked(r) || (!r.rank_min && !r.rank_max) || roomGame(r)!=="valorant") return (r.rank_min||r.rank_max||isRanked(r)) ? `<span class="tag">${esc(rankText(r))}</span>` : `<span class="tag">${esc(rankText(r))}</span>`;
   const a = VAL_RANKS.includes(r.rank_min)?r.rank_min:"Iron", b = VAL_RANKS.includes(r.rank_max)?r.rank_max:"Radiant";
   return `<span class="rk" aria-label="${esc(rankText(r))}">${rankImg(a,sz)}${a!==b?`<span class="rk-to">→</span>${rankImg(b,sz)}`:""}</span>`; }
 const rankText = r => r.rank_min&&r.rank_max ? (r.rank_min===r.rank_max?r.rank_min:r.rank_min+" – "+r.rank_max) : r.rank_min ? r.rank_min+"+" : r.rank_max ? "≤ "+r.rank_max : t("anyRank");
 async function loadVRooms(){
   if(!sb) return;
-  const { data } = await sb.from("rooms").select(ROOM_SELECT).eq("game","valorant").gte("created_at",new Date(Date.now()-864e5).toISOString()).order("created_at",{ascending:false}).limit(60);
+  const { data } = await sb.from("rooms").select(ROOM_SELECT).in("game",ROOM_GAMES).gte("created_at",new Date(Date.now()-864e5).toISOString()).order("created_at",{ascending:false}).limit(60);
   S.vrooms = data || [];
-  if(["home","valorant","rooms"].includes(route()) && !S.dialog) rerender();
+  if(["home","rooms",...ROOM_GAMES].includes(route()) && !S.dialog) rerender();
 }
 function whyNot(r){
   const m = membersOf(r); if(m.length>=r.size) return "roomFull";
@@ -866,72 +905,79 @@ function whyNot(r){
   if(p.age<r.age_min || p.age>r.age_max) return "whyAge";
   if(r.req_gender.length){ if(!p.gender) return "needGender"; if(!r.req_gender.includes(p.gender)) return "whyGender"; }
   if(r.req_vibes.length){ if(!p.vibes.length) return "needVibe"; if(!r.req_vibes.some(v=>p.vibes.includes(v))) return "whyVibe"; }
-  if(r.rank_min || r.rank_max){ const mine = ((p.games||{}).valorant||{}).rank||"", i = VAL_RANKS.indexOf(mine);
+  if(r.rank_min || r.rank_max){ const rk = gRanks(roomGame(r)), mine = ((p.games||{})[roomGame(r)]||{}).rank||"", i = rk.indexOf(mine);
     if(!mine) return "needRank";
-    if(i<0 || (r.rank_min && i<VAL_RANKS.indexOf(r.rank_min)) || (r.rank_max && i>VAL_RANKS.indexOf(r.rank_max))) return "whyRank"; }
+    if(i<0 || (r.rank_min && i<rk.indexOf(r.rank_min)) || (r.rank_max && i>rk.indexOf(r.rank_max))) return "whyRank"; }
   return "";
 }
 const NEED_EDIT = {needGender:'data-what="basic"',needVibe:'data-what="about"',needRank:'data-what="game" data-game="valorant"'};
+const needEdit = (why,r) => why==="needRank" ? `data-what="game" data-game="${roomGame(r)}"` : NEED_EDIT[why];
 const JOIN_ERR = {full:"roomFull",need_gender:"needGender",need_vibe:"needVibe",need_rank:"needRank",rank_range:"whyRank",age:"whyAge",gender:"whyGender",vibe:"whyVibe",gone:"roomGone",minor:"whyMinor",blocked:"whyBlocked"};
 const joinErrKey = msg => JOIN_ERR[Object.keys(JOIN_ERR).find(k=>msg.includes(k))] || "tFail";
 /* room list filters */
 const RF0 = {mode:"",rank:"",vibe:"",gender:"",age:"",open:false,mine:false};
-function filterRooms(list){ const f = S.rf, ri = VAL_RANKS.indexOf(f.rank), age = +f.age;
-  return list.filter(r=>(!f.mode || r.mode===f.mode)
-    && (ri<0 || ((!r.rank_min || ri>=VAL_RANKS.indexOf(r.rank_min)) && (!r.rank_max || ri<=VAL_RANKS.indexOf(r.rank_max))))
+function filterRooms(list){ const f = S.rf, age = +f.age;
+  return list.filter(r=>{ const rk = gRanks(roomGame(r)), ri = rk.indexOf(f.rank); return (!f.mode || r.mode===f.mode)
+    && (ri<0 || ((!r.rank_min || ri>=rk.indexOf(r.rank_min)) && (!r.rank_max || ri<=rk.indexOf(r.rank_max))))
     && (!f.vibe || !r.req_vibes.length || r.req_vibes.includes(f.vibe))
     && (!f.gender || !r.req_gender.length || r.req_gender.includes(f.gender))
     && (!(age>=13) || (age>=r.age_min && age<=r.age_max))
     && (!f.open || membersOf(r).length<r.size)
-    && (!f.mine || (S.me && membersOf(r).some(m=>m.user_id===S.me.id)) || whyNot(r)===""));
+    && (!f.mine || (S.me && membersOf(r).some(m=>m.user_id===S.me.id)) || whyNot(r)===""); });
 }
-function roomFilterBar(){ const f = S.rf, on = Object.keys(RF0).some(k=>f[k]);
+function roomFilterBar(g){ const f = S.rf, on = Object.keys(RF0).some(k=>f[k]);
+  const modes = g ? gModes(g) : [], ranks = g ? gRanks(g) : [];
+  if(f.mode && !modes.includes(f.mode)) f.mode = ""; if(f.rank && !ranks.includes(f.rank)) f.rank = "";
   const pick = (k,opts,blank) => `<select class="inp" data-rf="${k}" aria-label="${blank}"><option value="">${blank}</option>${opts.map(o=>`<option value="${esc(o)}" ${f[k]===o?"selected":""}>${esc(tl(o))}</option>`).join("")}</select>`;
-  return `<div class="card rfbar"><span class="mono">${t("fTitle")}</span><div class="rf-row">${pick("mode",VAL_MODES,t("fAllModes"))}${pick("rank",VAL_RANKS,t("fAnyRank"))}${pick("vibe",VIBES,t("fAnyVibe"))}${pick("gender",ROOM_GENDERS,t("fAnyGender"))}
+  return `<div class="card rfbar"><span class="mono">${t("fTitle")}</span><div class="rf-row">${modes.length?pick("mode",modes,t("fAllModes")):""}${ranks.length?pick("rank",ranks,t("fAnyRank")):""}${pick("vibe",VIBES,t("fAnyVibe"))}${pick("gender",ROOM_GENDERS,t("fAnyGender"))}
     <input class="inp" data-rf="age" type="number" min="13" max="99" inputmode="numeric" placeholder="${t("age")}" aria-label="${t("age")}" value="${esc(f.age)}"></div>
     <div class="chips" style="align-items:center"><label class="check"><input type="checkbox" data-rf="open" ${f.open?"checked":""}> ${t("fOpen")}</label><label class="check"><input type="checkbox" data-rf="mine" ${f.mine?"checked":""}> ${t("fMine")}</label>${on?`<button class="btn small ghost" data-act="rf-clear">${t("fClear")}</button>`:""}</div></div>`;
 }
-function vroomListHTML(){ if(!S.vrooms.length) return `<p class="muted">${t("noRooms")}</p>`; const list = filterRooms(S.vrooms);
+function vroomListHTML(g){ const all = g ? S.vrooms.filter(r=>roomGame(r)===g) : S.vrooms;
+  if(!all.length) return `<p class="muted">${t("noRooms")}</p>`; const list = filterRooms(all);
   const n = Object.keys(RF0).filter(k=>S.rf[k]).length;
   const btn = `<div style="display:flex;justify-content:flex-end;margin-bottom:12px"><button class="btn small" data-act="rf-toggle" aria-expanded="${!!S.rfOpen}" aria-label="${t("fTitle")}" title="${t("fTitle")}"><svg viewBox="0 0 20 20" width="16" height="16" aria-hidden="true"><path d="M2 4h16l-6 7v5l-4 2v-7z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>${t("fShort")}${n?` <b>${n}</b>`:""}</button></div>`;
-  return btn+(S.rfOpen?roomFilterBar():"")+(list.length?`<div class="grid g2">${list.map(vroomCard).join("")}</div>`:`<p class="muted">${t("fNone")}</p>`); }
+  return btn+(S.rfOpen?roomFilterBar(g):"")+(list.length?`<div class="grid g2">${list.map(vroomCard).join("")}</div>`:`<p class="muted">${t("fNone")}</p>`); }
 function vroomCard(r){
   const m = membersOf(r), full = m.length>=r.size, mine = S.me && m.some(x=>x.user_id===S.me.id), host = m.find(x=>x.user_id===r.host_id);
   return `<button class="card room" data-act="vroom" data-id="${r.id}">
-    <div class="room-top"><div><span class="mono">VALORANT · ${esc(r.mode)}</span><h3>${esc(r.title)}</h3></div>
+    <div class="room-top"><div><span class="mono">${esc(gameLabel(r))} · ${esc(r.mode)}</span><h3>${esc(r.title)}</h3></div>
     <span class="tag ${mine?"you":full?"full":"open"}">${mine?t("youIn"):full?t("full"):t("open")}</span></div>
-    <div class="chips" style="align-items:center">${rankTag(r)}${r.need_roles.map(x=>`<span class="tag c-mustard">${esc(x)}</span>`).join("")}${r.req_vibes.slice(0,3).map(x=>`<span class="tag">${esc(tl(x))}</span>`).join("")}</div>
+    <div class="chips" style="align-items:center">${rankTag(r)}${r.need_roles.map(x=>`<span class="tag c-mustard">${esc(tl(x))}</span>`).join("")}${r.req_vibes.slice(0,3).map(x=>`<span class="tag">${esc(tl(x))}</span>`).join("")}</div>
     <div class="room-foot"><span class="muted">${t("host")} ${esc(host&&host.profiles?host.profiles.display_name:"")}</span>
     <span class="slots" aria-label="${t("nOf",{a:m.length,b:r.size})}">${Array.from({length:r.size},(_,i)=>`<i class="slot ${i<m.length?(S.me&&m[i].user_id===S.me.id?"me":"on"):""}"></i>`).join("")}</span></div>
   </button>`;
 }
 function roomReqHTML(r){
   const who = [t("ageRange",{a:r.age_min,b:r.age_max}),...r.req_gender.map(tl),...r.req_vibes.map(tl)];
-  return `<div class="req">${r.need_roles.length?`<div><span class="mono">${t("lookingFor")}</span><div class="chips" style="margin-top:4px">${r.need_roles.map(x=>`<span class="tag c-mustard">${esc(x)}</span>`).join("")}</div></div>`:""}
+  return `<div class="req">${r.need_roles.length?`<div><span class="mono">${t("lookingFor")}</span><div class="chips" style="margin-top:4px">${r.need_roles.map(x=>`<span class="tag c-mustard">${esc(tl(x))}</span>`).join("")}</div></div>`:""}
     <div><span class="mono">${t("whoCan")}</span><div class="chips" style="margin-top:4px;align-items:center">${rankTag(r,40)}${who.map(x=>`<span class="tag">${esc(x)}</span>`).join("")}</div></div></div>`;
 }
 function vroomDialog(r){
-  const m = membersOf(r), mine = S.me && m.some(x=>x.user_id===S.me.id), why = whyNot(r), myRoles = S.me ? (((S.me.games||{}).valorant||{}).roles||[]) : [];
+  const m = membersOf(r), mine = S.me && m.some(x=>x.user_id===S.me.id), why = whyNot(r), myRoles = S.me ? (myGame(roomGame(r)).roles||[]) : [], roles = gRoles(roomGame(r));
   const pre = r.need_roles.find(x=>myRoles.includes(x)) || myRoles[0] || r.need_roles[0] || "";
-  return `<div class="dialog wide" role="dialog" aria-modal="true" aria-labelledby="dlg-t"><span class="mono">VALORANT · ${esc(r.mode)}</span><h2 id="dlg-t" style="font-family:var(--font-body);font-weight:600;letter-spacing:0">${esc(r.title)}</h2>
+  return `<div class="dialog wide" role="dialog" aria-modal="true" aria-labelledby="dlg-t"><span class="mono">${esc(gameLabel(r))} · ${esc(r.mode)}</span><h2 id="dlg-t" style="font-family:var(--font-body);font-weight:600;letter-spacing:0">${esc(r.title)}</h2>
     <div class="chips"><span class="tag ${mine?"you":m.length>=r.size?"full":"open"}">${t("nOf",{a:m.length,b:r.size})}</span></div>
     ${r.note?`<p style="white-space:pre-wrap">${esc(r.note)}</p>`:""}${roomReqHTML(r)}
     <div>${m.map(x=>`<div class="member"><button class="plink" data-go="u-${esc(x.profiles?x.profiles.username:"")}">${avatar(x.profiles,32)}</button><div><button class="plink" data-go="u-${esc(x.profiles?x.profiles.username:"")}"><b>${esc(x.profiles?x.profiles.display_name:"")}</b></button>${x.user_id===r.host_id?` <span class="tag">${t("host")}</span>`:""}${S.me&&x.user_id===S.me.id?` <span class="tag you">${t("you")}</span>`:""}${x.role?`<div class="muted">${esc(x.role)}</div>`:""}</div></div>`).join("")}</div>
-    ${!mine&&!why?`<div><p class="mono" style="margin-bottom:8px">${t("pickRole")}</p>${chipSet("join_role",VAL_ROLES,[pre],"chip1")}</div>`:""}
-    ${!mine&&why&&why!=="roomFull"?`<div class="banner" style="margin-top:0"><span>${t(why)}</span>${NEED_EDIT[why]?`<button class="btn small" data-act="edit" ${NEED_EDIT[why]}>${t("fillNow")}</button>`:""}</div>`:""}
+    ${!mine&&!why&&roles.length?`<div><p class="mono" style="margin-bottom:8px">${t("pickRole")}</p>${chipSet("join_role",roles,[pre],"chip1")}</div>`:""}
+    ${!mine&&why&&why!=="roomFull"?`<div class="banner" style="margin-top:0"><span>${t(why)}</span>${needEdit(why,r)?`<button class="btn small" data-act="edit" ${needEdit(why,r)}>${t("fillNow")}</button>`:""}</div>`:""}
     <div class="dialog-actions"><button class="btn ghost" data-act="close">${t("close")}</button>
     ${mine?`<button class="btn coral" data-act="close-go" data-to="r-${r.id}">${t("enterRoom")}</button>`:why?`<button class="btn" disabled>${why==="roomFull"?t("roomFull"):t("join")}</button>`:`<button class="btn coral" data-act="vjoin" data-id="${r.id}">${t("join")}</button>`}</div></div>`;
 }
 function roomFormDialog(d){
-  const edit = !!d.edit, r = edit ? RC.data : {title:"",mode:S.pick.valorant.mode,size:5,note:"",rank_min:"",rank_max:"",need_roles:[],req_vibes:[],req_gender:[],age_min:13,age_max:99};
-  const myRoles = ((S.me.games||{}).valorant||{}).roles||[], num = (id,label,v) => `<label class="f">${label}<input class="inp" id="${id}" type="number" min="13" max="99" inputmode="numeric" value="${v}"></label>`;
+  const edit = !!d.edit, g = edit ? roomGame(RC.data) : (ROOM_GAMES.includes(d.game) ? d.game : "valorant"); d.game = g;
+  const modes = gModes(g), ranks = gRanks(g), roles = gRoles(g), dm = (S.pick[g]&&modes.includes(S.pick[g].mode)) ? S.pick[g].mode : modes[0];
+  const r = edit ? RC.data : {title:"",mode:dm,size:g==="roblox"?4:5,note:"",rank_min:"",rank_max:"",need_roles:[],req_vibes:[],req_gender:[],age_min:13,age_max:99};
+  const myRoles = myGame(g).roles||[], num = (id,label,v) => `<label class="f">${label}<input class="inp" id="${id}" type="number" min="13" max="99" inputmode="numeric" value="${v}"></label>`;
   return `<div class="dialog wide" role="dialog" aria-modal="true" aria-labelledby="dlg-t"><h2 id="dlg-t">${edit?t("roomSettings"):t("createRoom")}</h2><form data-form="room-form">
+    ${edit?"":`<div><p class="mono" style="margin-bottom:8px">${t("qGame")}</p><div class="chips">${ROOM_GAMES.map(k=>`<button class="chip" type="button" data-act="rf-game" data-game="${k}" aria-pressed="${g===k}">${GAMES[k].name}</button>`).join("")}</div></div>`}
     <label class="f">${t("roomTitle")}<input class="inp" id="rf-title" maxlength="60" placeholder="${t("roomTitlePh")}" value="${esc(r.title)}"></label>
-    <div class="row"><label class="f">${t("mode")}<select class="inp" id="rf-mode">${VAL_MODES.map(o=>`<option ${r.mode===o?"selected":""}>${esc(o)}</option>`).join("")}</select></label>
-      <label class="f">${t("wanted")} <span class="hint">${t("wantedHint")}</span><select class="inp" id="rf-size">${[1,2,3,4,5].map(n=>`<option ${r.size-1===n?"selected":""}>${n}</option>`).join("")}</select></label>
-      ${edit?"":`<label class="f">${t("myRole")}${sel("rf-role",VAL_ROLES,myRoles[0]||"",t("notSet"))}</label>`}</div>
-    <div><p class="mono" style="margin-bottom:8px">${t("needRoles")}</p>${chipSet("need_roles",VAL_ROLES,r.need_roles)}</div>
-    <div class="row"><label class="f">${t("rankFrom")}${sel("rf-rmin",VAL_RANKS,r.rank_min,t("anyRank"))}</label><label class="f">${t("rankTo")}${sel("rf-rmax",VAL_RANKS,r.rank_max,t("anyRank"))}</label>${num("rf-amin",t("ageFrom"),r.age_min)}${num("rf-amax",t("ageTo"),r.age_max)}</div>
+    <div class="row"><label class="f">${t(g==="roblox"?"expLbl":"mode")}<select class="inp" id="rf-mode">${(modes.includes(r.mode)?modes:[r.mode,...modes]).map(o=>`<option ${r.mode===o?"selected":""}>${esc(o)}</option>`).join("")}</select></label>
+      <label class="f">${t("wanted")} <span class="hint">${t("wantedHint")}</span><select class="inp" id="rf-size">${(g==="roblox"?[1,2,3,4,5,6]:[1,2,3,4,5]).map(n=>`<option ${r.size-1===n?"selected":""}>${n}</option>`).join("")}</select></label>
+      ${edit||!roles.length?"":`<label class="f">${t("myRole")}${sel("rf-role",roles,myRoles[0]||"",t("notSet"))}</label>`}</div>
+    ${roles.length?`<div><p class="mono" style="margin-bottom:8px">${t("needRoles")}</p>${chipSet("need_roles",roles,r.need_roles)}</div>`:""}
+    <div class="row">${ranks.length?`<label class="f">${t("rankFrom")}${sel("rf-rmin",ranks,r.rank_min,t("anyRank"))}</label><label class="f">${t("rankTo")}${sel("rf-rmax",ranks,r.rank_max,t("anyRank"))}</label>`:""}${num("rf-amin",t("ageFrom"),r.age_min)}${num("rf-amax",t("ageTo"),r.age_max)}</div>
     <div><p class="mono">${t("allowGender")}</p><p class="hint" style="margin-bottom:8px">${t("anyoneHint")}</p>${chipSet("req_gender",ROOM_GENDERS,r.req_gender)}</div>
     <div><p class="mono">${t("allowVibe")}</p><p class="hint" style="margin-bottom:8px">${t("anyoneHint")} ${t("vibeHint")}</p>${chipSet("req_vibes",VIBES,r.req_vibes)}</div>
     <label class="f">${t("roomNote")}<textarea class="inp" id="rf-note" maxlength="300">${esc(r.note)}</textarea></label>
@@ -943,7 +989,8 @@ async function submitRoomForm(){
   const d = S.dialog, err = $("#rf-err"), btn = $("#rf-go"), title = val("rf-title"), amin = +val("rf-amin")||13, amax = +val("rf-amax")||99;
   if(title.length<3) return err.textContent = t("eTitle");
   if(amin<13 || amax>99 || amin>amax) return err.textContent = t("eAgeRange");
-  let rmin = val("rf-rmin"), rmax = val("rf-rmax"); if(rmin && rmax && VAL_RANKS.indexOf(rmin)>VAL_RANKS.indexOf(rmax)) [rmin,rmax] = [rmax,rmin];
+  const g = d.edit ? roomGame(RC.data) : (d.game||"valorant"), rk = gRanks(g);
+  let rmin = val("rf-rmin"), rmax = val("rf-rmax"); if(rmin && rmax && rk.indexOf(rmin)>rk.indexOf(rmax)) [rmin,rmax] = [rmax,rmin];
   const body = {title,mode:val("rf-mode"),size:+val("rf-size")+1,note:val("rf-note"),rank_min:rmin,rank_max:rmax,need_roles:pressed("need_roles"),req_vibes:pressed("req_vibes"),req_gender:pressed("req_gender"),age_min:amin,age_max:amax};
   btn.disabled = true; err.textContent = t("working");
   if(d.edit){
@@ -951,7 +998,7 @@ async function submitRoomForm(){
     if(a.error || b.error){ btn.disabled=false; return err.textContent = t("tFail"); }
     S.dialog=null; renderDialog(); await refreshRoom(); toast(t("saved"));
   } else {
-    const { data, error } = await sb.rpc("create_room",{p:{...body,my_role:val("rf-role"),party_code:val("rf-code")}});
+    const { data, error } = await sb.rpc("create_room",{p:{...body,game:g,my_role:val("rf-role"),party_code:val("rf-code")}});
     if(error){ btn.disabled=false; return err.textContent = /too_many/.test(error.message)?t("whyMany"):t("tFail"); }
     S.dialog=null; renderDialog(); loadVRooms(); go("r-"+data);
   }
@@ -1097,7 +1144,7 @@ function leaveVoice(silent){
 function personRow(u,extra){ const p = RC.people[u]||{}; return `<div class="person"><button class="plink" data-go="u-${esc(p.username||"")}" aria-label="${esc(p.display_name||"")}"><span class="spk" data-spk="${u}">${avatar(p,30)}</span></button><div class="nm"><button class="plink" data-go="u-${esc(p.username||"")}"><b>${esc(p.display_name||"")}</b></button>${extra||""}</div>`; }
 const roomParts = {
   head(){ const r = RC.data, host = S.me.id===r.host_id;
-    return `<div class="rm-row"><div><button class="back" data-go="rooms">${t("backRooms")}</button><div class="mono" style="margin-top:8px">VALORANT · ${esc(r.mode)}</div><h1>${esc(r.title)}</h1></div>
+    return `<div class="rm-row"><div><button class="back" data-go="rooms">${t("backRooms")}</button><div class="mono" style="margin-top:8px">${esc(gameLabel(r))} · ${esc(r.mode)}</div><h1>${esc(r.title)}</h1></div>
       <div class="chips"><button class="btn small" data-act="rate-open" data-room="${r.id}">${t("rateBtn")}</button>${host?`<button class="btn small" data-act="room-settings">${t("roomSettings")}</button><button class="btn small" data-act="room-close">${t("closeRoom")}</button>`:`<button class="btn small" data-act="room-leave">${t("leave")}</button>`}</div></div>
       ${r.note?`<p style="white-space:pre-wrap;max-width:70ch">${esc(r.note)}</p>`:""}${roomReqHTML(r)}
       <div class="codebox"><span class="mono">${t("partyCode")}</span>${RC.code?`<b>${esc(RC.code)}</b><button class="btn small" data-act="copy-code">${t("copy")}</button>`:`<span class="muted">${t("codeNone")}</span>`}</div>`; },
@@ -1133,7 +1180,7 @@ views.vroom = function(){
   if(RC.state==="gone") return `<div class="setup"><div class="card pop" style="display:flex;flex-direction:column;gap:12px;align-items:flex-start"><h2>${t("roomGone")}</h2><button class="btn" data-go="rooms">${t("seeAll")}</button></div></div>`;
   const r = RC.data;
   if(!RC.member) return `<div class="setup"><button class="back" data-go="rooms" style="align-self:flex-start">${t("backRooms")}</button><div class="card pop" style="display:flex;flex-direction:column;gap:12px;align-items:flex-start">
-    <span class="mono">VALORANT · ${esc(r.mode)}</span><h2 style="font-family:var(--font-body);font-weight:700;letter-spacing:0">${esc(r.title)}</h2>${roomReqHTML(r)}<p class="muted">${t("previewNote")}</p>
+    <span class="mono">${esc(gameLabel(r))} · ${esc(r.mode)}</span><h2 style="font-family:var(--font-body);font-weight:700;letter-spacing:0">${esc(r.title)}</h2>${roomReqHTML(r)}<p class="muted">${t("previewNote")}</p>
     <button class="btn coral" data-act="vroom" data-id="${r.id}">${t("join")}</button></div></div>`;
   setTimeout(()=>{ const el = $("#rm-msgs"); if(el) el.scrollTop = el.scrollHeight; },0);
   return `<div class="rm"><div class="card rm-head" id="rm-head">${roomParts.head()}</div>
@@ -1147,7 +1194,9 @@ views.vroom = function(){
 async function roomClick(a,d,el){
   if(a==="vroom"){ const r = S.vrooms.find(x=>x.id===d.id) || (RC.data && RC.data.id===d.id ? RC.data : null); if(r){ S.dialog={type:"vroom",id:d.id}; renderDialog(); } }
   else if(a==="chip1"){ document.querySelectorAll(`#dialog-root .chip[data-group="${d.group}"]`).forEach(b=>b.setAttribute("aria-pressed","false")); el.setAttribute("aria-pressed","true"); }
-  else if(a==="create-room") gate("actCreate",()=>{ S.dialog={type:"room-form"}; renderDialog(); });
+  else if(a==="create-room") gate("actCreate",()=>{ const r0 = route(); S.dialog={type:"room-form",game:d.game||(ROOM_GAMES.includes(r0)?r0:ROOM_GAMES.includes(S.roomFilter)?S.roomFilter:"valorant")}; renderDialog(); });
+  else if(a==="rf-game" && S.dialog && S.dialog.type==="room-form"){ const keep = {title:val("rf-title"),note:val("rf-note"),code:val("rf-code")}; S.dialog.game = d.game; renderDialog();
+    if($("#rf-title")) $("#rf-title").value = keep.title; if($("#rf-note")) $("#rf-note").value = keep.note; if($("#rf-code")) $("#rf-code").value = keep.code; }
   else if(a==="vjoin"){ const role = pressed("join_role")[0]||""; gate("actJoin",async()=>{
       const { error } = await sb.rpc("join_room",{p_room:d.id,p_role:role});
       if(error){ toast(t(joinErrKey(error.message))); return loadVRooms(); }
@@ -1214,12 +1263,12 @@ setInterval(matchClock,1000);
 
 /* ---------- matchmaking ---------- */
 function matchFormDialog(){
-  const pick = S.pick.valorant, myRoles = ((S.me.games||{}).valorant||{}).roles||[], num = (id,label,v) => `<label class="f">${label}<input class="inp" id="${id}" type="number" min="13" max="99" inputmode="numeric" value="${v}"></label>`;
-  return `<div class="dialog wide" role="dialog" aria-modal="true" aria-labelledby="dlg-t"><h2 id="dlg-t">${t("quick")}</h2><p class="muted">${t("matchHint")}</p><form data-form="match-form">
-    <div class="row"><label class="f">${t("mode")}<select class="inp" id="mf-mode">${VAL_MODES.map(o=>`<option ${pick.mode===o?"selected":""}>${esc(o)}</option>`).join("")}</select></label>
+  const g = (S.dialog&&S.dialog.game) || "valorant", pick = S.pick[g]||{}, modes = gModes(g), ranks = gRanks(g), roles = gRoles(g), myRoles = myGame(g).roles||[], num = (id,label,v) => `<label class="f">${label}<input class="inp" id="${id}" type="number" min="13" max="99" inputmode="numeric" value="${v}"></label>`;
+  return `<div class="dialog wide" role="dialog" aria-modal="true" aria-labelledby="dlg-t"><span class="mono">${esc(GAMES[g].name)}</span><h2 id="dlg-t">${t("quick")}</h2><p class="muted">${t("matchHint")}</p><form data-form="match-form">
+    <div class="row"><label class="f">${t(g==="roblox"?"expLbl":"mode")}<select class="inp" id="mf-mode">${modes.map(o=>`<option ${pick.mode===o?"selected":""}>${esc(o)}</option>`).join("")}</select></label>
       <label class="f">${t("players")}<select class="inp" id="mf-size">${[2,3,4,5].map(n=>`<option ${pick.size===n?"selected":""}>${n}</option>`).join("")}</select></label>
-      <label class="f">${t("myRole")}${sel("mf-role",VAL_ROLES,myRoles[0]||"",t("notSet"))}</label></div>
-    <div class="row"><label class="f">${t("rankFrom")}${sel("mf-rmin",VAL_RANKS,"",t("anyRank"))}</label><label class="f">${t("rankTo")}${sel("mf-rmax",VAL_RANKS,"",t("anyRank"))}</label>${num("mf-amin",t("ageFrom"),13)}${num("mf-amax",t("ageTo"),99)}</div>
+      ${roles.length?`<label class="f">${t("myRole")}${sel("mf-role",roles,myRoles[0]||"",t("notSet"))}</label>`:""}</div>
+    <div class="row">${ranks.length?`<label class="f">${t("rankFrom")}${sel("mf-rmin",ranks,"",t("anyRank"))}</label><label class="f">${t("rankTo")}${sel("mf-rmax",ranks,"",t("anyRank"))}</label>`:""}${num("mf-amin",t("ageFrom"),13)}${num("mf-amax",t("ageTo"),99)}</div>
     <div><p class="mono">${t("wantGender")}</p><p class="hint" style="margin-bottom:8px">${t("anyoneHint")}</p>${chipSet("m_gender",ROOM_GENDERS,[])}</div>
     <div><p class="mono">${t("wantVibe")}</p><p class="hint" style="margin-bottom:8px">${t("anyoneHint")} ${t("vibeHint")}</p>${chipSet("m_vibes",VIBES,[])}</div>
     <p class="err" id="mf-err" role="alert"></p>
@@ -1228,8 +1277,9 @@ function matchFormDialog(){
 async function submitMatchForm(){
   const err = $("#mf-err"), btn = $("#mf-go"), amin = +val("mf-amin")||13, amax = +val("mf-amax")||99;
   if(amin<13 || amax>99 || amin>amax) return err.textContent = t("eAgeRange");
-  let rmin = val("mf-rmin"), rmax = val("mf-rmax"); if(rmin && rmax && VAL_RANKS.indexOf(rmin)>VAL_RANKS.indexOf(rmax)) [rmin,rmax] = [rmax,rmin];
-  const body = {mode:val("mf-mode"),size:+val("mf-size"),role:val("mf-role"),rank_min:rmin,rank_max:rmax,age_min:amin,age_max:amax,req_gender:pressed("m_gender"),req_vibes:pressed("m_vibes")};
+  const g = (S.dialog&&S.dialog.game) || "valorant", rk = gRanks(g);
+  let rmin = val("mf-rmin"), rmax = val("mf-rmax"); if(rmin && rmax && rk.indexOf(rmin)>rk.indexOf(rmax)) [rmin,rmax] = [rmax,rmin];
+  const body = {game:g,mode:val("mf-mode"),size:+val("mf-size"),role:val("mf-role"),rank_min:rmin,rank_max:rmax,age_min:amin,age_max:amax,req_gender:pressed("m_gender"),req_vibes:pressed("m_vibes")};
   btn.disabled = true; err.textContent = t("working");
   const { data, error } = await sb.rpc("match_start",{p:body});
   if(error){ btn.disabled = false; return err.textContent = t("tFail"); }
@@ -1343,12 +1393,7 @@ const EV_REVEAL = "2026-11-20T16:00:00+07:00", IGN_RE = /^[^#]{3,16}#[A-Za-z0-9]
 const EV_LOCALE = {en:"en-GB",th:"th-TH-u-ca-gregory",zh:"zh-CN",ja:"ja-JP"};
 const evRevealAt = () => new Date(S.ev && S.ev.reveal_at || EV_REVEAL);
 const evIgn = () => S.me ? String(((S.me.games||{}).valorant||{}).ign||"").trim() : "";
-async function loadEvent(){
-  if(!sb) return; loadCoin();
-  const { data } = await sb.rpc("event_state"); if(data) S.ev = data;
-  if(S.isAdmin){ const a = await sb.rpc("event_admin"); S.evAdmin = a.data || null; } else S.evAdmin = null;
-  if(route()==="event" && !S.dialog){ const f = document.activeElement && document.activeElement.id==="ev-num"; if(!f) rerender(); }
-}
+async function loadEvent(){ if(sb) loadCoin(); }
 function evCountdown(){
   const el = $("#ev-cd"); if(!el) return; let ms = evRevealAt()-Date.now();
   if(ms<=0){ if(!S.evOver){ S.evOver = true; loadEvent(); } ms = 0; }
@@ -1356,33 +1401,7 @@ function evCountdown(){
   el.innerHTML = parts.map(([n,k])=>`<div class="cd"><b>${String(n).padStart(2,"0")}</b><span class="mono">${t(k)}</span></div>`).join("");
 }
 setInterval(evCountdown,1000);
-views.event = function(){
-  const ev = S.ev || {}, open = Date.now() < evRevealAt(), when = evRevealAt().toLocaleString(EV_LOCALE[S.lang],{dateStyle:"long",timeStyle:"short",timeZone:"Asia/Bangkok"});
-  let entry;
-  if(ev.mine) entry = `<p>${t("evDone")}</p><div class="ev-num">${esc(ev.mine)}</div>`;
-  else if(!open) entry = `<p class="muted">${t("evClosed")}</p>`;
-  else if(S.booting) entry = `<p class="mono">${t("loading")}</p>`;
-  else if(!S.me) entry = `<p>${t("evNeedAcc")}</p><div class="chips"><button class="btn coral" data-act="auth" data-tab="signup">${t("signup")}</button><button class="btn" data-act="auth" data-tab="login">${t("login")}</button></div>`;
-  else if(!IGN_RE.test(evIgn())) entry = `<p>${t("evNeedIgn")}</p><div><button class="btn coral" data-act="edit" data-what="game" data-game="valorant">${t("evAddIgn")}</button></div>`;
-  else entry = `<form data-form="event" style="display:flex;flex-direction:column;gap:12px;align-items:flex-start"><label class="f">${t("evYour")}<input class="inp ev-in" id="ev-num" inputmode="numeric" pattern="[0-9]{4}" maxlength="4" autocomplete="off" placeholder="0000"></label>
-      <span class="muted">${t("ign")}: <b>${esc(evIgn())}</b></span><p class="err" id="ev-err" role="alert" style="min-height:0"></p><button class="btn coral mid" type="submit" id="ev-go">${t("evSubmit")}</button></form>`;
-  let result = "";
-  if(!open) result = ev.winning_number ? `<div class="card pop" style="display:flex;flex-direction:column;gap:12px"><span class="mono">${t("evWinNum")}</span><div class="ev-num">${esc(ev.winning_number)}</div>
-      ${ev.mine&&ev.mine===ev.winning_number?`<p><b>${t("evYouWin")}</b></p>`:""}<span class="mono">${t("evWinners")}</span>
-      ${(ev.winners||[]).length?`<div>${ev.winners.map(w=>`<div class="member"><button class="plink" data-go="u-${esc(w.username)}">${avatar(w,40)}</button><button class="plink" data-go="u-${esc(w.username)}"><b>${esc(w.display_name)}</b></button><span class="muted">@${esc(w.username)}</span></div>`).join("")}</div>`:`<p class="muted">${t("evNoWin")}</p>`}</div>`
-    : `<div class="card"><p>${t("evWaiting")}</p></div>`;
-  const ad = S.isAdmin && S.evAdmin ? `<section class="block"><div class="head"><h2 style="font-size:20px">${t("evAdmin")}</h2><span class="mono">${S.evAdmin.entries.length}</span></div>
-      <form class="card" data-form="event-win" style="display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end;margin-bottom:14px"><label class="f">${t("evSetWin")}<input class="inp ev-in" id="ev-win" inputmode="numeric" maxlength="4" autocomplete="off" value="${esc(S.evAdmin.winning_number||"")}"></label>
-        <button class="btn coral" type="submit">${t("save")}</button><button class="btn" type="button" data-act="ev-random" ${S.evAdmin.entries.length?"":"disabled"}>${t("evRandom")}</button><span class="hint" style="flex-basis:100%">${t("evAdminNote")}</span></form>
-      <div class="card" style="padding:0;overflow-x:auto"><table class="tbl"><thead><tr><th>${t("evYour")}</th><th>${t("dname")}</th><th>${t("username")}</th><th>${t("ign")}</th><th>${t("adJoined")}</th></tr></thead><tbody>
-        ${S.evAdmin.entries.map(e=>`<tr><td><b>${esc(e.number)}</b></td><td>${esc(e.display_name)}</td><td>@${esc(e.username)}</td><td>${esc(e.ign)}</td><td>${new Date(e.created_at).toLocaleString([], {dateStyle:"medium",timeStyle:"short"})}</td></tr>`).join("")}</tbody></table></div></section>` : "";
-  setTimeout(evCountdown,0);
-  return `<div class="game-hero"><span class="mono">${t("event")}</span><h1>${t("evTitle")}</h1><p style="font-size:17px"><b>${t("evPrize")}</b></p><p class="muted">${t("evReveal",{d:when})}</p></div>
-    <section class="block"><div class="cds" id="ev-cd" aria-live="off"></div>${ev.entries!=null?`<p class="muted" style="margin-top:10px">${t("evCount",{n:ev.entries})}</p>`:""}</section>
-    <section class="block"><div class="grid g2"><div class="card pop" style="display:flex;flex-direction:column;gap:12px">${entry}</div>
-      <div class="card"><span class="mono">${t("evHow")}</span><ol style="margin:8px 0 0;padding-left:20px;display:flex;flex-direction:column;gap:6px"><li>${t("evR1")}</li><li>${t("evR2")}</li><li>${t("evR3")}</li></ol></div></div></section>
-    ${result?`<section class="block">${result}</section>`:""}${coinHTML()}${ad}`;
-};
+views.event = function(){ if(!S.coin){ loadEvent(); return views.loading(); } return coinHTML(); };
 async function submitEvent(){
   const n = val("ev-num"), err = $("#ev-err"), btn = $("#ev-go");
   if(!/^[0-9]{4}$/.test(n)) return err.textContent = t("evBad");
@@ -1886,7 +1905,7 @@ views.quick = function(){
       ${!S.me?`<p class="hint" style="margin-top:12px">${t("qGuestCta")} <button class="btn small" data-act="auth" data-tab="signup">${t("signup")}</button></p>`:""}</div></div>`;
   }
   return `<div class="setup"><div class="card pop" style="display:flex;flex-direction:column;gap:12px"><span class="mono">${t("qEyebrow")}</span><h2>${t("qTitle")}</h2><p class="muted">${t("qSub")}</p>
-    <span class="mono">${t("qGame")}</span><div class="chips">${Object.keys(GAMES).map(k=>chip("game",k,GAMES[k].name)).join("")}</div>
+    <span class="mono">${t("qGame")}</span><div class="chips">${LIVE.map(k=>chip("game",k,GAMES[k].name)).join("")}</div>
     <label class="f">${t("qMode")}<select class="inp" id="q-mode"><option value="any">${t("qAny")}</option>${qModes(f.game).map(m=>`<option value="${esc(m)}" ${f.mode===m?"selected":""}>${esc(m)}</option>`).join("")}</select></label>
     ${qRanked()?`<label class="f">${t("qRank")}<select class="inp" id="q-rank"><option value="">${t("qRankPick")}</option>${g.ranks.map((r,i)=>`<option value="${i}" ${f.rank===i?"selected":""}>${esc(r)}</option>`).join("")}</select><span class="hint">${t("qRankNote")}</span></label>`:""}
     <span class="mono">${t("qStyle")}</span><div class="chips">${chip("style","any",t("qAny"))}${chip("style","chill",t("qChill"))}${chip("style","serious",t("qSerious"))}</div>
@@ -1953,7 +1972,7 @@ function coinHTML(){
       <p class="muted">${me.pos?t("cnRank",{n:me.pos,all:c.players}):t("cnNoRank")} · ${t("cnToday",{n:me.today,cap:c.daily_cap})}</p>${act}`;
   }
   setTimeout(coinCountdown,0);
-  return `<section class="block" style="border-top:2px dashed var(--line);padding-top:30px"><span class="mono">${t("event")} 2</span><h1 style="margin:6px 0">${t("cnTitle")}</h1><p style="font-size:17px"><b>${t("cnPrize",{b:c.prize_baht,n:c.target})}</b></p><p class="muted" style="margin-bottom:14px">${t("cnEnds",{d:when})}</p><div class="cds" id="coin-cd" aria-live="off"></div></section>
+  return `<section class="block"><span class="mono">${t("event")}</span><h1 style="margin:6px 0">${t("cnTitle")}</h1><p style="font-size:17px"><b>${t("cnPrize",{b:c.prize_baht,n:c.target})}</b></p><p class="muted" style="margin-bottom:14px">${t("cnEnds",{d:when})}</p><div class="cds" id="coin-cd" aria-live="off"></div></section>
     ${c.winner?`<section class="block"><div class="card pop"><span class="mono">${t("cnWinner")}</span><div class="member" style="border:0"><button class="plink" data-go="u-${esc(c.winner.username)}">${avatar(c.winner,40)}</button><button class="plink" data-go="u-${esc(c.winner.username)}"><b>${esc(c.winner.display_name)}</b></button><span class="muted">@${esc(c.winner.username)}</span></div></div></section>`:""}
     <section class="block"><div class="grid g2"><div class="card pop" style="display:flex;flex-direction:column;gap:12px">${mine}</div>
       <div class="card"><span class="mono">${t("evHow")}</span><ol style="margin:8px 0 0;padding-left:20px;display:flex;flex-direction:column;gap:6px"><li>${t("cnR1")}</li><li>${t("cnR2")}</li><li>${t("cnR6")}</li><li>${t("cnR3",{cap:c.daily_cap,pair:c.pair_cap})}</li><li>${t("cnR4",{n:c.target,b:c.prize_baht})}</li><li>${t("cnR5")}</li></ol></div></div></section>
@@ -2023,37 +2042,48 @@ function styleTags(s,max){
 }
 
 /* ---------- game pictures on the coloured bands ---------- */
-const GAME_IMG = {valorant:["games/valorant.jpg","50% 38%"],rov:["games/rov.jpg","50% 45%"],roblox:["games/roblox.jpg","50% 14%"]};
+const GAME_IMG = {valorant:["games/valorant.jpg","50% 38%"],rov:["games/rov.jpg","50% 45%"],roblox:["games/roblox.jpg","50% 14%"],pubg:["games/pubg.jpg","50% 40%"],cs2:["games/cs2.jpg","40% 30%"],apex:["games/apex.jpg","50% 70%"],lol:["games/lol.jpg","50% 40%"],dota2:["games/dota2.jpg","50% 45%"]};
 const bandAttr = k => GAME_IMG[k] ? `class="band img ${GAMES[k].color}" style="background-image:linear-gradient(to top,rgba(20,14,14,.72),rgba(20,14,14,.1) 70%),url(${GAME_IMG[k][0]});background-position:center,${GAME_IMG[k][1]}"` : `class="band ${GAMES[k].color}"`;
 
 /* ---------- news: drafts are gathered daily, an admin picks what goes live ---------- */
 const NEWS_KINDS = ["esports","roster","drama","update","general"];
 async function loadNews(){
   if(!sb) return;
-  const pub = await sb.from("news").select("id,game,kind,title,summary,source_name,source_url,news_date,published_at").eq("status","published").order("published_at",{ascending:false}).limit(60);
+  const pub = await sb.from("news").select("id,game,kind,title,summary,source_name,source_url,news_date,published_at,image_url").eq("status","published").order("published_at",{ascending:false}).limit(60);
   S.news = pub.data || [];
   if(S.isAdmin){ const d = await sb.rpc("admin_news"); S.newsDrafts = d.data || []; } else S.newsDrafts = null;
   if(route()==="news" && !S.dialog) rerender();
+  // stories without a picture yet: ask the server to look up each source's own picture (once per visit)
+  const missing = [...S.news,...(S.newsDrafts||[])].some(n=>n.image_url===null||n.image_url===undefined);
+  if(missing && !S.newsImgAsked){ S.newsImgAsked = true; try{ const r = await sb.functions.invoke("news-image",{body:{}}); if(r.data && r.data.done) loadNews(); }catch(e){} }
 }
 const newsDate = n => { const x = n.news_date ? new Date(n.news_date+"T00:00:00") : new Date(n.published_at||n.created_at); return x.toLocaleDateString(EV_LOCALE[S.lang],{dateStyle:"medium"}); };
-function newsCard(n,admin){
-  const g = GAMES[n.game], img = GAME_IMG[n.game];
-  return `<article class="ncard ${admin&&n.status==="hidden"?"dim":""}">${img?`<div class="nthumb" style="background-image:url(${img[0]});background-position:${img[1]}" aria-hidden="true"></div>`:`<div class="nthumb c-sage" aria-hidden="true"></div>`}
-    <div class="nbody"><span class="mono">${g?g.name:"GAME"} · ${t("nk_"+(NEWS_KINDS.includes(n.kind)?n.kind:"general"))} · ${newsDate(n)}</span>
-      <h3>${esc(n.title)}</h3>${n.summary?`<p>${esc(n.summary)}</p>`:""}
-      <a class="nlink" href="${esc(n.source_url)}" target="_blank" rel="noopener noreferrer">${t("nRead",{s:esc(n.source_name||new URL(n.source_url).hostname)})} ↗</a>
-      ${admin?`<div class="chips" style="margin-top:10px">${n.status!=="published"?`<button class="btn small coral" data-act="nw-set" data-id="${n.id}" data-v="published">${t("nPublish")}</button>`:""}<button class="btn small" data-act="nw-edit" data-id="${n.id}">${t("nEdit")}</button>${n.status==="published"?`<button class="btn small" data-act="nw-set" data-id="${n.id}" data-v="hidden">${t("nUnpublish")}</button>`:n.status==="draft"?`<button class="btn small" data-act="nw-set" data-id="${n.id}" data-v="hidden">${t("nSkip")}</button>`:""}<button class="btn small ghost" data-act="nw-set" data-id="${n.id}" data-v="delete">${t("nDelete")}</button></div>`:""}</div></article>`;
+const newsHost = n => { try{ return n.source_name || new URL(n.source_url).hostname.replace(/^www\./,""); }catch(e){ return n.source_name||""; } };
+function newsImg(n){
+  const g = GAME_IMG[n.game], fb = g ? g[0] : "";
+  if(n.image_url) return `<img src="${esc(n.image_url)}" alt="" loading="lazy" referrerpolicy="no-referrer" class="${/\.png(\?|$)/i.test(n.image_url)?"fit":""}" ${fb?`onerror="this.onerror=null;this.src='${fb}'"`:`onerror="this.remove()"`}>`;
+  return fb ? `<img src="${fb}" alt="" loading="lazy" style="object-position:${g[1]}">` : "";
 }
+function newsCard(n,admin,big){
+  const g = GAMES[n.game], url = esc(n.source_url), kind = t("nk_"+(NEWS_KINDS.includes(n.kind)?n.kind:"general"));
+  return `<article class="ncard ${big?"big":""} ${admin&&n.status==="hidden"?"dim":""}">
+    <a class="nimg c-sage" href="${url}" target="_blank" rel="noopener noreferrer" tabindex="-1" aria-hidden="true">${newsImg(n)}<span class="nkind">${kind}</span></a>
+    <div class="nbody"><span class="mono">${g?g.name:t("nOther")} · ${newsDate(n)}</span>
+      <h3><a href="${url}" target="_blank" rel="noopener noreferrer">${esc(n.title)}</a></h3>${n.summary?`<p class="nsum">${esc(n.summary)}</p>`:""}
+      <a class="nlink" href="${url}" target="_blank" rel="noopener noreferrer">${t("nRead",{s:esc(newsHost(n))})} ↗</a>
+      ${admin?`<div class="chips" style="margin-top:6px">${n.status!=="published"?`<button class="btn small coral" data-act="nw-set" data-id="${n.id}" data-v="published">${t("nPublish")}</button>`:""}<button class="btn small" data-act="nw-edit" data-id="${n.id}">${t("nEdit")}</button>${n.status==="published"?`<button class="btn small" data-act="nw-set" data-id="${n.id}" data-v="hidden">${t("nUnpublish")}</button>`:n.status==="draft"?`<button class="btn small" data-act="nw-set" data-id="${n.id}" data-v="hidden">${t("nSkip")}</button>`:""}<button class="btn small ghost" data-act="nw-set" data-id="${n.id}" data-v="delete">${t("nDelete")}</button></div>`:""}</div></article>`;
+}
+
 views.news = function(){
   if(!S.news){ loadNews(); return views.loading(); }
   const f = S.newsF || "all", list = S.news.filter(n=>f==="all" || n.game===f), drafts = (S.newsDrafts||[]).filter(n=>n.status==="draft"), hidden = (S.newsDrafts||[]).filter(n=>n.status==="hidden");
   const chip = (k,l) => `<button class="chip" data-act="nw-filter" data-v="${k}" aria-pressed="${f===k}">${l}</button>`;
   return `<div class="game-hero"><span class="mono">${t("nEyebrow")}</span><h1>${t("nTitle")}</h1><p class="muted">${t("nSub")}</p>
-      <div class="chips" style="margin-top:12px">${chip("all",t("nAll"))}${Object.keys(GAMES).map(k=>chip(k,GAMES[k].name)).join("")}</div>${S.lang!=="th"?`<p class="hint" style="margin-top:8px">${t("nThOnly")}</p>`:""}</div>
+      <div class="chips" style="margin-top:12px">${chip("all",t("nAll"))}${LIVE.map(k=>chip(k,GAMES[k].name)).join("")}</div>${S.lang!=="th"?`<p class="hint" style="margin-top:8px">${t("nThOnly")}</p>`:""}</div>
     ${S.isAdmin && S.newsDrafts ? `<section class="block"><div class="head"><h2 style="font-size:20px">${t("nDrafts")}</h2><span class="mono">${drafts.length}</span></div><p class="hint" style="margin-bottom:12px">${t("nDraftNote")}</p>
-      ${drafts.length?`<div class="nlist">${drafts.map(n=>newsCard(n,true)).join("")}</div>`:`<p class="muted">${t("nNoDrafts")}</p>`}
-      ${hidden.length?`<details style="margin-top:12px"><summary class="mono" style="cursor:pointer">${t("nHidden",{n:hidden.length})}</summary><div class="nlist" style="margin-top:10px">${hidden.map(n=>newsCard(n,true)).join("")}</div></details>`:""}</section>`:""}
-    <section class="block">${list.length?`<div class="nlist">${list.map(n=>newsCard(n,S.isAdmin)).join("")}</div>`:`<div class="card"><p class="muted">${t("nEmpty")}</p></div>`}</section>`;
+      ${drafts.length?`<div class="ngrid">${drafts.map(n=>newsCard(n,true)).join("")}</div>`:`<p class="muted">${t("nNoDrafts")}</p>`}
+      ${hidden.length?`<details style="margin-top:12px"><summary class="mono" style="cursor:pointer">${t("nHidden",{n:hidden.length})}</summary><div class="ngrid" style="margin-top:10px">${hidden.map(n=>newsCard(n,true)).join("")}</div></details>`:""}</section>`:""}
+    <section class="block">${list.length?`${newsCard(list[0],S.isAdmin,true)}<div class="ngrid">${list.slice(1).map(n=>newsCard(n,S.isAdmin)).join("")}</div>`:`<div class="card"><p class="muted">${t("nEmpty")}</p></div>`}</section>`;
 };
 function newsEditDialog(d){
   const n = [...(S.newsDrafts||[]),...(S.news||[])].find(x=>x.id===d.id); if(!n) return "";
@@ -2061,7 +2091,7 @@ function newsEditDialog(d){
     <form data-form="news-edit" style="display:flex;flex-direction:column;gap:12px">
       <label class="f">${t("nHead")}<input class="inp" id="nw-title" maxlength="200" value="${esc(n.title)}" required></label>
       <label class="f">${t("nSum")}<textarea class="inp" id="nw-sum" rows="5" maxlength="1200">${esc(n.summary)}</textarea></label>
-      <div class="row"><label class="f">${t("nGame")}<select class="inp" id="nw-game">${[...Object.keys(GAMES),"other"].map(k=>`<option value="${k}" ${n.game===k?"selected":""}>${GAMES[k]?GAMES[k].name:t("nOther")}</option>`).join("")}</select></label>
+      <div class="row"><label class="f">${t("nGame")}<select class="inp" id="nw-game">${[...LIVE,"other"].map(k=>`<option value="${k}" ${n.game===k?"selected":""}>${GAMES[k]?GAMES[k].name:t("nOther")}</option>`).join("")}</select></label>
         <label class="f">${t("nKind")}<select class="inp" id="nw-kind">${NEWS_KINDS.map(k=>`<option value="${k}" ${n.kind===k?"selected":""}>${t("nk_"+k)}</option>`).join("")}</select></label></div>
       <div class="dialog-actions"><button class="btn" type="button" data-act="close">${t("close")}</button><button class="btn" type="submit" data-v="keep">${t("save")}</button>${n.status!=="published"?`<button class="btn coral" type="submit" data-v="published">${t("nSavePub")}</button>`:""}</div></form></div>`;
 }
@@ -2537,7 +2567,7 @@ document.addEventListener("click", async e => {
   else if(a==="size"){ S.pick[d.game].size=+d.size; rerender(); }
   else if(a==="filter"){ S.roomFilter=d.val; rerender(); }
   else if(a==="room"){ S.dialog={type:"room",id:d.id}; renderDialog(); }
-  else if(a==="match") gate("actMatch",()=>{ S.dialog = d.game==="valorant" ? {type:"match-form"} : {type:"info",rooms:d.game}; renderDialog(); });
+  else if(a==="match") gate("actMatch",()=>{ S.dialog = ROOM_GAMES.includes(d.game) ? {type:"match-form",game:d.game} : {type:"info",rooms:d.game}; renderDialog(); });
   else if(a==="join") gate("actJoin",async()=>{ if(!S.me.joined.includes(d.id)) await saveProfile({joined:[...S.me.joined,d.id]},true); rerender(); S.dialog={type:"room",id:d.id}; renderDialog(); toast(t("tJoined")); });
   else if(a==="leave"){ await saveProfile({joined:S.me.joined.filter(x=>x!==d.id)},true); rerender(); renderDialog(); toast(t("tLeft")); }
   else if(await featClick(a,d,el)){}
@@ -2633,8 +2663,8 @@ document.addEventListener("keydown", e => {
   if(e.key==="Escape"){ if(S.dialog){ S.dialog=null; renderDialog(); } else if(S.arranging){ setArranging(false); rerender(); } else if(S.menu){ S.menu=false; drawNav(); } }
   if(S.dialog && S.dialog.type==="viewer" && !S.dialog.form){ if(e.key==="ArrowRight") stepViewer(1); if(e.key==="ArrowLeft") stepViewer(-1); }
 });
-setInterval(()=>{ if(!document.hidden && !S.dialog && sb && (["home","valorant","rooms"].includes(route()) || (S.me && !RC.id))) loadVRooms(); },12000);
-window.addEventListener("hashchange", () => { if(route()!=="quick" && Q.st!=="idle") qLeave(); S.menu=false; S.dialog=null; renderDialog(); render(); window.scrollTo(0,0); if(["home","valorant","rooms"].includes(route())) loadVRooms(); if(route()==="event") loadEvent(); if(route()==="news") loadNews(); if(route()==="tournament") loadTour(); });
+setInterval(()=>{ if(!document.hidden && !S.dialog && sb && (["home","rooms",...ROOM_GAMES].includes(route()) || (S.me && !RC.id))) loadVRooms(); },12000);
+window.addEventListener("hashchange", () => { if(route()!=="quick" && Q.st!=="idle") qLeave(); S.menu=false; S.dialog=null; renderDialog(); render(); window.scrollTo(0,0); if(["home","rooms",...ROOM_GAMES].includes(route())) loadVRooms(); if(route()==="event") loadEvent(); if(route()==="news") loadNews(); if(route()==="tournament") loadTour(); });
 
 /* ---------- boot ---------- */
 applyTheme();
