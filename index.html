@@ -388,6 +388,61 @@ button.dock:hover{background:var(--field)}
   .ph{gap:18px;padding-top:24px}
 }
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+/* pop wingman */
+.pw-wrap{position:relative;display:grid}
+.pw-wrap>.tile{height:100%}
+.pw-peek{position:absolute;right:8px;top:-58px;display:flex;align-items:flex-end;gap:4px;z-index:3;background:none;border:0;padding:0;cursor:pointer}
+.pw-peek img{width:66px;height:auto;filter:drop-shadow(2px 3px 0 rgba(42,34,34,.35));animation:pwBob 1.6s ease-in-out infinite;transform-origin:50% 100%}
+.pw-bub{position:relative;background:var(--card);border:2px solid var(--ink);border-radius:14px;padding:6px 10px;font-weight:700;font-size:13px;line-height:1.25;box-shadow:2px 2px 0 var(--ink);margin-bottom:40px;white-space:nowrap;animation:pwPop 2.2s ease-in-out infinite;transform-origin:100% 100%}
+.pw-bub small{display:block;font-family:var(--font-mono,monospace);font-size:10px;font-weight:400;color:var(--coral);letter-spacing:.04em}
+.pw-bub:after{content:"";position:absolute;right:-9px;bottom:8px;border:7px solid transparent;border-left-color:var(--ink)}
+.pw-peek:hover img{animation-duration:.5s}
+@keyframes pwBob{0%,100%{transform:translateY(0) scale(1,1)}45%{transform:translateY(-6px) scale(.96,1.04)}55%{transform:translateY(0) scale(1.12,.86)}}
+@keyframes pwPop{0%,70%,100%{transform:scale(1) rotate(0)}76%{transform:scale(1.08) rotate(-3deg)}82%{transform:scale(.97) rotate(2deg)}88%{transform:scale(1.03) rotate(0)}}
+.pw-page{display:flex;flex-direction:column;gap:18px;max-width:1080px;margin:0 auto}
+.pw-head h1{font-family:var(--font-display);font-weight:400;margin:4px 0}
+.pw-head p{margin:0;max-width:62ch}
+.pw-grid{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:18px;align-items:start}
+@media (max-width:860px){.pw-grid{grid-template-columns:1fr}}
+.pw-top{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:10px;flex-wrap:wrap}
+.pw-country{display:inline-flex;align-items:center;gap:8px;background:var(--card);border:2px solid var(--ink);border-radius:999px;padding:6px 14px 6px 8px;box-shadow:2px 2px 0 var(--ink);font:inherit;cursor:pointer}
+.flag{border-radius:3px;box-shadow:0 0 0 1px rgba(0,0,0,.15);object-fit:cover;vertical-align:middle;flex:none;background:#ddd}
+.pw-stage{position:relative;height:min(62vh,470px);min-height:330px;border:2px solid var(--ink);border-radius:var(--r);box-shadow:var(--shadow);background:radial-gradient(circle at 50% 62%,#24324a 0,#111a26 62%);overflow:hidden;cursor:pointer;touch-action:manipulation;user-select:none;-webkit-user-select:none;-webkit-tap-highlight-color:transparent;display:flex;align-items:flex-end;justify-content:center;outline:none}
+.pw-stage:focus-visible{box-shadow:0 0 0 3px var(--mustard),var(--shadow)}
+.pw-stage:before{content:"";position:absolute;inset:0;background-image:radial-gradient(#ff4655 1.4px,transparent 1.6px);background-size:46px 46px;opacity:.35;pointer-events:none}
+.pw-stage:after{content:"";position:absolute;left:0;top:0;width:120px;height:120px;background:linear-gradient(135deg,#ff4655 50%,transparent 50%);opacity:.9;pointer-events:none}
+#pw-img{position:relative;height:72%;max-width:80%;object-fit:contain;margin-bottom:9%;transform-origin:50% 100%;transition:transform .07s ease-out;pointer-events:none;filter:drop-shadow(0 14px 10px rgba(0,0,0,.45))}
+#pw-img.sq{transform:scale(1.28,.52);transition:transform .03s}
+.pw-shadow{position:absolute;bottom:7%;left:50%;width:46%;height:16px;transform:translateX(-50%);background:rgba(0,0,0,.45);border-radius:50%;filter:blur(4px)}
+.pw-count{position:absolute;top:14px;right:16px;text-align:right;color:#fff;z-index:2}
+.pw-count .mono{color:#ffb3b9}
+.pw-count b{display:block;font-family:var(--font-display);font-weight:400;font-size:clamp(34px,6vw,54px);line-height:1}
+.pw-cbadge{position:absolute;left:14px;bottom:14px;z-index:2;display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.94);color:#2A2222;border-radius:999px;padding:6px 12px 6px 8px;font-size:14px}
+.pw-hint{position:absolute;bottom:62px;left:0;right:0;text-align:center;margin:0;color:#fff;font-weight:700;font-size:15px;z-index:2;text-shadow:0 2px 6px rgba(0,0,0,.8);animation:pwPop 2.2s ease-in-out infinite;pointer-events:none;transition:opacity .4s}
+.pw-stage.tapped .pw-hint{opacity:0}
+@media (max-width:640px){#games-block .head>.mono{display:none}.pw-stage{height:56vh}}
+.pw-plus{position:absolute;color:#fff;font-weight:800;font-size:22px;pointer-events:none;z-index:3;text-shadow:0 2px 0 #ff4655;animation:pwUp .7s ease-out forwards}
+@keyframes pwUp{from{opacity:1;transform:translate(-50%,0)}to{opacity:0;transform:translate(-50%,-70px)}}
+.pw-who{margin:10px 0 0;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.pw-pick h2{margin:0 0 6px}
+.pw-clist{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:8px;max-height:420px;overflow:auto;margin-top:12px;padding:2px}
+.pw-clist button{display:flex;gap:8px;align-items:center;text-align:left;border:2px solid var(--line);background:var(--paper);border-radius:12px;padding:8px 10px;font:inherit;cursor:pointer}
+.pw-clist button:hover,.pw-clist button:focus-visible{border-color:var(--ink)}
+.pw-board{display:flex;flex-direction:column;gap:14px}
+.pw-row{display:grid;grid-template-columns:26px auto 1fr auto;gap:8px;align-items:center;padding:6px 0;border-bottom:1px dashed var(--line);font-size:14px}
+.pw-row:last-child{border-bottom:0}
+.pw-row .rk{font-family:var(--font-mono,monospace);color:var(--muted,#7a6f66)}
+.pw-row .nm{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pw-row .ct{font-weight:700;font-variant-numeric:tabular-nums}
+.pw-row.me{background:rgba(255,198,77,.25);border-radius:8px;padding-left:4px;padding-right:4px}
+.pw-bar{grid-column:2/5;height:6px;border-radius:3px;background:var(--line);overflow:hidden;margin-top:-2px}
+.pw-bar i{display:block;height:100%;background:var(--coral);border-radius:3px;transition:width .4s}
+.pw-feed{display:flex;flex-direction:column;gap:6px;font-size:13px;max-height:260px;overflow:hidden}
+.pw-feed div{display:flex;gap:6px;align-items:center}
+.pw-ev{display:flex;gap:18px;align-items:center;flex-wrap:wrap;background:#111a26;color:#fff;border:2px solid var(--ink);border-radius:var(--r);box-shadow:var(--shadow);padding:18px 22px;margin-bottom:22px}
+.pw-ev img{width:110px;height:auto;animation:pwBob 1.6s ease-in-out infinite;transform-origin:50% 100%}
+.pw-ev h2{margin:2px 0 6px;font-family:var(--font-display);font-weight:400;color:#fff}
+.pw-ev p{margin:0 0 12px;opacity:.85}
 </style>
 </head>
 <body>
@@ -563,6 +618,12 @@ delAccType:["Type your username ({n}) to confirm","พิมพ์ชื่อ�
 ban:["Ban user","แบนผู้ใช้","封禁用户","ユーザーをBAN"], unban:["Unban","ปลดแบน","解封","BAN解除"], banned:["Banned","ถูกแบน","已封禁","BAN中"], banConfirm:["Ban {n}? They will be removed from rooms and can't log in.","แบน {n}? เขาจะถูกนำออกจากห้องและเข้าสู่ระบบไม่ได้","封禁 {n}？对方将被移出房间且无法登录。","{n} をBANしますか？ルームから外され、ログインできなくなります。"], banAdmin:["Admins can't be banned.","แบนแอดมินไม่ได้","无法封禁管理员。","管理者はBANできません。"],
 adminClear:["Reset picture and bio","ล้างรูปและข้อความแนะนำตัว","重置头像和简介","画像と自己紹介をリセット"], adminDel:["Delete (admin)","ลบ (แอดมิน)","删除（管理员）","削除（管理者）"], youBanned:["This account has been suspended.","บัญชีนี้ถูกระงับการใช้งาน","该账号已被停用。","このアカウントは停止されています。"],
 voiceWarn:["Voice connects directly between players. Technically skilled people in the same voice room may be able to see your IP address. Voice is not recorded.","ห้องเสียงเชื่อมต่อตรงระหว่างผู้เล่น คนในห้องเสียงเดียวกันที่มีความรู้ทางเทคนิคอาจเห็น IP ของคุณได้ เสียงไม่ถูกบันทึก","语音在玩家之间直接连接，同一语音房内懂技术的人可能看到你的 IP 地址。语音不会被录制。","ボイスはプレイヤー間で直接接続されます。同じボイスルームの技術に詳しい人にIPアドレスが見える可能性があります。音声は録音されません。"],
+shareRoom:["Share room","แชร์ห้อง","分享房间","ルームを共有"], shareRoomTxt:["Come play {g} with us on GameZone: {n}","มาเล่น {g} ด้วยกันใน GameZone: {n}","来 GameZone 一起玩 {g}：{n}","GameZoneで一緒に{g}をプレイしよう：{n}"], shareCopied:["Invite link copied. Paste it to your friends","คัดลอกลิงก์เชิญแล้ว ส่งให้เพื่อนได้เลย","邀请链接已复制，发给朋友吧","招待リンクをコピーしました"],
+joinNeedAcc:["Create a free account or log in to join this room. You'll come straight back here afterwards.","สมัครบัญชีฟรีหรือเข้าสู่ระบบก่อนเข้าห้องนี้ เสร็จแล้วระบบจะพากลับมาที่ห้องนี้ให้เลย","注册免费账号或登录后即可加入此房间，完成后会自动回到这里。","このルームに参加するには無料登録またはログインしてください。完了後ここに戻ります。"], invitedTo:["You've been invited to this room","คุณได้รับคำเชิญเข้าห้องนี้","你被邀请加入此房间","このルームに招待されています"],
+pwBubble:["Pop me! 🔨","กดแบนผมสิ! 🔨","来戳我！🔨","押してつぶして！🔨"], pwTag:["NEW EVENT","อีเวนต์ใหม่","新活动","新イベント"], pwSub:["Pick your country and squash Wingman as many times as you can. Every pop counts for your country, live.","เลือกประเทศของคุณ แล้วกดแบน Wingman ให้ได้มากที่สุด ทุกครั้งที่กดจะนับคะแนนให้ประเทศคุณแบบเรียลไทม์","选择你的国家，尽可能多地压扁 Wingman。每一次都实时计入你的国家。","国を選んで、Wingmanをできるだけたくさんつぶそう。1回ごとにあなたの国にリアルタイムで加算されます。"],
+pwPick:["Which country are you popping for?","คุณจะกดให้ประเทศไหน?","你为哪个国家而战？","どの国のために押す？"], pwSearch:["Search country","ค้นหาประเทศ","搜索国家","国を検索"], pwChange:["change","เปลี่ยน","更换","変更"], pwTap:["Tap anywhere to pop!","แตะตรงไหนก็ได้เพื่อแบน!","点击任意位置压扁！","どこでもタップしてつぶそう！"], pwYou:["Your pops","คุณกดไปแล้ว","你的次数","あなたの回数"],
+pwAs:["Your name shows on the board as {n}","ชื่อของคุณจะขึ้นบนกระดานเป็น {n}","你将以 {n} 显示在榜单上","ボードには {n} と表示されます"], pwGuest:["You're popping as Guest. Log in to show your name on the board.","ตอนนี้คุณกดในชื่อ Guest เข้าสู่ระบบเพื่อให้ชื่อคุณขึ้นบนกระดาน","你正以访客身份参与，登录后可在榜单显示名字。","ゲストとして参加中です。ログインすると名前が表示されます。"],
+pwCountries:["Countries, live","อันดับประเทศ (สด)","国家排行（实时）","国別ランキング（ライブ）"], pwPlayers:["Top poppers","ผู้เล่นที่กดเยอะสุด","个人排行","トッププレイヤー"], pwFeed:["Popping right now","กำลังกดอยู่ตอนนี้","正在戳","今押している人"], pwWorld:["{n} pops worldwide","รวมทั้งโลก {n} ครั้ง","全球共 {n} 次","世界合計 {n} 回"], pwNone:["No pops yet. Be the first!","ยังไม่มีใครกด เป็นคนแรกเลย!","还没有人，来当第一个！","まだ誰もいません。最初の1人に！"], pwYourRank:["Your country is #{r}","ประเทศของคุณอยู่อันดับ {r}","你的国家排名第 {r}","あなたの国は{r}位"], pwPlay:["Play now","เล่นเลย","立即参与","今すぐ遊ぶ"], pwSound:["Sound","เสียง","声音","サウンド"], pwGuestName:["Guest","Guest","访客","ゲスト"],
 tPic:["Picture updated","อัปเดตรูปแล้ว","头像已更新","画像を更新しました"], tNotImg:["That file isn't an image","ไฟล์นี้ไม่ใช่รูปภาพ","该文件不是图片","画像ファイルではありません"], tFail:["Something went wrong. Try again.","เกิดข้อผิดพลาด ลองใหม่อีกครั้ง","出了点问题，请重试。","エラーが発生しました。もう一度お試しください。"], tAdded:["Added {n}","เพิ่ม {n} แล้ว","已添加 {n}","{n} を追加しました"]
 };
 const OPT = { // option labels: [th, zh, ja]
@@ -641,7 +702,7 @@ function layoutOf(p){
 /* ---------- helpers ---------- */
 const $ = s => document.querySelector(s);
 const esc = s => String(s==null?"":s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-const ROUTES = ["home","quick","parties","news","tournament","valorant","rov","roblox","pubg","cs2","apex","lol","dota2","mlbb","rooms","setup","profile","admin","event","privacy","terms"];
+const ROUTES = ["home","quick","parties","news","tournament","valorant","rov","roblox","pubg","cs2","apex","lol","dota2","mlbb","rooms","setup","profile","admin","event","pop","privacy","terms"];
 function route(){ const h = decodeURIComponent(location.hash.replace("#","")); if(/^u-[A-Za-z0-9_]{3,16}$/.test(h)) return "user"; if(/^r-[0-9a-f-]{36}$/.test(h)) return "vroom"; return ROUTES.includes(h)?h:"home"; }
 function go(r){ if(location.hash.replace("#","")===r){ render(); window.scrollTo(0,0); } else location.hash = r; }
 let toastT; function toast(msg,ms){ const el=$("#toast"); el.textContent=msg; el.classList.add("show"); clearTimeout(toastT); toastT=setTimeout(()=>el.classList.remove("show"),ms||2000); }
@@ -763,7 +824,7 @@ const views = {
     return `<section class="hero"><span class="mono">${t("eyebrow")}</span><h1>${t("h1a")}<br><em>${t("h1b")}</em></h1><p>${t("heroSub")}</p>
       <div class="hero-cta"><button class="btn coral big" data-act="scroll-games">${t("find")}</button><button class="btn mid" data-go="quick" style="background:var(--mustard);color:#2A2222;text-shadow:none">⚡ ${t("qHero")}</button>${second}</div></section>
     <section class="block" id="games-block"><div class="head"><h2>${t("pick")}</h2><span class="mono">${t("moreGames")}</span></div>
-      <div class="grid g3">${Object.entries(GAMES).map(([id,g])=>`<button class="tile ${g.soon?"soon":""}" data-go="${id}"><div ${bandAttr(id)}><h3>${g.name}</h3>${g.soon?`<span class="soon-tag">${t("devTag")}</span>`:""}</div><div class="body"><span>${g.blurb[LI[S.lang]]}</span><span class="mono">${g.soon?t("devShort"):t("nRooms",{n:S.vrooms.filter(r=>(r.game||"valorant")===id).length})}</span></div></button>`).join("")}</div></section>
+      <div class="grid g3">${Object.entries(GAMES).map(([id,g])=>pwWrap(id,`<button class="tile ${g.soon?"soon":""}" data-go="${id}"><div ${bandAttr(id)}><h3>${g.name}</h3>${g.soon?`<span class="soon-tag">${t("devTag")}</span>`:""}</div><div class="body"><span>${g.blurb[LI[S.lang]]}</span><span class="mono">${g.soon?t("devShort"):t("nRooms",{n:S.vrooms.filter(r=>(r.game||"valorant")===id).length})}</span></div></button>`)).join("")}</div></section>
     ${S.me?`<section class="block home-sugg"><div class="head"><h2>${t("sgTitle")}</h2><span class="mono">${t("sgSortShort")}</span></div><div class="card"><div id="home-sugg" class="sglist">${suggListHTML(6)}</div></div></section>`:""}
     <section class="block"><div class="head"><h2>${t("ptTitle")}</h2><button class="btn small" data-go="parties">${t("seeAll")}</button></div>${partyListHTML("",4)}</section>
     <section class="block"><div class="head"><h2>${t("openRooms")}</h2><button class="btn small" data-go="rooms">${t("seeAll")}</button></div>
@@ -979,7 +1040,7 @@ function vroomDialog(r){
     <div>${m.map(x=>`<div class="member"><button class="plink" data-go="u-${esc(x.profiles?x.profiles.username:"")}">${avatar(x.profiles,32)}</button><div><button class="plink" data-go="u-${esc(x.profiles?x.profiles.username:"")}"><b>${esc(x.profiles?x.profiles.display_name:"")}</b></button>${x.user_id===r.host_id?` <span class="tag">${t("host")}</span>`:""}${S.me&&x.user_id===S.me.id?` <span class="tag you">${t("you")}</span>`:""}${x.role?`<div class="muted">${esc(x.role)}</div>`:""}</div></div>`).join("")}</div>
     ${!mine&&!why&&roles.length?`<div><p class="mono" style="margin-bottom:8px">${t("pickRole")}</p>${chipSet("join_role",roles,[pre],"chip1")}</div>`:""}
     ${!mine&&why&&why!=="roomFull"?`<div class="banner" style="margin-top:0"><span>${t(why)}</span>${needEdit(why,r)?`<button class="btn small" data-act="edit" ${needEdit(why,r)}>${t("fillNow")}</button>`:""}</div>`:""}
-    <div class="dialog-actions"><button class="btn ghost" data-act="close">${t("close")}</button>
+    <div class="dialog-actions"><button class="btn ghost" data-act="close">${t("close")}</button><button class="btn ghost" data-act="room-share" data-id="${r.id}">🔗 ${t("shareRoom")}</button>
     ${mine?`<button class="btn coral" data-act="close-go" data-to="r-${r.id}">${t("enterRoom")}</button>`:why?`<button class="btn" disabled>${why==="roomFull"?t("roomFull"):t("join")}</button>`:`<button class="btn coral" data-act="vjoin" data-id="${r.id}">${t("join")}</button>`}</div></div>`;
 }
 function roomFormDialog(d){
@@ -1167,7 +1228,7 @@ function personRow(u,extra){ const p = RC.people[u]||{}; return `<div class="per
 const roomParts = {
   head(){ const r = RC.data, host = S.me.id===r.host_id;
     return `<div class="rm-row"><div><button class="back" data-go="rooms">${t("backRooms")}</button><div class="mono" style="margin-top:8px">${esc(gameLabel(r))} · ${esc(r.mode)}</div><h1>${esc(r.title)}</h1></div>
-      <div class="chips"><button class="btn small" data-act="rate-open" data-room="${r.id}">${t("rateBtn")}</button>${host?`<button class="btn small" data-act="room-settings">${t("roomSettings")}</button><button class="btn small" data-act="room-close">${t("closeRoom")}</button>`:`<button class="btn small" data-act="room-leave">${t("leave")}</button>`}</div></div>
+      <div class="chips"><button class="btn small" data-act="room-share" data-id="${r.id}">🔗 ${t("shareRoom")}</button><button class="btn small" data-act="rate-open" data-room="${r.id}">${t("rateBtn")}</button>${host?`<button class="btn small" data-act="room-settings">${t("roomSettings")}</button><button class="btn small" data-act="room-close">${t("closeRoom")}</button>`:`<button class="btn small" data-act="room-leave">${t("leave")}</button>`}</div></div>
       ${r.note?`<p style="white-space:pre-wrap;max-width:70ch">${esc(r.note)}</p>`:""}${roomReqHTML(r)}
       <div class="codebox"><span class="mono">${t(roomGame(r)==="roblox"?"rbxHostUser":"partyCode")}</span>${RC.code?`<b>${esc(RC.code)}</b><button class="btn small" data-act="copy-code">${t("copy")}</button>`:`<span class="muted">${t("codeNone")}</span>`}</div>`; },
   voice(){ const inV = RC.members.map(m=>m.user_id).filter(u=>u===S.me.id ? RC.inVoice : inVoiceNow(u)), vm = u => u===S.me.id ? RC.muted : RC.vmute[u];
@@ -1201,9 +1262,12 @@ views.vroom = function(){
   if(RC.state==="loading") return views.loading();
   if(RC.state==="gone") return `<div class="setup"><div class="card pop" style="display:flex;flex-direction:column;gap:12px;align-items:flex-start"><h2>${t("roomGone")}</h2><button class="btn" data-go="rooms">${t("seeAll")}</button></div></div>`;
   const r = RC.data;
-  if(!RC.member) return `<div class="setup"><button class="back" data-go="rooms" style="align-self:flex-start">${t("backRooms")}</button><div class="card pop" style="display:flex;flex-direction:column;gap:12px;align-items:flex-start">
-    <span class="mono">${esc(gameLabel(r))} · ${esc(r.mode)}</span><h2 style="font-family:var(--font-body);font-weight:700;letter-spacing:0">${esc(r.title)}</h2>${roomReqHTML(r)}<p class="muted">${t("previewNote")}</p>
-    <button class="btn coral" data-act="vroom" data-id="${r.id}">${t("join")}</button></div></div>`;
+  if(!RC.member){ if(!S.me) lsSet("gz.next", r.id+"|"+Date.now());
+    return `<div class="setup"><button class="back" data-go="rooms" style="align-self:flex-start">${t("backRooms")}</button><div class="card pop" style="display:flex;flex-direction:column;gap:12px;align-items:flex-start">
+    ${!S.me?`<span class="tag open">✉ ${t("invitedTo")}</span>`:""}<span class="mono">${esc(gameLabel(r))} · ${esc(r.mode)}</span><h2 style="font-family:var(--font-body);font-weight:700;letter-spacing:0">${esc(r.title)}</h2>
+    <div class="chips"><span class="tag ${membersOf(r).length>=r.size?"full":"open"}">${t("nOf",{a:membersOf(r).length,b:r.size})}</span></div>${roomReqHTML(r)}
+    ${S.me?`<p class="muted">${t("previewNote")}</p><div class="chips"><button class="btn coral" data-act="vroom" data-id="${r.id}">${t("join")}</button><button class="btn" data-act="room-share" data-id="${r.id}">🔗 ${t("shareRoom")}</button></div>`
+      :`<p>${t("joinNeedAcc")}</p><div class="chips"><button class="btn coral" data-act="auth" data-tab="signup">${t("signup")}</button><button class="btn" data-act="auth" data-tab="login">${t("login")}</button></div>`}</div></div>`; }
   setTimeout(()=>{ const el = $("#rm-msgs"); if(el) el.scrollTop = el.scrollHeight; },0);
   return `<div class="rm"><div class="card rm-head" id="rm-head">${roomParts.head()}</div>
     <div class="rm-body">
@@ -1424,7 +1488,7 @@ function evCountdown(){
   el.innerHTML = parts.map(([n,k])=>`<div class="cd"><b>${String(n).padStart(2,"0")}</b><span class="mono">${t(k)}</span></div>`).join("");
 }
 setInterval(evCountdown,1000);
-views.event = function(){ if(!S.coin){ loadEvent(); return views.loading(); } return dailyHTML()+`<div style="border-top:2px dashed var(--line);margin-top:34px;padding-top:8px"></div>`+coinHTML(); };
+views.event = function(){ if(!S.coin){ loadEvent(); return views.loading(); } return popEventCard()+dailyHTML()+`<div style="border-top:2px dashed var(--line);margin-top:34px;padding-top:8px"></div>`+coinHTML(); };
 async function submitEvent(){
   const n = val("ev-num"), err = $("#ev-err"), btn = $("#ev-go");
   if(!/^[0-9]{4}$/.test(n)) return err.textContent = t("evBad");
@@ -2808,7 +2872,7 @@ async function login(){
     const { error } = await sb.auth.signInWithPassword({email:synthEmail(name),password:pw});
     if(error){ btn.disabled=false; return err.textContent = error.status===400 ? t("eWrong") : t("eNet"); }
     await loadMe(); S.dialog=null; renderDialog();
-    if(S.me && !isReady(S.me)){ S.setupStep=1; go("setup"); } else { render(); if(S.me) toast(t("tWelcome",{n:S.me.display_name})); }
+    if(S.me && !isReady(S.me)){ S.setupStep=1; go("setup"); } else { const nx = takeNext(); if(nx) go(nx); else render(); if(S.me) toast(t("tWelcome",{n:S.me.display_name})); }
   }catch(e){ btn.disabled=false; err.textContent = t("eNet"); }
 }
 async function logout(){ S.menu=false; stopRoom(); stopMatch(true); stopSocial(); S.isAdmin=false; try{ await sb.auth.signOut(); }catch(e){} S.me=null; go("home"); toast(t("tOut")); }
@@ -2915,13 +2979,20 @@ document.addEventListener("click", async e => {
   else if(a==="setup-next"){ const p = S.me, err = $("#su-err");
     if(S.setupStep===1){ if(!p.avatar) return err.textContent=t("ePic"); if(!p.display_name) return err.textContent=t("eName"); if(!(Number(p.age)>=13&&Number(p.age)<=99)) return err.textContent=t("eAge"); }
     if(S.setupStep===2 && !p.playing.length) return err.textContent=t("eGame");
-    if(S.setupStep<3){ S.setupStep++; render(); window.scrollTo(0,0); } else { S.setupStep=1; go("profile"); toast(t("tReady")); } }
+    if(S.setupStep<3){ S.setupStep++; render(); window.scrollTo(0,0); } else { S.setupStep=1; const nx = takeNext(); go(nx||"profile"); toast(t("tReady")); } }
   else if(a==="edit"){ S.dialog={type:"edit",what:d.what,game:d.game}; renderDialog(); }
   else if(a==="arrange") setArranging(true);
   else if(a==="arrange-done"){ setArranging(false); rerender(); }
   else if(a==="w-size"){ const lay = layoutOf(S.me), x = lay.find(o=>o.id===d.wid), allowed = WIDGETS.find(w=>w[0]===d.wid)[2];
     x.w = allowed[(allowed.indexOf(x.w)+1)%allowed.length]; const w = el.closest(".widget"); w.classList.remove("w1","w2","w4"); w.classList.add("w"+x.w); saveProfile({layout:lay},true); }
   else if(a==="w-hide" || a==="w-show"){ const lay = layoutOf(S.me); lay.find(o=>o.id===d.wid).hide = a==="w-hide"; saveProfile({layout:lay},true); rerender(); }
+  else if(a==="room-share"){ const r = (RC.data && RC.data.id===d.id) ? RC.data : S.vrooms.find(x=>x.id===d.id);
+    const url = location.origin+location.pathname+"#r-"+d.id, text = t("shareRoomTxt",{g:r?gameLabel(r):"",n:r?r.title:""});
+    if(navigator.share && matchMedia("(pointer:coarse)").matches){ try{ await navigator.share({title:"GameZone",text,url}); return; }catch(err){ if(err && err.name==="AbortError") return; } }
+    try{ await navigator.clipboard.writeText(text+"\n"+url); toast(t("shareCopied")); }catch(_){ toast(url,9000); } }
+  else if(a==="pw-set"){ lsSet("gz.popC",d.val); rerender(); }
+  else if(a==="pw-change"){ await popFlush(); lsSet("gz.popC",""); rerender(); }
+  else if(a==="pw-sound"){ POP.sound = !POP.sound; lsSet("gz.popSound",POP.sound?"1":"0"); el.textContent = (POP.sound?"🔊 ":"🔇 ")+t("pwSound"); }
   else if(a==="share"){ const url = location.href.split("#")[0]+"#u-"+d.name; try{ await navigator.clipboard.writeText(url); toast(t("copied")); }catch(_){ toast(url); } }
   else if(a==="add-story") $("#story-file").click();
   else if(a==="view-active"){ const ids = activeStories(d.uid).map(s=>s.id); if(ids.length){ S.dialog={type:"viewer",uid:d.uid,ids,i:0}; renderDialog(); } }
@@ -2995,7 +3066,80 @@ document.addEventListener("keydown", e => {
   if(S.dialog && S.dialog.type==="viewer" && !S.dialog.form){ if(e.key==="ArrowRight") stepViewer(1); if(e.key==="ArrowLeft") stepViewer(-1); }
 });
 setInterval(()=>{ if(!document.hidden && !S.dialog && sb && (["home","rooms",...ROOM_GAMES].includes(route()) || (S.me && !RC.id))) loadVRooms(); },12000);
-window.addEventListener("hashchange", () => { if(route()!=="quick" && Q.st!=="idle") qLeave(); S.menu=false; S.dialog=null; renderDialog(); render(); window.scrollTo(0,0); if(["home","rooms",...ROOM_GAMES].includes(route())) loadVRooms(); if(route()==="event") loadEvent(); if(route()==="parties") loadParties(); if(route()==="news") loadNews(); if(route()==="tournament") loadTour(); });
+
+/* ---------- share links: come back to the room after signing up ---------- */
+function takeNext(){ const v = lsGet("gz.next")||""; lsSet("gz.next",""); const [id,ts] = v.split("|");
+  return id && /^[0-9a-f-]{36}$/.test(id) && Date.now()-Number(ts) < 3*3600e3 ? "r-"+id : ""; }
+
+/* ---------- Pop Wingman ---------- */
+const POP_CODES = "AD AE AF AG AI AL AM AO AR AS AT AU AW AX AZ BA BB BD BE BF BG BH BI BJ BL BM BN BO BQ BR BS BT BW BY BZ CA CC CD CF CG CH CI CK CL CM CN CO CR CV CW CX CY CZ DE DJ DK DM DO DZ EC EE EG EH ER ES ET FI FJ FK FM FO FR GA GB GD GE GF GG GH GI GL GM GN GP GQ GR GT GU GW GY HK HN HR HT HU ID IE IL IM IN IO IQ IS IT JE JM JO JP KE KG KH KI KM KN KR KW KY KZ LA LB LC LI LK LR LS LT LU LV LY MA MC MD ME MF MG MH MK ML MM MN MO MP MQ MR MS MT MU MV MW MX MY MZ NA NC NE NF NG NI NL NO NP NR NU NZ OM PA PE PF PG PH PK PL PM PN PR PS PT PW PY QA RE RO RS RU RW SA SB SC SD SE SG SH SI SJ SK SL SM SN SO SR SS ST SV SX SZ TC TD TG TH TJ TK TL TM TN TO TR TT TV TW TZ UA UG US UY UZ VA VC VE VG VI VN VU WF WS YE YT ZA ZM ZW".split(" ");
+const POP = {on:false, cmap:{}, players:[], feed:[], pend:0, sent:0, busy:false, mine:Number(lsGet("gz.popMine"))||0, sound:lsGet("gz.popSound")!=="0", ch:null, poll:0, flushT:0, paintT:0, actx:null, loaded:false};
+const popC = () => { const c = lsGet("gz.popC")||""; return POP_CODES.includes(c) ? c : ""; };
+const _rn = {};
+function cName(c){ try{ const k = S.lang==="zh" ? "zh-CN" : S.lang; _rn[k] = _rn[k] || new Intl.DisplayNames([k],{type:"region"}); return _rn[k].of(c) || c; }catch(e){ return c; } }
+function cNameEn(c){ try{ _rn.en = _rn.en || new Intl.DisplayNames(["en"],{type:"region"}); return _rn.en.of(c) || c; }catch(e){ return c; } }
+const flagImg = (c,w=28) => `<img class="flag" src="https://flagcdn.com/w40/${c.toLowerCase()}.png" width="${w}" height="${Math.round(w*.75)}" alt="" loading="lazy" referrerpolicy="no-referrer">`;
+const fmtN = n => Number(n||0).toLocaleString(S.lang==="th"?"th-TH":S.lang);
+function pwWrap(id,tile){ return id!=="valorant" ? tile : `<div class="pw-wrap">${tile}<button class="pw-peek" data-go="pop" aria-label="Pop Wingman"><span class="pw-bub"><small>POP WINGMAN</small>${t("pwBubble")}</span><img src="pop/wingman.png" alt="" width="66" height="75"></button></div>`; }
+function popEventCard(){ return `<div class="pw-ev"><img src="pop/wingman.png" alt="" width="110" height="125"><div style="flex:1;min-width:220px"><span class="mono" style="color:#ff8a94">${t("pwTag")}</span><h2>POP WINGMAN</h2><p>${t("pwSub")}</p><button class="btn coral" data-go="pop">${t("pwPlay")} →</button></div></div>`; }
+function popTotal(c){ return (POP.cmap[c]||0) + (c===popC() ? POP.pend+POP.sent : 0); }
+function popSorted(){ const c = popC(), m = {...POP.cmap}; if(c) m[c] = popTotal(c); return Object.entries(m).filter(x=>x[1]>0).sort((a,b)=>b[1]-a[1]||a[0].localeCompare(b[0])); }
+function popBoardHTML(){
+  const list = popSorted(), mc = popC(), max = list.length ? list[0][1] : 1, world = list.reduce((a,x)=>a+x[1],0);
+  const myRank = mc ? list.findIndex(x=>x[0]===mc)+1 : 0;
+  const row = ([c,n],i) => `<div class="pw-row ${c===mc?"me":""}"><span class="rk">${i+1}</span>${flagImg(c,24)}<span class="nm">${esc(cName(c))}</span><span class="ct">${fmtN(n)}</span><span class="pw-bar"><i style="width:${Math.max(2,Math.round(n/max*100))}%"></i></span></div>`;
+  const top = list.slice(0,10).map(row).join("") + (myRank>10 ? `<div class="pw-row me"><span class="rk">${myRank}</span>${flagImg(mc,24)}<span class="nm">${esc(cName(mc))}</span><span class="ct">${fmtN(popTotal(mc))}</span></div>` : "");
+  return `<div class="card"><div class="head" style="margin-bottom:6px"><h2 style="margin:0;font-size:20px">🌏 ${t("pwCountries")}</h2></div><p class="mono" style="margin:0 0 6px">${t("pwWorld",{n:fmtN(world)})}${myRank?" · "+t("pwYourRank",{r:myRank}):""}</p>${list.length?top:`<p class="muted">${t("pwNone")}</p>`}</div>
+  <div class="card"><h2 style="margin:0 0 6px;font-size:20px">🏆 ${t("pwPlayers")}</h2>${POP.players.length?POP.players.map((p,i)=>`<div class="pw-row"><span class="rk">${i+1}</span>${avatar({avatar:p.avatar,display_name:p.name},26)}<span class="nm"><button class="plink" data-go="u-${esc(p.u)}">${esc(p.name)}</button> ${flagImg(p.c,18)}</span><span class="ct">${fmtN(p.n)}</span></div>`).join(""):`<p class="muted">${t("pwNone")}</p>`}</div>
+  <div class="card"><h2 style="margin:0 0 6px;font-size:20px">⚡ ${t("pwFeed")}</h2><div class="pw-feed">${POP.feed.length?POP.feed.map(f=>`<div>${flagImg(f.c,18)}<b>${esc(f.name||t("pwGuestName"))}</b><span class="muted">+${fmtN(f.n)}</span></div>`).join(""):`<p class="muted">${t("pwNone")}</p>`}</div></div>`;
+}
+function popPickHTML(){
+  const TOP = ["TH","PH","ID","VN","MY","SG","LA","KH","MM"], pr = c => { const i = TOP.indexOf(c); return i<0?99:i; };
+  const all = POP_CODES.map(c=>[c,cName(c)]).sort((a,b)=>pr(a[0])-pr(b[0]) || a[1].localeCompare(b[1],S.lang));
+  return `<div class="card pw-pick"><h2>${t("pwPick")}</h2><input class="inp" id="pw-search" type="search" placeholder="${t("pwSearch")}" autocomplete="off" aria-label="${t("pwSearch")}">
+    <div class="pw-clist" id="pw-clist">${all.map(([c,n])=>`<button type="button" data-act="pw-set" data-val="${c}" data-n="${esc((n+" "+cNameEn(c)+" "+c).toLowerCase())}">${flagImg(c,28)}<span>${esc(n)}</span></button>`).join("")}</div></div>`;
+}
+views.pop = function(){
+  startPop();
+  const c = popC();
+  const stage = c ? `<div><div class="pw-top"><button class="pw-country" data-act="pw-change">${flagImg(c,28)}<b>${esc(cName(c))}</b><span class="muted">· ${t("pwChange")}</span></button><button class="btn small" data-act="pw-sound">${POP.sound?"🔊":"🔇"} ${t("pwSound")}</button></div>
+    <div class="pw-stage" id="pw-stage" role="button" tabindex="0" aria-label="${t("pwTap")}"><p class="pw-hint">${t("pwTap")}</p>
+      <div class="pw-count"><span class="mono">${t("pwYou")}</span><b id="pw-mine">${fmtN(POP.mine)}</b></div>
+      <div class="pw-shadow"></div><img id="pw-img" src="pop/wingman.png" alt="Wingman" draggable="false">
+      <div class="pw-cbadge">${flagImg(c,24)}<b id="pw-ctot">${fmtN(popTotal(c))}</b></div></div>
+    <p class="pw-who muted">${S.me?t("pwAs",{n:"<b>"+esc(S.me.display_name)+"</b>"}):`${t("pwGuest")} <button class="btn small" data-act="auth" data-tab="login">${t("login")}</button>`}</p></div>` : popPickHTML();
+  return `<div class="pw-page"><div class="pw-head"><button class="back" data-go="event">← ${t("event")}</button><span class="mono" style="display:block;margin-top:10px">${t("pwTag")}</span><h1>POP WINGMAN</h1><p class="muted">${t("pwSub")}</p></div>
+    <div class="pw-grid">${stage}<div class="pw-board" id="pw-board">${POP.loaded?popBoardHTML():views.loading()}</div></div></div>`;
+};
+function popPaint(){ if(POP.paintT) return; POP.paintT = setTimeout(()=>{ POP.paintT = 0; if(route()!=="pop") return;
+  const b = $("#pw-board"); if(b) b.innerHTML = popBoardHTML(); const c = popC(), el = $("#pw-ctot"); if(el && c) el.textContent = fmtN(popTotal(c)); }, 250); }
+async function popLoad(){ const { data, error } = await sb.rpc("pop_board"); if(error || !data) return;
+  POP.cmap = {}; (data.countries||[]).forEach(x=>POP.cmap[x.c]=Number(x.n)); POP.players = data.players||[]; POP.feed = data.feed||[];
+  if(data.me && Number(data.me) > POP.mine){ POP.mine = Number(data.me); lsSet("gz.popMine",POP.mine); const m = $("#pw-mine"); if(m) m.textContent = fmtN(POP.mine); }
+  POP.loaded = true; popPaint(); }
+function startPop(){ if(POP.on) return; POP.on = true; popLoad();
+  POP.poll = setInterval(popLoad, 5000); POP.flushT = setInterval(popFlush, 1500);
+  try{ POP.ch = sb.channel("pop-countries").on("postgres_changes",{event:"UPDATE",schema:"public",table:"pop_countries"},p=>{ const r = p.new; if(r && r.code){ POP.cmap[r.code] = Number(r.pops); if(r.code===popC()) POP.sent = 0; popPaint(); } }).subscribe(); }catch(e){} }
+function stopPop(){ if(!POP.on) return; POP.on = false; popFlush(); clearInterval(POP.poll); clearInterval(POP.flushT); if(POP.ch){ try{ sb.removeChannel(POP.ch); }catch(e){} POP.ch = null; } }
+async function popFlush(){ const c = popC(); if(!c || !POP.pend || POP.busy) return; const n = Math.min(POP.pend,60); POP.pend -= n; POP.sent += n; POP.busy = true;
+  try{ const { data, error } = await sb.rpc("pop_add",{p_country:c,p_n:n}); if(!error && data!=null && Number(data) >= (POP.cmap[c]||0)){ POP.cmap[c] = Number(data); POP.sent = 0; } }catch(e){} POP.busy = false; popPaint(); }
+function popSound(){ if(!POP.sound) return; try{ const A = POP.actx = POP.actx || new (window.AudioContext||window.webkitAudioContext)(), o = A.createOscillator(), g = A.createGain(), now = A.currentTime;
+  o.type = "sine"; o.frequency.setValueAtTime(520+Math.random()*120,now); o.frequency.exponentialRampToValueAtTime(140,now+.09); g.gain.setValueAtTime(.35,now); g.gain.exponentialRampToValueAtTime(.001,now+.11); o.connect(g).connect(A.destination); o.start(now); o.stop(now+.12); }catch(e){} }
+function popDown(x,y){ const img = $("#pw-img"), st = $("#pw-stage"); if(!img || !popC()) return;
+  img.classList.add("sq"); if(st) st.classList.add("tapped"); POP.pend++; POP.mine++; lsSet("gz.popMine",POP.mine); popSound();
+  const m = $("#pw-mine"); if(m) m.textContent = fmtN(POP.mine); const ct = $("#pw-ctot"); if(ct) ct.textContent = fmtN(popTotal(popC()));
+  if(st){ const r = st.getBoundingClientRect(), p = document.createElement("span"); p.className = "pw-plus"; p.textContent = "+1";
+    p.style.left = ((x!=null?x-r.left:r.width/2) + (Math.random()*30-15))+"px"; p.style.top = ((y!=null?y-r.top:r.height*.45)-10)+"px"; st.appendChild(p); setTimeout(()=>p.remove(),700); }
+  if(POP.pend >= 60) popFlush(); }
+function popUp(){ const img = $("#pw-img"); if(img) img.classList.remove("sq"); }
+document.addEventListener("pointerdown", e => { if(!e.target.closest) return; const st = e.target.closest("#pw-stage"); if(!st || (e.button||0) > 0) return; e.preventDefault(); popDown(e.clientX,e.clientY); });
+["pointerup","pointercancel"].forEach(ev=>document.addEventListener(ev, popUp));
+document.addEventListener("keydown", e => { if(route()!=="pop" || e.repeat || (e.key!==" " && e.key!=="Enter")) return; const tg = e.target; if(tg && tg.closest && tg.closest("input,textarea,select,button:not(#pw-stage),a")) return; if(!$("#pw-stage")) return; e.preventDefault(); popDown(); });
+document.addEventListener("keyup", e => { if(e.key===" " || e.key==="Enter") popUp(); });
+document.addEventListener("input", e => { if(e.target.id!=="pw-search") return; const q = e.target.value.trim().toLowerCase(); document.querySelectorAll("#pw-clist button").forEach(b=>{ b.hidden = !!q && !b.dataset.n.includes(q); }); });
+window.addEventListener("pagehide", () => { if(POP.pend) popFlush(); });
+
+window.addEventListener("hashchange", () => { if(route()!=="pop") stopPop(); if(route()!=="quick" && Q.st!=="idle") qLeave(); S.menu=false; S.dialog=null; renderDialog(); render(); window.scrollTo(0,0); if(["home","rooms",...ROOM_GAMES].includes(route())) loadVRooms(); if(route()==="event") loadEvent(); if(route()==="parties") loadParties(); if(route()==="news") loadNews(); if(route()==="tournament") loadTour(); });
 
 /* ---------- boot ---------- */
 applyTheme();
